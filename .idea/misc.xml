@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/buttonborder.xml" value="0.204" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/ic_email.xml" value="0.2355" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/ic_password.xml" value="0.204" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/ic_person.xml" value="0.204" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/ic_usercircle.xml" value="0.204" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/layout_bg.xml" value="0.204" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/textinputbg.xml" value="0.208" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/textinputselectedbg.xml" value="0.208" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/dropdown_item.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/fragment_second.xml" value="0.2755208333333333" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/layout_bg.xml" value="0.1956521739130435" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/login.xml" value="0.4537037037037037" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/signin.xml" value="1.0" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/signup.xml" value="0.2755208333333333" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/mipmap-anydpi-v26/swapplogo.xml" value="0.28" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/mipmap-anydpi-v26/swapplogo_round.xml" value="0.132" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
