@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/signupbg"
+    tools:context="com.example.Swapp.signup">
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/leftmargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rightmargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/botmargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/topmargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/labelmarginleft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/labelmarginright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/label2marginleft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/label2marginright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/label1marginbot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.14" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/label2marginbot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.21" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/nametopmargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/namebotmargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.33" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/emailtopmargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/emailbotmargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.43" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/passtopmargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/passbotmargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.53" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/passconfirmtopmargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.55" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/passconfirmbotmargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.63" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/genderbirthtopmargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.65" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/genderbirthbotmargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.73" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/genderrightmargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/birthleftmargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.47" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/buttontopmargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.77" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/buttonbotmargin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.86" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/signinmargintop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.87" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/signinmarginbot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.92" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/signinleftmarginright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.63" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/signinleftmarginleft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.14" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/signinrightmarginright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.86" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Sign Up"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        android:textSize="42dp"
+        app:flow_horizontalAlign="center"
+        app:layout_constraintBottom_toTopOf="@id/label1marginbot"
+        app:layout_constraintEnd_toEndOf="@id/label2marginright"
+        app:layout_constraintStart_toStartOf="@id/label2marginleft"
+        app:layout_constraintTop_toBottomOf="@id/topmargin" />
+
+    <TextView
+        android:id="@+id/textview5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="Please complete your registration correctly"
+        android:fontFamily="@font/poppins_medium"
+        android:textAlignment="center"
+        android:textSize="16dp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@id/label2marginleft"
+        app:layout_constraintEnd_toEndOf="@id/label2marginright"
+        app:layout_constraintTop_toBottomOf="@id/label1marginbot"
+        app:layout_constraintBottom_toTopOf="@id/label2marginbot"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:boxStrokeColor="#03989e"
+        app:boxStrokeWidth="2dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/namebotmargin"
+        app:layout_constraintEnd_toEndOf="@id/rightmargin"
+        app:layout_constraintStart_toStartOf="@id/leftmargin"
+        app:layout_constraintTop_toBottomOf="@id/nametopmargin">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/poppins_medium"
+            android:hint="Your Name"
+            android:textColor="#03989e" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:boxStrokeColor="#03989e"
+        app:boxStrokeWidth="2dp"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="@id/leftmargin"
+        app:layout_constraintEnd_toEndOf="@id/rightmargin"
+        app:layout_constraintTop_toBottomOf="@id/emailtopmargin"
+        app:layout_constraintBottom_toTopOf="@id/emailbotmargin" >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="#03989e"
+            android:fontFamily="@font/poppins_medium"
+            android:hint="Your E-mail" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:boxStrokeColor="#03989e"
+        app:boxStrokeWidth="2dp"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="@id/leftmargin"
+        app:layout_constraintEnd_toEndOf="@id/rightmargin"
+        app:endIconMode="password_toggle"
+        app:layout_constraintTop_toBottomOf="@id/passtopmargin"
+        app:layout_constraintBottom_toTopOf="@id/passbotmargin" >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="#03989e"
+            android:fontFamily="@font/poppins_medium"
+            android:hint="Create your Password" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:boxStrokeColor="#03989e"
+        app:boxStrokeWidth="2dp"
+        android:background="@color/white"
+        app:endIconMode="password_toggle"
+        app:layout_constraintStart_toStartOf="@id/leftmargin"
+        app:layout_constraintEnd_toEndOf="@id/rightmargin"
+        app:layout_constraintTop_toBottomOf="@id/passconfirmtopmargin"
+        app:layout_constraintBottom_toTopOf="@id/passconfirmbotmargin" >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="#03989e"
+            android:fontFamily="@font/poppins_medium"
+            android:hint="Re-type your Password" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:boxStrokeColor="#03989e"
+        app:boxStrokeWidth="2dp"
+        app:layout_constraintStart_toStartOf="@id/leftmargin"
+        app:layout_constraintEnd_toEndOf="@id/genderrightmargin"
+        app:layout_constraintBottom_toTopOf="@id/genderbirthbotmargin"
+        app:layout_constraintTop_toBottomOf="@id/genderbirthtopmargin">
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="#03989e"
+            android:inputType="none"
+            android:fontFamily="@font/poppins_medium"
+            android:hint="Gender" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/birthDatePicker"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:boxStrokeColor="#03989e"
+        app:boxStrokeWidth="2dp"
+        app:endIconMode="custom"
+        app:endIconDrawable="@drawable/ic_calendar"
+        app:layout_constraintStart_toStartOf="@id/birthleftmargin"
+        app:layout_constraintEnd_toEndOf="@id/rightmargin"
+        app:layout_constraintBottom_toTopOf="@id/genderbirthbotmargin"
+        app:layout_constraintTop_toBottomOf="@id/genderbirthtopmargin">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/birthDate"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:editable="false"
+            android:fontFamily="@font/poppins_medium"
+            android:hint="Birth"
+            android:inputType="none"
+            android:textColor="#03989e" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:autoText="false"
+        android:background="@drawable/buttonborder"
+        android:capitalize="none"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Create your Account"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/buttonbotmargin"
+        app:layout_constraintEnd_toEndOf="@id/rightmargin"
+        app:layout_constraintStart_toStartOf="@id/leftmargin"
+        app:layout_constraintTop_toBottomOf="@id/buttontopmargin" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="Already have an account?"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@id/signinleftmarginleft"
+        app:layout_constraintEnd_toEndOf="@id/signinleftmarginright"
+        app:layout_constraintTop_toBottomOf="@id/signinmargintop"
+        app:layout_constraintBottom_toTopOf="@id/signinmarginbot"/>
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="Sign In now"
+        android:textColor="#03989e"
+        android:fontFamily="@font/poppins"
+        app:layout_constraintStart_toStartOf="@id/signinleftmarginright"
+        app:layout_constraintEnd_toEndOf="@id/signinrightmarginright"
+        app:layout_constraintTop_toBottomOf="@id/signinmargintop"
+        app:layout_constraintBottom_toTopOf="@id/signinmarginbot"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
