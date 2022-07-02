@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05" />
+        app:layout_constraintGuide_percent="0.02" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/labelmarginleft"
@@ -69,84 +69,84 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.14" />
+        app:layout_constraintGuide_percent="0.10" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/label2marginbot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.21" />
+        app:layout_constraintGuide_percent="0.18" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/nametopmargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_percent="0.20" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/namebotmargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.33" />
+        app:layout_constraintGuide_percent="0.28" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/emailtopmargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.35" />
+        app:layout_constraintGuide_percent="0.32" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/emailbotmargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.43" />
+        app:layout_constraintGuide_percent="0.40" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/passtopmargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.45" />
+        app:layout_constraintGuide_percent="0.44" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/passbotmargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.53" />
+        app:layout_constraintGuide_percent="0.52" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/passconfirmtopmargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.55" />
+        app:layout_constraintGuide_percent="0.56" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/passconfirmbotmargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.63" />
+        app:layout_constraintGuide_percent="0.64" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/genderbirthtopmargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.65" />
+        app:layout_constraintGuide_percent="0.68" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/genderbirthbotmargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.73" />
+        app:layout_constraintGuide_percent="0.76" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/genderrightmargin"
@@ -167,21 +167,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.77" />
+        app:layout_constraintGuide_percent="0.8" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/buttonbotmargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.86" />
+        app:layout_constraintGuide_percent="0.88" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/signinmargintop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.87" />
+        app:layout_constraintGuide_percent="0.89" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/signinmarginbot"
@@ -242,6 +242,7 @@
         app:layout_constraintBottom_toTopOf="@id/label2marginbot"/>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/uFullNameLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -254,6 +255,7 @@
         app:layout_constraintTop_toBottomOf="@id/nametopmargin">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/uFullName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/poppins_medium"
@@ -262,9 +264,10 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/uEmailLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         app:boxStrokeColor="#03989e"
         app:boxStrokeWidth="2dp"
         android:background="@color/white"
@@ -274,6 +277,7 @@
         app:layout_constraintBottom_toTopOf="@id/emailbotmargin" >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/uEmail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColor="#03989e"
@@ -282,30 +286,34 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/uPasswordLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         app:boxStrokeColor="#03989e"
         app:boxStrokeWidth="2dp"
+        app:endIconMode="password_toggle"
         android:background="@color/white"
         app:layout_constraintStart_toStartOf="@id/leftmargin"
         app:layout_constraintEnd_toEndOf="@id/rightmargin"
-        app:endIconMode="password_toggle"
         app:layout_constraintTop_toBottomOf="@id/passtopmargin"
         app:layout_constraintBottom_toTopOf="@id/passbotmargin" >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/uPassword"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:password="true"
             android:textColor="#03989e"
             android:fontFamily="@font/poppins_medium"
             android:hint="Create your Password" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/uRePasswordLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         app:boxStrokeColor="#03989e"
         app:boxStrokeWidth="2dp"
         android:background="@color/white"
@@ -316,17 +324,20 @@
         app:layout_constraintBottom_toTopOf="@id/passconfirmbotmargin" >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/uRePassword"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textColor="#03989e"
             android:fontFamily="@font/poppins_medium"
-            android:hint="Re-type your Password" />
+            android:hint="Re-type your Password"
+            android:password="true"
+            android:textColor="#03989e" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/uGenderLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         app:boxStrokeColor="#03989e"
         app:boxStrokeWidth="2dp"
         app:layout_constraintStart_toStartOf="@id/leftmargin"
@@ -335,7 +346,7 @@
         app:layout_constraintTop_toBottomOf="@id/genderbirthtopmargin">
 
         <AutoCompleteTextView
-            android:id="@+id/autoCompleteTextView"
+            android:id="@+id/uGender"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -349,7 +360,7 @@
         android:id="@+id/birthDatePicker"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         app:boxStrokeColor="#03989e"
         app:boxStrokeWidth="2dp"
         app:endIconMode="custom"
@@ -360,7 +371,7 @@
         app:layout_constraintTop_toBottomOf="@id/genderbirthtopmargin">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/birthDate"
+            android:id="@+id/ubirthDate"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:editable="false"
@@ -371,7 +382,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/signUpBtn"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:autoText="false"
@@ -391,23 +402,25 @@
         android:id="@+id/textView5"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="Already have an account?"
         android:fontFamily="@font/poppins"
+        android:text="Already have an account?"
+        android:textAlignment="textEnd"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@id/signinleftmarginleft"
+        app:layout_constraintBottom_toTopOf="@id/signinmarginbot"
         app:layout_constraintEnd_toEndOf="@id/signinleftmarginright"
-        app:layout_constraintTop_toBottomOf="@id/signinmargintop"
-        app:layout_constraintBottom_toTopOf="@id/signinmarginbot"/>
+        app:layout_constraintStart_toStartOf="@id/leftmargin"
+        app:layout_constraintTop_toBottomOf="@id/signinmargintop" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/backtologin"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="Sign In now"
         android:textColor="#03989e"
+        android:paddingStart="5dp"
         android:fontFamily="@font/poppins"
         app:layout_constraintStart_toStartOf="@id/signinleftmarginright"
-        app:layout_constraintEnd_toEndOf="@id/signinrightmarginright"
+        app:layout_constraintEnd_toEndOf="@id/rightmargin"
         app:layout_constraintTop_toBottomOf="@id/signinmargintop"
         app:layout_constraintBottom_toTopOf="@id/signinmarginbot"/>
 

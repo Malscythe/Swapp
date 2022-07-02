@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "72000521841",
+    "firebase_url": "https://bugsbusters-de865-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "bugsbusters-de865",
+    "storage_bucket": "bugsbusters-de865.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:72000521841:android:5506019f3282991d77fdd0",
+        "android_client_info": {
+          "package_name": "com.example.Swapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "72000521841-sjsgv3l911rdv367e0e59bt4a9imm3se.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsi2dedz4vdx3tD9MtgzVY6rxNW6MwFt4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "72000521841-sjsgv3l911rdv367e0e59bt4a9imm3se.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

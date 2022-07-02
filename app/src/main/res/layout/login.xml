@@ -108,14 +108,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.5" />
+            app:layout_constraintGuide_percent="0.53" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.6" />
+            app:layout_constraintGuide_percent="0.65" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline19"
@@ -161,6 +161,7 @@
             app:startIconDrawable="@drawable/ic_email">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/loginEmail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/poppins_semibold"
@@ -186,6 +187,7 @@
             app:startIconDrawable="@drawable/ic_password">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/loginPassword"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/poppins_semibold"
@@ -223,7 +225,7 @@
             android:textColor="#03989e" />
 
         <android.widget.Button
-            android:id="@+id/button"
+            android:id="@+id/btnLogin"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:autoText="false"
@@ -239,27 +241,28 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="Don't have account?"
+            android:textAlignment="center"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@id/guideline5"
-            app:layout_constraintEnd_toEndOf="@id/guideline11"
+            app:layout_constraintEnd_toEndOf="@id/guideline6"
             app:layout_constraintTop_toBottomOf="@id/guideline21"
             app:layout_constraintBottom_toTopOf="@id/guideline22"/>
 
         <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
+            android:id="@+id/gotosignup"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
             android:text="Create a new account"
-            app:layout_constraintStart_toStartOf="@id/guideline11"
+            android:textColor="#03989e"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="@id/guideline5"
             app:layout_constraintEnd_toEndOf="@id/guideline6"
-            app:layout_constraintTop_toBottomOf="@id/guideline21"
-            app:layout_constraintBottom_toTopOf="@id/guideline22"
-            android:textColor="#03989e" />
+            app:layout_constraintTop_toBottomOf="@id/guideline22" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView

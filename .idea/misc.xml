@@ -4,20 +4,27 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/buttonborder.xml" value="0.204" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/errortoastbg.xml" value="0.1775" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/ic_email.xml" value="0.2355" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/ic_password.xml" value="0.204" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/ic_person.xml" value="0.204" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/ic_usercircle.xml" value="0.204" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/layout_bg.xml" value="0.204" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/successfultoastbg.xml" value="0.1775" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/swappicon_background.xml" value="0.233" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/swapplogo_background.xml" value="0.233" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/textinputbg.xml" value="0.208" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/textinputselectedbg.xml" value="0.208" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/activity_user_homepage.xml" value="0.2755208333333333" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/dropdown_item.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/fragment_second.xml" value="0.2755208333333333" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/layout_bg.xml" value="0.1956521739130435" />
-        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/login.xml" value="0.20408163265306123" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/login.xml" value="0.1962962962962963" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/signin.xml" value="1.0" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/signup.xml" value="0.2755208333333333" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/toast_error_layout.xml" value="0.27447916666666666" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/toast_layout.xml" value="0.33" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/mipmap-anydpi-v26/swapplogo.xml" value="0.28" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/mipmap-anydpi-v26/swapplogo_round.xml" value="0.132" />
       </map>
