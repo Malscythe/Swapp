@@ -17,6 +17,22 @@ package="Swapp">
         android:exported="true" />
 
     <activity
+        android:name="com.example.Swapp.forgotpassword"
+        android:exported="true" />
+
+    <activity
+        android:name="com.example.Swapp.postforgotpassword"
+        android:exported="true" />
+
+    <activity
+        android:name="com.example.Swapp.FileMaintenance"
+        android:exported="true" />
+
+    <activity
+        android:name="com.example.Swapp.AdminHomepage"
+        android:exported="true" />
+
+    <activity
         android:name="com.example.Swapp.login"
         android:exported="true">
 

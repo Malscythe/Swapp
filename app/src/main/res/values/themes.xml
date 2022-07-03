@@ -23,8 +23,4 @@
         <item name="colorPrimary">#03989e</item>
         <item name="colorOnPrimary">#03989e</item>
     </style>
-
-    <style name="Theme.Swapp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.Swapp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

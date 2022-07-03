@@ -166,6 +166,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@font/poppins_semibold"
                 android:hint="Email"
+                android:importantForAutofill="no"
                 android:inputType="textEmailAddress"
                 android:paddingTop="16dp"
                 android:textColor="#03989e"
@@ -213,7 +214,7 @@
             app:layout_constraintBottom_toTopOf="@id/guideline12"/>
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/uForgotPassword"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:fontFamily="@font/poppins_semibold"
