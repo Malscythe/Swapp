@@ -107,7 +107,7 @@ public class login extends AppCompatActivity {
         df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if(documentSnapshot.getString("isAdmin") != null) {
+                if(documentSnapshot.getString("isAdmin") == "1") {
                     startActivity(new Intent(getApplicationContext(), AdminHomepage.class));
                     finish();
                 } else {
