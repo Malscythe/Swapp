@@ -12,6 +12,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/black</item>
         <!-- Customize your theme here. -->
+        <item name="colorOnSurface">@color/black</item>
+
     </style>
     <style name="Theme.Swapp.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -22,4 +24,16 @@
         <item name="colorPrimary">#03989e</item>
         <item name="colorOnPrimary">#03989e</item>
     </style>
+
+    <style name="circleImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+    <style name="Theme.AppCompat.CustomTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="windowActionModeOverlay">false</item>
+        <item name="android:windowBackground">@drawable/chart_bg</item>
+    </style>
+
 </resources>

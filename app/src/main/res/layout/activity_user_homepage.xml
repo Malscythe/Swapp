@@ -7,358 +7,580 @@
     android:background="#EFEFEF"
     tools:context="com.example.Swapp.UserHomepage">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/layout_bg_primary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/outboundTop"
-        app:layout_constraintBottom_toTopOf="@id/reportSummaryTitleTop"/>
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/outboundTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="-.1" />
+        app:layout_constraintGuide_percent="-.5" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/topBarTopMargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".02" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/topBarBotMargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".1" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/topBarLeftMargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".03" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/topBarRightMargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".97" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/reportSummaryTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".45" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/reportSummaryBot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".85" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/reportSummaryLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".05" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/reportSummaryRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".95" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/greetTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".2" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/greetBot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".25" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/userPicTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".1" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/userPicBot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".20" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/userPicLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".35" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/userPicRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".66" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/greetLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".05" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/greetRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".95" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/userRatingTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".25" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/userRatingBot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".3" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/userRatingLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".3" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/userRatingRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".70" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/reportSummaryTitleTop"
+        android:id="@+id/bgBot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent=".35" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/reportSummaryTitleBot"
+        android:id="@+id/outboundLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="-.35" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/outboundRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="1.35" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/reportTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".41"/>
+        app:layout_constraintGuide_percent=".25" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/reportBot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".50" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/reportLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/reportRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".90" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/topBarBotMargin"
-        app:layout_constraintEnd_toEndOf="@id/topBarRightMargin"
-        app:layout_constraintStart_toStartOf="@id/topBarLeftMargin"
-        app:layout_constraintTop_toBottomOf="@id/topBarTopMargin">
+        android:background="@drawable/layout_bg_primary"
+        app:layout_constraintBottom_toTopOf="@id/bgBot"
+        app:layout_constraintEnd_toEndOf="@id/outboundRight"
+        app:layout_constraintStart_toStartOf="@id/outboundLeft"
+        app:layout_constraintTop_toTopOf="@id/outboundTop">
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/logoLeft"
+            android:id="@+id/navTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".62" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/navBot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".67" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/menuLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".25" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/menuRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".32" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/logOutLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".67" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/logOutRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".74" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/picTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".70" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/picBot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".84" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/picLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".27" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/picRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".42" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/nameTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".73" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/nameBot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".78" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/nameLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".42" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/nameRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".65" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/ratingTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".77" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/ratingBot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".79" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/ratingLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".42" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/ratingRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".53" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_baseline_menu_24"
+            app:layout_constraintBottom_toTopOf="@id/navBot"
+            app:layout_constraintEnd_toEndOf="@id/menuRight"
+            app:layout_constraintStart_toStartOf="@id/menuLeft"
+            app:layout_constraintTop_toBottomOf="@id/navTop" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_baseline_logout_36"
+            app:layout_constraintBottom_toTopOf="@id/navBot"
+            app:layout_constraintEnd_toEndOf="@id/logOutRight"
+            app:layout_constraintStart_toStartOf="@id/logOutLeft"
+            app:layout_constraintTop_toBottomOf="@id/navTop" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="6dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@id/picBot"
+            app:layout_constraintEnd_toEndOf="@id/picRight"
+            app:layout_constraintStart_toStartOf="@id/picLeft"
+            app:layout_constraintTop_toBottomOf="@id/picTop"
+            app:shapeAppearanceOverlay="@style/circleImageView"
+            app:srcCompat="@drawable/default_picture"
+            app:strokeColor="@color/white"
+            app:strokeWidth="2dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="@font/poppins"
+            android:text="Full Name"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:gravity="bottom"
+            app:layout_constraintBottom_toTopOf="@id/nameBot"
+            app:layout_constraintEnd_toEndOf="@id/nameRight"
+            app:layout_constraintStart_toStartOf="@id/nameLeft"
+            app:layout_constraintTop_toBottomOf="@id/nameTop" />
+
+        <RatingBar
+            style="?attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            app:layout_constraintBottom_toTopOf="@id/ratingBot"
+            app:layout_constraintEnd_toEndOf="@id/ratingRight"
+            app:layout_constraintStart_toStartOf="@id/ratingLeft"
+            app:layout_constraintTop_toBottomOf="@id/ratingTop" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/reportbg"
+        app:layout_constraintBottom_toTopOf="@id/reportBot"
+        app:layout_constraintEnd_toEndOf="@id/reportRight"
+        app:layout_constraintStart_toStartOf="@id/reportLeft"
+        app:layout_constraintTop_toBottomOf="@id/reportTop">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/reportTitleTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/reportTitleBot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".3" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/reportTitleLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent=".05" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/logoRight"
+            android:id="@+id/reportTitleRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent=".2" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/logoTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/logoBot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
             app:layout_constraintGuide_percent="1" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/logoutLeft"
+            android:id="@+id/dividerTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".3" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/dividerBot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".35" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/clickChartTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/clickChartBot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".15" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/clickChartLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent=".85" />
+            app:layout_constraintGuide_percent=".5" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/logoutRight"
+            android:id="@+id/clickChartRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent=".95" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/logoutTop"
+            android:id="@+id/dividerVertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".5" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/logoutBot"
+            android:id="@+id/horiDivTop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="1" />
+            app:layout_constraintGuide_percent=".65" />
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/swapplogotransparent"
-            app:layout_constraintStart_toStartOf="@id/logoLeft"
-            app:layout_constraintEnd_toEndOf="@id/logoRight"
-            app:layout_constraintTop_toBottomOf="@id/logoTop"
-            app:layout_constraintBottom_toTopOf="@id/logoBot"/>
-
-        <ImageView
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/horiDivBot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:padding="6dp"
-            android:src="@drawable/ic_baseline_login_30"
-            app:layout_constraintStart_toStartOf="@id/logoutLeft"
-            app:layout_constraintEnd_toEndOf="@id/logoutRight"
-            app:layout_constraintTop_toBottomOf="@id/logoutTop"
-            app:layout_constraintBottom_toTopOf="@id/logoutBot"/>
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".67" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/leftDivLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".05" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/leftDivRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".45" />
 
-    
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:padding="12dp"
-            android:src="@drawable/default_picture"
-            app:layout_constraintStart_toStartOf="@id/userPicLeft"
-            app:layout_constraintEnd_toEndOf="@id/userPicRight"
-            app:layout_constraintTop_toBottomOf="@id/userPicTop"
-            app:layout_constraintBottom_toTopOf="@id/userPicBot"/>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/rightDivLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".55" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/rightDivRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".95" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/topDivTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".37" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/topDivBot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".53" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/botDivBot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".83" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/botDivBot2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".97" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="Name"
-            android:textSize="24dp"
-            android:textAlignment="center"
-            android:textColor="@color/white"
+            android:text="Trades Report Summary"
+            android:textSize="16dp"
+            android:textColor="@color/primary"
             android:fontFamily="@font/poppins_medium"
-            app:layout_constraintStart_toStartOf="@id/greetLeft"
-            app:layout_constraintEnd_toEndOf="@id/greetRight"
-            app:layout_constraintTop_toBottomOf="@id/greetTop"
-            app:layout_constraintBottom_toTopOf="@id/greetBot"/>
+            android:gravity="bottom"
+            app:layout_constraintStart_toStartOf="@id/reportTitleLeft"
+            app:layout_constraintEnd_toEndOf="@id/reportTitleRight"
+            app:layout_constraintTop_toBottomOf="@id/reportTitleTop"
+            app:layout_constraintBottom_toTopOf="@id/reportTitleBot"/>
 
-        <RatingBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:numStars="5"
-            style="?android:attr/ratingBarStyleIndicator"
-            android:isIndicator="true"
-            app:layout_constraintStart_toStartOf="@id/userRatingLeft"
-            app:layout_constraintEnd_toEndOf="@id/userRatingRight"
-            app:layout_constraintTop_toBottomOf="@id/userRatingTop"
-            app:layout_constraintBottom_toTopOf="@id/userRatingBot"/>
+        <TextView
+            android:id="@+id/viewBtn"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/click_here"
+            android:textSize="11dp"
+            android:textColor="@color/primary"
+            android:fontFamily="@font/poppins"
+            android:gravity="end"
+            app:layout_constraintStart_toStartOf="@id/clickChartLeft"
+            app:layout_constraintEnd_toEndOf="@id/clickChartRight"
+            app:layout_constraintTop_toBottomOf="@id/clickChartTop"
+            app:layout_constraintBottom_toTopOf="@id/clickChartBot"/>
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="Trades"
-        android:textSize="32dp"
-        android:fontFamily="@font/poppins_medium"
-        android:textColor="@color/primary"
-        android:paddingTop="9dp"
-        app:layout_constraintStart_toStartOf="@id/reportSummaryLeft"
-        app:layout_constraintEnd_toEndOf="@id/userPicLeft"
-        app:layout_constraintTop_toBottomOf="@id/reportSummaryTitleTop"
-        app:layout_constraintBottom_toTopOf="@id/reportSummaryTitleBot"/>
-
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="Report Summary"
-        android:textSize="16dp"
-        android:fontFamily="@font/poppins"
-        android:textColor="@color/primary"
-        app:layout_constraintStart_toStartOf="@id/reportSummaryLeft"
-        app:layout_constraintEnd_toEndOf="@id/userPicRight"
-        app:layout_constraintTop_toBottomOf="@id/reportSummaryTitleBot"
-        app:layout_constraintBottom_toTopOf="@id/reportSummaryTop"/>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="@id/reportSummaryLeft"
-        app:layout_constraintEnd_toEndOf="@id/reportSummaryRight"
-        app:layout_constraintTop_toBottomOf="@id/reportSummaryTop"
-        app:layout_constraintBottom_toTopOf="@id/reportSummaryBot">
-
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/reportSummaryChart"
+        <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="wrap_content"
+            app:dividerInsetStart="16dp"
+            app:dividerInsetEnd="16dp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dividerTop"
+            app:layout_constraintBottom_toTopOf="@id/dividerBot"/>
+
+        <View
+            android:layout_width="1.5dp"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="10dp"
+            android:background="#EFEFEF"
+            app:layout_constraintStart_toStartOf="@id/dividerVertical"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
-            android:layout_width="match_parent"
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/primary"
-            app:itemIconTint="@color/white"
-            app:itemTextColor="@color/white"
-            android:layout_gravity="bottom"
-            app:menu="@menu/bottom_navigation_menu" />
+            app:layout_constraintStart_toStartOf="@id/leftDivLeft"
+            app:layout_constraintEnd_toEndOf="@id/leftDivRight"
+            app:layout_constraintTop_toBottomOf="@id/horiDivTop"
+            app:layout_constraintBottom_toTopOf="@id/horiDivBot"/>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/rightDivLeft"
+            app:layout_constraintEnd_toEndOf="@id/rightDivRight"
+            app:layout_constraintTop_toBottomOf="@id/horiDivTop"
+            app:layout_constraintBottom_toTopOf="@id/horiDivBot"/>
 
+        <TextView
+            android:id="@+id/successfulText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="24"
+            android:textSize="24dp"
+            android:textColor="@android:color/holo_green_light"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="start|top"
+            app:layout_constraintStart_toStartOf="@id/leftDivLeft"
+            app:layout_constraintEnd_toEndOf="@id/leftDivRight"
+            app:layout_constraintTop_toBottomOf="@id/topDivTop"
+            app:layout_constraintBottom_toTopOf="@id/topDivBot"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="Successful Trades"
+            android:textSize="11dp"
+            android:textColor="@color/primary"
+            android:fontFamily="@font/poppins"
+            android:gravity="start|top"
+            app:layout_constraintStart_toStartOf="@id/leftDivLeft"
+            app:layout_constraintEnd_toEndOf="@id/leftDivRight"
+            app:layout_constraintTop_toBottomOf="@id/topDivBot"
+            app:layout_constraintBottom_toTopOf="@id/horiDivTop"/>
+
+        <TextView
+            android:id="@+id/pendingText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="5"
+            android:textSize="24dp"
+            android:textColor="@android:color/holo_blue_light"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="start|top"
+            app:layout_constraintStart_toStartOf="@id/rightDivLeft"
+            app:layout_constraintEnd_toEndOf="@id/rightDivRight"
+            app:layout_constraintTop_toBottomOf="@id/topDivTop"
+            app:layout_constraintBottom_toTopOf="@id/topDivBot"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="Pending Trades"
+            android:textSize="11dp"
+            android:textColor="@color/primary"
+            android:fontFamily="@font/poppins"
+            android:gravity="start|top"
+            app:layout_constraintStart_toStartOf="@id/rightDivLeft"
+            app:layout_constraintEnd_toEndOf="@id/rightDivRight"
+            app:layout_constraintTop_toBottomOf="@id/topDivBot"
+            app:layout_constraintBottom_toTopOf="@id/horiDivTop"/>
+
+        <TextView
+            android:id="@+id/unsuccessfulText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="2"
+            android:textSize="24dp"
+            android:textColor="@android:color/holo_red_light"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="start|top"
+            app:layout_constraintStart_toStartOf="@id/leftDivLeft"
+            app:layout_constraintEnd_toEndOf="@id/leftDivRight"
+            app:layout_constraintTop_toBottomOf="@id/horiDivBot"
+            app:layout_constraintBottom_toTopOf="@id/botDivBot"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="Unsuccessful Trades"
+            android:textSize="11dp"
+            android:textColor="@color/primary"
+            android:fontFamily="@font/poppins"
+            android:gravity="start|top"
+            app:layout_constraintStart_toStartOf="@id/leftDivLeft"
+            app:layout_constraintEnd_toEndOf="@id/leftDivRight"
+            app:layout_constraintTop_toBottomOf="@id/botDivBot"
+            app:layout_constraintBottom_toTopOf="@id/botDivBot2"/>
+
+        <TextView
+            android:id="@+id/currentText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="4"
+            android:textSize="24dp"
+            android:textColor="@android:color/holo_orange_light"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="start|top"
+            app:layout_constraintStart_toStartOf="@id/rightDivLeft"
+            app:layout_constraintEnd_toEndOf="@id/rightDivRight"
+            app:layout_constraintTop_toBottomOf="@id/horiDivBot"
+            app:layout_constraintBottom_toTopOf="@id/botDivBot"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="Current Trades"
+            android:textSize="11dp"
+            android:textColor="@color/primary"
+            android:fontFamily="@font/poppins"
+            android:gravity="start|top"
+            app:layout_constraintStart_toStartOf="@id/rightDivLeft"
+            app:layout_constraintEnd_toEndOf="@id/rightDivRight"
+            app:layout_constraintTop_toBottomOf="@id/botDivBot"
+            app:layout_constraintBottom_toTopOf="@id/botDivBot2"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

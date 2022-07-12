@@ -5,4 +5,7 @@
         <item>Male</item>
         <item>Female</item>
     </string-array>
+    <string name="click_here">
+        <u>View chart >></u>
+    </string>
 </resources>
