@@ -12,6 +12,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.animation.Easing;
@@ -37,6 +38,7 @@ public class UserHomepage extends AppCompatActivity {
 
     TextView viewChart;
     Dialog chartDialog;
+    ImageView logoutBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +47,19 @@ public class UserHomepage extends AppCompatActivity {
 
         viewChart = findViewById(R.id.viewBtn);
         chartDialog = new Dialog(this);
+        logoutBtn = findViewById(R.id.logoutBtn);
 
         viewChart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(UserHomepage.this, popup.class));
+            }
+        });
+
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(UserHomepage.this, login.class));
             }
         });
 

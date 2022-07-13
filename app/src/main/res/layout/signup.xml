@@ -93,6 +93,20 @@
         app:layout_constraintGuide_percent="0.28" />
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/firstnameRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.49" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/lastnameLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.51" />
+
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/emailtopmargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -242,7 +256,30 @@
         app:layout_constraintBottom_toTopOf="@id/label2marginbot"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/uFullNameLayout"
+        android:id="@+id/uFirstNameLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:boxStrokeColor="#03989e"
+        app:boxStrokeWidth="2dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/namebotmargin"
+        app:layout_constraintEnd_toEndOf="@id/firstnameRight"
+        app:layout_constraintStart_toStartOf="@id/leftmargin"
+        app:layout_constraintTop_toBottomOf="@id/nametopmargin">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/uFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/poppins_medium"
+            android:importantForAutofill="no"
+            android:hint="First Name"
+            android:textColor="#03989e" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/uLastNameLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -251,18 +288,19 @@
         android:background="@color/white"
         app:layout_constraintBottom_toTopOf="@id/namebotmargin"
         app:layout_constraintEnd_toEndOf="@id/rightmargin"
-        app:layout_constraintStart_toStartOf="@id/leftmargin"
+        app:layout_constraintStart_toStartOf="@id/lastnameLeft"
         app:layout_constraintTop_toBottomOf="@id/nametopmargin">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/uFullName"
+            android:id="@+id/uLastName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/poppins_medium"
             android:importantForAutofill="no"
-            android:hint="Your Name"
+            android:hint="Last Name"
             android:textColor="#03989e" />
     </com.google.android.material.textfield.TextInputLayout>
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/uEmailLayout"

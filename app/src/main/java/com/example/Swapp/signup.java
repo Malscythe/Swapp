@@ -52,8 +52,8 @@ public class signup extends AppCompatActivity {
     public static final String TAG = "TAG";
     private SignupBinding binding;
 
-    TextInputEditText fullName, email, password, rePassword, birthDate;
-    TextInputLayout fullNameL, emailL, passwordL, rePasswordL, birthDateL, genderL;
+    TextInputEditText firstName, lastName, email, password, rePassword, birthDate;
+    TextInputLayout firstNameL, lastNameL, emailL, passwordL, rePasswordL, birthDateL, genderL;
     AutoCompleteTextView gender;
     Button signUp;
     TextView backToLogin;
@@ -96,7 +96,8 @@ public class signup extends AppCompatActivity {
             }
         });
 
-        fullName = findViewById(R.id.uFullName);
+        firstName = findViewById(R.id.uFirstName);
+        lastName = findViewById(R.id.uLastName);
         email = findViewById(R.id.uEmail);
         password = findViewById(R.id.uPassword);
         rePassword = findViewById(R.id.uRePassword);
@@ -105,7 +106,8 @@ public class signup extends AppCompatActivity {
         signUp = findViewById(R.id.signUpBtn);
         backToLogin = findViewById(R.id.backtologin);
 
-        fullNameL = findViewById(R.id.uFullNameLayout);
+        firstNameL = findViewById(R.id.uFirstNameLayout);
+        lastNameL = findViewById(R.id.uLastNameLayout);
         emailL = findViewById(R.id.uEmailLayout);
         passwordL = findViewById(R.id.uPasswordLayout);
         rePasswordL = findViewById(R.id.uRePasswordLayout);
@@ -121,7 +123,8 @@ public class signup extends AppCompatActivity {
                 String valEmail = email.getText().toString().trim();
                 String valPassword = password.getText().toString().trim();
                 String valRePassword = rePassword.getText().toString().trim();
-                String userFullName = fullName.getText().toString();
+                String userFirstName = firstName.getText().toString();
+                String userLastName = lastName.getText().toString();
                 String userBirthDate = birthDate.getText().toString();
                 String userGender = gender.getText().toString();
                 TextInputEditText strBirthDate = findViewById(R.id.ubirthDate);
@@ -193,7 +196,7 @@ public class signup extends AppCompatActivity {
 
                 if (years < 18 || TextUtils.isEmpty(valBirthDate)) {
                     final ViewGroup.LayoutParams params = birthDateL.getLayoutParams();
-                    birthDateL.setError("You must be 18 years old and above." + years);
+                    birthDateL.setError("You must be 18 years old and above.");
                     birthDateL.setErrorIconDrawable(null);
                     birthDateL.setLayoutParams(params);
                     return;
@@ -243,7 +246,8 @@ public class signup extends AppCompatActivity {
                             userID = fAuth.getCurrentUser().getUid();
                             DocumentReference documentReference = fStore.collection("users").document(userID);
                             Map<String, Object>user = new HashMap<>();
-                            user.put("Full_Name", userFullName);
+                            user.put("First_Name", userFirstName);
+                            user.put("Last_Name", userLastName);
                             user.put("Birth_Date", userBirthDate);
                             user.put("Gender", userGender);
                             user.put("Email", valEmail);
