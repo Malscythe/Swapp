@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.215" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/buttonbg.xml" value="0.2295" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/buttonborder.xml" value="0.204" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/buttonborder_white.xml" value="0.211" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/chart_bg.xml" value="0.2295" />
@@ -11,9 +12,12 @@
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/errortoastbg.xml" value="0.1775" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.215" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/ic_baseline_account_circle_48.xml" value="0.215" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/ic_baseline_inbox_24.xml" value="0.2295" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/ic_baseline_login_30.xml" value="0.215" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/ic_baseline_notifications_24.xml" value="0.2295" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.215" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/ic_baseline_settings_30.xml" value="0.215" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/ic_baseline_settings_36.xml" value="0.2295" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/ic_calendar.xml" value="0.215" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/ic_eclipes1_background.xml" value="0.215" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/ic_email.xml" value="0.2355" />
@@ -38,7 +42,7 @@
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/activity_popup.xml" value="0.17871621621621622" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/activity_postforgotpassword.xml" value="0.22" />
-        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/activity_user_homepage.xml" value="0.5" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/activity_user_homepage.xml" value="0.33" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/chart.xml" value="0.17871621621621622" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/chartview.xml" value="0.17871621621621622" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/dropdown_item.xml" value="0.27447916666666666" />

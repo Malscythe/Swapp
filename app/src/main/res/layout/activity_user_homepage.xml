@@ -63,6 +63,90 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent=".90" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/tradeTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".55" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/tradeBot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".67" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/tradeLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/tradeRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".90" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/threeTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".70" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/threeBot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent=".80" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/firstLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/firstRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".34" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/secondLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".37" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/secondRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".63" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/thirdLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".66" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/thirdRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".9" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -582,5 +666,76 @@
             app:layout_constraintBottom_toTopOf="@id/botDivBot2"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/tradeButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="Start Trading"
+        android:gravity="left|center"
+        android:textAllCaps="false"
+        android:padding="20dp"
+        android:background="@drawable/buttonbg"
+        android:textSize="24dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppins_semibold"
+        android:drawableEnd="@drawable/ic_baseline_swap_horiz_24"
+        app:layout_constraintStart_toStartOf="@id/tradeLeft"
+        app:layout_constraintEnd_toEndOf="@id/tradeRight"
+        app:layout_constraintTop_toBottomOf="@id/tradeTop"
+        app:layout_constraintBottom_toTopOf="@id/tradeBot"/>
+
+    <Button
+        android:id="@+id/notifBtn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="Notifications"
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:background="@drawable/buttonbg"
+        android:textSize="8dp"
+        android:paddingBottom="15dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppins_semibold"
+        android:drawableTop="@drawable/ic_baseline_notifications_24"
+        app:layout_constraintStart_toStartOf="@id/firstLeft"
+        app:layout_constraintEnd_toEndOf="@id/firstRight"
+        app:layout_constraintTop_toBottomOf="@id/threeTop"
+        app:layout_constraintBottom_toTopOf="@id/threeBot"/>
+
+    <Button
+        android:id="@+id/inboxBtn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="Inbox"
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:paddingBottom="15dp"
+        android:background="@drawable/buttonbg"
+        android:textSize="10dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppins_semibold"
+        android:drawableTop="@drawable/ic_baseline_inbox_24"
+        app:layout_constraintStart_toStartOf="@id/secondLeft"
+        app:layout_constraintEnd_toEndOf="@id/secondRight"
+        app:layout_constraintTop_toBottomOf="@id/threeTop"
+        app:layout_constraintBottom_toTopOf="@id/threeBot"/>
+
+    <Button
+        android:id="@+id/accSettings"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="Account Settings"
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:background="@drawable/buttonbg"
+        android:textSize="8dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppins_semibold"
+        android:drawableTop="@drawable/ic_baseline_settings_24"
+        app:layout_constraintStart_toStartOf="@id/thirdLeft"
+        app:layout_constraintEnd_toEndOf="@id/thirdRight"
+        app:layout_constraintTop_toBottomOf="@id/threeTop"
+        app:layout_constraintBottom_toTopOf="@id/threeBot"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
