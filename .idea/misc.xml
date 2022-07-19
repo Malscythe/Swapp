@@ -24,6 +24,7 @@
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/ic_launcher_background.xml" value="0.215" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/ic_password.xml" value="0.204" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/ic_person.xml" value="0.204" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/ic_svgexport_6.xml" value="0.2295" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/ic_usercircle.xml" value="0.204" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/layout_bg.xml" value="0.204" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/layout_bg_primary.xml" value="0.215" />
@@ -36,13 +37,16 @@
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/textinputbg.xml" value="0.208" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/textinputselectedbg.xml" value="0.208" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/transparent_background.xml" value="0.215" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/wavebg_background.xml" value="0.2295" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/drawable/wavebg_foreground.xml" value="0.2295" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/activity_admin_homepage.xml" value="0.17871621621621622" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/activity_categories.xml" value="0.25" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/activity_file_maintenance.xml" value="0.17871621621621622" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/activity_forgotpassword.xml" value="0.22" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/activity_popup.xml" value="0.17871621621621622" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/activity_postforgotpassword.xml" value="0.22" />
-        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/activity_user_homepage.xml" value="0.25" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/activity_user_homepage.xml" value="0.33" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/chart.xml" value="0.17871621621621622" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/chartview.xml" value="0.17871621621621622" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/layout/dropdown_item.xml" value="0.27447916666666666" />
@@ -60,6 +64,8 @@
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/mipmap-anydpi-v26/emailRequestBanner.xml" value="0.28" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/mipmap-anydpi-v26/swapplogo.xml" value="0.28" />
         <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/mipmap-anydpi-v26/swapplogo_round.xml" value="0.132" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/mipmap-anydpi-v26/wavebg.xml" value="0.1335" />
+        <entry key="..\:/Users/Terence/AndroidStudioProjects/Switcho/app/src/main/res/mipmap-anydpi-v26/wavebg_round.xml" value="0.1345" />
       </map>
     </option>
   </component>

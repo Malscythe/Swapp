@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_wave_haikei__4_"
+    tools:context="com.example.Swapp.Categories">
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/firstLeft"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent=".11" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/firstRight"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent=".25" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/secondLeft"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent=".31" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/secondRight"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent=".46" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/thirdLeft"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent=".52" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/thirdRight"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent=".67" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/fourthLeft"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent=".73" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/fourhRight"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent=".89" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/titleTop"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.07" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/titleBot"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.16" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/firstTop"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.32" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/firstBot"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.4" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/secondTop"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.45" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/secondBot"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.53" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/thirdTop"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.58" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/thirdBot"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.66" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/fourthTop"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.71" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/fourthBot"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.79" />
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="@font/poppins_semibold"
+      android:text="Catergories"
+      android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"
+      android:textColor="@color/white"
+      app:layout_constraintBottom_toBottomOf="@id/titleBot"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.40"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@id/titleTop" />
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:paddingTop="20dp"
+      android:background="@drawable/buttonborder"
+      android:drawableTop="@drawable/ic_grid"
+      app:layout_constraintBottom_toBottomOf="@id/firstBot"
+      app:layout_constraintEnd_toEndOf="@id/firstRight"
+      app:layout_constraintStart_toStartOf="@id/firstLeft"
+      app:layout_constraintTop_toTopOf="@id/firstTop" />
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:paddingTop="15dp"
+      android:background="@drawable/buttonborder"
+      android:drawableTop="@drawable/ic_shirt"
+      app:layout_constraintBottom_toBottomOf="@id/firstBot"
+      app:layout_constraintEnd_toEndOf="@id/secondRight"
+      app:layout_constraintStart_toStartOf="@id/secondLeft"
+      app:layout_constraintTop_toTopOf="@id/firstTop" />
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:paddingTop="15dp"
+      android:background="@drawable/buttonborder"
+      android:drawableTop="@drawable/ic_entertainment__1_"
+      app:layout_constraintBottom_toBottomOf="@id/firstBot"
+      app:layout_constraintEnd_toEndOf="@id/thirdRight"
+      app:layout_constraintStart_toStartOf="@id/thirdLeft"
+      app:layout_constraintTop_toTopOf="@id/firstTop" />
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:paddingTop="15dp"
+      android:background="@drawable/buttonborder"
+      android:drawableTop="@drawable/ic_game"
+      app:layout_constraintBottom_toBottomOf="@id/firstBot"
+      app:layout_constraintEnd_toEndOf="@id/fourhRight"
+      app:layout_constraintStart_toStartOf="@id/fourthLeft"
+      app:layout_constraintTop_toTopOf="@id/firstTop" />
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:paddingTop="15dp"
+      android:background="@drawable/buttonborder"
+      android:drawableTop="@drawable/ic_bags"
+      app:layout_constraintBottom_toBottomOf="@id/secondBot"
+      app:layout_constraintEnd_toEndOf="@id/firstRight"
+      app:layout_constraintStart_toStartOf="@id/firstLeft"
+      app:layout_constraintTop_toTopOf="@id/secondTop" />
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:paddingTop="15dp"
+      android:background="@drawable/buttonborder"
+      android:drawableTop="@drawable/ic_cart"
+      app:layout_constraintBottom_toBottomOf="@id/secondBot"
+      app:layout_constraintEnd_toEndOf="@id/secondRight"
+      app:layout_constraintStart_toStartOf="@id/secondLeft"
+      app:layout_constraintTop_toTopOf="@id/secondTop" />
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:paddingTop="15dp"
+      android:background="@drawable/buttonborder"
+      android:drawableTop="@drawable/ic_furniture"
+      app:layout_constraintBottom_toBottomOf="@id/secondBot"
+      app:layout_constraintEnd_toEndOf="@id/thirdRight"
+      app:layout_constraintStart_toStartOf="@id/thirdLeft"
+      app:layout_constraintTop_toTopOf="@id/secondTop" />
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:paddingTop="15dp"
+      android:background="@drawable/buttonborder"
+      android:drawableTop="@drawable/ic_toys"
+      app:layout_constraintBottom_toBottomOf="@id/secondBot"
+      app:layout_constraintEnd_toEndOf="@id/fourhRight"
+      app:layout_constraintStart_toStartOf="@id/fourthLeft"
+      app:layout_constraintTop_toTopOf="@id/secondTop" />
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:paddingTop="15dp"
+      android:background="@drawable/buttonborder"
+      android:drawableTop="@drawable/ic_appliances"
+      app:layout_constraintBottom_toBottomOf="@id/thirdBot"
+      app:layout_constraintEnd_toEndOf="@id/firstRight"
+      app:layout_constraintStart_toStartOf="@id/firstLeft"
+      app:layout_constraintTop_toTopOf="@id/thirdTop" />
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:paddingTop="15dp"
+      android:background="@drawable/buttonborder"
+      android:drawableTop="@drawable/ic_motor"
+      app:layout_constraintBottom_toBottomOf="@id/thirdBot"
+      app:layout_constraintEnd_toEndOf="@id/secondRight"
+      app:layout_constraintStart_toStartOf="@id/secondLeft"
+      app:layout_constraintTop_toTopOf="@id/thirdTop" />
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:paddingTop="15dp"
+      android:background="@drawable/buttonborder"
+      android:drawableTop="@drawable/ic_headphone"
+      app:layout_constraintBottom_toBottomOf="@id/thirdBot"
+      app:layout_constraintEnd_toEndOf="@id/thirdRight"
+      app:layout_constraintStart_toStartOf="@id/thirdLeft"
+      app:layout_constraintTop_toTopOf="@id/thirdTop" />
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:paddingTop="15dp"
+      android:background="@drawable/buttonborder"
+      android:drawableTop="@drawable/ic_school"
+      app:layout_constraintBottom_toBottomOf="@id/thirdBot"
+      app:layout_constraintEnd_toEndOf="@id/fourhRight"
+      app:layout_constraintStart_toStartOf="@id/fourthLeft"
+      app:layout_constraintTop_toTopOf="@id/thirdTop" />
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:paddingTop="15dp"
+      android:background="@drawable/buttonborder"
+      android:drawableTop="@drawable/ic_dress"
+      app:layout_constraintBottom_toBottomOf="@id/fourthBot"
+      app:layout_constraintEnd_toEndOf="@id/firstRight"
+      app:layout_constraintStart_toStartOf="@id/firstLeft"
+      app:layout_constraintTop_toTopOf="@id/fourthTop" />
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:paddingTop="15dp"
+      android:background="@drawable/buttonborder"
+      android:drawableTop="@drawable/ic_dots"
+      app:layout_constraintBottom_toBottomOf="@id/fourthBot"
+      app:layout_constraintEnd_toEndOf="@id/secondRight"
+      app:layout_constraintStart_toStartOf="@id/secondLeft"
+      app:layout_constraintTop_toTopOf="@id/fourthTop" />
+
+  <TextView
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:text="All"
+      android:fontFamily="@font/poppins"
+      android:textColor="@color/black"
+      android:gravity="center"
+      android:textSize="12dp"
+      app:layout_constraintStart_toStartOf="@id/firstLeft"
+      app:layout_constraintEnd_toEndOf="@id/firstRight"
+      app:layout_constraintTop_toBottomOf="@id/firstBot"/>
+
+  <TextView
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:text="Men's\nApparel"
+      android:fontFamily="@font/poppins"
+      android:textColor="@color/black"
+      android:gravity="center"
+      android:textSize="12dp"
+      app:layout_constraintStart_toStartOf="@id/secondLeft"
+      app:layout_constraintEnd_toEndOf="@id/secondRight"
+      app:layout_constraintTop_toBottomOf="@id/firstBot"/>
+
+  <TextView
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:text="Gadgets"
+      android:fontFamily="@font/poppins"
+      android:textColor="@color/black"
+      android:gravity="center"
+      android:textSize="12dp"
+      app:layout_constraintStart_toStartOf="@id/thirdLeft"
+      app:layout_constraintEnd_toEndOf="@id/thirdRight"
+      app:layout_constraintTop_toBottomOf="@id/firstBot"/>
+
+  <TextView
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:text="Game"
+      android:fontFamily="@font/poppins"
+      android:textColor="@color/black"
+      android:gravity="center"
+      android:textSize="12dp"
+      app:layout_constraintStart_toStartOf="@id/fourthLeft"
+      app:layout_constraintEnd_toEndOf="@id/fourhRight"
+      app:layout_constraintTop_toBottomOf="@id/firstBot"/>
+
+  <TextView
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:text="Bags"
+      android:fontFamily="@font/poppins"
+      android:textColor="@color/black"
+      android:gravity="center"
+      android:textSize="12dp"
+      app:layout_constraintStart_toStartOf="@id/firstLeft"
+      app:layout_constraintEnd_toEndOf="@id/firstRight"
+      app:layout_constraintTop_toBottomOf="@id/secondBot"/>
+
+  <TextView
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:text="Groceries"
+      android:fontFamily="@font/poppins"
+      android:textColor="@color/black"
+      android:gravity="center"
+      android:textSize="12dp"
+      app:layout_constraintStart_toStartOf="@id/secondLeft"
+      app:layout_constraintEnd_toEndOf="@id/secondRight"
+      app:layout_constraintTop_toBottomOf="@id/secondBot"/>
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Furnitures"
+      android:fontFamily="@font/poppins"
+      android:textColor="@color/black"
+      android:gravity="center"
+      android:textSize="12dp"
+      app:layout_constraintStart_toStartOf="@id/thirdLeft"
+      app:layout_constraintEnd_toEndOf="@id/thirdRight"
+      app:layout_constraintTop_toBottomOf="@id/secondBot"/>
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Babies &amp; \nKids"
+      android:fontFamily="@font/poppins"
+      android:textColor="@color/black"
+      android:gravity="center"
+      android:textSize="12dp"
+      app:layout_constraintStart_toStartOf="@id/fourthLeft"
+      app:layout_constraintEnd_toEndOf="@id/fourhRight"
+      app:layout_constraintTop_toBottomOf="@id/secondBot"/>
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Appliances"
+      android:fontFamily="@font/poppins"
+      android:textColor="@color/black"
+      android:gravity="center"
+      android:textSize="12dp"
+      app:layout_constraintStart_toStartOf="@id/firstLeft"
+      app:layout_constraintEnd_toEndOf="@id/firstRight"
+      app:layout_constraintTop_toBottomOf="@id/thirdBot"/>
+
+  <TextView
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:text="Motors"
+      android:fontFamily="@font/poppins"
+      android:textColor="@color/black"
+      android:gravity="center"
+      android:textSize="12dp"
+      app:layout_constraintStart_toStartOf="@id/secondLeft"
+      app:layout_constraintEnd_toEndOf="@id/secondRight"
+      app:layout_constraintTop_toBottomOf="@id/thirdBot"/>
+
+  <TextView
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:text="Audio"
+      android:fontFamily="@font/poppins"
+      android:textColor="@color/black"
+      android:gravity="center"
+      android:textSize="12dp"
+      app:layout_constraintStart_toStartOf="@id/thirdLeft"
+      app:layout_constraintEnd_toEndOf="@id/thirdRight"
+      app:layout_constraintTop_toBottomOf="@id/thirdBot"/>
+
+  <TextView
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:text="School"
+      android:fontFamily="@font/poppins"
+      android:textColor="@color/black"
+      android:gravity="center"
+      android:textSize="12dp"
+      app:layout_constraintStart_toStartOf="@id/fourthLeft"
+      app:layout_constraintEnd_toEndOf="@id/fourhRight"
+      app:layout_constraintTop_toBottomOf="@id/thirdBot"/>
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Women's \nApparel"
+      android:fontFamily="@font/poppins"
+      android:textColor="@color/black"
+      android:gravity="center"
+      android:textSize="12dp"
+      app:layout_constraintStart_toStartOf="@id/firstLeft"
+      app:layout_constraintEnd_toEndOf="@id/firstRight"
+      app:layout_constraintTop_toBottomOf="@id/fourthBot"/>
+
+  <TextView
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:text="Others"
+      android:fontFamily="@font/poppins"
+      android:textColor="@color/black"
+      android:gravity="center"
+      android:textSize="12dp"
+      app:layout_constraintStart_toStartOf="@id/secondLeft"
+      app:layout_constraintEnd_toEndOf="@id/secondRight"
+      app:layout_constraintTop_toBottomOf="@id/fourthBot"/>
+
+  <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+      android:id="@+id/floatingActionButton"
+      android:layout_width="84dp"
+      android:layout_height="78dp"
+      android:backgroundTint="@color/primary2"
+      android:clickable="true"
+      app:icon="@drawable/ic_add"
+      app:iconTint="@color/white"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.923"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.949" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

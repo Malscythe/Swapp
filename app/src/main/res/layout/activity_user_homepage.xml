@@ -501,7 +501,7 @@
             android:layout_height="0dp"
             android:text="Trades Report Summary"
             android:textSize="16dp"
-            android:textColor="@color/primary"
+            android:textColor="@color/primary2"
             android:fontFamily="@font/poppins_medium"
             android:gravity="bottom"
             app:layout_constraintStart_toStartOf="@id/reportTitleLeft"
@@ -513,9 +513,9 @@
             android:id="@+id/viewBtn"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="@string/click_here"
+            android:text="View chart >>"
             android:textSize="11dp"
-            android:textColor="@color/primary"
+            android:textColor="@color/black"
             android:fontFamily="@font/poppins"
             android:gravity="end"
             app:layout_constraintStart_toStartOf="@id/clickChartLeft"
@@ -577,7 +577,7 @@
             android:layout_height="0dp"
             android:text="Successful Trades"
             android:textSize="11dp"
-            android:textColor="@color/primary"
+            android:textColor="@color/primary2"
             android:fontFamily="@font/poppins"
             android:gravity="start|top"
             app:layout_constraintStart_toStartOf="@id/leftDivLeft"
@@ -604,7 +604,7 @@
             android:layout_height="0dp"
             android:text="Pending Trades"
             android:textSize="11dp"
-            android:textColor="@color/primary"
+            android:textColor="@color/primary2"
             android:fontFamily="@font/poppins"
             android:gravity="start|top"
             app:layout_constraintStart_toStartOf="@id/rightDivLeft"
@@ -631,7 +631,7 @@
             android:layout_height="0dp"
             android:text="Unsuccessful Trades"
             android:textSize="11dp"
-            android:textColor="@color/primary"
+            android:textColor="@color/primary2"
             android:fontFamily="@font/poppins"
             android:gravity="start|top"
             app:layout_constraintStart_toStartOf="@id/leftDivLeft"
@@ -658,7 +658,7 @@
             android:layout_height="0dp"
             android:text="Current Trades"
             android:textSize="11dp"
-            android:textColor="@color/primary"
+            android:textColor="@color/primary2"
             android:fontFamily="@font/poppins"
             android:gravity="start|top"
             app:layout_constraintStart_toStartOf="@id/rightDivLeft"
@@ -676,7 +676,7 @@
         android:gravity="left|center"
         android:textAllCaps="false"
         android:padding="20dp"
-        android:background="@drawable/buttonbg"
+        android:background="@drawable/buttonborder"
         android:textSize="24dp"
         android:textColor="@color/white"
         android:fontFamily="@font/poppins_semibold"
@@ -686,35 +686,25 @@
         app:layout_constraintTop_toBottomOf="@id/tradeTop"
         app:layout_constraintBottom_toTopOf="@id/tradeBot"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/notifBtn"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="Notifications"
-        android:gravity="center"
-        android:textAllCaps="false"
-        android:background="@drawable/buttonbg"
-        android:textSize="8dp"
-        android:paddingBottom="15dp"
-        android:textColor="@color/white"
+        android:background="@drawable/buttonborder"
         android:fontFamily="@font/poppins_semibold"
+        android:paddingTop="10dp"
         android:drawableTop="@drawable/ic_baseline_notifications_24"
         app:layout_constraintStart_toStartOf="@id/firstLeft"
         app:layout_constraintEnd_toEndOf="@id/firstRight"
         app:layout_constraintTop_toBottomOf="@id/threeTop"
         app:layout_constraintBottom_toTopOf="@id/threeBot"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/inboxBtn"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="Inbox"
-        android:gravity="center"
-        android:textAllCaps="false"
-        android:paddingBottom="15dp"
-        android:background="@drawable/buttonbg"
-        android:textSize="10dp"
-        android:textColor="@color/white"
+        android:paddingTop="10dp"
+        android:background="@drawable/buttonborder"
         android:fontFamily="@font/poppins_semibold"
         android:drawableTop="@drawable/ic_baseline_inbox_24"
         app:layout_constraintStart_toStartOf="@id/secondLeft"
@@ -722,21 +712,53 @@
         app:layout_constraintTop_toBottomOf="@id/threeTop"
         app:layout_constraintBottom_toTopOf="@id/threeBot"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/accSettings"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="Account Settings"
-        android:gravity="center"
-        android:textAllCaps="false"
-        android:background="@drawable/buttonbg"
-        android:textSize="8dp"
-        android:textColor="@color/white"
+        android:paddingTop="10dp"
+        android:background="@drawable/buttonborder"
         android:fontFamily="@font/poppins_semibold"
         android:drawableTop="@drawable/ic_baseline_settings_24"
         app:layout_constraintStart_toStartOf="@id/thirdLeft"
         app:layout_constraintEnd_toEndOf="@id/thirdRight"
         app:layout_constraintTop_toBottomOf="@id/threeTop"
         app:layout_constraintBottom_toTopOf="@id/threeBot"/>
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Notifications"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poppins"
+        android:textSize="16dp"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="@id/firstLeft"
+        app:layout_constraintEnd_toEndOf="@id/firstRight"
+        app:layout_constraintTop_toBottomOf="@id/threeBot" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Inbox"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poppins"
+        android:textSize="16dp"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="@id/secondLeft"
+        app:layout_constraintEnd_toEndOf="@id/secondRight"
+        app:layout_constraintTop_toBottomOf="@id/threeBot" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Account Settings"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poppins"
+        android:textSize="16dp"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="@id/thirdLeft"
+        app:layout_constraintEnd_toEndOf="@id/thirdRight"
+        app:layout_constraintTop_toBottomOf="@id/threeBot" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

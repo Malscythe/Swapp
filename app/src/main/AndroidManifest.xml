@@ -22,6 +22,10 @@ package="Swapp">
         android:exported="true" />
 
     <activity
+        android:name="com.example.Swapp.Categories"
+        android:exported="true" />
+
+    <activity
         android:name="com.example.Swapp.forgotpassword"
         android:exported="true" />
 
