@@ -5,7 +5,39 @@
         <item>Male</item>
         <item>Female</item>
     </string-array>
-    <string name="click_here">
-        <u>View chart >></u>
-    </string>
+    <string-array name="categories">
+        <item>Men\'s Apparel</item>
+        <item>Gadgets</item>
+        <item>Game</item>
+        <item>Bags</item>
+        <item>Groceries</item>
+        <item>Furniture</item>
+        <item>Babies &amp; Kids</item>
+        <item>Appliances</item>
+        <item>Motors</item>
+        <item>Audio</item>
+        <item>School</item>
+        <item>Women\'s Apparel</item>
+        <item>Others</item>
+    </string-array>
+
+    <string-array name="locations">
+        <item>Caloocan</item>
+        <item>Las Piñas</item>
+        <item>Makati</item>
+        <item>Malabon</item>
+        <item>Mandaluyong</item>
+        <item>Manila</item>
+        <item>Marikina</item>
+        <item>Muntinlupa</item>
+        <item>Navotas</item>
+        <item>Parañaque</item>
+        <item>Pasay</item>
+        <item>Pasig</item>
+        <item>Pateros</item>
+        <item>Quezon City</item>
+        <item>San Juan</item>
+        <item>Taguig</item>
+        <item>Valenzuela</item>
+    </string-array>
 </resources>

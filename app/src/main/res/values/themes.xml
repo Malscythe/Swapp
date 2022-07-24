@@ -2,12 +2,12 @@
     <!-- Base application theme. -->
     <style name="Theme.Swapp" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#03989e</item>
-        <item name="colorPrimaryVariant">#03989e</item>
+        <item name="colorPrimary">@color/primary2</item>
+        <item name="colorPrimaryVariant">@color/primary2</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorSecondary">@color/primary2</item>
+        <item name="colorSecondaryVariant">@color/primary2</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/black</item>
@@ -21,8 +21,8 @@
     </style>
 
     <style name="ThemeOverlay.App.DatePicker" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
-        <item name="colorPrimary">#03989e</item>
-        <item name="colorOnPrimary">#03989e</item>
+        <item name="colorPrimary">@color/primary2</item>
+        <item name="colorOnPrimary">@color/primary2</item>
     </style>
 
     <style name="circleImageView" parent="">
