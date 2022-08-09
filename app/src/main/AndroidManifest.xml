@@ -26,6 +26,10 @@ package="Swapp">
         android:exported="true" />
 
     <activity
+        android:name="com.example.Swapp.ItemSwipe"
+        android:exported="true" />
+
+    <activity
         android:name="com.example.Swapp.forgotpassword"
         android:exported="true" />
 
@@ -39,6 +43,7 @@ package="Swapp">
 
     <activity
         android:name="com.example.Swapp.FileMaintenance"
+        android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
         android:exported="true" />
 
     <activity

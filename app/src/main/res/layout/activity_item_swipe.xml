@@ -5,14 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.Swapp.FileMaintenance">
+    tools:context="com.example.Swapp.ItemSwipe">
 
-  <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/userRV"
+  <com.lorentzos.flingswipe.SwipeFlingAdapterView
+      android:id="@+id/frame"
+      android:background="#ffeee9e2"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      app:rotation_degrees="0"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

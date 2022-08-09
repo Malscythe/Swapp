@@ -4,38 +4,40 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import Swapp.R;
 import Swapp.databinding.ActivityPostItemBinding;
-import Swapp.databinding.SignupBinding;
 
 public class PostItem extends AppCompatActivity {
 
@@ -142,23 +144,59 @@ public class PostItem extends AppCompatActivity {
         postingItemDialog.startLoadingDialog();
 
         storageReference = FirebaseStorage.getInstance().getReference("images/"+fileName);
-        storageReference.putFile(imageUri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        Bitmap bitmap = null;
+
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(getApplication().getContentResolver(), imageUri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+        UploadTask uploadTask = storageReference.putBytes(data);
+
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                         binding.itemImage.setImageResource(R.drawable.noimage);
-                        imageUri = null;
+                        DatabaseReference insertItems = FirebaseDatabase.getInstance().getReference().child("items").child(fileName);
+                        DocumentReference docRef = firebaseFirestore.collection("users").document(uid);
 
-                        DocumentReference documentReference = firebaseFirestore.collection("items").document(fileName);
-                        Map<String, Object>item = new HashMap<>();
-                        item.put("Item_Name", binding.itemName.getText().toString());
-                        item.put("Item_Category", binding.itemCategory.getText().toString());
-                        item.put("Item_Location", binding.itemLocation.getText().toString());
-                        item.put("Item_Preferred", binding.itemPref.getText().toString());
-                        item.put("Item_Description", binding.itemDesc.getText().toString());
-                        item.put("Image_Name", fileName);
-                        documentReference.set(item);
+                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        String firstName = (String) document.getString("First_Name");
+                                        String lastName = (String) document.getString("Last_Name");
+                                        String userName = (String) firstName + " " + lastName;
+
+                                        taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Uri> task) {
+                                                insertItems.child("Image_Url").setValue(task.getResult().toString());
+                                            }
+                                        });
+
+                                        insertItems.child("Item_Category").setValue(binding.itemCategory.getText().toString());
+                                        insertItems.child("Item_Description").setValue(binding.itemDesc.getText().toString());
+                                        insertItems.child("Item_Location").setValue(binding.itemLocation.getText().toString());
+                                        insertItems.child("Item_Name").setValue(binding.itemName.getText().toString());
+                                        insertItems.child("Item_Preferred").setValue(binding.itemPref.getText().toString());
+                                        insertItems.child("Poster_Name").setValue(userName);
+
+                                    } else {
+                                        Log.d(TAG, "No such document");
+                                    }
+                                } else {
+                                    Log.d(TAG, "get failed with ", task.getException());
+                                }
+                            }
+                        });
 
                         postingItemDialog.DismissDialog();
 
@@ -210,4 +248,5 @@ public class PostItem extends AppCompatActivity {
 
         }
     }
+
 }

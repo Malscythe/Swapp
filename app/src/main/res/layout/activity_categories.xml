@@ -147,6 +147,7 @@
       app:layout_constraintTop_toTopOf="@id/titleTop" />
 
   <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/all"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:paddingTop="20dp"
@@ -158,6 +159,7 @@
       app:layout_constraintTop_toTopOf="@id/firstTop" />
 
   <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/mens"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:paddingTop="15dp"
@@ -169,6 +171,7 @@
       app:layout_constraintTop_toTopOf="@id/firstTop" />
 
   <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/gadgets"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:paddingTop="15dp"
@@ -180,6 +183,7 @@
       app:layout_constraintTop_toTopOf="@id/firstTop" />
 
   <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/games"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:paddingTop="15dp"
@@ -191,6 +195,7 @@
       app:layout_constraintTop_toTopOf="@id/firstTop" />
 
   <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/bags"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:paddingTop="15dp"
@@ -202,6 +207,7 @@
       app:layout_constraintTop_toTopOf="@id/secondTop" />
 
   <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/groceries"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:paddingTop="15dp"
@@ -213,6 +219,7 @@
       app:layout_constraintTop_toTopOf="@id/secondTop" />
 
   <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/furniture"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:paddingTop="15dp"
@@ -224,6 +231,7 @@
       app:layout_constraintTop_toTopOf="@id/secondTop" />
 
   <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/babieskids"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:paddingTop="15dp"
@@ -235,6 +243,7 @@
       app:layout_constraintTop_toTopOf="@id/secondTop" />
 
   <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/appliances"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:paddingTop="15dp"
@@ -246,6 +255,7 @@
       app:layout_constraintTop_toTopOf="@id/thirdTop" />
 
   <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/motors"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:paddingTop="15dp"
@@ -257,6 +267,7 @@
       app:layout_constraintTop_toTopOf="@id/thirdTop" />
 
   <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/audio"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:paddingTop="15dp"
@@ -268,6 +279,7 @@
       app:layout_constraintTop_toTopOf="@id/thirdTop" />
 
   <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/school"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:paddingTop="15dp"
@@ -279,6 +291,7 @@
       app:layout_constraintTop_toTopOf="@id/thirdTop" />
 
   <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/womens"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:paddingTop="15dp"
@@ -290,6 +303,7 @@
       app:layout_constraintTop_toTopOf="@id/fourthTop" />
 
   <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/others"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:paddingTop="15dp"
