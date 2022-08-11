@@ -4,17 +4,26 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.core.Tag;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
@@ -23,6 +32,7 @@ import Swapp.R;
 
 public class ItemSwipe extends AppCompatActivity {
 
+    private static final String TAG = "Debug";
     private cards cards_data[];
     private arrayAdapter arrayAdapter;
     private int i;
@@ -33,6 +43,9 @@ public class ItemSwipe extends AppCompatActivity {
 
     ListView listView;
     ArrayList<cards> rowItems;
+
+    TextView itemName;
+    String currentItem, poster_uid, parent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +75,9 @@ public class ItemSwipe extends AppCompatActivity {
             public void removeFirstObjectInAdapter() {
                 // this is the simplest way to delete an object from the Adapter (/AdapterView)
                 Log.d("LIST", "removed object!");
+                currentItem = rowItems.get(0).getItem_Name();
+                poster_uid = rowItems.get(0).getPoster_UID();
+                parent = currentItem + "-" + poster_uid;
                 rowItems.remove(0);
                 arrayAdapter.notifyDataSetChanged();
             }
@@ -76,7 +92,18 @@ public class ItemSwipe extends AppCompatActivity {
 
             @Override
             public void onRightCardExit(Object dataObject) {
-                Toast.makeText(ItemSwipe.this, "Right", Toast.LENGTH_SHORT).show();
+                DatabaseReference infoToPass;
+
+                infoToPass = FirebaseDatabase.getInstance().getReference("items");
+                infoToPass.child(parent).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        DataSnapshot dataSnapshot = task.getResult();
+                        Intent intent = new Intent(ItemSwipe.this, MoreInfo.class);
+                        intent.putExtra("url", dataSnapshot.child("Image_Url").getValue().toString());
+                        startActivity(intent);
+                    }
+                });
             }
 
             @Override
@@ -113,7 +140,9 @@ public class ItemSwipe extends AppCompatActivity {
                             snapshot.child("Item_Location").getValue().toString(),
                             snapshot.child("Item_Name").getValue().toString(),
                             snapshot.child("Item_Preferred").getValue().toString(),
-                            snapshot.child("Poster_Name").getValue().toString());
+                            snapshot.child("Poster_Name").getValue().toString(),
+                            snapshot.child("Poster_UID").getValue().toString());
+
                     rowItems.add(item);
                     arrayAdapter.notifyDataSetChanged();
                 } else if (snapshot.exists() && chosenCategory.equals("all")) {
@@ -123,7 +152,8 @@ public class ItemSwipe extends AppCompatActivity {
                             snapshot.child("Item_Location").getValue().toString(),
                             snapshot.child("Item_Name").getValue().toString(),
                             snapshot.child("Item_Preferred").getValue().toString(),
-                            snapshot.child("Poster_Name").getValue().toString());
+                            snapshot.child("Poster_Name").getValue().toString(),
+                            snapshot.child("Poster_UID").getValue().toString());
                     rowItems.add(item);
                     arrayAdapter.notifyDataSetChanged();
                 }
@@ -151,4 +181,9 @@ public class ItemSwipe extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ItemSwipe.this, Categories.class);
+        startActivity(intent);
+    }
 }

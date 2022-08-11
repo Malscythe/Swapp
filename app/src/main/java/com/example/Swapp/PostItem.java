@@ -153,6 +153,7 @@ public class PostItem extends AppCompatActivity {
         }
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap = Bitmap.createScaledBitmap(bitmap, 720, 720, false);
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
         UploadTask uploadTask = storageReference.putBytes(data);
@@ -174,6 +175,7 @@ public class PostItem extends AppCompatActivity {
                                         String firstName = (String) document.getString("First_Name");
                                         String lastName = (String) document.getString("Last_Name");
                                         String userName = (String) firstName + " " + lastName;
+                                        String uid = FirebaseAuth.getInstance().getUid();
 
                                         taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                                             @Override
@@ -188,6 +190,7 @@ public class PostItem extends AppCompatActivity {
                                         insertItems.child("Item_Name").setValue(binding.itemName.getText().toString());
                                         insertItems.child("Item_Preferred").setValue(binding.itemPref.getText().toString());
                                         insertItems.child("Poster_Name").setValue(userName);
+                                        insertItems.child("Poster_UID").setValue(uid);
 
                                     } else {
                                         Log.d(TAG, "No such document");
@@ -248,5 +251,4 @@ public class PostItem extends AppCompatActivity {
 
         }
     }
-
 }

@@ -2,9 +2,9 @@ package com.example.Swapp;
 
 public class cards {
 
-    String Image_Url, Item_Category, Item_Description, Item_Location, Item_Name, Item_Preferred, Poster_Name;
+    String Image_Url, Item_Category, Item_Description, Item_Location, Item_Name, Item_Preferred, Poster_Name, Poster_UID;
 
-    public cards(String image_Url, String item_Category, String item_Description, String item_Location, String item_Name, String item_Preferred, String poster_Name) {
+    public cards(String image_Url, String item_Category, String item_Description, String item_Location, String item_Name, String item_Preferred, String poster_Name, String poster_Uid) {
         Image_Url = image_Url;
         Item_Category = item_Category;
         Item_Description = item_Description;
@@ -12,6 +12,8 @@ public class cards {
         Item_Name = item_Name;
         Item_Preferred = item_Preferred;
         Poster_Name = poster_Name;
+        Poster_UID = poster_Uid;
+
     }
 
     public String getImage_Url() {
@@ -68,5 +70,13 @@ public class cards {
 
     public void setPoster_Name(String poster_Name) {
         Poster_Name = poster_Name;
+    }
+
+    public String getPoster_UID() {
+        return Poster_UID;
+    }
+
+    public void setPoster_UID(String poster_Uid) {
+        Poster_UID = poster_Uid;
     }
 }
