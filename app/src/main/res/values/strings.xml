@@ -40,4 +40,25 @@
         <item>Taguig</item>
         <item>Valenzuela</item>
     </string-array>
+
+    <string-array name="locationFilter">
+        <item>Any</item>
+        <item>Caloocan</item>
+        <item>Las Piñas</item>
+        <item>Makati</item>
+        <item>Malabon</item>
+        <item>Mandaluyong</item>
+        <item>Manila</item>
+        <item>Marikina</item>
+        <item>Muntinlupa</item>
+        <item>Navotas</item>
+        <item>Parañaque</item>
+        <item>Pasay</item>
+        <item>Pasig</item>
+        <item>Pateros</item>
+        <item>Quezon City</item>
+        <item>San Juan</item>
+        <item>Taguig</item>
+        <item>Valenzuela</item>
+    </string-array>
 </resources>

@@ -1,6 +1,6 @@
 package com.example.Swapp;
 
-import androidx.annotation.NonNull;
+import  androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -37,7 +37,8 @@ public class ItemSwipe extends AppCompatActivity {
     private arrayAdapter arrayAdapter;
     private int i;
     String chosenCategory;
-    String allCategories;
+    Intent intent = getIntent();
+
 
     private FirebaseDatabase fDatabase;
 
@@ -51,15 +52,18 @@ public class ItemSwipe extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_swipe);
-        Intent intent = getIntent();
+        String categoryPassed = getIntent().getStringExtra("category");
 
-        if(intent != null){
-            if (getIntent().getStringExtra("category").equals("all")) {
+
+        if(intent == null){
+            if (categoryPassed.equals("all")) {
                 chosenCategory = "all";
             } else {
-                chosenCategory = getIntent().getStringExtra("category");
+                chosenCategory = categoryPassed;
             }
         }
+
+
 
         getItems();
 
@@ -73,7 +77,6 @@ public class ItemSwipe extends AppCompatActivity {
         flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
             public void removeFirstObjectInAdapter() {
-                // this is the simplest way to delete an object from the Adapter (/AdapterView)
                 Log.d("LIST", "removed object!");
                 currentItem = rowItems.get(0).getItem_Name();
                 poster_uid = rowItems.get(0).getPoster_UID();
@@ -84,10 +87,7 @@ public class ItemSwipe extends AppCompatActivity {
 
             @Override
             public void onLeftCardExit(Object dataObject) {
-                //Do something on the left!
-                //You also have access to the original object.
-                //If you want to use it just cast it (String) dataObject
-                Toast.makeText(ItemSwipe.this, "Left!", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -128,11 +128,12 @@ public class ItemSwipe extends AppCompatActivity {
     }
 
     public void getItems(){
+        String locationPassed = getIntent().getStringExtra("location");
         DatabaseReference items = FirebaseDatabase.getInstance().getReference().child("items");
         items.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if(snapshot.exists() && snapshot.child("Item_Category").getValue().toString().equals(chosenCategory)) {
+                if(snapshot.exists() && snapshot.child("Item_Category").getValue().toString().equals(chosenCategory) && locationPassed.equals("Any")) {
 
                     cards item = new cards(snapshot.child("Image_Url").getValue().toString(),
                             snapshot.child("Item_Category").getValue().toString(),
@@ -142,10 +143,31 @@ public class ItemSwipe extends AppCompatActivity {
                             snapshot.child("Item_Preferred").getValue().toString(),
                             snapshot.child("Poster_Name").getValue().toString(),
                             snapshot.child("Poster_UID").getValue().toString());
-
                     rowItems.add(item);
                     arrayAdapter.notifyDataSetChanged();
-                } else if (snapshot.exists() && chosenCategory.equals("all")) {
+                } else if (snapshot.exists() && chosenCategory.equals("all") && locationPassed.equals("Any")) {
+                    cards item = new cards(snapshot.child("Image_Url").getValue().toString(),
+                            snapshot.child("Item_Category").getValue().toString(),
+                            snapshot.child("Item_Description").getValue().toString(),
+                            snapshot.child("Item_Location").getValue().toString(),
+                            snapshot.child("Item_Name").getValue().toString(),
+                            snapshot.child("Item_Preferred").getValue().toString(),
+                            snapshot.child("Poster_Name").getValue().toString(),
+                            snapshot.child("Poster_UID").getValue().toString());
+                    rowItems.add(item);
+                    arrayAdapter.notifyDataSetChanged();
+                } else if (snapshot.exists() && snapshot.child("Item_Category").getValue().toString().equals(chosenCategory) && snapshot.child("Item_Location").getValue().toString().equals(locationPassed)) {
+                    cards item = new cards(snapshot.child("Image_Url").getValue().toString(),
+                            snapshot.child("Item_Category").getValue().toString(),
+                            snapshot.child("Item_Description").getValue().toString(),
+                            snapshot.child("Item_Location").getValue().toString(),
+                            snapshot.child("Item_Name").getValue().toString(),
+                            snapshot.child("Item_Preferred").getValue().toString(),
+                            snapshot.child("Poster_Name").getValue().toString(),
+                            snapshot.child("Poster_UID").getValue().toString());
+                    rowItems.add(item);
+                    arrayAdapter.notifyDataSetChanged();
+                } else if (snapshot.exists() && chosenCategory.equals("all") && snapshot.child("Item_Location").getValue().toString().equals(locationPassed)) {
                     cards item = new cards(snapshot.child("Image_Url").getValue().toString(),
                             snapshot.child("Item_Category").getValue().toString(),
                             snapshot.child("Item_Description").getValue().toString(),

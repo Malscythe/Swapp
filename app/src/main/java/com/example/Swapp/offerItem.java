@@ -37,23 +37,30 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import Swapp.R;
+import Swapp.databinding.ActivityOfferItemBinding;
 import Swapp.databinding.ActivityPostItemBinding;
 
-public class PostItem extends AppCompatActivity {
+public class offerItem extends AppCompatActivity {
 
-    private ActivityPostItemBinding binding;
+    private ActivityOfferItemBinding binding;
     public static final String TAG = "TAG";
     Uri imageUri;
     StorageReference storageReference;
     FirebaseFirestore firebaseFirestore;
+
     FirebaseAuth firebaseAuth;
-    PostingItemDialog postingItemDialog = new PostingItemDialog(PostItem.this);
+
+
+    PostingItemDialog postingItemDialog = new PostingItemDialog(offerItem.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityPostItemBinding.inflate(getLayoutInflater());
+        binding = ActivityOfferItemBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        String item_id = getIntent().getStringExtra("itemid");
+        Log.w(TAG, item_id);
 
         String[] categoriesArr = getResources().getStringArray(R.array.categories);
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.dropdown_item, categoriesArr);
@@ -70,7 +77,7 @@ public class PostItem extends AppCompatActivity {
             }
         });
 
-        binding.postItemBtn.setOnClickListener(new View.OnClickListener() {
+        binding.offerItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -85,6 +92,7 @@ public class PostItem extends AppCompatActivity {
         firebaseFirestore = FirebaseFirestore.getInstance();
         String uid = firebaseAuth.getCurrentUser().getUid();
         String fileName  = binding.itemName.getText() + "-" + uid;
+        String item_id = getIntent().getStringExtra("itemid");
 
         if (TextUtils.isEmpty(binding.itemName.getText().toString())) {
             binding.itemNameL.setError("This cannot be empty.");
@@ -111,15 +119,6 @@ public class PostItem extends AppCompatActivity {
         } else {
             binding.itemLocationL.setError(null);
             binding.itemLocationL.setErrorIconDrawable(null);
-        }
-
-        if (TextUtils.isEmpty(binding.itemPref.getText().toString())) {
-            binding.itemPrefL.setError("This cannot be empty.");
-            binding.itemPrefL.setErrorIconDrawable(null);
-            return;
-        } else {
-            binding.itemPrefL.setError(null);
-            binding.itemPrefL.setErrorIconDrawable(null);
         }
 
         if (TextUtils.isEmpty(binding.itemDesc.getText().toString())) {
@@ -159,74 +158,68 @@ public class PostItem extends AppCompatActivity {
         UploadTask uploadTask = storageReference.putBytes(data);
 
         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                binding.itemImage.setImageResource(R.drawable.noimage);
+                DatabaseReference insertItems = FirebaseDatabase.getInstance().getReference().child("items").child(item_id).child("Offers").child(uid);
+                DocumentReference docRef = firebaseFirestore.collection("users").document(uid);
+
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                        binding.itemImage.setImageResource(R.drawable.noimage);
-                        DatabaseReference insertItems = FirebaseDatabase.getInstance().getReference().child("items").child(fileName);
-                        DocumentReference docRef = firebaseFirestore.collection("users").document(uid);
-
-                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document = task.getResult();
-                                    if (document.exists()) {
-                                        String firstName = (String) document.getString("First_Name");
-                                        String lastName = (String) document.getString("Last_Name");
-                                        String userName = (String) firstName + " " + lastName;
-                                        String uid = FirebaseAuth.getInstance().getUid();
-
-                                        taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Uri> task) {
-                                                insertItems.child("Image_Url").setValue(task.getResult().toString());
-                                                insertItems.child("Item_Category").setValue(binding.itemCategory.getText().toString());
-                                                insertItems.child("Item_Description").setValue(binding.itemDesc.getText().toString());
-                                                insertItems.child("Item_Location").setValue(binding.itemLocation.getText().toString());
-                                                insertItems.child("Item_Name").setValue(binding.itemName.getText().toString());
-                                                insertItems.child("Item_Preferred").setValue(binding.itemPref.getText().toString());
-                                                insertItems.child("Poster_Name").setValue(userName);
-                                                insertItems.child("Poster_UID").setValue(uid);
-                                            }
-                                        });
-                                    } else {
-                                        Log.d(TAG, "No such document");
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Uri> task) {
+                                        insertItems.child("Image_Url").setValue(task.getResult().toString());
                                     }
-                                } else {
-                                    Log.d(TAG, "get failed with ", task.getException());
-                                }
+                                });
+
+                                insertItems.child("Item_Name").setValue(binding.itemCategory.getText().toString());
+                                insertItems.child("Item_Description").setValue(binding.itemDesc.getText().toString());
+                                insertItems.child("Item_Category").setValue(binding.itemLocation.getText().toString());
+                                insertItems.child("Item_Location").setValue(binding.itemLocation.getText().toString());
+
+                            } else {
+                                Log.d(TAG, "No such document");
                             }
-                        });
-
-                        postingItemDialog.DismissDialog();
-
-                        Toast toast = new Toast(getApplicationContext());
-                        View view = LayoutInflater.from(PostItem.this).inflate(R.layout.toast_layout, null);
-                        TextView toastMessage = view.findViewById(R.id.toastMessage);
-                        toastMessage.setText("Item successfully posted!");
-                        toast.setView(view);
-                        toast.setDuration(Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.TOP, 0,50);
-                        toast.show();
-
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                        postingItemDialog.DismissDialog();
-
-                        Toast toast = new Toast(getApplicationContext());
-                        View view = LayoutInflater.from(PostItem.this).inflate(R.layout.toast_error_layout, null);
-                        TextView toastMessage = view.findViewById(R.id.toastMessage);
-                        toastMessage.setText("Item image is required.");
-                        toast.setView(view);
-                        toast.setDuration(Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.TOP, 0,50);
-                        toast.show();
+                        } else {
+                            Log.d(TAG, "get failed with ", task.getException());
+                        }
                     }
                 });
+
+                postingItemDialog.DismissDialog();
+
+                Toast toast = new Toast(getApplicationContext());
+                View view = LayoutInflater.from(offerItem.this).inflate(R.layout.toast_layout, null);
+                TextView toastMessage = view.findViewById(R.id.toastMessage);
+                toastMessage.setText("Item successfully posted!");
+                toast.setView(view);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.TOP, 0,50);
+                toast.show();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+                postingItemDialog.DismissDialog();
+
+                Toast toast = new Toast(getApplicationContext());
+                View view = LayoutInflater.from(offerItem.this).inflate(R.layout.toast_error_layout, null);
+                TextView toastMessage = view.findViewById(R.id.toastMessage);
+                toastMessage.setText("Item image is required.");
+                toast.setView(view);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.TOP, 0,50);
+                toast.show();
+            }
+        });
     }
 
     private void selectImage() {
@@ -248,5 +241,7 @@ public class PostItem extends AppCompatActivity {
             binding.itemImage.setImageURI(imageUri);
 
         }
+
+
     }
 }

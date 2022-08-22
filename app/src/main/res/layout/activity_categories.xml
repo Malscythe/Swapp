@@ -82,56 +82,84 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.32" />
+      app:layout_constraintGuide_percent="0.4" />
 
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/firstBot"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.4" />
+      app:layout_constraintGuide_percent="0.48" />
 
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/secondTop"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.45" />
+      app:layout_constraintGuide_percent="0.54" />
 
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/secondBot"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.53" />
+      app:layout_constraintGuide_percent="0.62" />
 
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/thirdTop"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.58" />
+      app:layout_constraintGuide_percent="0.68" />
 
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/thirdBot"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.66" />
+      app:layout_constraintGuide_percent="0.76" />
 
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/fourthTop"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.71" />
+      app:layout_constraintGuide_percent="0.82" />
 
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/fourthBot"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.79" />
+      app:layout_constraintGuide_percent="0.9" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/LocationTop"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.3" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/LocationBot"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.38" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/LocationLeft"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent="0.1" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/LocationRight"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent="0.89" />
 
   <TextView
       android:layout_width="wrap_content"
@@ -145,6 +173,29 @@
       app:layout_constraintHorizontal_bias="0.40"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="@id/titleTop" />
+
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/itemLocationL"
+      style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:boxStrokeColor="@color/primary2"
+      app:boxStrokeWidth="2dp"
+      app:layout_constraintBottom_toTopOf="@id/LocationBot"
+      app:layout_constraintEnd_toEndOf="@id/LocationRight"
+      app:layout_constraintStart_toStartOf="@id/LocationLeft"
+      app:layout_constraintTop_toBottomOf="@+id/LocationTop">
+
+    <AutoCompleteTextView
+        android:id="@+id/itemLocation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:fontFamily="@font/poppins_medium"
+        android:hint="Location"
+        android:inputType="none"
+        android:textColor="@color/black" />
+  </com.google.android.material.textfield.TextInputLayout>
 
   <androidx.appcompat.widget.AppCompatButton
       android:id="@+id/all"

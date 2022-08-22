@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:outlineProvider="bounds"
-    android:background="#F4F4F4"
+    android:background="@color/white"
     android:clipToPadding="false">
 
     <androidx.cardview.widget.CardView
@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         app:cardCornerRadius="5dp"
-        app:cardBackgroundColor="@color/primary2"
+        app:cardBackgroundColor="@color/white"
         android:elevation="2dp">
 
         <FrameLayout
@@ -45,49 +45,49 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.65" />
+                    app:layout_constraintGuide_percent="0.64" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/itemPosterMargin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.7" />
+                    app:layout_constraintGuide_percent="0.67" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/itemPosterMargin2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.75" />
+                    app:layout_constraintGuide_percent="0.71" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/itemLocationMargin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.8" />
+                    app:layout_constraintGuide_percent="0.74" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/itemLocationMargin2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.85" />
+                    app:layout_constraintGuide_percent="0.78" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/itemPrefMargin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.9" />
+                    app:layout_constraintGuide_percent="0.81" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/itemPrefMargin2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.95" />
+                    app:layout_constraintGuide_percent="0.85" />
 
                 <ImageView
                     android:id="@+id/itemImage"
@@ -103,41 +103,42 @@
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
+                    android:id="@+id/itemName1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:paddingLeft="5dp"
+                    android:paddingLeft="10dp"
                     android:text="Item Name:"
                     android:fontFamily="@font/poppins"
-                    android:gravity="left|bottom"
-                    android:textColor="#E1E1E1"
+                    android:gravity="start|bottom"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/imageBotMargin"
-                    app:layout_constraintBottom_toBottomOf="@id/itemNameMargin" />
+                    app:layout_constraintTop_toBottomOf="@id/imageBotMargin"
+                    app:layout_constraintBottom_toTopOf="@id/itemNameMargin" />
 
                 <TextView
                     android:id="@+id/itemName"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:paddingLeft="5dp"
+                    android:paddingLeft="10dp"
                     android:textSize="20dp"
                     android:text="Name of the item"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:gravity="left|center"
-                    android:textColor="@color/white"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="left|top"
+                    android:textColor="@color/primary2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/itemNameMargin"
-                    app:layout_constraintBottom_toBottomOf="@id/itemNameMargin2" />
+                    app:layout_constraintTop_toBottomOf="@id/itemNameMargin"
+                    app:layout_constraintBottom_toTopOf="@id/itemNameMargin2" />
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:paddingLeft="5dp"
+                    android:paddingLeft="10dp"
                     android:text="Posted by:"
                     android:fontFamily="@font/poppins"
                     android:gravity="left|bottom"
-                    android:textColor="#E1E1E1"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/itemNameMargin2"
@@ -147,12 +148,12 @@
                     android:id="@+id/posterName"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:paddingLeft="5dp"
+                    android:paddingLeft="10dp"
                     android:textSize="20dp"
                     android:text="Poster Name"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:gravity="left|center"
-                    android:textColor="@color/white"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="left|top"
+                    android:textColor="@color/primary2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/itemPosterMargin"
@@ -161,11 +162,11 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:paddingLeft="5dp"
+                    android:paddingLeft="10dp"
                     android:text="Location:"
                     android:fontFamily="@font/poppins"
                     android:gravity="left|bottom"
-                    android:textColor="#E1E1E1"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/itemPosterMargin2"
@@ -175,12 +176,12 @@
                     android:id="@+id/itemLocation"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:paddingLeft="5dp"
+                    android:paddingLeft="10dp"
                     android:textSize="20dp"
                     android:text="Item Location"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:gravity="left|center"
-                    android:textColor="@color/white"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="left|top"
+                    android:textColor="@color/primary2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/itemLocationMargin"
@@ -189,11 +190,11 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:paddingLeft="5dp"
+                    android:paddingLeft="10dp"
                     android:text="Preferred Item:"
                     android:fontFamily="@font/poppins"
                     android:gravity="left|bottom"
-                    android:textColor="#E1E1E1"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/itemLocationMargin2"
@@ -203,12 +204,12 @@
                     android:id="@+id/itemPref"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:paddingLeft="5dp"
+                    android:paddingLeft="10dp"
                     android:textSize="20dp"
                     android:text="Poster Preferred Item"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:gravity="left|center"
-                    android:textColor="@color/white"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="left|top"
+                    android:textColor="@color/primary2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/itemPrefMargin"
@@ -217,11 +218,10 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:paddingLeft="5dp"
                     android:text="Swipe right for more information\nSwipe left to go to the next item"
                     android:fontFamily="@font/poppins"
                     android:gravity="center|bottom"
-                    android:textColor="#E1E1E1"
+                    android:textColor="@color/black"
                     android:textSize="12dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

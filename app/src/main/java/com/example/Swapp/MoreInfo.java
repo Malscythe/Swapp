@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ public class MoreInfo extends AppCompatActivity {
 
     TextView itemName, posterName, itemLocation, itemPref, itemDesc;
     ImageView itemImage;
+    Button offerBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class MoreInfo extends AppCompatActivity {
         itemLocation = findViewById(R.id.Item_Location);
         itemPref = findViewById(R.id.Item_Pref);
         itemDesc = findViewById(R.id.Item_Desc);
+        offerBtn = findViewById(R.id.offerbtn);
 
         DatabaseReference items = FirebaseDatabase.getInstance().getReference().child("items");
         items.addChildEventListener(new ChildEventListener() {
@@ -60,6 +63,15 @@ public class MoreInfo extends AppCompatActivity {
                     itemPref.setText(snapshot.child("Item_Preferred").getValue().toString());
                     itemDesc.setText(snapshot.child("Item_Description").getValue().toString());
                     Glide.with(MoreInfo.this).load(snapshot.child("Image_Url").getValue().toString()).into(itemImage);
+
+                    offerBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(MoreInfo.this, offerItem.class);
+                            intent.putExtra("itemid", snapshot.child("Item_Name").getValue().toString().concat("-" + snapshot.child("Poster_UID").getValue().toString()));
+                            startActivity(intent);
+                        }
+                    });
                 }
             }
 
@@ -96,6 +108,7 @@ public class MoreInfo extends AppCompatActivity {
                 if (snapshot.exists() && snapshot.child("Image_Url").getValue().equals(url)) {
                     Intent intent = new Intent(MoreInfo.this, ItemSwipe.class);
                     intent.putExtra("category", snapshot.child("Item_Category").getValue().toString());
+                    intent.putExtra("location", snapshot.child("Item_Location").getValue().toString());
                     startActivity(intent);
                 }
             }

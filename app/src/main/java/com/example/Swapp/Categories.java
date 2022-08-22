@@ -5,19 +5,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import Swapp.R;
+import Swapp.databinding.ActivityCategoriesBinding;
+import Swapp.databinding.ActivityOfferItemBinding;
 
 public class Categories extends AppCompatActivity {
+
+    private ActivityCategoriesBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_categories);
+        binding = ActivityCategoriesBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         ExtendedFloatingActionButton addItem;
 
@@ -39,11 +45,17 @@ public class Categories extends AppCompatActivity {
         womens = findViewById(R.id.womens);
         others = findViewById(R.id.others);
 
+        String[] locationsArr = getResources().getStringArray(R.array.locationFilter);
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.dropdown_item, locationsArr);
+        binding.itemLocation.setAdapter(arrayAdapter);
+        binding.itemLocation.setText(arrayAdapter.getItem(0).toString(), false);
+
         mens.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Categories.this, ItemSwipe.class);
                 intent.putExtra("category", "Men's Apparel");
+                intent.putExtra("location", binding.itemLocation.getText().toString());
                 startActivity(intent);
             }
         });
@@ -52,7 +64,10 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Categories.this, ItemSwipe.class);
-                intent.putExtra("category", "Gadgets");
+                Bundle extras = new Bundle();
+                extras.putString("category","Gadgets");
+                extras.putString("location", binding.itemLocation.getText().toString());
+                intent.putExtras(extras);
                 startActivity(intent);
             }
         });
@@ -61,7 +76,10 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Categories.this, ItemSwipe.class);
-                intent.putExtra("category", "all");
+                Bundle extras = new Bundle();
+                extras.putString("category", "all");
+                extras.putString("location", binding.itemLocation.getText().toString());
+                intent.putExtras(extras);
                 startActivity(intent);
             }
         });
@@ -70,7 +88,10 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Categories.this, ItemSwipe.class);
-                intent.putExtra("category", "Game");
+                Bundle extras = new Bundle();
+                extras.putString("category", "Game");
+                extras.putString("location", binding.itemLocation.getText().toString());
+                intent.putExtras(extras);
                 startActivity(intent);
             }
         });
@@ -79,7 +100,10 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Categories.this, ItemSwipe.class);
-                intent.putExtra("category", "Bags");
+                Bundle extras = new Bundle();
+                extras.putString("category", "Bags");
+                extras.putString("location", binding.itemLocation.getText().toString());
+                intent.putExtras(extras);
                 startActivity(intent);
             }
         });
@@ -88,7 +112,10 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Categories.this, ItemSwipe.class);
-                intent.putExtra("category", "Groceries");
+                Bundle extras = new Bundle();
+                extras.putString("category", "Groceries");
+                extras.putString("location", binding.itemLocation.getText().toString());
+                intent.putExtras(extras);
                 startActivity(intent);
             }
         });
@@ -97,7 +124,10 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Categories.this, ItemSwipe.class);
-                intent.putExtra("category", "Furniture");
+                Bundle extras = new Bundle();
+                extras.putString("category", "Furniture");
+                extras.putString("location", binding.itemLocation.getText().toString());
+                intent.putExtras(extras);
                 startActivity(intent);
             }
         });
@@ -106,7 +136,10 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Categories.this, ItemSwipe.class);
-                intent.putExtra("category", "Babies & Kids");
+                Bundle extras = new Bundle();
+                extras.putString("category", "Babies & Kids");
+                extras.putString("location", binding.itemLocation.getText().toString());
+                intent.putExtras(extras);
                 startActivity(intent);
             }
         });
@@ -114,7 +147,10 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Categories.this, ItemSwipe.class);
-                intent.putExtra("category", "Appliances");
+                Bundle extras = new Bundle();
+                extras.putString("category", "Appliances");
+                extras.putString("location", binding.itemLocation.getText().toString());
+                intent.putExtras(extras);
                 startActivity(intent);
             }
         });
@@ -123,7 +159,10 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Categories.this, ItemSwipe.class);
-                intent.putExtra("category", "Motors");
+                Bundle extras = new Bundle();
+                extras.putString("category", "Motors");
+                extras.putString("location", binding.itemLocation.getText().toString());
+                intent.putExtras(extras);
                 startActivity(intent);
             }
         });
@@ -131,7 +170,10 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Categories.this, ItemSwipe.class);
-                intent.putExtra("category", "Audio");
+                Bundle extras = new Bundle();
+                extras.putString("category", "Audio");
+                extras.putString("location", binding.itemLocation.getText().toString());
+                intent.putExtras(extras);
                 startActivity(intent);
             }
         });
@@ -140,7 +182,10 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Categories.this, ItemSwipe.class);
-                intent.putExtra("category", "School");
+                Bundle extras = new Bundle();
+                extras.putString("category", "School");
+                extras.putString("location", binding.itemLocation.getText().toString());
+                intent.putExtras(extras);
                 startActivity(intent);
             }
         });
@@ -148,7 +193,10 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Categories.this, ItemSwipe.class);
-                intent.putExtra("category", "Women's Apparel");
+                Bundle extras = new Bundle();
+                extras.putString("category", "Women's Apparel");
+                extras.putString("location", binding.itemLocation.getText().toString());
+                intent.putExtras(extras);
                 startActivity(intent);
             }
         });
@@ -157,7 +205,10 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Categories.this, ItemSwipe.class);
-                intent.putExtra("category", "Others");
+                Bundle extras = new Bundle();
+                extras.putString("category", "Others");
+                extras.putString("location", binding.itemLocation.getText().toString());
+                intent.putExtras(extras);
                 startActivity(intent);
             }
         });

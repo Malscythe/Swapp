@@ -21,7 +21,11 @@ package="Swapp">
         android:name="com.example.Swapp.MoreInfo"
         android:theme="@style/Theme.AppCompat.CustomTheme"
         android:exported="true" />
-    
+
+    <activity
+        android:name="com.example.Swapp.offerItem"
+        android:theme="@style/Theme.AppCompat.CustomTheme"
+        android:exported="true" />
 
     <activity
         android:name="com.example.Swapp.UserHomepage"
