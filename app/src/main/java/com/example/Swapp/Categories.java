@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -18,6 +19,7 @@ import Swapp.databinding.ActivityOfferItemBinding;
 public class Categories extends AppCompatActivity {
 
     private ActivityCategoriesBinding binding;
+    ImageButton homebtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,7 @@ public class Categories extends AppCompatActivity {
 
         Button all, mens, gadget, games, bags, groceries, furniture, babieskids, appliances, motors, audio, school, womens, others;
 
+        homebtn = findViewById(R.id.homebtn);
         addItem = findViewById(R.id.floatingActionButton);
         mens = findViewById(R.id.mens);
         gadget = findViewById(R.id.gadgets);
@@ -57,6 +60,13 @@ public class Categories extends AppCompatActivity {
                 intent.putExtra("category", "Men's Apparel");
                 intent.putExtra("location", binding.itemLocation.getText().toString());
                 startActivity(intent);
+            }
+        });
+
+        homebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Categories.this, UserHomepage.class));
             }
         });
 

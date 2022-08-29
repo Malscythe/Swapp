@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class FileMaintenance extends AppCompatActivity {
     maintenanceAdapter myAdapter;
     FirebaseFirestore db;
     ProgressDialog progressDialog;
+    SwipeRefreshLayout swipeRefreshLayout;
 
 
     @Override
@@ -57,6 +59,25 @@ public class FileMaintenance extends AppCompatActivity {
         recyclerView.setAdapter(myAdapter);
 
         EventChangeListener();
+
+        // swipe down refresh
+        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+
+                db = FirebaseFirestore.getInstance();
+                userArrayList = new ArrayList<FileMaintenanceModel>();
+                myAdapter = new maintenanceAdapter(FileMaintenance.this,userArrayList);
+
+                recyclerView.setAdapter(myAdapter);
+
+                EventChangeListener();
+                swipeRefreshLayout.setRefreshing(false);
+
+            }
+        });
 
     }
 

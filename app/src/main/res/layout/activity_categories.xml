@@ -165,7 +165,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:fontFamily="@font/poppins_semibold"
-      android:text="Catergories"
+      android:text="Categories"
       android:textAppearance="@style/TextAppearance.MaterialComponents.Headline3"
       android:textColor="@color/white"
       app:layout_constraintBottom_toBottomOf="@id/titleBot"
@@ -201,9 +201,9 @@
       android:id="@+id/all"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      android:paddingTop="20dp"
       android:background="@drawable/buttonborder"
       android:drawableTop="@drawable/ic_grid"
+      android:paddingTop="20dp"
       app:layout_constraintBottom_toBottomOf="@id/firstBot"
       app:layout_constraintEnd_toEndOf="@id/firstRight"
       app:layout_constraintStart_toStartOf="@id/firstLeft"
@@ -213,9 +213,9 @@
       android:id="@+id/mens"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      android:paddingTop="15dp"
       android:background="@drawable/buttonborder"
       android:drawableTop="@drawable/ic_shirt"
+      android:paddingTop="15dp"
       app:layout_constraintBottom_toBottomOf="@id/firstBot"
       app:layout_constraintEnd_toEndOf="@id/secondRight"
       app:layout_constraintStart_toStartOf="@id/secondLeft"
@@ -225,9 +225,9 @@
       android:id="@+id/gadgets"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      android:paddingTop="15dp"
       android:background="@drawable/buttonborder"
       android:drawableTop="@drawable/ic_entertainment__1_"
+      android:paddingTop="15dp"
       app:layout_constraintBottom_toBottomOf="@id/firstBot"
       app:layout_constraintEnd_toEndOf="@id/thirdRight"
       app:layout_constraintStart_toStartOf="@id/thirdLeft"
@@ -237,9 +237,9 @@
       android:id="@+id/games"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      android:paddingTop="15dp"
       android:background="@drawable/buttonborder"
       android:drawableTop="@drawable/ic_game"
+      android:paddingTop="15dp"
       app:layout_constraintBottom_toBottomOf="@id/firstBot"
       app:layout_constraintEnd_toEndOf="@id/fourhRight"
       app:layout_constraintStart_toStartOf="@id/fourthLeft"
@@ -249,9 +249,9 @@
       android:id="@+id/bags"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      android:paddingTop="15dp"
       android:background="@drawable/buttonborder"
       android:drawableTop="@drawable/ic_bags"
+      android:paddingTop="15dp"
       app:layout_constraintBottom_toBottomOf="@id/secondBot"
       app:layout_constraintEnd_toEndOf="@id/firstRight"
       app:layout_constraintStart_toStartOf="@id/firstLeft"
@@ -261,9 +261,9 @@
       android:id="@+id/groceries"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      android:paddingTop="15dp"
       android:background="@drawable/buttonborder"
       android:drawableTop="@drawable/ic_cart"
+      android:paddingTop="15dp"
       app:layout_constraintBottom_toBottomOf="@id/secondBot"
       app:layout_constraintEnd_toEndOf="@id/secondRight"
       app:layout_constraintStart_toStartOf="@id/secondLeft"
@@ -273,9 +273,9 @@
       android:id="@+id/furniture"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      android:paddingTop="15dp"
       android:background="@drawable/buttonborder"
       android:drawableTop="@drawable/ic_furniture"
+      android:paddingTop="15dp"
       app:layout_constraintBottom_toBottomOf="@id/secondBot"
       app:layout_constraintEnd_toEndOf="@id/thirdRight"
       app:layout_constraintStart_toStartOf="@id/thirdLeft"
@@ -285,9 +285,9 @@
       android:id="@+id/babieskids"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      android:paddingTop="15dp"
       android:background="@drawable/buttonborder"
       android:drawableTop="@drawable/ic_toys"
+      android:paddingTop="15dp"
       app:layout_constraintBottom_toBottomOf="@id/secondBot"
       app:layout_constraintEnd_toEndOf="@id/fourhRight"
       app:layout_constraintStart_toStartOf="@id/fourthLeft"
@@ -297,9 +297,9 @@
       android:id="@+id/appliances"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      android:paddingTop="15dp"
       android:background="@drawable/buttonborder"
       android:drawableTop="@drawable/ic_appliances"
+      android:paddingTop="15dp"
       app:layout_constraintBottom_toBottomOf="@id/thirdBot"
       app:layout_constraintEnd_toEndOf="@id/firstRight"
       app:layout_constraintStart_toStartOf="@id/firstLeft"
@@ -309,9 +309,9 @@
       android:id="@+id/motors"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      android:paddingTop="15dp"
       android:background="@drawable/buttonborder"
       android:drawableTop="@drawable/ic_motor"
+      android:paddingTop="15dp"
       app:layout_constraintBottom_toBottomOf="@id/thirdBot"
       app:layout_constraintEnd_toEndOf="@id/secondRight"
       app:layout_constraintStart_toStartOf="@id/secondLeft"
@@ -321,9 +321,9 @@
       android:id="@+id/audio"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      android:paddingTop="15dp"
       android:background="@drawable/buttonborder"
       android:drawableTop="@drawable/ic_headphone"
+      android:paddingTop="15dp"
       app:layout_constraintBottom_toBottomOf="@id/thirdBot"
       app:layout_constraintEnd_toEndOf="@id/thirdRight"
       app:layout_constraintStart_toStartOf="@id/thirdLeft"
@@ -333,9 +333,9 @@
       android:id="@+id/school"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      android:paddingTop="15dp"
       android:background="@drawable/buttonborder"
       android:drawableTop="@drawable/ic_school"
+      android:paddingTop="15dp"
       app:layout_constraintBottom_toBottomOf="@id/thirdBot"
       app:layout_constraintEnd_toEndOf="@id/fourhRight"
       app:layout_constraintStart_toStartOf="@id/fourthLeft"
@@ -345,9 +345,9 @@
       android:id="@+id/womens"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      android:paddingTop="15dp"
       android:background="@drawable/buttonborder"
       android:drawableTop="@drawable/ic_dress"
+      android:paddingTop="15dp"
       app:layout_constraintBottom_toBottomOf="@id/fourthBot"
       app:layout_constraintEnd_toEndOf="@id/firstRight"
       app:layout_constraintStart_toStartOf="@id/firstLeft"
@@ -357,9 +357,9 @@
       android:id="@+id/others"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      android:paddingTop="15dp"
       android:background="@drawable/buttonborder"
       android:drawableTop="@drawable/ic_dots"
+      android:paddingTop="15dp"
       app:layout_constraintBottom_toBottomOf="@id/fourthBot"
       app:layout_constraintEnd_toEndOf="@id/secondRight"
       app:layout_constraintStart_toStartOf="@id/secondLeft"
@@ -368,170 +368,170 @@
   <TextView
       android:layout_width="0dp"
       android:layout_height="wrap_content"
+      android:fontFamily="@font/poppins"
+      android:gravity="center"
       android:text="All"
-      android:fontFamily="@font/poppins"
       android:textColor="@color/black"
-      android:gravity="center"
       android:textSize="12dp"
-      app:layout_constraintStart_toStartOf="@id/firstLeft"
       app:layout_constraintEnd_toEndOf="@id/firstRight"
-      app:layout_constraintTop_toBottomOf="@id/firstBot"/>
+      app:layout_constraintStart_toStartOf="@id/firstLeft"
+      app:layout_constraintTop_toBottomOf="@id/firstBot" />
 
   <TextView
       android:layout_width="0dp"
       android:layout_height="wrap_content"
+      android:fontFamily="@font/poppins"
+      android:gravity="center"
       android:text="Men's\nApparel"
-      android:fontFamily="@font/poppins"
       android:textColor="@color/black"
-      android:gravity="center"
       android:textSize="12dp"
-      app:layout_constraintStart_toStartOf="@id/secondLeft"
       app:layout_constraintEnd_toEndOf="@id/secondRight"
-      app:layout_constraintTop_toBottomOf="@id/firstBot"/>
+      app:layout_constraintStart_toStartOf="@id/secondLeft"
+      app:layout_constraintTop_toBottomOf="@id/firstBot" />
 
   <TextView
       android:layout_width="0dp"
       android:layout_height="wrap_content"
+      android:fontFamily="@font/poppins"
+      android:gravity="center"
       android:text="Gadgets"
-      android:fontFamily="@font/poppins"
       android:textColor="@color/black"
-      android:gravity="center"
       android:textSize="12dp"
-      app:layout_constraintStart_toStartOf="@id/thirdLeft"
       app:layout_constraintEnd_toEndOf="@id/thirdRight"
-      app:layout_constraintTop_toBottomOf="@id/firstBot"/>
+      app:layout_constraintStart_toStartOf="@id/thirdLeft"
+      app:layout_constraintTop_toBottomOf="@id/firstBot" />
 
   <TextView
       android:layout_width="0dp"
       android:layout_height="wrap_content"
+      android:fontFamily="@font/poppins"
+      android:gravity="center"
       android:text="Game"
-      android:fontFamily="@font/poppins"
       android:textColor="@color/black"
-      android:gravity="center"
       android:textSize="12dp"
-      app:layout_constraintStart_toStartOf="@id/fourthLeft"
       app:layout_constraintEnd_toEndOf="@id/fourhRight"
-      app:layout_constraintTop_toBottomOf="@id/firstBot"/>
+      app:layout_constraintStart_toStartOf="@id/fourthLeft"
+      app:layout_constraintTop_toBottomOf="@id/firstBot" />
 
   <TextView
       android:layout_width="0dp"
       android:layout_height="wrap_content"
+      android:fontFamily="@font/poppins"
+      android:gravity="center"
       android:text="Bags"
-      android:fontFamily="@font/poppins"
       android:textColor="@color/black"
-      android:gravity="center"
       android:textSize="12dp"
-      app:layout_constraintStart_toStartOf="@id/firstLeft"
       app:layout_constraintEnd_toEndOf="@id/firstRight"
-      app:layout_constraintTop_toBottomOf="@id/secondBot"/>
+      app:layout_constraintStart_toStartOf="@id/firstLeft"
+      app:layout_constraintTop_toBottomOf="@id/secondBot" />
 
   <TextView
       android:layout_width="0dp"
       android:layout_height="wrap_content"
+      android:fontFamily="@font/poppins"
+      android:gravity="center"
       android:text="Groceries"
-      android:fontFamily="@font/poppins"
       android:textColor="@color/black"
-      android:gravity="center"
       android:textSize="12dp"
-      app:layout_constraintStart_toStartOf="@id/secondLeft"
       app:layout_constraintEnd_toEndOf="@id/secondRight"
-      app:layout_constraintTop_toBottomOf="@id/secondBot"/>
+      app:layout_constraintStart_toStartOf="@id/secondLeft"
+      app:layout_constraintTop_toBottomOf="@id/secondBot" />
 
   <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:fontFamily="@font/poppins"
+      android:gravity="center"
       android:text="Furniture"
-      android:fontFamily="@font/poppins"
       android:textColor="@color/black"
-      android:gravity="center"
       android:textSize="12dp"
-      app:layout_constraintStart_toStartOf="@id/thirdLeft"
       app:layout_constraintEnd_toEndOf="@id/thirdRight"
-      app:layout_constraintTop_toBottomOf="@id/secondBot"/>
+      app:layout_constraintStart_toStartOf="@id/thirdLeft"
+      app:layout_constraintTop_toBottomOf="@id/secondBot" />
 
   <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:fontFamily="@font/poppins"
+      android:gravity="center"
       android:text="Babies &amp; \nKids"
-      android:fontFamily="@font/poppins"
       android:textColor="@color/black"
-      android:gravity="center"
       android:textSize="12dp"
-      app:layout_constraintStart_toStartOf="@id/fourthLeft"
       app:layout_constraintEnd_toEndOf="@id/fourhRight"
-      app:layout_constraintTop_toBottomOf="@id/secondBot"/>
+      app:layout_constraintStart_toStartOf="@id/fourthLeft"
+      app:layout_constraintTop_toBottomOf="@id/secondBot" />
 
   <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:fontFamily="@font/poppins"
+      android:gravity="center"
       android:text="Appliances"
-      android:fontFamily="@font/poppins"
       android:textColor="@color/black"
-      android:gravity="center"
       android:textSize="12dp"
-      app:layout_constraintStart_toStartOf="@id/firstLeft"
       app:layout_constraintEnd_toEndOf="@id/firstRight"
-      app:layout_constraintTop_toBottomOf="@id/thirdBot"/>
+      app:layout_constraintStart_toStartOf="@id/firstLeft"
+      app:layout_constraintTop_toBottomOf="@id/thirdBot" />
 
   <TextView
       android:layout_width="0dp"
       android:layout_height="wrap_content"
+      android:fontFamily="@font/poppins"
+      android:gravity="center"
       android:text="Motors"
-      android:fontFamily="@font/poppins"
       android:textColor="@color/black"
-      android:gravity="center"
       android:textSize="12dp"
-      app:layout_constraintStart_toStartOf="@id/secondLeft"
       app:layout_constraintEnd_toEndOf="@id/secondRight"
-      app:layout_constraintTop_toBottomOf="@id/thirdBot"/>
+      app:layout_constraintStart_toStartOf="@id/secondLeft"
+      app:layout_constraintTop_toBottomOf="@id/thirdBot" />
 
   <TextView
       android:layout_width="0dp"
       android:layout_height="wrap_content"
+      android:fontFamily="@font/poppins"
+      android:gravity="center"
       android:text="Audio"
-      android:fontFamily="@font/poppins"
       android:textColor="@color/black"
-      android:gravity="center"
       android:textSize="12dp"
-      app:layout_constraintStart_toStartOf="@id/thirdLeft"
       app:layout_constraintEnd_toEndOf="@id/thirdRight"
-      app:layout_constraintTop_toBottomOf="@id/thirdBot"/>
+      app:layout_constraintStart_toStartOf="@id/thirdLeft"
+      app:layout_constraintTop_toBottomOf="@id/thirdBot" />
 
   <TextView
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:text="School"
       android:fontFamily="@font/poppins"
-      android:textColor="@color/black"
       android:gravity="center"
+      android:text="School"
+      android:textColor="@color/black"
       android:textSize="12dp"
-      app:layout_constraintStart_toStartOf="@id/fourthLeft"
       app:layout_constraintEnd_toEndOf="@id/fourhRight"
-      app:layout_constraintTop_toBottomOf="@id/thirdBot"/>
+      app:layout_constraintStart_toStartOf="@id/fourthLeft"
+      app:layout_constraintTop_toBottomOf="@id/thirdBot" />
 
   <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="Women's \nApparel"
       android:fontFamily="@font/poppins"
-      android:textColor="@color/black"
       android:gravity="center"
+      android:text="Women's \nApparel"
+      android:textColor="@color/black"
       android:textSize="12dp"
-      app:layout_constraintStart_toStartOf="@id/firstLeft"
       app:layout_constraintEnd_toEndOf="@id/firstRight"
-      app:layout_constraintTop_toBottomOf="@id/fourthBot"/>
+      app:layout_constraintStart_toStartOf="@id/firstLeft"
+      app:layout_constraintTop_toBottomOf="@id/fourthBot" />
 
   <TextView
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:text="Others"
       android:fontFamily="@font/poppins"
-      android:textColor="@color/black"
       android:gravity="center"
+      android:text="Others"
+      android:textColor="@color/black"
       android:textSize="12dp"
-      app:layout_constraintStart_toStartOf="@id/secondLeft"
       app:layout_constraintEnd_toEndOf="@id/secondRight"
-      app:layout_constraintTop_toBottomOf="@id/fourthBot"/>
+      app:layout_constraintStart_toStartOf="@id/secondLeft"
+      app:layout_constraintTop_toBottomOf="@id/fourthBot" />
 
   <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
       android:id="@+id/floatingActionButton"
@@ -547,6 +547,45 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintVertical_bias="0.949" />
+
+  <ImageButton
+      android:id="@+id/homebtn"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:background="#00FFFFFF"
+      app:layout_constraintBottom_toTopOf="@+id/homeB"
+      app:layout_constraintEnd_toStartOf="@+id/homeR"
+      app:layout_constraintStart_toStartOf="@+id/homeL"
+      app:layout_constraintTop_toTopOf="@+id/homeT"
+      app:srcCompat="@drawable/ic_baseline_home_24" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/homeL"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent="0.84" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/homeR"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent="0.96107054" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/homeT"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.02" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/homeB"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.08" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

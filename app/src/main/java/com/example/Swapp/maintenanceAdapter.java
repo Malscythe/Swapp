@@ -145,12 +145,14 @@ public class maintenanceAdapter extends RecyclerView.Adapter<maintenanceAdapter.
                                                             @Override
                                                             public void onSuccess(Void aVoid) {
                                                                 Log.d(TAG, "DocumentSnapshot successfully written!");
+                                                                dialogPlus.dismiss();
                                                             }
                                                         })
                                                         .addOnFailureListener(new OnFailureListener() {
                                                             @Override
                                                             public void onFailure(@NonNull Exception e) {
                                                                 Log.w(TAG, "Error writing document", e);
+                                                                dialogPlus.dismiss();
                                                             }
                                                         });
                                             }
