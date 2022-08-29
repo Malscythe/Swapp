@@ -39,6 +39,7 @@ public class UserHomepage extends AppCompatActivity {
     TextView viewChart;
     Dialog chartDialog;
     ImageView logoutBtn;
+    Button trdbtn, dlvrbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,9 @@ public class UserHomepage extends AppCompatActivity {
         viewChart = findViewById(R.id.viewBtn);
         chartDialog = new Dialog(this);
         logoutBtn = findViewById(R.id.logoutBtn);
+        trdbtn = findViewById(R.id.tradeButton);
+
+        dlvrbtn = findViewById(R.id.deliverBtn);
 
         viewChart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +64,18 @@ public class UserHomepage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(UserHomepage.this, login.class));
+            }
+        });
+        trdbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(UserHomepage.this, Categories.class));
+            }
+        });
+        dlvrbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(UserHomepage.this, deliverytrack.class));
             }
         });
 

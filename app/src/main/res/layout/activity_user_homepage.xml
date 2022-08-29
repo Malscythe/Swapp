@@ -687,13 +687,13 @@
         app:layout_constraintBottom_toTopOf="@id/tradeBot"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/notifBtn"
+        android:id="@+id/deliverBtn"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/buttonborder"
         android:fontFamily="@font/poppins_semibold"
-        android:paddingTop="10dp"
-        android:drawableTop="@drawable/ic_baseline_notifications_24"
+        android:paddingTop="18dp"
+        android:drawableTop="@drawable/ic_motor"
         app:layout_constraintStart_toStartOf="@id/firstLeft"
         app:layout_constraintEnd_toEndOf="@id/firstRight"
         app:layout_constraintTop_toBottomOf="@id/threeTop"
@@ -728,7 +728,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Notifications"
+        android:text="Delivery\nTracking"
         android:textColor="@color/black"
         android:fontFamily="@font/poppins"
         android:textSize="16dp"

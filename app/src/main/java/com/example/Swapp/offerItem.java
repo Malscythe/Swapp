@@ -29,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.auth.User;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -82,6 +83,7 @@ public class offerItem extends AppCompatActivity {
             public void onClick(View view) {
 
                 uploadItem();
+
             }
         });
     }
@@ -178,9 +180,9 @@ public class offerItem extends AppCompatActivity {
                                     }
                                 });
 
-                                insertItems.child("Item_Name").setValue(binding.itemCategory.getText().toString());
+                                insertItems.child("Item_Name").setValue(binding.itemName.getText().toString());
                                 insertItems.child("Item_Description").setValue(binding.itemDesc.getText().toString());
-                                insertItems.child("Item_Category").setValue(binding.itemLocation.getText().toString());
+                                insertItems.child("Item_Category").setValue(binding.itemCategory.getText().toString());
                                 insertItems.child("Item_Location").setValue(binding.itemLocation.getText().toString());
 
                             } else {
@@ -202,6 +204,8 @@ public class offerItem extends AppCompatActivity {
                 toast.setDuration(Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.TOP, 0,50);
                 toast.show();
+
+                startActivity(new Intent(offerItem.this, UserHomepage.class));
 
             }
         }).addOnFailureListener(new OnFailureListener() {

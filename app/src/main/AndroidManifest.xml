@@ -50,6 +50,9 @@ package="Swapp">
     <activity
         android:name="com.example.Swapp.PostItem"
         android:exported="true" />
+    <activity
+        android:name="com.example.Swapp.deliverytrack"
+        android:exported="true"/>
 
     <activity
         android:name="com.example.Swapp.FileMaintenance"
@@ -63,6 +66,7 @@ package="Swapp">
     <activity
         android:name="com.example.Swapp.login"
         android:exported="true">
+
 
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
