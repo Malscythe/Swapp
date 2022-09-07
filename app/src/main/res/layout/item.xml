@@ -1,236 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:outlineProvider="bounds"
-    android:background="@color/white"
-    android:clipToPadding="false">
+    android:background="@color/white">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/itemView"
+    <RelativeLayout
+        android:id="@+id/footer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        app:cardCornerRadius="5dp"
-        app:cardBackgroundColor="@color/white"
-        android:elevation="2dp">
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/footer"
+        android:gravity="center">
 
-        <FrameLayout
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="5dp"
+            android:gravity="start"
+            android:textSize="20dp"
+            android:text="Posted by:"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/black" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+        <TextView
+            android:id="@+id/posterName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:gravity="end"
+            android:paddingTop="15dp"
+            android:paddingRight="15dp"
+            android:text="Poster Name"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:gravity="start"
+            android:textSize="20dp"
+            android:text="Rating:"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/black"
+            android:layout_below="@id/posterName"/>
+
+        <RatingBar
+            android:id="@+id/rating"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/posterName"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:numStars="5"
+            android:paddingBottom="10dp" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="10dp"
+            android:background="@android:color/darker_gray"
+            android:layout_below="@id/rating"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:layout_below="@id/divider"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:text="Swipe left for next item or swipe right for more information."/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/footer"
+        android:gravity="center">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/itemView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            app:cardCornerRadius="5dp"
+            app:cardBackgroundColor="@color/white"
+            android:elevation="2dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/imageBotMargin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.55" />
+                    <ImageView
+                        android:id="@+id/itemImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="350dp"
+                        android:src="@drawable/noimage"
+                        android:scaleType="centerCrop"/>
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/itemNameMargin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.6" />
+                    <View
+                        android:id="@+id/imageDivider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/black"/>
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/itemNameMargin2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.64" />
+                    <TextView
+                        android:id="@+id/itemName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="-10dp"
+                        android:paddingLeft="10dp"
+                        android:textSize="26sp"
+                        android:text="Name of the item"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textColor="@color/black" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/itemPosterMargin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.67" />
+                    <TextView
+                        android:id="@+id/itemLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:textSize="18sp"
+                        android:text="Item Location"
+                        android:fontFamily="@font/poppins"
+                        android:textColor="@color/black" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/itemPosterMargin2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.71" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:paddingLeft="10dp"
+                        android:textSize="16sp"
+                        android:text="Preferred Item:"
+                        android:fontFamily="@font/poppins"
+                        android:gravity="left|bottom"
+                        android:textColor="#717171" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/itemLocationMargin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.74" />
+                    <TextView
+                        android:id="@+id/itemPref"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-5dp"
+                        android:paddingLeft="10dp"
+                        android:textSize="20sp"
+                        android:text="Poster Preferred Item"
+                        android:fontFamily="@font/poppins_medium"
+                        android:gravity="left|top"
+                        android:textColor="@color/black" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/itemLocationMargin2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.78" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/itemPrefMargin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.81" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/itemPrefMargin2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.85" />
-
-                <ImageView
-                    android:id="@+id/itemImage"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:src="@drawable/noimage"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintBottom_toBottomOf="@id/imageBotMargin"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <TextView
-                    android:id="@+id/itemName1"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:paddingLeft="10dp"
-                    android:text="Item Name:"
-                    android:fontFamily="@font/poppins"
-                    android:gravity="start|bottom"
-                    android:textColor="@color/black"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/imageBotMargin"
-                    app:layout_constraintBottom_toTopOf="@id/itemNameMargin" />
-
-                <TextView
-                    android:id="@+id/itemName"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:paddingLeft="10dp"
-                    android:textSize="20dp"
-                    android:text="Name of the item"
-                    android:fontFamily="@font/poppins_medium"
-                    android:gravity="left|top"
-                    android:textColor="@color/primary2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/itemNameMargin"
-                    app:layout_constraintBottom_toTopOf="@id/itemNameMargin2" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:paddingLeft="10dp"
-                    android:text="Posted by:"
-                    android:fontFamily="@font/poppins"
-                    android:gravity="left|bottom"
-                    android:textColor="@color/black"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/itemNameMargin2"
-                    app:layout_constraintBottom_toBottomOf="@id/itemPosterMargin" />
-
-                <TextView
-                    android:id="@+id/posterName"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:paddingLeft="10dp"
-                    android:textSize="20dp"
-                    android:text="Poster Name"
-                    android:fontFamily="@font/poppins_medium"
-                    android:gravity="left|top"
-                    android:textColor="@color/primary2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/itemPosterMargin"
-                    app:layout_constraintBottom_toBottomOf="@id/itemPosterMargin2" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:paddingLeft="10dp"
-                    android:text="Location:"
-                    android:fontFamily="@font/poppins"
-                    android:gravity="left|bottom"
-                    android:textColor="@color/black"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/itemPosterMargin2"
-                    app:layout_constraintBottom_toBottomOf="@id/itemLocationMargin" />
-
-                <TextView
-                    android:id="@+id/itemLocation"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:paddingLeft="10dp"
-                    android:textSize="20dp"
-                    android:text="Item Location"
-                    android:fontFamily="@font/poppins_medium"
-                    android:gravity="left|top"
-                    android:textColor="@color/primary2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/itemLocationMargin"
-                    app:layout_constraintBottom_toBottomOf="@id/itemLocationMargin2" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:paddingLeft="10dp"
-                    android:text="Preferred Item:"
-                    android:fontFamily="@font/poppins"
-                    android:gravity="left|bottom"
-                    android:textColor="@color/black"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/itemLocationMargin2"
-                    app:layout_constraintBottom_toBottomOf="@id/itemPrefMargin" />
-
-                <TextView
-                    android:id="@+id/itemPref"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:paddingLeft="10dp"
-                    android:textSize="20dp"
-                    android:text="Poster Preferred Item"
-                    android:fontFamily="@font/poppins_medium"
-                    android:gravity="left|top"
-                    android:textColor="@color/primary2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/itemPrefMargin"
-                    app:layout_constraintBottom_toBottomOf="@id/itemPrefMargin2" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:text="Swipe right for more information\nSwipe left to go to the next item"
-                    android:fontFamily="@font/poppins"
-                    android:gravity="center|bottom"
-                    android:textColor="@color/black"
-                    android:textSize="12dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/itemPrefMargin2"
-                    app:layout_constraintBottom_toBottomOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </FrameLayout>
-
-    </androidx.cardview.widget.CardView>
-
-</LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+</RelativeLayout>

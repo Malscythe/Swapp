@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,211 +7,185 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
+        android:id="@+id/footer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/imageBot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".5"/>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/imageTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".0"/>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/imageLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".0"/>
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/imageRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="1"/>
-
-        <ImageView
-            android:id="@+id/moreInfoImage"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toTopOf="@+id/Item_Name1"
-            app:layout_constraintEnd_toEndOf="@id/imageRight"
-            app:layout_constraintStart_toStartOf="@id/imageLeft"
-            app:layout_constraintTop_toTopOf="@id/imageTop" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/footer"
+        android:gravity="center">
 
         <TextView
-            android:id="@+id/Item_Name1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/poppins"
-            android:gravity="left"
-            android:paddingLeft="5dp"
-            android:text="Item Name:"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/moreInfoImage" />
-
-        <TextView
-            android:id="@+id/Item_Name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:gravity="left"
-            android:paddingLeft="5dp"
-            android:text="Name of the item"
-            android:textColor="@color/primary2"
+            android:paddingLeft="15dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="5dp"
+            android:gravity="start"
             android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Item_Name1" />
-
-        <TextView
-            android:id="@+id/Item_Poster1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:text="Posted by:"
             android:fontFamily="@font/poppins"
-            android:gravity="left"
-            android:paddingLeft="5dp"
-            android:text="Posted By:"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Item_Name" />
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/Item_Poster"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:gravity="left"
-            android:paddingLeft="5dp"
-            android:text="Name of the poster"
-            android:textColor="@color/primary2"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Item_Poster1" />
-
-        <TextView
-            android:id="@+id/Item_Location1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:fontFamily="@font/poppins"
-            android:gravity="left"
-            android:paddingLeft="5dp"
-            android:text="Location:"
+            android:gravity="end"
+            android:paddingTop="15dp"
+            android:paddingRight="15dp"
+            android:text="Poster Name"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Item_Poster" />
+            android:textSize="20dp" />
 
         <TextView
-            android:id="@+id/Item_Location"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:gravity="left"
-            android:paddingLeft="5dp"
-            android:text="Location of item"
-            android:textColor="@color/primary2"
+            android:paddingLeft="15dp"
+            android:gravity="start"
             android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Item_Location1"/>
-
-        <TextView
-            android:id="@+id/Item_Pref1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:text="Rating:"
             android:fontFamily="@font/poppins"
-            android:gravity="left"
-            android:paddingLeft="5dp"
-            android:text="Preferred item:"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Item_Location" />
+            android:layout_below="@id/Item_Poster"/>
 
-        <TextView
-            android:id="@+id/Item_Pref"
+        <RatingBar
+            android:id="@+id/rating"
+            style="?android:attr/ratingBarStyleIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:gravity="left"
-            android:paddingLeft="5dp"
-            android:text="Poster Preferred Item"
-            android:textColor="@color/primary2"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Item_Pref1"/>
+            android:layout_below="@id/Item_Poster"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:numStars="5"
+            android:paddingBottom="10dp" />
 
-        <TextView
-            android:id="@+id/Item_Desc1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/poppins"
-            android:gravity="left"
-            android:paddingLeft="5dp"
-            android:text="Item Description:"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Item_Pref" />
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
 
-        <TextView
-            android:id="@+id/Item_Desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_medium"
-            android:gravity="left"
-            android:paddingLeft="5dp"
-            android:text="Description of item"
-            android:textColor="@color/primary2"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Item_Desc1"/>
+            android:background="@android:color/darker_gray"
+            android:layout_below="@id/rating"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/offerbtn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/primary2"
-            android:fontFamily="@font/poppins"
-            android:text="Offer item"
+            android:background="@drawable/buttonborder"
+            android:text="OFFER ITEM"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/Item_Desc"/>
+            android:textSize="24dp"
+            android:textAllCaps="false"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:layout_below="@id/divider"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/footer"
+        android:gravity="center">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/moreInfoImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:src="@drawable/noimage"
+                    android:scaleType="centerCrop"/>
+
+                <View
+                    android:id="@+id/imageDivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"/>
+
+                <TextView
+                    android:id="@+id/Item_Name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="-10dp"
+                    android:paddingLeft="10dp"
+                    android:textSize="26sp"
+                    android:text="Name of the item"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/Item_Location"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:textSize="18sp"
+                    android:text="Item Location"
+                    android:fontFamily="@font/poppins"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:paddingLeft="10dp"
+                    android:textSize="16sp"
+                    android:text="Item Description: "
+                    android:fontFamily="@font/poppins"
+                    android:gravity="left|bottom"
+                    android:textColor="#717171" />
+
+                <TextView
+                    android:id="@+id/Item_Desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-5dp"
+                    android:paddingLeft="10dp"
+                    android:textSize="20sp"
+                    android:text="Description of the item"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="left|top"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:paddingLeft="10dp"
+                    android:textSize="16sp"
+                    android:text="Preferred Item:"
+                    android:fontFamily="@font/poppins"
+                    android:gravity="left|bottom"
+                    android:textColor="#717171" />
+
+                <TextView
+                    android:id="@+id/Item_Pref"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-5dp"
+                    android:paddingLeft="10dp"
+                    android:textSize="20sp"
+                    android:text="Poster Preferred Item"
+                    android:fontFamily="@font/poppins_medium"
+                    android:gravity="left|top"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+</RelativeLayout>

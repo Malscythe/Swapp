@@ -3,6 +3,7 @@ package com.example.Swapp;
 import  androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,13 +43,16 @@ public class ItemSwipe extends AppCompatActivity {
     String chosenCategory;
     Intent intent = getIntent();
 
+    RelativeLayout noMoreItemBanner;
+
 
     private FirebaseDatabase fDatabase;
 
     ListView listView;
     ArrayList<cards> rowItems;
 
-    TextView itemName;
+    Button noMoreItemsBtn;
+
     String currentItem, poster_uid, parent;
 
     @Override
@@ -53,8 +60,7 @@ public class ItemSwipe extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_swipe);
         String categoryPassed = getIntent().getStringExtra("category");
-
-
+        String locationPassed = getIntent().getStringExtra("location");
         if(intent == null){
             if (categoryPassed.equals("all")) {
                 chosenCategory = "all";
@@ -63,7 +69,16 @@ public class ItemSwipe extends AppCompatActivity {
             }
         }
 
+        noMoreItemBanner = findViewById(R.id.noMoreItemBanner);
+        noMoreItemsBtn = findViewById(R.id.returnToCategories);
 
+        noMoreItemsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ItemSwipe.this, Categories.class);
+                startActivity(intent);
+            }
+        });
 
         getItems();
 
@@ -83,6 +98,10 @@ public class ItemSwipe extends AppCompatActivity {
                 parent = currentItem + "-" + poster_uid;
                 rowItems.remove(0);
                 arrayAdapter.notifyDataSetChanged();
+
+                if (rowItems.size() == 0) {
+                    noMoreItemBanner.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -101,6 +120,11 @@ public class ItemSwipe extends AppCompatActivity {
                         DataSnapshot dataSnapshot = task.getResult();
                         Intent intent = new Intent(ItemSwipe.this, MoreInfo.class);
                         intent.putExtra("url", dataSnapshot.child("Image_Url").getValue().toString());
+                        if (locationPassed.equals("Any")) {
+                            intent.putExtra("location", locationPassed);
+                        } else  {
+                            intent.putExtra("location", "NotAny");
+                        }
                         startActivity(intent);
                     }
                 });

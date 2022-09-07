@@ -100,6 +100,7 @@ public class MoreInfo extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         String url = getIntent().getStringExtra("url");
+        String passedLocation = getIntent().getStringExtra("location");
 
         DatabaseReference items = FirebaseDatabase.getInstance().getReference().child("items");
         items.addChildEventListener(new ChildEventListener() {
@@ -108,7 +109,11 @@ public class MoreInfo extends AppCompatActivity {
                 if (snapshot.exists() && snapshot.child("Image_Url").getValue().equals(url)) {
                     Intent intent = new Intent(MoreInfo.this, ItemSwipe.class);
                     intent.putExtra("category", snapshot.child("Item_Category").getValue().toString());
-                    intent.putExtra("location", snapshot.child("Item_Location").getValue().toString());
+                    if (passedLocation.equals("Any")) {
+                        intent.putExtra("location", "Any");
+                    } else {
+                        intent.putExtra("location", snapshot.child("Item_Location").getValue().toString());
+                    }
                     startActivity(intent);
                 }
             }

@@ -3,9 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/drawable/footer.xml" value="0.2915" />
         <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.2915" />
         <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/drawable/offer_item_layout.xml" value="0.2915" />
         <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/drawable/offeritem_child.xml" value="0.1775" />
+        <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/drawable/reportbg.xml" value="0.2915" />
+        <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/drawable/round_outline.xml" value="0.2915" />
+        <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/drawable/rounded.xml" value="0.2915" />
+        <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/drawable/searchbg.xml" value="0.2915" />
         <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/layout/acceptofferlist.xml" value="0.3692708333333333" />
         <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/layout/activity_acceptofferchild.xml" value="0.3692708333333333" />
         <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/layout/activity_acceptoffermain.xml" value="0.3692708333333333" />
@@ -15,14 +20,18 @@
         <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/layout/activity_file_maintenance.xml" value="0.3692708333333333" />
         <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/layout/activity_forgotpassword.xml" value="0.3692708333333333" />
         <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/layout/activity_item_swipe.xml" value="0.3692708333333333" />
+        <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/layout/activity_more_info.xml" value="0.3692708333333333" />
         <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/layout/activity_offer_item.xml" value="0.3692708333333333" />
         <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/layout/activity_offer_main_acitvity.xml" value="0.3692708333333333" />
         <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/layout/activity_offersecondactivity.xml" value="0.3692708333333333" />
+        <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/layout/activity_post_item.xml" value="0.3692708333333333" />
         <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/layout/activity_user_homepage.xml" value="0.3692708333333333" />
         <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/layout/dropdown_item.xml" value="0.3692708333333333" />
-        <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/layout/item.xml" value="0.3692708333333333" />
+        <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/layout/item.xml" value="0.33" />
         <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/layout/offeritem.xml" value="0.3692708333333333" />
         <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/layout/offeritem_child.xml" value="0.36822916666666666" />
+        <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/layout/postingitemdialog.xml" value="0.3692708333333333" />
+        <entry key="..\:/Users/Terence/Downloads/Compressed/Swappasdasdasd/app/src/main/res/layout/signup.xml" value="0.3692708333333333" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/Swappasdasdasd/app/src/main/res/layout/activity_categories.xml" value="0.5" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/Swappasdasdasd/app/src/main/res/layout/activity_file_maintenance.xml" value="0.209375" />
         <entry key="..\:/Users/admin/AndroidStudioProjects/Swappasdasdasd/app/src/main/res/layout/activity_user_homepage.xml" value="0.33" />
