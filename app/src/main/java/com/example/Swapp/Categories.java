@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.auth.User;
 
 import Swapp.R;
 import Swapp.databinding.ActivityCategoriesBinding;
@@ -230,5 +231,11 @@ public class Categories extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Categories.this, UserHomepage.class);
+        startActivity(intent);
     }
 }
