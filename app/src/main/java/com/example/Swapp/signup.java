@@ -245,7 +245,7 @@ public class signup extends AppCompatActivity {
                                         Toast toast = new Toast(getApplicationContext());
                                         View view = LayoutInflater.from(signup.this).inflate(R.layout.toast_layout, null);
                                         TextView toastMessage = view.findViewById(R.id.toastMessage);
-                                        toastMessage.setText("Account has been successfully created, Please check your email for verification.");
+                                        toastMessage.setText("Account has been successfully created,Please check your email for verification.");
                                         toast.setView(view);
                                         toast.setDuration(Toast.LENGTH_LONG);
                                         toast.setGravity(Gravity.TOP, 0,50);

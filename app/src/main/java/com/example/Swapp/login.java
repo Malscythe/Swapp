@@ -70,7 +70,7 @@ public class login extends AppCompatActivity {
                 }
 
                 if(TextUtils.isEmpty(userPass)) {
-                    password.setError("Password must not be empty.");
+                    password.setError("Password must not be empty");
                     return;
                 }
 
