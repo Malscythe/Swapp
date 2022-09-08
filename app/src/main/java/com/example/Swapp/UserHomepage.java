@@ -77,6 +77,8 @@ public class UserHomepage extends AppCompatActivity {
         currentCounts = findViewById(R.id.currentText);
         firebaseAuth = FirebaseAuth.getInstance();
         String uid = firebaseAuth.getCurrentUser().getUid();
+
+
         databaseReference = FirebaseDatabase.getInstance().getReference("items/");
         databaseReference.orderByChild("Poster_UID").equalTo(uid).addValueEventListener(new ValueEventListener() {
 
@@ -88,18 +90,8 @@ public class UserHomepage extends AppCompatActivity {
                     databaseReference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            Log.w(TAG, "----------------------------------------------");
-                            Log.w(TAG, "Children: " + snapshot.getKey());
-                            Log.w(TAG, "Old Pending Trades: " + pendingTrades);
-                            Log.w(TAG, "Children counts: " + snapshot.getChildrenCount());
-
                             pendingTrades = pendingTrades + snapshot.getChildrenCount();
-
-                            Log.w(TAG, "New Pending Trades after adding: " + pendingTrades);
-
                             pendingCounts.setText(pendingTrades.toString());
-                            Log.w(TAG, "Textview: " + pendingCounts.getText().toString());
-                            Log.w(TAG, "----------------------------------------------");
                         }
 
                         @Override
@@ -117,23 +109,6 @@ public class UserHomepage extends AppCompatActivity {
 
             }
 
-        });
-
-        pendingCounts.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
         });
 
         dlvrbtn = findViewById(R.id.deliverBtn);
@@ -175,9 +150,5 @@ public class UserHomepage extends AppCompatActivity {
             }
         });
 
-    }
-
-    public void refresh() {
-        startActivity(getIntent());
     }
 }
