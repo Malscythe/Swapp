@@ -199,13 +199,13 @@ public class offerItem extends AppCompatActivity {
                 Toast toast = new Toast(getApplicationContext());
                 View view = LayoutInflater.from(offerItem.this).inflate(R.layout.toast_layout, null);
                 TextView toastMessage = view.findViewById(R.id.toastMessage);
-                toastMessage.setText("Item successfully posted!");
+                toastMessage.setText("Item successfully offered!");
                 toast.setView(view);
                 toast.setDuration(Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.TOP, 0,50);
                 toast.show();
 
-                startActivity(new Intent(offerItem.this, UserHomepage.class));
+                startActivity(new Intent(offerItem.this, Categories.class));
 
             }
         }).addOnFailureListener(new OnFailureListener() {

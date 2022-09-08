@@ -1,6 +1,7 @@
 package com.example.Swapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.content.res.ResourcesCompat;
@@ -11,7 +12,9 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +31,7 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -74,7 +78,6 @@ public class UserHomepage extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         String uid = firebaseAuth.getCurrentUser().getUid();
 
-        dlvrbtn = findViewById(R.id.deliverBtn);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("items/");
         databaseReference.orderByChild("Poster_UID").equalTo(uid).addValueEventListener(new ValueEventListener() {
@@ -87,10 +90,8 @@ public class UserHomepage extends AppCompatActivity {
                     databaseReference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                pendingTrades = pendingTrades + snapshot.getChildrenCount();
-                                Log.w(TAG, String.valueOf(pendingTrades));
-
-                                pendingCounts.setText(String.valueOf(pendingTrades));
+                            pendingTrades = pendingTrades + snapshot.getChildrenCount();
+                            pendingCounts.setText(pendingTrades.toString());
                         }
 
                         @Override
@@ -98,18 +99,23 @@ public class UserHomepage extends AppCompatActivity {
 
                         }
                     });
+
                 }
+                pendingTrades = 0L;
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+
         });
 
-        successfulCounts.setText(String.valueOf(successfulTrades));
-        unsuccessfulCounts.setText(String.valueOf(unsuccessfulTrades));
-        currentCounts.setText(String.valueOf(currentTrades));
+        dlvrbtn = findViewById(R.id.deliverBtn);
+
+        successfulCounts.setText(successfulTrades.toString());
+        unsuccessfulCounts.setText(unsuccessfulTrades.toString());
+        currentCounts.setText(currentTrades.toString());
 
         viewChart.setOnClickListener(new View.OnClickListener() {
             @Override
