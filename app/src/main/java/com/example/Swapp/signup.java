@@ -234,30 +234,44 @@ public class signup extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
-                            Toast toast = new Toast(getApplicationContext());
-                            View view = LayoutInflater.from(signup.this).inflate(R.layout.toast_layout, null);
-                            TextView toastMessage = view.findViewById(R.id.toastMessage);
-                            toastMessage.setText("Account has been successfully created.");
-                            toast.setView(view);
-                            toast.setDuration(Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.TOP, 0,50);
-                            toast.show();
 
-                            userID = fAuth.getCurrentUser().getUid();
-                            DocumentReference documentReference = fStore.collection("users").document(userID);
-                            Map<String, Object>user = new HashMap<>();
-                            user.put("First_Name", userFirstName);
-                            user.put("Last_Name", userLastName);
-                            user.put("Birth_Date", userBirthDate);
-                            user.put("Gender", userGender);
-                            user.put("Email", valEmail);
-                            user.put("isAdmin", "0");
-                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            fAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
-                                public void onSuccess(Void unused) {
-                                    Log.d(TAG, userID + " has been created.");
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful())
+                                    {
+
+
+                                        Toast toast = new Toast(getApplicationContext());
+                                        View view = LayoutInflater.from(signup.this).inflate(R.layout.toast_layout, null);
+                                        TextView toastMessage = view.findViewById(R.id.toastMessage);
+                                        toastMessage.setText("Account has been successfully created, Please check your email for verification.");
+                                        toast.setView(view);
+                                        toast.setDuration(Toast.LENGTH_LONG);
+                                        toast.setGravity(Gravity.TOP, 0,50);
+                                        toast.show();
+
+                                        userID = fAuth.getCurrentUser().getUid();
+                                        DocumentReference documentReference = fStore.collection("users").document(userID);
+                                        Map<String, Object>user = new HashMap<>();
+                                        user.put("First_Name", userFirstName);
+                                        user.put("Last_Name", userLastName);
+                                        user.put("Birth_Date", userBirthDate);
+                                        user.put("Gender", userGender);
+                                        user.put("Email", valEmail);
+                                        user.put("isAdmin", "0");
+                                        documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Log.d(TAG, userID + " has been created.");
+                                            }
+                                        });
+
+                                    }
                                 }
                             });
+
+
                             startActivity(new Intent(getApplicationContext(), login.class));
 
                         } else {

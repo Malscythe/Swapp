@@ -63,6 +63,7 @@ public class login extends AppCompatActivity {
                 String userEmail = email.getText().toString().trim();
                 String userPass = password.getText().toString().trim();
 
+
                 if(TextUtils.isEmpty(userEmail)) {
                     email.setError("Email must not be empty.");
                     return;
@@ -73,24 +74,39 @@ public class login extends AppCompatActivity {
                     return;
                 }
 
-                fAuth.signInWithEmailAndPassword(userEmail, userPass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                    @Override
-                    public void onSuccess(AuthResult authResult) {
-                        checkAccessLevel(authResult.getUser().getUid());
+                fAuth.signInWithEmailAndPassword(userEmail, userPass).addOnCompleteListener((task -> {
+
+                    if (task.isSuccessful()) {
+                        if(fAuth.getCurrentUser().isEmailVerified())
+                        {
+                            fAuth.signInWithEmailAndPassword(userEmail, userPass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                                @Override
+                                public void onSuccess(AuthResult authResult) {
+                                    checkAccessLevel(authResult.getUser().getUid());
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast toast = new Toast(getApplicationContext());
+                                    View view = LayoutInflater.from(login.this).inflate(R.layout.toast_error_layout, null);
+                                    TextView toastMessage = view.findViewById(R.id.toastMessage);
+                                    toastMessage.setText(e.getMessage());
+                                    toast.setView(view);
+                                    toast.setDuration(Toast.LENGTH_LONG);
+                                    toast.setGravity(Gravity.TOP, 0,50);
+                                    toast.show();
+                                }
+                            });
+                        }else
+                        {
+                            fAuth.getCurrentUser().sendEmailVerification();
+                            Toast.makeText(login.this, "Please verify your email first", Toast.LENGTH_SHORT).show();
+
+                        }
                     }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast toast = new Toast(getApplicationContext());
-                        View view = LayoutInflater.from(login.this).inflate(R.layout.toast_error_layout, null);
-                        TextView toastMessage = view.findViewById(R.id.toastMessage);
-                        toastMessage.setText(e.getMessage());
-                        toast.setView(view);
-                        toast.setDuration(Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.TOP, 0,50);
-                        toast.show();
-                    }
-                });
+                }));
+
+//place here
             }
         });
 
@@ -112,6 +128,7 @@ public class login extends AppCompatActivity {
                     finish();
                 } else {
                     startActivity(new Intent(getApplicationContext(), UserHomepage.class));
+
                     finish();
                 }
             }
