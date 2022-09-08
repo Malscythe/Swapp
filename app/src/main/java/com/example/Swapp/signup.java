@@ -5,8 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +26,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.android.material.internal.TextWatcherAdapter;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
@@ -52,7 +57,8 @@ public class signup extends AppCompatActivity {
     public static final String TAG = "TAG";
     private SignupBinding binding;
 
-    TextInputEditText firstName, lastName, email, password, rePassword, birthDate;
+    EditText firstName;
+    TextInputEditText lastName, email, password, rePassword, birthDate;
     TextInputLayout firstNameL, lastNameL, emailL, passwordL, rePasswordL, birthDateL, genderL;
     AutoCompleteTextView gender;
     Button signUp;
@@ -96,6 +102,7 @@ public class signup extends AppCompatActivity {
             }
         });
 
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         firstName = findViewById(R.id.uFirstName);
         lastName = findViewById(R.id.uLastName);
         email = findViewById(R.id.uEmail);
@@ -116,6 +123,23 @@ public class signup extends AppCompatActivity {
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
+
+        email.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                emailValidator(email);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,23 +218,34 @@ public class signup extends AppCompatActivity {
 
                 int years = Years.yearsBetween(startDate, endDate).getYears();
 
-                if (years < 18 || TextUtils.isEmpty(valBirthDate)) {
-                    final ViewGroup.LayoutParams params = birthDateL.getLayoutParams();
-                    birthDateL.setError("You must be 18 years old and above.");
-                    birthDateL.setErrorIconDrawable(null);
-                    birthDateL.setLayoutParams(params);
-                    return;
-                } else {
-                    final ViewGroup.LayoutParams params = birthDateL.getLayoutParams();
-                    birthDateL.setError(null);
-                    birthDateL.setLayoutParams(params);
-                }
+                birthDate.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                if(TextUtils.isEmpty(valEmail)) {
-                    emailL.setError("Email must not be empty.");
-                    emailL.setErrorIconDrawable(null);
-                    return;
-                }
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+                        if (years < 18 || TextUtils.isEmpty(valBirthDate)) {
+                            final ViewGroup.LayoutParams params = birthDateL.getLayoutParams();
+                            birthDateL.setError("You must be 18 years old and above.");
+                            birthDateL.setErrorIconDrawable(null);
+                            birthDateL.setLayoutParams(params);
+                            return;
+                        } else {
+                            final ViewGroup.LayoutParams params = birthDateL.getLayoutParams();
+                            birthDateL.setError(null);
+                            birthDateL.setLayoutParams(params);
+                        }
+                    }
+                });
+
+
 
                 if(TextUtils.isEmpty(valPassword)) {
                     passwordL.setError("Password must not be empty.");
@@ -296,5 +331,24 @@ public class signup extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), login.class));
             }
         });
+
+    }
+
+    public void emailValidator(EditText editText) {
+
+        // extract the entered data from the EditText
+        String emailToText = editText.getText().toString();
+
+        // Android offers the inbuilt patterns which the entered
+        // data from the EditText field needs to be compared with
+        // In this case the entered data needs to compared with
+        // the EMAIL_ADDRESS, which is implemented same below
+        if (!emailToText.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailToText).matches()) {
+            emailL.setError(null);
+            emailL.setErrorIconDrawable(null);
+        } else {
+            emailL.setError("Email must valid & not empty.");
+            emailL.setErrorIconDrawable(null);
+        }
     }
 }
