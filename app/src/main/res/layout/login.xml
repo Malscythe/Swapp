@@ -157,8 +157,7 @@
             app:layout_constraintBottom_toTopOf="@id/guideline8"
             app:layout_constraintEnd_toEndOf="@id/guideline6"
             app:layout_constraintStart_toStartOf="@id/guideline5"
-            app:layout_constraintTop_toBottomOf="@id/guideline7"
-            app:startIconDrawable="@drawable/ic_email">
+            app:layout_constraintTop_toBottomOf="@id/guideline7">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/loginEmail"
@@ -184,8 +183,7 @@
             app:layout_constraintEnd_toEndOf="@id/guideline6"
             app:layout_constraintStart_toStartOf="@id/guideline5"
             app:layout_constraintTop_toBottomOf="@id/guideline9"
-            app:layout_constraintBottom_toTopOf="@id/guideline10"
-            app:startIconDrawable="@drawable/ic_password">
+            app:layout_constraintBottom_toTopOf="@id/guideline10">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/loginPassword"
