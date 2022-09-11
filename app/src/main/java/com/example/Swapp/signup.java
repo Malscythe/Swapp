@@ -58,9 +58,8 @@ public class signup extends AppCompatActivity {
     public static final String TAG = "TAG";
     private SignupBinding binding;
 
-    EditText firstName;
-    TextInputEditText lastName, email, password, rePassword, birthDate;
-    TextInputLayout firstNameL, lastNameL, emailL, passwordL, rePasswordL, birthDateL, genderL;
+    TextInputEditText firstName, lastName, email, password, rePassword, birthDate, mobileNumber;
+    TextInputLayout firstNameL, lastNameL, emailL, passwordL, rePasswordL, birthDateL, genderL, mobileNumberL;
     AutoCompleteTextView gender;
     Button signUp;
     TextView backToLogin;
@@ -68,6 +67,12 @@ public class signup extends AppCompatActivity {
     FirebaseFirestore fStore;
     String userID, birthDay, birthMonth, birthYear, strMonth;
 
+    Boolean emailError = false;
+    Boolean passError = false;
+    Boolean rePassError = false;
+    Boolean phoneError = false;
+    Boolean genderError = false;
+    Boolean birthError = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +118,7 @@ public class signup extends AppCompatActivity {
         birthDate = findViewById(R.id.ubirthDate);
         signUp = findViewById(R.id.signUpBtn);
         backToLogin = findViewById(R.id.backtologin);
+        mobileNumber = findViewById(R.id.uPhone);
 
         firstNameL = findViewById(R.id.uFirstNameLayout);
         lastNameL = findViewById(R.id.uLastNameLayout);
@@ -121,10 +127,12 @@ public class signup extends AppCompatActivity {
         rePasswordL = findViewById(R.id.uRePasswordLayout);
         genderL = findViewById(R.id.uGenderLayout);
         birthDateL = findViewById(R.id.birthDatePicker);
+        mobileNumberL = findViewById(R.id.uPhoneLayout);
 
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
 
+        String userPhone = mobileNumber.getText().toString();
         String valEmail = email.getText().toString().trim();
         String valPassword = password.getText().toString().trim();
         String valRePassword = rePassword.getText().toString().trim();
@@ -132,6 +140,7 @@ public class signup extends AppCompatActivity {
         String userLastName = lastName.getText().toString();
         String userBirthDate = birthDate.getText().toString();
         String userGender = gender.getText().toString();
+
 
         email.addTextChangedListener(new TextWatcher() {
             @Override
@@ -141,7 +150,25 @@ public class signup extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.w(TAG, "" + emailError);
                 emailValidator(email);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        mobileNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                phoneValidation(mobileNumber);
             }
 
             @Override
@@ -217,9 +244,11 @@ public class signup extends AppCompatActivity {
                 if (years < 18) {
                     birthDateL.setError("You must be 18 years old and above.");
                     birthDateL.setErrorIconDrawable(null);
+                    birthError = true;
                 } else {
                     birthDateL.setError(null);
                     birthDateL.setErrorIconDrawable(null);
+                    birthError = false;
                 }
             }
 
@@ -284,70 +313,94 @@ public class signup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (!birthDate.getText().toString().isEmpty()){
-                    birthDateL.setError(null);
-                    birthDateL.setErrorIconDrawable(null);
-                } else {
-                    birthDateL.setError("Birth cannot be empty.");
-                    birthDateL.setErrorIconDrawable(null);
-                    return;
-                }
-
-                if (!email.getText().toString().isEmpty()) {
+                if (!email.getText().toString().isEmpty() && emailError == false) {
                     emailL.setError(null);
                     emailL.setErrorIconDrawable(null);
+                    emailError = false;
                 } else {
-                    emailL.setError("Email cannot be empty.");
+                    if (email.getText().toString().isEmpty()) {
+                        emailL.setError("Email cannot be empty.");
+                    } else if (emailError == true) {
+                        emailL.setError("Email must be valid");
+                    }
+
                     emailL.setErrorIconDrawable(null);
+                    emailError = true;
                     return;
                 }
 
-                if (!password.getText().toString().isEmpty()) {
+                if (!mobileNumber.getText().toString().isEmpty() && phoneError == false) {
+                    mobileNumberL.setError(null);
+                    mobileNumberL.setErrorIconDrawable(null);
+                    phoneError = false;
+                } else {
+                    if (mobileNumber.getText().toString().isEmpty()) {
+                        mobileNumberL.setError("Mobile number cannot be empty.");
+                    } else if (phoneError == true) {
+                        mobileNumberL.setError("Invalid phone number.");
+                    }
+                    mobileNumberL.setErrorIconDrawable(null);
+                    phoneError = true;
+                    return;
+                }
+
+                if (!password.getText().toString().isEmpty() && passError == false) {
                     passwordL.setError(null);
                     passwordL.setErrorIconDrawable(null);
+                    passError = false;
                 } else {
-                    passwordL.setError("Password cannot be empty.");
+                    if (password.getText().toString().isEmpty()) {
+                        passwordL.setError("Password cannot be empty.");
+                    } else if (passError == true) {
+                        passwordL.setError("Password must be more than 6 characters.");
+                    }
                     passwordL.setErrorIconDrawable(null);
+                    passError = true;
                     return;
                 }
 
-                if (!rePassword.getText().toString().isEmpty()) {
+                if (!rePassword.getText().toString().isEmpty() && rePassError == false) {
                     rePasswordL.setError(null);
                     rePasswordL.setErrorIconDrawable(null);
+                    rePassError = false;
                 } else {
-                    rePasswordL.setError("Confirm password cannot be empty.");
+                    if (rePassword.getText().toString().isEmpty()) {
+                        rePasswordL.setError("Confirm password cannot be empty.");
+                    } else if (rePassError == true) {
+                        rePasswordL.setError("Password must be match.");
+                    }
                     rePasswordL.setErrorIconDrawable(null);
+                    rePassError = true;
                     return;
                 }
 
-                if (!gender.getText().toString().isEmpty()) {
-                    rePasswordL.setErrorIconDrawable(null);
-                    rePasswordL.setError(null);
+                if (!gender.getText().toString().isEmpty() && genderError == false) {
+                    genderL.setErrorIconDrawable(null);
+                    genderL.setError(null);
+                    genderError = false;
                 } else {
-                    rePasswordL.setErrorIconDrawable(null);
-                    rePasswordL.setError("Gender cannot be unspecified.");
+                    genderL.setError("Gender cannot be unspecified.");
+                    genderL.setErrorIconDrawable(null);
+                    genderError = true;
                     return;
                 }
 
-                String getEmailError = emailL.getError().toString();
-                String getPasswordError = passwordL.getError().toString();
-                String getRePasswordError = rePasswordL.getError().toString();
-                String getBirthError = birthDateL.getError().toString();
-                String getGenderError = genderL.getError().toString();
-
-                if (!getEmailError.equals(null) || !getPasswordError.equals(null) || !getRePasswordError.equals(null) || !getBirthError.equals(null) || !getGenderError.equals(null)) {
-                    Toast toast = new Toast(getApplicationContext());
-                    view = LayoutInflater.from(signup.this).inflate(R.layout.toast_error_layout, null);
-                    TextView toastMessage = view.findViewById(R.id.toastMessage);
-                    toastMessage.setText("Check the errors in required field.");
-                    toast.setView(view);
-                    toast.setDuration(Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.TOP, 0,50);
-                    toast.show();
+                if (!birthDate.getText().toString().isEmpty() && birthError == false){
+                    birthDateL.setError(null);
+                    birthDateL.setErrorIconDrawable(null);
+                    birthError = false;
+                } else {
+                    if (birthDate.getText().toString().isEmpty()) {
+                        birthDateL.setError("Birth cannot be empty.");
+                    } else if (birthError == true) {
+                        birthDateL.setError("You must be 18 years old and above.");
+                    }
+                    birthDateL.setErrorIconDrawable(null);
+                    birthError = true;
                     return;
                 }
 
-                fAuth.createUserWithEmailAndPassword(valEmail, valPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                fAuth.createUserWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
@@ -362,7 +415,7 @@ public class signup extends AppCompatActivity {
                                         Toast toast = new Toast(getApplicationContext());
                                         View view = LayoutInflater.from(signup.this).inflate(R.layout.toast_layout, null);
                                         TextView toastMessage = view.findViewById(R.id.toastMessage);
-                                        toastMessage.setText("Account has been successfully created,Please check your email for verification.");
+                                        toastMessage.setText("Account has been successfully created, Please check your email for verification.");
                                         toast.setView(view);
                                         toast.setDuration(Toast.LENGTH_LONG);
                                         toast.setGravity(Gravity.TOP, 0,50);
@@ -371,11 +424,12 @@ public class signup extends AppCompatActivity {
                                         userID = fAuth.getCurrentUser().getUid();
                                         DocumentReference documentReference = fStore.collection("users").document(userID);
                                         Map<String, Object>user = new HashMap<>();
-                                        user.put("First_Name", userFirstName);
-                                        user.put("Last_Name", userLastName);
-                                        user.put("Birth_Date", userBirthDate);
-                                        user.put("Gender", userGender);
-                                        user.put("Email", valEmail);
+                                        user.put("First_Name", firstName.getText().toString());
+                                        user.put("Last_Name", lastName.getText().toString());
+                                        user.put("Birth_Date", birthDate.getText().toString());
+                                        user.put("Gender", gender.getText().toString());
+                                        user.put("Email", email.getText().toString());
+                                        user.put("Phone", "0" + mobileNumber.getText().toString());
                                         user.put("isAdmin", "0");
                                         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
@@ -422,9 +476,11 @@ public class signup extends AppCompatActivity {
         if (!emailToText.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(emailToText).matches()) {
             emailL.setError(null);
             emailL.setErrorIconDrawable(null);
+            emailError = false;
         } else {
-            emailL.setError("Email must valid & not empty.");
+            emailL.setError("Email must be valid & not empty.");
             emailL.setErrorIconDrawable(null);
+            emailError = true;
         }
     }
 
@@ -435,12 +491,15 @@ public class signup extends AppCompatActivity {
         if (passToText.isEmpty()) {
             passwordL.setErrorIconDrawable(null);
             passwordL.setError("Password cannot be empty.");
+            passError = true;
         } else if (passToText.length() < 6) {
             passwordL.setErrorIconDrawable(null);
             passwordL.setError("Password must be more than 6 characters.");
+            passError = true;
         } else {
             passwordL.setErrorIconDrawable(null);
             passwordL.setError(null);
+            passError = false;
         }
 
     }
@@ -453,12 +512,15 @@ public class signup extends AppCompatActivity {
         if (confirmPassword.isEmpty()){
             rePasswordL.setErrorIconDrawable(null);
             rePasswordL.setError("Confirm password cannot be empty.");
+            rePassError = true;
         } else if (!password.equals(confirmPassword)) {
             rePasswordL.setErrorIconDrawable(null);
             rePasswordL.setError("Password must be match.");
+            rePassError = true;
         } else {
             rePasswordL.setErrorIconDrawable(null);
             rePasswordL.setError(null);
+            rePassError = false;
         }
     }
 
@@ -467,11 +529,28 @@ public class signup extends AppCompatActivity {
         String gender = editText.getText().toString();
 
         if (gender.isEmpty()) {
-            rePasswordL.setErrorIconDrawable(null);
-            rePasswordL.setError("Gender cannot be unspecified.");
+            genderL.setErrorIconDrawable(null);
+            genderL.setError("Gender cannot be unspecified.");
+            genderError = true;
         } else {
-            rePasswordL.setErrorIconDrawable(null);
-            rePasswordL.setError(null);
+            genderL.setErrorIconDrawable(null);
+            genderL.setError(null);
+            genderError = false;
+        }
+    }
+
+    public void phoneValidation(EditText editText) {
+
+        String number = editText.getText().toString();
+
+        if (number.length() < 10) {
+            mobileNumberL.setErrorIconDrawable(null);
+            mobileNumberL.setError("Invalid phone number.");
+            phoneError = true;
+        } else {
+            mobileNumberL.setErrorIconDrawable(null);
+            mobileNumberL.setError(null);
+            phoneError = false;
         }
     }
 }

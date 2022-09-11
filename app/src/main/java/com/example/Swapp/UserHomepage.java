@@ -53,7 +53,7 @@ public class UserHomepage extends AppCompatActivity {
     TextView viewChart, pendingCounts, successfulCounts, unsuccessfulCounts, currentCounts;
     Dialog chartDialog;
     ImageView logoutBtn;
-    Button trdbtn, dlvrbtn, accsetting;
+    Button trdbtn, dlvrbtn, accsetting, inbbtn;
     Long pendingTrades = 0L;
     Long currentTrades = 0L;
     Long successfulTrades = 0L;
@@ -66,6 +66,7 @@ public class UserHomepage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_homepage);
 
+        inbbtn = findViewById(R.id.inboxBtn);
         viewChart = findViewById(R.id.viewBtn);
         chartDialog = new Dialog(this);
         logoutBtn = findViewById(R.id.logoutBtn);
@@ -109,6 +110,14 @@ public class UserHomepage extends AppCompatActivity {
 
             }
 
+        });
+
+        inbbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UserHomepage.this, Messages.class);
+                startActivity(intent);
+            }
         });
 
         dlvrbtn = findViewById(R.id.deliverBtn);

@@ -1,475 +1,286 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/signupbg"
     tools:context="com.example.Swapp.signup">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/leftmargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.1" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/rightmargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.9" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/botmargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.9" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/topmargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.02" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/labelmarginleft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.3" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/labelmarginright"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.7" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/label2marginleft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.25" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/label2marginright"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.75" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/label1marginbot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.10" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/label2marginbot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.18" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/nametopmargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.20" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/namebotmargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.28" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/firstnameRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.49" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/lastnameLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.51" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/emailtopmargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.32" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/emailbotmargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.40" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/passtopmargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.44" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/passbotmargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.54" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/passconfirmtopmargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.58" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/passconfirmbotmargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.66" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/genderbirthtopmargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.70" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/genderbirthbotmargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.83" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/genderrightmargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.45" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/birthleftmargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.47" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/buttontopmargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.84" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/buttonbotmargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.92" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/signinmargintop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.93" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/signinmarginbot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.96" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/signinleftmarginright"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.63" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/signinleftmarginleft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.14" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/signinrightmarginright"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.86" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="Sign Up"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/black"
-        android:textSize="42dp"
-        app:flow_horizontalAlign="center"
-        app:layout_constraintBottom_toTopOf="@id/label1marginbot"
-        app:layout_constraintEnd_toEndOf="@id/label2marginright"
-        app:layout_constraintStart_toStartOf="@id/label2marginleft"
-        app:layout_constraintTop_toBottomOf="@id/topmargin" />
-
-    <TextView
-        android:id="@+id/textview5"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="Please complete your registration correctly"
-        android:fontFamily="@font/poppins_medium"
-        android:textAlignment="center"
-        android:textSize="16dp"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@id/label2marginleft"
-        app:layout_constraintEnd_toEndOf="@id/label2marginright"
-        app:layout_constraintTop_toBottomOf="@id/label1marginbot"
-        app:layout_constraintBottom_toTopOf="@id/label2marginbot"/>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/uFirstNameLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:boxStrokeColor="#03989e"
-        app:boxStrokeWidth="2dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/namebotmargin"
-        app:layout_constraintEnd_toEndOf="@id/firstnameRight"
-        app:layout_constraintStart_toStartOf="@id/leftmargin"
-        app:layout_constraintTop_toBottomOf="@id/nametopmargin">
-
-        <EditText
-            android:id="@+id/uFirstName"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="@font/poppins_medium"
-            android:importantForAutofill="no"
-            android:hint="First Name"
-            android:textColor="#03989e" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:background="@drawable/signupbg"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Sign Up"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="36sp" />
+
+            <TextView
+                android:id="@+id/textview5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Please complete your registration \ncorrectly"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/uFirstNameLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/white"
+                app:boxStrokeColor="#03989e"
+                app:boxStrokeWidth="2dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/uFirstName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="First Name"
+                    android:importantForAutofill="no"
+                    android:textColor="#03989e" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/uLastNameLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:boxStrokeColor="#03989e"
-        app:boxStrokeWidth="2dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/namebotmargin"
-        app:layout_constraintEnd_toEndOf="@id/rightmargin"
-        app:layout_constraintStart_toStartOf="@id/lastnameLeft"
-        app:layout_constraintTop_toBottomOf="@id/nametopmargin">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/uLastNameLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/white"
+                app:boxStrokeColor="#03989e"
+                app:boxStrokeWidth="2dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/uLastName"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/poppins_medium"
-            android:importantForAutofill="no"
-            android:hint="Last Name"
-            android:textColor="#03989e" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/uEmailLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:boxStrokeColor="#03989e"
-        app:boxStrokeWidth="2dp"
-        app:helperText="*Required"
-        android:background="@color/white"
-        app:layout_constraintStart_toStartOf="@id/leftmargin"
-        app:layout_constraintEnd_toEndOf="@id/rightmargin"
-        app:layout_constraintTop_toBottomOf="@id/emailtopmargin"
-        app:layout_constraintBottom_toTopOf="@id/emailbotmargin" >
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/uEmail"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:importantForAutofill="no"
-            android:textColor="#03989e"
-            android:fontFamily="@font/poppins_medium"
-            android:hint="Your E-mail" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/uPasswordLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:boxStrokeColor="#03989e"
-        app:boxStrokeWidth="2dp"
-        app:helperText="*Required"
-        app:endIconMode="password_toggle"
-        android:background="@color/white"
-        app:layout_constraintStart_toStartOf="@id/leftmargin"
-        app:layout_constraintEnd_toEndOf="@id/rightmargin"
-        app:layout_constraintTop_toBottomOf="@id/passtopmargin"
-        app:layout_constraintBottom_toTopOf="@id/passbotmargin" >
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/uPassword"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:password="true"
-            android:textColor="#03989e"
-            android:fontFamily="@font/poppins_medium"
-            android:hint="Create your Password" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/uRePasswordLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:boxStrokeColor="#03989e"
-        app:boxStrokeWidth="2dp"
-        app:helperText="*Required"
-        android:background="@color/white"
-        app:endIconMode="password_toggle"
-        app:layout_constraintStart_toStartOf="@id/leftmargin"
-        app:layout_constraintEnd_toEndOf="@id/rightmargin"
-        app:layout_constraintTop_toBottomOf="@id/passconfirmtopmargin"
-        app:layout_constraintBottom_toTopOf="@id/passconfirmbotmargin" >
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/uRePassword"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/poppins_medium"
-            android:hint="Re-type your Password"
-            android:password="true"
-            android:textColor="#03989e" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/uGenderLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:boxStrokeColor="#03989e"
-        app:boxStrokeWidth="2dp"
-        android:layout_marginTop="-45dp"
-        app:layout_constraintBottom_toTopOf="@id/genderbirthbotmargin"
-        app:layout_constraintEnd_toEndOf="@id/genderrightmargin"
-        app:layout_constraintStart_toStartOf="@id/leftmargin"
-        app:layout_constraintTop_toTopOf="@+id/genderbirthtopmargin">
-
-        <AutoCompleteTextView
-            android:id="@+id/uGender"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:fontFamily="@font/poppins_medium"
-            android:hint="Gender"
-            android:inputType="none"
-            android:textColor="#03989e" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/birthDatePicker"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:boxStrokeColor="#03989e"
-        app:boxStrokeWidth="2dp"
-        app:endIconDrawable="@drawable/ic_calendar"
-        app:endIconMode="custom"
-        app:helperText="*Required"
-        android:layout_marginTop="-25dp"
-        app:layout_constraintBottom_toTopOf="@id/genderbirthbotmargin"
-        app:layout_constraintEnd_toEndOf="@id/rightmargin"
-        app:layout_constraintStart_toStartOf="@id/birthleftmargin"
-        app:layout_constraintTop_toBottomOf="@id/genderbirthtopmargin">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/ubirthDate"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:editable="false"
-            android:fontFamily="@font/poppins_medium"
-            android:hint="Birth"
-            android:inputType="none"
-            android:textColor="#03989e" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <Button
-        android:id="@+id/signUpBtn"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:autoText="false"
-        android:background="@drawable/buttonborder"
-        android:capitalize="none"
-        android:fontFamily="@font/poppins_medium"
-        android:text="Create your Account"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@id/buttonbotmargin"
-        app:layout_constraintEnd_toEndOf="@id/rightmargin"
-        app:layout_constraintStart_toStartOf="@id/leftmargin"
-        app:layout_constraintTop_toBottomOf="@id/buttontopmargin" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:fontFamily="@font/poppins"
-        android:text="Already have an account?"
-        android:textAlignment="textEnd"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/signinmarginbot"
-        app:layout_constraintEnd_toEndOf="@id/signinleftmarginright"
-        app:layout_constraintStart_toStartOf="@id/leftmargin"
-        app:layout_constraintTop_toBottomOf="@id/signinmargintop" />
-
-    <TextView
-        android:id="@+id/backtologin"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="Sign In now"
-        android:textColor="#03989e"
-        android:paddingStart="5dp"
-        android:fontFamily="@font/poppins"
-        app:layout_constraintStart_toStartOf="@id/signinleftmarginright"
-        app:layout_constraintEnd_toEndOf="@id/rightmargin"
-        app:layout_constraintTop_toBottomOf="@id/signinmargintop"
-        app:layout_constraintBottom_toTopOf="@id/signinmarginbot"/>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/uLastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="Last Name"
+                    android:importantForAutofill="no"
+                    android:textColor="#03989e" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/uEmailLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/white"
+                app:boxStrokeColor="#03989e"
+                app:boxStrokeWidth="2dp"
+                app:helperText="*Required">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/uEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="Your E-mail"
+                    android:maxLines="1"
+                    android:importantForAutofill="no"
+                    android:textColor="#03989e" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/uPhoneLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/white"
+                app:boxStrokeColor="#03989e"
+                app:boxStrokeWidth="2dp"
+                app:helperText="*Required"
+                app:prefixText="+63"
+                app:prefixTextColor="@color/primary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/uPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="Your Mobile Number"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:importantForAutofill="no"
+                    android:textColor="#03989e" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/uPasswordLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/white"
+                app:boxStrokeColor="#03989e"
+                app:boxStrokeWidth="2dp"
+                app:endIconMode="password_toggle"
+                app:helperText="*Required">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/uPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="Create your Password"
+                    android:password="true"
+                    android:textColor="#03989e" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/uRePasswordLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/white"
+                app:boxStrokeColor="#03989e"
+                app:boxStrokeWidth="2dp"
+                app:endIconMode="password_toggle"
+                app:helperText="*Required">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/uRePassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="Re-type your Password"
+                    android:password="true"
+                    android:textColor="#03989e" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/uGenderLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="10dp"
+                app:boxStrokeColor="#03989e"
+                app:boxStrokeWidth="2dp"
+                app:helperText="*Required">
+
+                <AutoCompleteTextView
+                    android:id="@+id/uGender"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="Gender"
+                    android:inputType="none"
+                    android:textColor="#03989e" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/birthDatePicker"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="10dp"
+                app:boxStrokeColor="#03989e"
+                app:boxStrokeWidth="2dp"
+                app:endIconDrawable="@drawable/ic_calendar"
+                app:endIconMode="custom"
+
+                app:helperText="*Required">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ubirthDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:editable="false"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="Birth"
+                    android:inputType="none"
+                    android:textColor="@color/primary" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/signUpBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/buttonborder"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Create your Account"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="Already have an account?"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/backtologin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/poppins"
+                    android:paddingStart="5dp"
+                    android:text="Sign In now"
+                    android:textColor="#03989e" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

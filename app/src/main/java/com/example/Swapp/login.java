@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,7 +76,6 @@ public class login extends AppCompatActivity {
                 }
 
                 fAuth.signInWithEmailAndPassword(userEmail, userPass).addOnCompleteListener((task -> {
-
                     if (task.isSuccessful()) {
                         if(fAuth.getCurrentUser().isEmailVerified())
                         {
@@ -101,12 +101,18 @@ public class login extends AppCompatActivity {
                         {
                             fAuth.getCurrentUser().sendEmailVerification();
                             Toast.makeText(login.this, "Please verify your email first", Toast.LENGTH_SHORT).show();
-
                         }
+                    } else {
+                        Toast toast = new Toast(getApplicationContext());
+                        View view2 = LayoutInflater.from(login.this).inflate(R.layout.toast_error_layout, null);
+                        TextView toastMessage = view2.findViewById(R.id.toastMessage);
+                        toastMessage.setText("Email or password doesn't exist.");
+                        toast.setView(view2);
+                        toast.setDuration(Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.TOP, 0,50);
+                        toast.show();
                     }
                 }));
-
-//place here
             }
         });
 
@@ -128,7 +134,6 @@ public class login extends AppCompatActivity {
                     finish();
                 } else {
                     startActivity(new Intent(getApplicationContext(), UserHomepage.class));
-
                     finish();
                 }
             }
