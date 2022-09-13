@@ -24,8 +24,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -164,33 +167,34 @@ public class offerItem extends AppCompatActivity {
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                 binding.itemImage.setImageResource(R.drawable.noimage);
-                DatabaseReference insertItems = FirebaseDatabase.getInstance().getReference().child("items").child(item_id).child("Offers").child(uid);
-                DocumentReference docRef = firebaseFirestore.collection("users").document(uid);
-
-                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                DatabaseReference insertItems = FirebaseDatabase.getInstance().getReference().child("items");
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                databaseReference.child("users").child(uid).addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Uri> task) {
-                                        insertItems.child("Image_Url").setValue(task.getResult().toString());
-                                    }
-                                });
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String firstName = snapshot.child("First_Name").getValue(String.class);
+                        String lastName = snapshot.child("Last_Name").getValue(String.class);
+                        String userName = firstName + " " + lastName;
 
-                                insertItems.child("Item_Name").setValue(binding.itemName.getText().toString());
-                                insertItems.child("Item_Description").setValue(binding.itemDesc.getText().toString());
-                                insertItems.child("Item_Category").setValue(binding.itemCategory.getText().toString());
-                                insertItems.child("Item_Location").setValue(binding.itemLocation.getText().toString());
+                        taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> task) {
+                                insertItems.child(item_id).child("Offers").child(uid).child("Image_Url").setValue(task.getResult().toString());
+                                insertItems.child(item_id).child("Offers").child(uid).child("Item_Category").setValue(binding.itemCategory.getText().toString());
+                                insertItems.child(item_id).child("Offers").child(uid).child("Item_Description").setValue(binding.itemDesc.getText().toString());
+                                insertItems.child(item_id).child("Offers").child(uid).child("Item_Location").setValue(binding.itemLocation.getText().toString());
+                                insertItems.child(item_id).child("Offers").child(uid).child("Item_Name").setValue(binding.itemName.getText().toString());
+                                insertItems.child(item_id).child("Offers").child(uid).child("Poster_Name").setValue(userName);
+                                insertItems.child(item_id).child("Offers").child(uid).child("Poster_UID").setValue(uid);
 
-                            } else {
-                                Log.d(TAG, "No such document");
+
                             }
-                        } else {
-                            Log.d(TAG, "get failed with ", task.getException());
-                        }
+                        });
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
                     }
                 });
 

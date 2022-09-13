@@ -71,19 +71,18 @@
             android:textSize="15sp" />
 
         <TextView
+            android:id="@+id/userPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/userbday"
-            android:text="BirthDate"
-            android:textSize="15sp"
-            android:textColor="#000"
-            android:layout_toRightOf="@+id/img1"
             android:layout_below="@id/usergender"
             android:layout_marginLeft="10dp"
-            />
+            android:layout_toRightOf="@+id/img1"
+            android:text="Phone"
+            android:textColor="#000"
+            android:textSize="15sp" />
 
         <LinearLayout
-            android:layout_below="@+id/userbday"
+            android:layout_below="@+id/userPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">

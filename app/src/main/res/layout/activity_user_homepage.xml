@@ -301,19 +301,15 @@
             app:layout_constraintStart_toStartOf="@id/logOutLeft"
             app:layout_constraintTop_toBottomOf="@id/navTop" />
 
-        <com.google.android.material.imageview.ShapeableImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:padding="6dp"
-            android:scaleType="centerCrop"
             app:layout_constraintBottom_toTopOf="@id/picBot"
             app:layout_constraintEnd_toEndOf="@id/picRight"
             app:layout_constraintStart_toStartOf="@id/picLeft"
             app:layout_constraintTop_toBottomOf="@id/picTop"
-            app:shapeAppearanceOverlay="@style/circleImageView"
-            app:srcCompat="@drawable/default_picture"
-            app:strokeColor="@color/white"
-            app:strokeWidth="2dp" />
+            android:src="@drawable/default_picture"/>
 
         <TextView
             android:layout_width="0dp"
@@ -589,7 +585,7 @@
             android:id="@+id/pendingText"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="5"
+            android:text="0"
             android:textSize="24dp"
             android:textColor="@android:color/holo_blue_light"
             android:fontFamily="@font/poppins_semibold"

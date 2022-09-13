@@ -17,6 +17,11 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -36,6 +41,7 @@ public class FileMaintenance extends AppCompatActivity {
     FirebaseFirestore db;
     ProgressDialog progressDialog;
     SwipeRefreshLayout swipeRefreshLayout;
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bugsbusters-de865-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
 
     @Override
@@ -43,74 +49,45 @@ public class FileMaintenance extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_maintenance);
 
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(false);
-        progressDialog.setMessage("Fetching Data....");
-        progressDialog.show();
-
         recyclerView = findViewById(R.id.userRV);
-        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        db = FirebaseFirestore.getInstance();
-        userArrayList = new ArrayList<FileMaintenanceModel>();
-        myAdapter = new maintenanceAdapter(FileMaintenance.this,userArrayList);
+        FirebaseRecyclerOptions<FileMaintenanceModel> options =
+                new FirebaseRecyclerOptions.Builder<FileMaintenanceModel>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("users"), FileMaintenanceModel.class)
+                        .build();
 
+        myAdapter = new maintenanceAdapter(options);
         recyclerView.setAdapter(myAdapter);
-
-        EventChangeListener();
 
         // swipe down refresh
         swipeRefreshLayout = findViewById(R.id.swipeRefresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
-
                 db = FirebaseFirestore.getInstance();
                 userArrayList = new ArrayList<FileMaintenanceModel>();
-                myAdapter = new maintenanceAdapter(FileMaintenance.this,userArrayList);
+                //myAdapter = new maintenanceAdapter(FileMaintenance.this,userArrayList);
 
                 recyclerView.setAdapter(myAdapter);
 
-                EventChangeListener();
                 swipeRefreshLayout.setRefreshing(false);
-
             }
         });
-
-    }
-
-    private void EventChangeListener() {
-
-        db.collection("users")
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-
-                if(error != null)
-                {
-                        if(progressDialog.isShowing())
-                            progressDialog.dismiss();
-                    Log.e("FireStore Database Error",error.getMessage());
-                    return;
-                }
-                for (DocumentChange dc : value.getDocumentChanges())
-                {
-                    if (dc.getType() == DocumentChange.Type.ADDED) {
-
-                        userArrayList.add(dc.getDocument().toObject(FileMaintenanceModel.class));
-                    }
-
-                    myAdapter.notifyDataSetChanged();
-                    if(progressDialog.isShowing())
-                        progressDialog.dismiss();
-                }
-                    }
-                });
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        myAdapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        myAdapter.startListening();
+    }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.fmainsearch,menu);
         MenuItem item = menu.findItem(R.id.fmainSearch);
@@ -133,44 +110,14 @@ public class FileMaintenance extends AppCompatActivity {
 
     private void searchData(String s) {
 
-        db = FirebaseFirestore.getInstance();
-        userArrayList = new ArrayList<FileMaintenanceModel>();
-        myAdapter = new maintenanceAdapter(FileMaintenance.this,userArrayList);
+        FirebaseRecyclerOptions<FileMaintenanceModel> options =
+                new FirebaseRecyclerOptions.Builder<FileMaintenanceModel>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("users").orderByChild("Email").startAt(s).endAt(s+"~"), FileMaintenanceModel.class)
+                        .build();
 
+        myAdapter = new maintenanceAdapter(options);
+        myAdapter.startListening();
         recyclerView.setAdapter(myAdapter);
-
-        db.collection("users").orderBy("First_Name").startAt(s).endAt(s+"\uf8ff")
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-
-                        if(error != null)
-                        {
-                            if(progressDialog.isShowing())
-                                progressDialog.dismiss();
-                            Log.e("FireStore Database Error",error.getMessage());
-                            return;
-                        }
-                        for (DocumentChange dc : value.getDocumentChanges())
-                        {
-                            if (dc.getType() == DocumentChange.Type.ADDED) {
-
-                                userArrayList.add(dc.getDocument().toObject(FileMaintenanceModel.class));
-                            }
-
-                            myAdapter.notifyDataSetChanged();
-                            if(progressDialog.isShowing())
-                                progressDialog.dismiss();
-                        }
-                    }
-                });
-
-   // db.collection("users")
-         //   .orderBy("First_Name")
-         //   .startAt(s)
-       //     .endAt(s+"\uf8ff"),FileMaintenanceModel.class
-
-
     }
 
     @Override

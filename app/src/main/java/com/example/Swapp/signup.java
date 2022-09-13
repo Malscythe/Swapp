@@ -32,6 +32,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -57,6 +59,8 @@ public class signup extends AppCompatActivity {
 
     public static final String TAG = "TAG";
     private SignupBinding binding;
+
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bugsbusters-de865-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
     TextInputEditText firstName, lastName, email, password, rePassword, birthDate, mobileNumber;
     TextInputLayout firstNameL, lastNameL, emailL, passwordL, rePasswordL, birthDateL, genderL, mobileNumberL;
@@ -422,21 +426,13 @@ public class signup extends AppCompatActivity {
                                         toast.show();
 
                                         userID = fAuth.getCurrentUser().getUid();
-                                        DocumentReference documentReference = fStore.collection("users").document(userID);
-                                        Map<String, Object>user = new HashMap<>();
-                                        user.put("First_Name", firstName.getText().toString());
-                                        user.put("Last_Name", lastName.getText().toString());
-                                        user.put("Birth_Date", birthDate.getText().toString());
-                                        user.put("Gender", gender.getText().toString());
-                                        user.put("Email", email.getText().toString());
-                                        user.put("Phone", "0" + mobileNumber.getText().toString());
-                                        user.put("isAdmin", "0");
-                                        documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void unused) {
-                                                Log.d(TAG, userID + " has been created.");
-                                            }
-                                        });
+                                        databaseReference.child("users").child(userID).child("First_Name").setValue(firstName.getText().toString());
+                                        databaseReference.child("users").child(userID).child("Last_Name").setValue(lastName.getText().toString());
+                                        databaseReference.child("users").child(userID).child("Birth_Date").setValue(birthDate.getText().toString());
+                                        databaseReference.child("users").child(userID).child("Gender").setValue(gender.getText().toString());
+                                        databaseReference.child("users").child(userID).child("Email").setValue(email.getText().toString());
+                                        databaseReference.child("users").child(userID).child("Phone").setValue("0" + mobileNumber.getText().toString());
+                                        databaseReference.child("users").child(userID).child("isAdmin").setValue("0");
 
                                     }
                                 }

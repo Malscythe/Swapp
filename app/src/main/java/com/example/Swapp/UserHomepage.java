@@ -60,11 +60,14 @@ public class UserHomepage extends AppCompatActivity {
     Long unsuccessfulTrades = 0L;
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
+    DatabaseReference databaseReferenceUrl = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bugsbusters-de865-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_homepage);
+
+        Log.d(TAG, MemoryData.getData(UserHomepage.this));
 
         inbbtn = findViewById(R.id.inboxBtn);
         viewChart = findViewById(R.id.viewBtn);
@@ -115,8 +118,22 @@ public class UserHomepage extends AppCompatActivity {
         inbbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(UserHomepage.this, Messages.class);
-                startActivity(intent);
+                databaseReferenceUrl.child("users").child(uid).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String name = snapshot.child("First_Name").getValue(String.class).concat(" " + snapshot.child("Last_Name").getValue(String.class));
+                        Intent intent = new Intent(UserHomepage.this, Messages.class);
+                        intent.putExtra("mobile", snapshot.child("Phone").getValue(String.class));
+                        intent.putExtra("email", snapshot.child("Email").getValue(String.class));
+                        intent.putExtra("name", name);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
 
@@ -136,6 +153,9 @@ public class UserHomepage extends AppCompatActivity {
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MemoryData.saveData("", UserHomepage.this);
+                MemoryData.saveName("", UserHomepage.this);
+                MemoryData.saveState(false, UserHomepage.this);
                 startActivity(new Intent(UserHomepage.this, login.class));
             }
         });

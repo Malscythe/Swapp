@@ -12,9 +12,11 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.Swapp.chat.Chat;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,6 +25,11 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -35,12 +42,24 @@ public class login extends AppCompatActivity {
     Button login;
     FirebaseAuth fAuth;
     TextView forgotPassword;
-    FirebaseFirestore fStore;
+    CheckBox rememberMe;
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bugsbusters-de865-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
+        rememberMe = findViewById(R.id.checkBox);
+
+        if (MemoryData.getState(this).equals("true")) {
+            Intent intent = new Intent(login.this, UserHomepage.class);
+            intent.putExtra("mobile", MemoryData.getData(this));
+            intent.putExtra("name", "");
+            intent.putExtra("email", "");
+            startActivity(intent);
+            finish();
+        }
 
         TextView goCreateAcc = findViewById(R.id.gotosignup);
 
@@ -56,7 +75,6 @@ public class login extends AppCompatActivity {
         login = findViewById(R.id.btnLogin);
         forgotPassword = findViewById(R.id.uForgotPassword);
         fAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +82,9 @@ public class login extends AppCompatActivity {
                 String userEmail = email.getText().toString().trim();
                 String userPass = password.getText().toString().trim();
 
+                if (rememberMe.isChecked()) {
+                    MemoryData.saveState(true, login.this);
+                }
 
                 if(TextUtils.isEmpty(userEmail)) {
                     email.setError("Email must not be empty.");
@@ -125,20 +146,25 @@ public class login extends AppCompatActivity {
     }
 
     private void checkAccessLevel(String uid) {
-        DocumentReference df = fStore.collection("users").document(uid);
-        df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+
+        databaseReference.child("users").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if(documentSnapshot.getString("isAdmin").equals("1")) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.child("isAdmin").getValue(String.class).equals("1")){
                     startActivity(new Intent(getApplicationContext(), AdminHomepage.class));
                     finish();
                 } else {
+                    MemoryData.saveData(snapshot.child("Phone").getValue().toString(), login.this);
+                    MemoryData.saveName(snapshot.child("First_Name").getValue().toString().concat(" " + snapshot.child("First_Name").getValue().toString()), login.this);
                     startActivity(new Intent(getApplicationContext(), UserHomepage.class));
                     finish();
                 }
             }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
         });
     }
-
-
 }

@@ -3,28 +3,28 @@ package com.example.Swapp;
 
 public class FileMaintenanceModel {
 
-    String Birth_Date, Email, First_Name, Gender, Last_Name;
+    String Phone, Email, First_Name, Gender, Last_Name, Surl;
 
     public FileMaintenanceModel() {
-
 
     }
 
 
-    public FileMaintenanceModel(String birth_Date, String email, String first_Name, String gender, String last_Name) {
-        Birth_Date = birth_Date;
+    public FileMaintenanceModel(String phone, String email, String first_Name, String gender, String last_Name, String surl) {
+        Phone = phone;
         Email = email;
         First_Name = first_Name;
         Gender = gender;
         Last_Name = last_Name;
+        Surl = surl;
     }
 
-    public String getBirth_Date() {
-        return Birth_Date;
+    public String getPhone() {
+        return Phone;
     }
 
-    public void setBirth_Date(String birth_Date) {
-        Birth_Date = birth_Date;
+    public void setPhone(String birth_Date) {
+        Phone = birth_Date;
     }
 
     public String getEmail() {
@@ -57,5 +57,13 @@ public class FileMaintenanceModel {
 
     public void setLast_Name(String last_Name) {
         Last_Name = last_Name;
+    }
+
+    public String getSurl() {
+        return Surl;
+    }
+
+    public void setSurl(String surl) {
+        Surl = surl;
     }
 }

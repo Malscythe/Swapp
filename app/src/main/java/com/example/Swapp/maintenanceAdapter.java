@@ -38,161 +38,56 @@ import java.util.Map;
 import Swapp.R;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class maintenanceAdapter extends RecyclerView.Adapter<maintenanceAdapter.MyViewHolder> {
+public class maintenanceAdapter extends FirebaseRecyclerAdapter<FileMaintenanceModel, maintenanceAdapter.myViewHolder> {
 
-    Context context;
-    public static final String TAG = "TAG";
-    ArrayList<FileMaintenanceModel> userArrayList;
-    FirebaseFirestore db;
+    /**
+     * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
+     * {@link FirebaseRecyclerOptions} for configuration options.
+     *
+     * @param options
+     */
+    public maintenanceAdapter(@NonNull FirebaseRecyclerOptions<FileMaintenanceModel> options) {
+        super(options);
+    }
 
+    @Override
+    protected void onBindViewHolder(@NonNull myViewHolder holder, int position, @NonNull FileMaintenanceModel model) {
+        holder.fname.setText(model.getFirst_Name());
+        holder.lname.setText(model.getLast_Name());
+        holder.email.setText(model.getEmail());
+        holder.phone.setText(model.getPhone());
+        holder.gender.setText(model.getGender());
 
-    public maintenanceAdapter(Context context, ArrayList<FileMaintenanceModel> userArrayList) {
-        this.context = context;
-        this.userArrayList = userArrayList;
+        Glide.with(holder.img.getContext())
+                .load(model.getSurl())
+                .placeholder(R.drawable.default_picture)
+                .circleCrop()
+                .error(com.firebase.ui.database.R.drawable.common_google_signin_btn_icon_dark_normal)
+                .into(holder.img);
     }
 
     @NonNull
     @Override
-    public maintenanceAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-            View v = LayoutInflater.from(context).inflate(R.layout.maintenance_item,parent,false);
-
-        return new MyViewHolder(v);
+    public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.maintenance_item, parent, false);
+        return new myViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
-        FileMaintenanceModel user = userArrayList.get(position);
-
-        holder.First_Name.setText(user.First_Name);
-        holder.Last_Name.setText(user.Last_Name);
-        holder.Email.setText(user.Email);
-        holder.Gender.setText(user.Gender);
-        holder.Birth_Date.setText(user.Birth_Date);
-
-
-        holder.btnUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v ) {
-
-                final DialogPlus dialogPlus = DialogPlus.newDialog(holder.First_Name.getContext())
-                        .setContentHolder(new ViewHolder(R.layout.maintenance_popup))
-                        .setExpanded(true,1280)
-                        .create();
-
-
-                View view = dialogPlus.getHolderView();
-
-                EditText First_Name = view.findViewById(R.id.firstn);
-                EditText Last_Name = view.findViewById(R.id.lastn);
-                EditText Email = view.findViewById(R.id.emailt);
-                EditText Gender = view.findViewById(R.id.gendert);
-                EditText Birth_Date = view.findViewById(R.id.bdayt);
-
-
-                Button btnUpdate = view.findViewById(R.id.btnupdate1);
-
-                First_Name.setText(user.First_Name);
-                Last_Name.setText(user.Last_Name);
-                Email.setText(user.Email);
-                Gender.setText(user.Gender);
-                Birth_Date.setText(user.Birth_Date);
-
-                dialogPlus.show();
-
-                db = FirebaseFirestore.getInstance();
-
-
-                btnUpdate.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-
-                            Map<String,Object> map = new HashMap<>();
-                            map.put("First_Name",First_Name.getText().toString());
-                            map.put("Last_Name",Last_Name.getText().toString());
-                            map.put("Email",Email.getText().toString());
-                            map.put("Gender",Gender.getText().toString());
-                            map.put("Birth_Date",Birth_Date.getText().toString());
-
-
-        //                    db.collection("users")
-
-                        /**FirebaseDatabase.getInstance().getReference().child("users")
-                                .child(userArrayList.get(position).getKey()).updateChildren(map)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-
-                                    }
-                                }); **/
-
-
-                        db.collection("users")
-                                .whereEqualTo("Email", Email.getText().toString())
-                                .get()
-                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                                String uid = document.getId();
-
-                                                db.collection("users").document(uid)
-                                                        .set(map)
-                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                            @Override
-                                                            public void onSuccess(Void aVoid) {
-                                                                Log.d(TAG, "DocumentSnapshot successfully written!");
-                                                                dialogPlus.dismiss();
-                                                            }
-                                                        })
-                                                        .addOnFailureListener(new OnFailureListener() {
-                                                            @Override
-                                                            public void onFailure(@NonNull Exception e) {
-                                                                Log.w(TAG, "Error writing document", e);
-                                                                dialogPlus.dismiss();
-                                                            }
-                                                        });
-                                            }
-                                        } else {
-                                            Log.w(TAG, "Error getting documents.", task.getException());
-                                        }
-                                    }
-                                });
-                    }
-                });
-            }
-        });
-
-
-    }
-
-    @Override
-    public int getItemCount() {
-
-        return userArrayList.size();
-    }
-
-        public static class MyViewHolder extends RecyclerView.ViewHolder{
+    class myViewHolder extends RecyclerView.ViewHolder {
 
         CircleImageView img;
-        TextView First_Name, Last_Name, Gender, Birth_Date, Email;
+        TextView fname, lname, email, gender, phone;
 
-        Button btnUpdate, btnDelete;
+        public myViewHolder(@NonNull View itemView) {
+            super(itemView);
 
-            public MyViewHolder(@NonNull View itemView) {
-                super(itemView);
-                First_Name = itemView.findViewById(R.id.fNameText);
-                Last_Name = itemView.findViewById(R.id.lNameText);
-                Gender = itemView.findViewById(R.id.usergender);
-                Birth_Date = itemView.findViewById(R.id.userbday);
-                Email = itemView.findViewById(R.id.useremail);
-
-                btnUpdate = (Button)itemView.findViewById(R.id.btnUpdate);
-                btnDelete = (Button)itemView.findViewById(R.id.btnDelete);
-
-            }
+            img = itemView.findViewById(R.id.img1);
+            fname = itemView.findViewById(R.id.fNameText);
+            lname = itemView.findViewById(R.id.lNameText);
+            email = itemView.findViewById(R.id.useremail);
+            gender = itemView.findViewById(R.id.usergender);
+            phone = itemView.findViewById(R.id.userPhone);
         }
+    }
+
 }

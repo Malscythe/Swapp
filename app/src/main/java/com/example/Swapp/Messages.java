@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.example.Swapp.messages.MessagesAdapter;
 import com.example.Swapp.messages.MessagesList;
@@ -20,6 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -40,88 +44,172 @@ public class Messages extends AppCompatActivity {
     private static final String TAG = "TAG";
     private String mobile, email, name;
     private RecyclerView messagesRecyleView;
+    private int unseenMessages = 0;
+    private String lastMessage = "";
+    private String chatKey = "";
+    private boolean dataSet = false;
 
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    MessagesAdapter messagesAdapter;
+
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bugsbusters-de865-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     String uid = firebaseAuth.getCurrentUser().getUid();
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     ArrayList itemList;
+    ArrayList messageKeyList;
+    ArrayList arrMessageList;
+
+    int incre = 0;
+
+    ImageView backBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messages);
 
+        mobile = getIntent().getStringExtra("mobile");
+        email = getIntent().getStringExtra("email");
+        name = getIntent().getStringExtra("name");
+
         itemList = new ArrayList<>();
-        Log.w(TAG, "" + uid);
+        messageKeyList = new ArrayList<>();
+        arrMessageList = new ArrayList<>();
 
+        messagesRecyleView = findViewById(R.id.messagesRecyclerView);
 
-        readData(new FirebaseCallback() {
+        backBtn = findViewById(R.id.backBtn);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCallback(List<String> list) {
-                mobile = list.get(0);
-                name = list.get(2);
-                email = list.get(1);
-
-                messagesRecyleView = findViewById(R.id.messagesRecyclerView);
-
-                messagesRecyleView.setHasFixedSize(true);
-                messagesRecyleView.setLayoutManager(new LinearLayoutManager(Messages.this));
-
-                firebaseFirestore.collection("users")
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    messagesLists.clear();
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        Log.d(TAG, document.getId() + " => " + document.getData());
-
-                                        final String getMobile = document.get("Phone").toString();
-
-                                        if (!getMobile.equals(mobile)) {
-                                            final String getName = document.get("First_Name").toString().concat(" " + document.get("Last_Name"));
-
-                                            MessagesList messagesList = new MessagesList(getName, getMobile, "", "", 0);
-                                            messagesLists.add(messagesList);
-                                        }
-                                    }
-
-                                    messagesRecyleView.setAdapter(new MessagesAdapter(messagesLists, Messages.this));
-                                } else {
-                                    Log.d(TAG, "Error getting documents: ", task.getException());
-                                }
-                            }});
+            public void onClick(View view) {
+                Intent intent = new Intent(Messages.this, UserHomepage.class);
+                startActivity(intent);
             }
         });
-    }
 
-    private void readData(FirebaseCallback firebaseCallback) {
-        DocumentReference documentReference = firebaseFirestore.collection("users").document(uid);
-        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        messagesRecyleView.setHasFixedSize(true);
+        messagesRecyleView.setLayoutManager(new LinearLayoutManager(Messages.this));
+
+        messagesAdapter = new MessagesAdapter(messagesLists, Messages.this);
+        messagesRecyleView.setAdapter(messagesAdapter);
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        itemList.add(document.get("Phone").toString());
-                        itemList.add(document.get("Email").toString());
-                        itemList.add(document.get("First_Name").toString().concat(" " + document.get("Last_Name").toString()));
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        firebaseCallback.onCallback(itemList);
-                    } else {
-                        Log.d(TAG, "No such document");
-                    }
-                } else {
-                    Log.d(TAG, "get failed with ", task.getException());
+                messagesLists.clear();
+                unseenMessages = 0;
+                lastMessage = "";
+                chatKey = "";
+
+                for (DataSnapshot dataSnapshot : snapshot.child("users").getChildren()){
+
+                    final String getMobile = dataSnapshot.child("Phone").getValue(String.class);
+
+                    databaseReference.child("chat").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            dataSet = false;
+
+                            for (DataSnapshot dataSnapshot2 : snapshot.getChildren()) {
+
+                                String user1 = dataSnapshot2.child("user_1").getValue(String.class);
+                                String user2 = dataSnapshot2.child("user_2").getValue(String.class);
+
+                                if (!getMobile.equals(mobile) && (user1.equals(getMobile) || user2.equals(getMobile))) {
+
+                                    final String getName = dataSnapshot.child("First_Name").getValue(String.class).concat(" " + dataSnapshot.child("Last_Name").getValue(String.class));
+
+                                    databaseReference.child("chat").addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                            int getChatCounts = (int) snapshot.getChildrenCount();
+
+                                            if (getChatCounts > 0) {
+
+                                                for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
+
+                                                    Log.d(TAG, "Outer Loop");
+
+                                                    final String getKey = dataSnapshot1.getKey();
+                                                    chatKey = getKey;
+
+                                                    Log.d(TAG, "chatKey : " + chatKey);
+
+                                                    if ((dataSnapshot1.child("user_1").getValue(String.class).equals(mobile) || dataSnapshot1.child("user_2").getValue(String.class).equals(mobile)) && dataSnapshot1.hasChild("messages")) {
+
+                                                        final String getUserOne = dataSnapshot1.child("user_1").getValue(String.class);
+                                                        final String getUserTwo = dataSnapshot1.child("user_2").getValue(String.class);
+
+                                                        if ((getUserOne.equals(getMobile) && getUserTwo.equals(mobile)) || (getUserOne.equals(mobile) && getUserTwo.equals(getMobile))) {
+
+                                                            for (DataSnapshot chatDataSnapshot : dataSnapshot1.child("messages").getChildren()) {
+
+                                                                Log.d(TAG, "Inside Loop");
+
+                                                                final long getMessageKey = Long.parseLong(chatDataSnapshot.getKey());
+                                                                final long getLastSeenMessage = Long.parseLong(MemoryData.getLastMsgTS(Messages.this, getKey));
+
+                                                                lastMessage = chatDataSnapshot.child("msg").getValue(String.class);
+                                                                if (getMessageKey > getLastSeenMessage) {
+                                                                    unseenMessages++;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                            incre++;
+
+
+                                            Log.d(TAG, "Loop : " + incre + " " + dataSet + " " + chatKey);
+
+                                            Log.d(TAG, "--------");
+
+                                            if (!dataSet) {
+
+                                                dataSet = true;
+
+                                                MessagesList messagesList = new MessagesList(getName, getMobile, lastMessage, "", unseenMessages, chatKey);
+                                                messagesLists.add(messagesList);
+                                                messagesAdapter.updateData(messagesLists);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
             }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
         });
     }
 
-    private interface FirebaseCallback {
-        void onCallback(List<String> list);
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Messages.this, UserHomepage.class);
+        startActivity(intent);
     }
+
 }

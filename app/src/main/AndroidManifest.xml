@@ -14,22 +14,19 @@ package="Swapp">
 
     <activity
         android:name="com.example.Swapp.popup"
-        android:theme="@style/Theme.AppCompat.CustomTheme"
         android:exported="true" />
 
     <activity
         android:name="com.example.Swapp.MoreInfo"
-        android:theme="@style/Theme.AppCompat.CustomTheme"
         android:exported="true" />
+
 
     <activity
         android:name="com.example.Swapp.OfferSecondActivity"
-        android:theme="@style/Theme.AppCompat.CustomTheme"
         android:exported="true" />
 
     <activity
         android:name="com.example.Swapp.offerItem"
-        android:theme="@style/Theme.AppCompat.CustomTheme"
         android:exported="true" />
 
     <activity
@@ -42,6 +39,10 @@ package="Swapp">
 
     <activity
         android:name="com.example.Swapp.Categories"
+        android:exported="true" />
+
+    <activity
+        android:name="com.example.Swapp.chat.Chat"
         android:exported="true" />
 
     <activity
@@ -69,7 +70,7 @@ package="Swapp">
 
     <activity
         android:name="com.example.Swapp.FileMaintenance"
-        android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
         android:exported="true" />
 
     <activity

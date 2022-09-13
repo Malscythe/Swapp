@@ -24,8 +24,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -164,38 +167,32 @@ public class PostItem extends AppCompatActivity {
 
                         binding.itemImage.setImageResource(R.drawable.noimage);
                         DatabaseReference insertItems = FirebaseDatabase.getInstance().getReference().child("items").child(fileName);
-                        DocumentReference docRef = firebaseFirestore.collection("users").document(uid);
-
-                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bugsbusters-de865-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                        databaseReference.child("users").child(uid).addValueEventListener(new ValueEventListener() {
                             @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document = task.getResult();
-                                    if (document.exists()) {
-                                        String firstName = (String) document.getString("First_Name");
-                                        String lastName = (String) document.getString("Last_Name");
-                                        String userName = (String) firstName + " " + lastName;
-                                        String uid = FirebaseAuth.getInstance().getUid();
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                String firstName = snapshot.child("First_Name").getValue(String.class);
+                                String lastName = snapshot.child("Last_Name").getValue(String.class);
+                                String userName = firstName + " " + lastName;
 
-                                        taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Uri> task) {
-                                                insertItems.child("Image_Url").setValue(task.getResult().toString());
-                                                insertItems.child("Item_Category").setValue(binding.itemCategory.getText().toString());
-                                                insertItems.child("Item_Description").setValue(binding.itemDesc.getText().toString());
-                                                insertItems.child("Item_Location").setValue(binding.itemLocation.getText().toString());
-                                                insertItems.child("Item_Name").setValue(binding.itemName.getText().toString());
-                                                insertItems.child("Item_Preferred").setValue(binding.itemPref.getText().toString());
-                                                insertItems.child("Poster_Name").setValue(userName);
-                                                insertItems.child("Poster_UID").setValue(uid);
-                                            }
-                                        });
-                                    } else {
-                                        Log.d(TAG, "No such document");
+                                taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Uri> task) {
+                                        insertItems.child("Image_Url").setValue(task.getResult().toString());
+                                        insertItems.child("Item_Category").setValue(binding.itemCategory.getText().toString());
+                                        insertItems.child("Item_Description").setValue(binding.itemDesc.getText().toString());
+                                        insertItems.child("Item_Location").setValue(binding.itemLocation.getText().toString());
+                                        insertItems.child("Item_Name").setValue(binding.itemName.getText().toString());
+                                        insertItems.child("Item_Preferred").setValue(binding.itemPref.getText().toString());
+                                        insertItems.child("Poster_Name").setValue(userName);
+                                        insertItems.child("Poster_UID").setValue(uid);
                                     }
-                                } else {
-                                    Log.d(TAG, "get failed with ", task.getException());
-                                }
+                                });
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
                             }
                         });
 
