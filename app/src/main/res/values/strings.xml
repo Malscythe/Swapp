@@ -61,4 +61,5 @@
         <item>Taguig</item>
         <item>Valenzuela</item>
     </string-array>
+    <string name="googleApi">AIzaSyAS1tYA2wm2lkOOaYmJW77jxb6e9bEgBvg</string>
 </resources>
