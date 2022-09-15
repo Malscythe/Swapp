@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.Swapp.MemoryData;
-import com.google.firebase.Timestamp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.sql.Time;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -71,69 +70,72 @@ public class Chat extends AppCompatActivity {
         chatAdapter = new ChatAdapter(chatLists, Chat.this);
         chattingRecyclerView.setAdapter(chatAdapter);
 
-            databaseReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                    if(chatKey.isEmpty()) {
-                        chatKey = "1";
-                        if (snapshot.hasChild("chat")) {
-                            chatKey = String.valueOf(snapshot.child("chat").getChildrenCount() + 1);
-                        }
-                    }
-
+                if (chatKey.isEmpty()) {
+                    chatKey = "1";
                     if (snapshot.hasChild("chat")) {
-                        chatLists.clear();
-                        for (DataSnapshot messagesSnapshot : snapshot.child("chat").child(chatKey).child("messages").getChildren()) {
-                            if (messagesSnapshot.hasChild("msg") && messagesSnapshot.hasChild("mobile")) {
-                                final String messageTimestamps = messagesSnapshot.getKey();
-                                final String getMobile = messagesSnapshot.child("mobile").getValue(String.class);
-                                final String getMsg = messagesSnapshot.child("msg").getValue(String.class);
+                        chatKey = String.valueOf(snapshot.child("chat").getChildrenCount() + 1);
+                    }
+                }
 
-                                java.sql.Timestamp timestamp = new java.sql.Timestamp(Long.parseLong(messageTimestamps));
-                                Date date = new Date(timestamp.getTime());
-                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-                                SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("hh:mm aa", Locale.getDefault());
+                if (snapshot.hasChild("chat")) {
+                    chatLists.clear();
+                    for (DataSnapshot messagesSnapshot : snapshot.child("chat").child(chatKey).child("messages").getChildren()) {
+                        if (messagesSnapshot.hasChild("msg") && messagesSnapshot.hasChild("mobile")) {
+                            final String messageTimestamps = messagesSnapshot.getKey();
+                            final String getMobile = messagesSnapshot.child("mobile").getValue(String.class);
+                            final String getMsg = messagesSnapshot.child("msg").getValue(String.class);
 
-                                ChatList chatList = new ChatList(getMobile, getName, getMsg, simpleDateFormat.format(date), simpleTimeFormat.format(date));
-                                chatLists.add(chatList);
+                            Timestamp timestamp = new Timestamp(Long.parseLong(messageTimestamps.substring(0, 12)));
+                            SimpleDateFormat databaseFormat = new SimpleDateFormat("ddMMyyyyhhmmaa", Locale.getDefault());
 
-                                if (loadingFirstTime || Long.parseLong(messageTimestamps) > Long.parseLong(MemoryData.getLastMsgTS(Chat.this, chatKey))) {
-                                    MemoryData.saveLastMsgTS(messageTimestamps, chatKey, Chat.this);
+                            String date = messageTimestamps.substring(0, 2) + "-" + messageTimestamps.substring(2, 4) + "-" + messageTimestamps.substring(4,8);
+                            String time = messageTimestamps.substring(8, 10) + ":" + messageTimestamps.substring(10, 12) + " " + messageTimestamps.substring(12,14);
 
-                                    loadingFirstTime = false;
-                                    chatAdapter.updateChatList(chatLists);
+                            ChatList chatList = new ChatList(getMobile, getName, getMsg, date, time);
+                            chatLists.add(chatList);
 
-                                    chattingRecyclerView.scrollToPosition(chatLists.size());
+                            if (loadingFirstTime || Long.parseLong(messageTimestamps.substring(0,12)) > Long.parseLong(MemoryData.getLastMsgTS(Chat.this, chatKey).substring(0, 12))) {
+                                MemoryData.saveLastMsgTS(databaseFormat.format(timestamp), chatKey, Chat.this);
 
-                                }
+                                loadingFirstTime = false;
+                                chatAdapter.updateChatList(chatLists);
+
+                                chattingRecyclerView.scrollToPosition(chatLists.size());
+
                             }
-
                         }
 
                     }
 
                 }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+            }
 
-                }
-            });
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final String getTxtMessage = messageEditText.getText().toString();
 
-                final String currenTimeStamp = String.valueOf(System.currentTimeMillis()).substring(0, 10);
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyyhhmmaa", Locale.getDefault());
 
-                MemoryData.saveLastMsgTS(currenTimeStamp, chatKey, Chat.this);
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                MemoryData.saveLastMsgTS(simpleDateFormat.format(timestamp), chatKey, Chat.this);
+
 
                 databaseReference.child("chat").child(chatKey).child("user_1").setValue(getUserMobile);
                 databaseReference.child("chat").child(chatKey).child("user_2").setValue(getMobile);
-                databaseReference.child("chat").child(chatKey).child("messages").child(currenTimeStamp).child("msg").setValue(getTxtMessage);
-                databaseReference.child("chat").child(chatKey).child("messages").child(currenTimeStamp).child("mobile").setValue(getUserMobile);
+                databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("msg").setValue(getTxtMessage);
+                databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("mobile").setValue(getUserMobile);
 
                 messageEditText.setText("");
             }

@@ -67,8 +67,6 @@ public class UserHomepage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_homepage);
 
-        Log.d(TAG, MemoryData.getData(UserHomepage.this));
-
         imgbtn = findViewById(R.id.locatebtn);
 
         inbbtn = findViewById(R.id.inboxBtn);
@@ -155,6 +153,11 @@ public class UserHomepage extends AppCompatActivity {
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                for (int i = 0; i < 5; i++) {
+                    MemoryData.saveLastMsgTS("", String.valueOf(i + 1), UserHomepage.this);
+                }
+
                 MemoryData.saveData("", UserHomepage.this);
                 MemoryData.saveName("", UserHomepage.this);
                 MemoryData.saveState(false, UserHomepage.this);

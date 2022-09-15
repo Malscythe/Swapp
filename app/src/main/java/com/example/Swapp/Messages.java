@@ -48,6 +48,7 @@ public class Messages extends AppCompatActivity {
     private String lastMessage = "";
     private String chatKey = "";
     private boolean dataSet = false;
+    String oppositeNum = "";
 
     MessagesAdapter messagesAdapter;
 
@@ -59,8 +60,6 @@ public class Messages extends AppCompatActivity {
     ArrayList itemList;
     ArrayList messageKeyList;
     ArrayList arrMessageList;
-
-    int incre = 0;
 
     ImageView backBtn;
 
@@ -104,100 +103,73 @@ public class Messages extends AppCompatActivity {
                 unseenMessages = 0;
                 lastMessage = "";
                 chatKey = "";
+                oppositeNum = "";
 
-                for (DataSnapshot dataSnapshot : snapshot.child("users").getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.child("users").getChildren()) {
 
-                    final String getMobile = dataSnapshot.child("Phone").getValue(String.class);
+                    dataSet = false;
 
-                    databaseReference.child("chat").addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    String currentMobile = dataSnapshot.child("Phone").getValue(String.class);
 
-                            dataSet = false;
+                    for (DataSnapshot dataSnapshot1 : snapshot.child("chat").getChildren()) {
 
-                            for (DataSnapshot dataSnapshot2 : snapshot.getChildren()) {
+                        String user1 = dataSnapshot1.child("user_1").getValue(String.class);
+                        String user2 = dataSnapshot1.child("user_2").getValue(String.class);
 
-                                String user1 = dataSnapshot2.child("user_1").getValue(String.class);
-                                String user2 = dataSnapshot2.child("user_2").getValue(String.class);
+                        if ((user1.equals(currentMobile) || user2.equals(currentMobile)) && (!currentMobile.equals(mobile))) {
 
-                                if (!getMobile.equals(mobile) && (user1.equals(getMobile) || user2.equals(getMobile))) {
+                            final String getName = dataSnapshot.child("First_Name").getValue(String.class).concat(" " + dataSnapshot.child("Last_Name").getValue(String.class));
 
-                                    final String getName = dataSnapshot.child("First_Name").getValue(String.class).concat(" " + dataSnapshot.child("Last_Name").getValue(String.class));
+                            int getChatCounts = (int) snapshot.getChildrenCount();
 
-                                    databaseReference.child("chat").addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (getChatCounts > 0) {
 
-                                            int getChatCounts = (int) snapshot.getChildrenCount();
+                                final String getKey = dataSnapshot1.getKey();
+                                chatKey = getKey;
 
-                                            if (getChatCounts > 0) {
+                                if ((dataSnapshot1.child("user_1").getValue(String.class).equals(currentMobile) || dataSnapshot1.child("user_2").getValue(String.class).equals(currentMobile)) && dataSnapshot1.hasChild("messages")) {
 
-                                                for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
+                                    final String getUserOne = dataSnapshot1.child("user_1").getValue(String.class);
+                                    final String getUserTwo = dataSnapshot1.child("user_2").getValue(String.class);
 
-                                                    Log.d(TAG, "Outer Loop");
+                                    if ((getUserOne.equals(currentMobile) && getUserTwo.equals(mobile)) || (getUserOne.equals(mobile) && getUserTwo.equals(currentMobile))) {
 
-                                                    final String getKey = dataSnapshot1.getKey();
-                                                    chatKey = getKey;
+                                        if (dataSnapshot1.child("user_1").getValue(String.class).equals(currentMobile)) {
+                                            oppositeNum = dataSnapshot1.child("user_2").getValue(String.class);
+                                        } else if (dataSnapshot1.child("user_2").getValue(String.class).equals(currentMobile)) {
+                                            oppositeNum = dataSnapshot1.child("user_1").getValue(String.class);
+                                        }
 
-                                                    Log.d(TAG, "chatKey : " + chatKey);
+                                        for (DataSnapshot chatDataSnapshot : dataSnapshot1.child("messages").getChildren()) {
 
-                                                    if ((dataSnapshot1.child("user_1").getValue(String.class).equals(mobile) || dataSnapshot1.child("user_2").getValue(String.class).equals(mobile)) && dataSnapshot1.hasChild("messages")) {
+                                            final long getMessageKey = Long.parseLong(chatDataSnapshot.getKey().substring(0, 12));
+                                            final long getLastSeenMessage;
 
-                                                        final String getUserOne = dataSnapshot1.child("user_1").getValue(String.class);
-                                                        final String getUserTwo = dataSnapshot1.child("user_2").getValue(String.class);
+                                            if (MemoryData.getLastMsgTS(Messages.this, getKey).equals("")) {
+                                                getLastSeenMessage = 0L;
+                                            } else {
+                                                getLastSeenMessage = Long.parseLong(MemoryData.getLastMsgTS(Messages.this, getKey).substring(0, 12));
+                                            }
 
-                                                        if ((getUserOne.equals(getMobile) && getUserTwo.equals(mobile)) || (getUserOne.equals(mobile) && getUserTwo.equals(getMobile))) {
-
-                                                            for (DataSnapshot chatDataSnapshot : dataSnapshot1.child("messages").getChildren()) {
-
-                                                                Log.d(TAG, "Inside Loop");
-
-                                                                final long getMessageKey = Long.parseLong(chatDataSnapshot.getKey());
-                                                                final long getLastSeenMessage = Long.parseLong(MemoryData.getLastMsgTS(Messages.this, getKey));
-
-                                                                lastMessage = chatDataSnapshot.child("msg").getValue(String.class);
-                                                                if (getMessageKey > getLastSeenMessage) {
-                                                                    unseenMessages++;
-                                                                }
-                                                            }
-                                                        }
-                                                    }
+                                                lastMessage = chatDataSnapshot.child("msg").getValue(String.class);
+                                                if (getMessageKey > getLastSeenMessage) {
+                                                    unseenMessages++;
                                                 }
                                             }
-
-                                            incre++;
-
-
-                                            Log.d(TAG, "Loop : " + incre + " " + dataSet + " " + chatKey);
-
-                                            Log.d(TAG, "--------");
-
-                                            if (!dataSet) {
-
-                                                dataSet = true;
-
-                                                MessagesList messagesList = new MessagesList(getName, getMobile, lastMessage, "", unseenMessages, chatKey);
-                                                messagesLists.add(messagesList);
-                                                messagesAdapter.updateData(messagesLists);
-                                            }
                                         }
+                                    }
 
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
-
-                                        }
-                                    });
+                                    if (!dataSet && oppositeNum.equals(mobile)) {
+                                        MessagesList messagesList = new MessagesList(getName, currentMobile, lastMessage, "", unseenMessages, chatKey);
+                                        messagesLists.add(messagesList);
+                                        messagesAdapter.updateData(messagesLists);
+                                        dataSet = true;
+                                    }
                                 }
                             }
                         }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
+                    }
                 }
-            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -205,6 +177,7 @@ public class Messages extends AppCompatActivity {
             }
         });
     }
+
 
     @Override
     public void onBackPressed() {
