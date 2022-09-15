@@ -154,10 +154,6 @@ public class UserHomepage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                for (int i = 0; i < 5; i++) {
-                    MemoryData.saveLastMsgTS("", String.valueOf(i + 1), UserHomepage.this);
-                }
-
                 MemoryData.saveData("", UserHomepage.this);
                 MemoryData.saveName("", UserHomepage.this);
                 MemoryData.saveState(false, UserHomepage.this);

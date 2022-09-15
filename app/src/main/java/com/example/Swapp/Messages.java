@@ -142,13 +142,13 @@ public class Messages extends AppCompatActivity {
 
                                         for (DataSnapshot chatDataSnapshot : dataSnapshot1.child("messages").getChildren()) {
 
-                                            final long getMessageKey = Long.parseLong(chatDataSnapshot.getKey().substring(0, 12));
+                                            final long getMessageKey = Long.parseLong(chatDataSnapshot.getKey().substring(0, 16));
                                             final long getLastSeenMessage;
 
-                                            if (MemoryData.getLastMsgTS(Messages.this, getKey).equals("")) {
+                                            if (MemoryData.getLastMsgTS(Messages.this, getKey).equals("") || MemoryData.getLastMsgTS(Messages.this, getKey) == null) {
                                                 getLastSeenMessage = 0L;
                                             } else {
-                                                getLastSeenMessage = Long.parseLong(MemoryData.getLastMsgTS(Messages.this, getKey).substring(0, 12));
+                                                getLastSeenMessage = Long.parseLong(MemoryData.getLastMsgTS(Messages.this, getKey).substring(0, 16));
                                             }
 
                                                 lastMessage = chatDataSnapshot.child("msg").getValue(String.class);

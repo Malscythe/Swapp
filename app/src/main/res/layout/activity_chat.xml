@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
+    android:fitsSystemWindows="true"
     tools:context="com.example.Swapp.chat.Chat">
 
     <RelativeLayout
@@ -63,11 +64,12 @@
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@id/topBar"
+        android:id="@+id/chattingRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/chattingRecyclerView"
-        android:layout_above="@id/bottomBar"/>
+        android:layout_above="@id/bottomBar"
+        android:layout_marginBottom="20dp"
+        android:layout_below="@id/topBar" />
 
     <RelativeLayout
         android:id="@+id/bottomBar"

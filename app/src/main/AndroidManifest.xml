@@ -45,6 +45,7 @@
 
         <activity
             android:name="com.example.Swapp.chat.Chat"
+            android:windowSoftInputMode="adjustResize"
             android:exported="true" />
 
         <activity

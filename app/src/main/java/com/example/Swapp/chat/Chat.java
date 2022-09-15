@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -66,7 +67,6 @@ public class Chat extends AppCompatActivity {
         chattingRecyclerView.setHasFixedSize(true);
         chattingRecyclerView.setLayoutManager(new LinearLayoutManager(Chat.this));
 
-
         chatAdapter = new ChatAdapter(chatLists, Chat.this);
         chattingRecyclerView.setAdapter(chatAdapter);
 
@@ -89,24 +89,24 @@ public class Chat extends AppCompatActivity {
                             final String getMobile = messagesSnapshot.child("mobile").getValue(String.class);
                             final String getMsg = messagesSnapshot.child("msg").getValue(String.class);
 
-                            Timestamp timestamp = new Timestamp(Long.parseLong(messageTimestamps.substring(0, 12)));
-                            SimpleDateFormat databaseFormat = new SimpleDateFormat("ddMMyyyyhhmmaa", Locale.getDefault());
+                            Timestamp timestamp = new Timestamp(Long.parseLong(messageTimestamps.substring(0, 16)));
+                            SimpleDateFormat databaseFormat = new SimpleDateFormat("ddMMyyyyhhmmssSSaa", Locale.getDefault());
 
                             String date = messageTimestamps.substring(0, 2) + "-" + messageTimestamps.substring(2, 4) + "-" + messageTimestamps.substring(4,8);
-                            String time = messageTimestamps.substring(8, 10) + ":" + messageTimestamps.substring(10, 12) + " " + messageTimestamps.substring(12,14);
+                            String time = messageTimestamps.substring(8, 10) + ":" + messageTimestamps.substring(10, 12) + " " + messageTimestamps.substring(16,18);
 
                             ChatList chatList = new ChatList(getMobile, getName, getMsg, date, time);
                             chatLists.add(chatList);
 
-                            if (loadingFirstTime || Long.parseLong(messageTimestamps.substring(0,12)) > Long.parseLong(MemoryData.getLastMsgTS(Chat.this, chatKey).substring(0, 12))) {
+                            if (loadingFirstTime || Long.parseLong(messageTimestamps.substring(0,16)) > Long.parseLong(MemoryData.getLastMsgTS(Chat.this, chatKey).substring(0, 16))) {
                                 MemoryData.saveLastMsgTS(databaseFormat.format(timestamp), chatKey, Chat.this);
 
                                 loadingFirstTime = false;
                                 chatAdapter.updateChatList(chatLists);
 
-                                chattingRecyclerView.scrollToPosition(chatLists.size());
-
                             }
+
+                            chattingRecyclerView.scrollToPosition(chatLists.size() - 1);
                         }
 
                     }
@@ -121,12 +121,22 @@ public class Chat extends AppCompatActivity {
             }
         });
 
+        messageEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                messageEditText.setShowSoftInputOnFocus(true);
+            }
+        });
+
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                chattingRecyclerView.smoothScrollToPosition(chatLists.size() - 1);
+
                 final String getTxtMessage = messageEditText.getText().toString();
 
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyyhhmmaa", Locale.getDefault());
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyyhhmmssSSaa", Locale.getDefault());
 
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                 MemoryData.saveLastMsgTS(simpleDateFormat.format(timestamp), chatKey, Chat.this);
@@ -138,6 +148,8 @@ public class Chat extends AppCompatActivity {
                 databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("mobile").setValue(getUserMobile);
 
                 messageEditText.setText("");
+                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
             }
         });
         backBtn.setOnClickListener(new View.OnClickListener() {
