@@ -67,7 +67,6 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
             }
         });
 
-
     }
 
     public void updateData(List<MessagesList> messagesLists) {
