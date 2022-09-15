@@ -305,20 +305,20 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:padding="6dp"
+            android:src="@drawable/default_picture"
             app:layout_constraintBottom_toTopOf="@id/picBot"
             app:layout_constraintEnd_toEndOf="@id/picRight"
             app:layout_constraintStart_toStartOf="@id/picLeft"
-            app:layout_constraintTop_toBottomOf="@id/picTop"
-            android:src="@drawable/default_picture"/>
+            app:layout_constraintTop_toBottomOf="@id/picTop" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:fontFamily="@font/poppins"
+            android:gravity="bottom"
             android:text="Full Name"
             android:textColor="@color/white"
             android:textSize="18dp"
-            android:gravity="bottom"
             app:layout_constraintBottom_toTopOf="@id/nameBot"
             app:layout_constraintEnd_toEndOf="@id/nameRight"
             app:layout_constraintStart_toStartOf="@id/nameLeft"
@@ -495,39 +495,39 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="Trades Report Summary"
-            android:textSize="16dp"
-            android:textColor="@color/primary2"
             android:fontFamily="@font/poppins_medium"
             android:gravity="bottom"
-            app:layout_constraintStart_toStartOf="@id/reportTitleLeft"
+            android:text="Trades Report Summary"
+            android:textColor="@color/primary2"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@id/reportTitleBot"
             app:layout_constraintEnd_toEndOf="@id/reportTitleRight"
-            app:layout_constraintTop_toBottomOf="@id/reportTitleTop"
-            app:layout_constraintBottom_toTopOf="@id/reportTitleBot"/>
+            app:layout_constraintStart_toStartOf="@id/reportTitleLeft"
+            app:layout_constraintTop_toBottomOf="@id/reportTitleTop" />
 
         <TextView
             android:id="@+id/viewBtn"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="View chart >>"
-            android:textSize="11dp"
-            android:textColor="@color/black"
             android:fontFamily="@font/poppins"
             android:gravity="end"
-            app:layout_constraintStart_toStartOf="@id/clickChartLeft"
+            android:text="View chart >>"
+            android:textColor="@color/black"
+            android:textSize="11dp"
+            app:layout_constraintBottom_toTopOf="@id/clickChartBot"
             app:layout_constraintEnd_toEndOf="@id/clickChartRight"
-            app:layout_constraintTop_toBottomOf="@id/clickChartTop"
-            app:layout_constraintBottom_toTopOf="@id/clickChartBot"/>
+            app:layout_constraintStart_toStartOf="@id/clickChartLeft"
+            app:layout_constraintTop_toBottomOf="@id/clickChartTop" />
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:dividerInsetStart="16dp"
             app:dividerInsetEnd="16dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:dividerInsetStart="16dp"
+            app:layout_constraintBottom_toTopOf="@id/dividerBot"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dividerTop"
-            app:layout_constraintBottom_toTopOf="@id/dividerBot"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dividerTop" />
 
         <View
             android:layout_width="1.5dp"
@@ -541,126 +541,126 @@
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/leftDivLeft"
+            app:layout_constraintBottom_toTopOf="@id/horiDivBot"
             app:layout_constraintEnd_toEndOf="@id/leftDivRight"
-            app:layout_constraintTop_toBottomOf="@id/horiDivTop"
-            app:layout_constraintBottom_toTopOf="@id/horiDivBot"/>
+            app:layout_constraintStart_toStartOf="@id/leftDivLeft"
+            app:layout_constraintTop_toBottomOf="@id/horiDivTop" />
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/rightDivLeft"
+            app:layout_constraintBottom_toTopOf="@id/horiDivBot"
             app:layout_constraintEnd_toEndOf="@id/rightDivRight"
-            app:layout_constraintTop_toBottomOf="@id/horiDivTop"
-            app:layout_constraintBottom_toTopOf="@id/horiDivBot"/>
+            app:layout_constraintStart_toStartOf="@id/rightDivLeft"
+            app:layout_constraintTop_toBottomOf="@id/horiDivTop" />
 
         <TextView
             android:id="@+id/successfulText"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="24"
-            android:textSize="24dp"
-            android:textColor="@android:color/holo_green_light"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="start|top"
-            app:layout_constraintStart_toStartOf="@id/leftDivLeft"
+            android:text="24"
+            android:textColor="@android:color/holo_green_light"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toTopOf="@id/topDivBot"
             app:layout_constraintEnd_toEndOf="@id/leftDivRight"
-            app:layout_constraintTop_toBottomOf="@id/topDivTop"
-            app:layout_constraintBottom_toTopOf="@id/topDivBot"/>
+            app:layout_constraintStart_toStartOf="@id/leftDivLeft"
+            app:layout_constraintTop_toBottomOf="@id/topDivTop" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="Successful Trades"
-            android:textSize="11dp"
-            android:textColor="@color/primary2"
             android:fontFamily="@font/poppins"
             android:gravity="start|top"
-            app:layout_constraintStart_toStartOf="@id/leftDivLeft"
+            android:text="Successful Trades"
+            android:textColor="@color/primary2"
+            android:textSize="11dp"
+            app:layout_constraintBottom_toTopOf="@id/horiDivTop"
             app:layout_constraintEnd_toEndOf="@id/leftDivRight"
-            app:layout_constraintTop_toBottomOf="@id/topDivBot"
-            app:layout_constraintBottom_toTopOf="@id/horiDivTop"/>
+            app:layout_constraintStart_toStartOf="@id/leftDivLeft"
+            app:layout_constraintTop_toBottomOf="@id/topDivBot" />
 
         <TextView
             android:id="@+id/pendingText"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="0"
-            android:textSize="24dp"
-            android:textColor="@android:color/holo_blue_light"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="start|top"
-            app:layout_constraintStart_toStartOf="@id/rightDivLeft"
+            android:text="0"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toTopOf="@id/topDivBot"
             app:layout_constraintEnd_toEndOf="@id/rightDivRight"
-            app:layout_constraintTop_toBottomOf="@id/topDivTop"
-            app:layout_constraintBottom_toTopOf="@id/topDivBot"/>
+            app:layout_constraintStart_toStartOf="@id/rightDivLeft"
+            app:layout_constraintTop_toBottomOf="@id/topDivTop" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="Pending Trades"
-            android:textSize="11dp"
-            android:textColor="@color/primary2"
             android:fontFamily="@font/poppins"
             android:gravity="start|top"
-            app:layout_constraintStart_toStartOf="@id/rightDivLeft"
+            android:text="Pending Trades"
+            android:textColor="@color/primary2"
+            android:textSize="11dp"
+            app:layout_constraintBottom_toTopOf="@id/horiDivTop"
             app:layout_constraintEnd_toEndOf="@id/rightDivRight"
-            app:layout_constraintTop_toBottomOf="@id/topDivBot"
-            app:layout_constraintBottom_toTopOf="@id/horiDivTop"/>
+            app:layout_constraintStart_toStartOf="@id/rightDivLeft"
+            app:layout_constraintTop_toBottomOf="@id/topDivBot" />
 
         <TextView
             android:id="@+id/unsuccessfulText"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="2"
-            android:textSize="24dp"
-            android:textColor="@android:color/holo_red_light"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="start|top"
-            app:layout_constraintStart_toStartOf="@id/leftDivLeft"
+            android:text="2"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toTopOf="@id/botDivBot"
             app:layout_constraintEnd_toEndOf="@id/leftDivRight"
-            app:layout_constraintTop_toBottomOf="@id/horiDivBot"
-            app:layout_constraintBottom_toTopOf="@id/botDivBot"/>
+            app:layout_constraintStart_toStartOf="@id/leftDivLeft"
+            app:layout_constraintTop_toBottomOf="@id/horiDivBot" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="Unsuccessful Trades"
-            android:textSize="11dp"
-            android:textColor="@color/primary2"
             android:fontFamily="@font/poppins"
             android:gravity="start|top"
-            app:layout_constraintStart_toStartOf="@id/leftDivLeft"
+            android:text="Unsuccessful Trades"
+            android:textColor="@color/primary2"
+            android:textSize="11dp"
+            app:layout_constraintBottom_toTopOf="@id/botDivBot2"
             app:layout_constraintEnd_toEndOf="@id/leftDivRight"
-            app:layout_constraintTop_toBottomOf="@id/botDivBot"
-            app:layout_constraintBottom_toTopOf="@id/botDivBot2"/>
+            app:layout_constraintStart_toStartOf="@id/leftDivLeft"
+            app:layout_constraintTop_toBottomOf="@id/botDivBot" />
 
         <TextView
             android:id="@+id/currentText"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="4"
-            android:textSize="24dp"
-            android:textColor="@android:color/holo_orange_light"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="start|top"
-            app:layout_constraintStart_toStartOf="@id/rightDivLeft"
+            android:text="4"
+            android:textColor="@android:color/holo_orange_light"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toTopOf="@id/botDivBot"
             app:layout_constraintEnd_toEndOf="@id/rightDivRight"
-            app:layout_constraintTop_toBottomOf="@id/horiDivBot"
-            app:layout_constraintBottom_toTopOf="@id/botDivBot"/>
+            app:layout_constraintStart_toStartOf="@id/rightDivLeft"
+            app:layout_constraintTop_toBottomOf="@id/horiDivBot" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="Current Trades"
-            android:textSize="11dp"
-            android:textColor="@color/primary2"
             android:fontFamily="@font/poppins"
             android:gravity="start|top"
-            app:layout_constraintStart_toStartOf="@id/rightDivLeft"
+            android:text="Current Trades"
+            android:textColor="@color/primary2"
+            android:textSize="11dp"
+            app:layout_constraintBottom_toTopOf="@id/botDivBot2"
             app:layout_constraintEnd_toEndOf="@id/rightDivRight"
-            app:layout_constraintTop_toBottomOf="@id/botDivBot"
-            app:layout_constraintBottom_toTopOf="@id/botDivBot2"/>
+            app:layout_constraintStart_toStartOf="@id/rightDivLeft"
+            app:layout_constraintTop_toBottomOf="@id/botDivBot" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -668,93 +668,104 @@
         android:id="@+id/tradeButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="Start Trading"
-        android:gravity="left|center"
-        android:textAllCaps="false"
-        android:padding="20dp"
         android:background="@drawable/buttonborder"
-        android:textSize="24dp"
-        android:textColor="@color/white"
-        android:fontFamily="@font/poppins_semibold"
         android:drawableEnd="@drawable/ic_baseline_swap_horiz_24"
-        app:layout_constraintStart_toStartOf="@id/tradeLeft"
+        android:fontFamily="@font/poppins_semibold"
+        android:gravity="left|center"
+        android:padding="20dp"
+        android:text="Start Trading"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toTopOf="@id/tradeBot"
         app:layout_constraintEnd_toEndOf="@id/tradeRight"
-        app:layout_constraintTop_toBottomOf="@id/tradeTop"
-        app:layout_constraintBottom_toTopOf="@id/tradeBot"/>
+        app:layout_constraintStart_toStartOf="@id/tradeLeft"
+        app:layout_constraintTop_toBottomOf="@id/tradeTop" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/deliverBtn"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/buttonborder"
+        android:drawableTop="@drawable/ic_motor"
         android:fontFamily="@font/poppins_semibold"
         android:paddingTop="18dp"
-        android:drawableTop="@drawable/ic_motor"
-        app:layout_constraintStart_toStartOf="@id/firstLeft"
+        app:layout_constraintBottom_toTopOf="@id/threeBot"
         app:layout_constraintEnd_toEndOf="@id/firstRight"
-        app:layout_constraintTop_toBottomOf="@id/threeTop"
-        app:layout_constraintBottom_toTopOf="@id/threeBot"/>
+        app:layout_constraintStart_toStartOf="@id/firstLeft"
+        app:layout_constraintTop_toBottomOf="@id/threeTop" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/inboxBtn"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingTop="10dp"
         android:background="@drawable/buttonborder"
-        android:fontFamily="@font/poppins_semibold"
         android:drawableTop="@drawable/ic_baseline_inbox_24"
-        app:layout_constraintStart_toStartOf="@id/secondLeft"
+        android:fontFamily="@font/poppins_semibold"
+        android:paddingTop="10dp"
+        app:layout_constraintBottom_toTopOf="@id/threeBot"
         app:layout_constraintEnd_toEndOf="@id/secondRight"
-        app:layout_constraintTop_toBottomOf="@id/threeTop"
-        app:layout_constraintBottom_toTopOf="@id/threeBot"/>
+        app:layout_constraintStart_toStartOf="@id/secondLeft"
+        app:layout_constraintTop_toBottomOf="@id/threeTop" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/accSettings"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingTop="10dp"
         android:background="@drawable/buttonborder"
-        android:fontFamily="@font/poppins_semibold"
         android:drawableTop="@drawable/ic_baseline_settings_24"
-        app:layout_constraintStart_toStartOf="@id/thirdLeft"
+        android:fontFamily="@font/poppins_semibold"
+        android:paddingTop="10dp"
+        app:layout_constraintBottom_toTopOf="@id/threeBot"
         app:layout_constraintEnd_toEndOf="@id/thirdRight"
-        app:layout_constraintTop_toBottomOf="@id/threeTop"
-        app:layout_constraintBottom_toTopOf="@id/threeBot"/>
-    
+        app:layout_constraintStart_toStartOf="@id/thirdLeft"
+        app:layout_constraintTop_toBottomOf="@id/threeTop" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins"
+        android:gravity="center"
         android:text="Delivery\nTracking"
         android:textColor="@color/black"
-        android:fontFamily="@font/poppins"
         android:textSize="16dp"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="@id/firstLeft"
         app:layout_constraintEnd_toEndOf="@id/firstRight"
+        app:layout_constraintStart_toStartOf="@id/firstLeft"
         app:layout_constraintTop_toBottomOf="@id/threeBot" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins"
+        android:gravity="center"
         android:text="Inbox"
         android:textColor="@color/black"
-        android:fontFamily="@font/poppins"
         android:textSize="16dp"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="@id/secondLeft"
         app:layout_constraintEnd_toEndOf="@id/secondRight"
+        app:layout_constraintStart_toStartOf="@id/secondLeft"
         app:layout_constraintTop_toBottomOf="@id/threeBot" />
 
     <TextView
+        android:id="@+id/textView20"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins"
+        android:gravity="center"
         android:text="Account Settings"
         android:textColor="@color/black"
-        android:fontFamily="@font/poppins"
         android:textSize="16dp"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="@id/thirdLeft"
         app:layout_constraintEnd_toEndOf="@id/thirdRight"
+        app:layout_constraintStart_toStartOf="@id/thirdLeft"
         app:layout_constraintTop_toBottomOf="@id/threeBot" />
+
+    <ImageButton
+        android:id="@+id/locatebtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/reportRight"
+        app:layout_constraintStart_toStartOf="@+id/thirdLeft"
+        app:layout_constraintTop_toBottomOf="@+id/textView20"
+        app:srcCompat="@android:drawable/ic_menu_mylocation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
