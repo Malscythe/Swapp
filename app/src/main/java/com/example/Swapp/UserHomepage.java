@@ -67,6 +67,8 @@ public class UserHomepage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_homepage);
 
+        Log.d(TAG, MemoryData.getData(UserHomepage.this));
+
         inbbtn = findViewById(R.id.inboxBtn);
         viewChart = findViewById(R.id.viewBtn);
         chartDialog = new Dialog(this);
@@ -79,6 +81,7 @@ public class UserHomepage extends AppCompatActivity {
         currentCounts = findViewById(R.id.currentText);
         firebaseAuth = FirebaseAuth.getInstance();
         String uid = firebaseAuth.getCurrentUser().getUid();
+
 
         databaseReference = FirebaseDatabase.getInstance().getReference("items/");
         databaseReference.orderByChild("Poster_UID").equalTo(uid).addValueEventListener(new ValueEventListener() {
@@ -150,20 +153,12 @@ public class UserHomepage extends AppCompatActivity {
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                for (int i = 0; i < 5; i++) {
-                    MemoryData.saveLastMsgTS("", String.valueOf(i + 1), UserHomepage.this);
-                }
-
                 MemoryData.saveData("", UserHomepage.this);
                 MemoryData.saveName("", UserHomepage.this);
                 MemoryData.saveState(false, UserHomepage.this);
-
                 startActivity(new Intent(UserHomepage.this, login.class));
-
             }
         });
-
         trdbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

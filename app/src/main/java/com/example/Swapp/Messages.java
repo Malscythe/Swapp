@@ -1,6 +1,7 @@
 package com.example.Swapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,17 +12,25 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.example.Swapp.chat.Chat;
 import com.example.Swapp.messages.MessagesAdapter;
 import com.example.Swapp.messages.MessagesList;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,9 +59,6 @@ public class Messages extends AppCompatActivity {
     ArrayList itemList;
     ArrayList messageKeyList;
     ArrayList arrMessageList;
-    String oppositeNum = "";
-
-    ExtendedFloatingActionButton sendMessage;
 
     int incre = 0;
 
@@ -74,14 +80,6 @@ public class Messages extends AppCompatActivity {
         messagesRecyleView = findViewById(R.id.messagesRecyclerView);
 
         backBtn = findViewById(R.id.backBtn);
-        sendMessage = findViewById(R.id.newChat);
-
-        sendMessage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,83 +89,113 @@ public class Messages extends AppCompatActivity {
             }
         });
 
-        messagesRecyleView.setHasFixedSize(false);
+        messagesRecyleView.setHasFixedSize(true);
         messagesRecyleView.setLayoutManager(new LinearLayoutManager(Messages.this));
 
         messagesAdapter = new MessagesAdapter(messagesLists, Messages.this);
         messagesRecyleView.setAdapter(messagesAdapter);
 
         databaseReference.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                messagesLists.clear();
                 unseenMessages = 0;
                 lastMessage = "";
                 chatKey = "";
 
-                for (DataSnapshot dataSnapshot : snapshot.child("users").getChildren()) {
+                for (DataSnapshot dataSnapshot : snapshot.child("users").getChildren()){
 
-                    dataSet = false;
+                    final String getMobile = dataSnapshot.child("Phone").getValue(String.class);
 
-                    String currentMobile = dataSnapshot.child("Phone").getValue(String.class);
+                    databaseReference.child("chat").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                    for (DataSnapshot secondSnapshot : snapshot.child("chat").getChildren()) {
+                            dataSet = false;
 
-                        String user1 = secondSnapshot.child("user_1").getValue(String.class);
-                        String user2 = secondSnapshot.child("user_2").getValue(String.class);
+                            for (DataSnapshot dataSnapshot2 : snapshot.getChildren()) {
 
-                        if ((user1.equals(currentMobile) || user2.equals(currentMobile))) {
+                                String user1 = dataSnapshot2.child("user_1").getValue(String.class);
+                                String user2 = dataSnapshot2.child("user_2").getValue(String.class);
 
-                            final String getName = dataSnapshot.child("First_Name").getValue(String.class).concat(" " + dataSnapshot.child("Last_Name").getValue(String.class));
+                                if (!getMobile.equals(mobile) && (user1.equals(getMobile) || user2.equals(getMobile))) {
 
-                            int getChatCounts = (int) snapshot.child("chat").getChildrenCount();
+                                    final String getName = dataSnapshot.child("First_Name").getValue(String.class).concat(" " + dataSnapshot.child("Last_Name").getValue(String.class));
 
-                            if (getChatCounts > 0) {
+                                    databaseReference.child("chat").addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                for (DataSnapshot dataSnapshot1 : snapshot.child("chat").getChildren()) {
+                                            int getChatCounts = (int) snapshot.getChildrenCount();
 
-                                    final String getKey = dataSnapshot1.getKey();
-                                    chatKey = getKey;
+                                            if (getChatCounts > 0) {
 
-                                    if ((dataSnapshot1.child("user_1").getValue(String.class).equals(currentMobile) || dataSnapshot1.child("user_2").getValue(String.class).equals(currentMobile)) && dataSnapshot1.hasChild("messages")) {
+                                                for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
 
-                                        if (dataSnapshot1.child("user_1").getValue(String.class).equals(currentMobile)) {
-                                            oppositeNum = dataSnapshot1.child("user_2").getValue(String.class);
-                                        } else if (dataSnapshot1.child("user_2").getValue(String.class).equals(currentMobile)) {
-                                            oppositeNum = dataSnapshot1.child("user_1").getValue(String.class);
-                                        }
-                                        for (DataSnapshot chatDataSnapshot : dataSnapshot1.child("messages").getChildren()) {
+                                                    Log.d(TAG, "Outer Loop");
 
-                                            final long getMessageKey = Long.parseLong(chatDataSnapshot.getKey().substring(0, 12));
-                                            final long getLastSeenMessage;
+                                                    final String getKey = dataSnapshot1.getKey();
+                                                    chatKey = getKey;
 
-                                            if (MemoryData.getLastMsgTS(Messages.this, getKey).equals("")) {
-                                                getLastSeenMessage = 0L;
-                                            } else {
-                                                getLastSeenMessage = Long.parseLong(MemoryData.getLastMsgTS(Messages.this, getKey).substring(0, 12));
+                                                    Log.d(TAG, "chatKey : " + chatKey);
+
+                                                    if ((dataSnapshot1.child("user_1").getValue(String.class).equals(mobile) || dataSnapshot1.child("user_2").getValue(String.class).equals(mobile)) && dataSnapshot1.hasChild("messages")) {
+
+                                                        final String getUserOne = dataSnapshot1.child("user_1").getValue(String.class);
+                                                        final String getUserTwo = dataSnapshot1.child("user_2").getValue(String.class);
+
+                                                        if ((getUserOne.equals(getMobile) && getUserTwo.equals(mobile)) || (getUserOne.equals(mobile) && getUserTwo.equals(getMobile))) {
+
+                                                            for (DataSnapshot chatDataSnapshot : dataSnapshot1.child("messages").getChildren()) {
+
+                                                                Log.d(TAG, "Inside Loop");
+
+                                                                final long getMessageKey = Long.parseLong(chatDataSnapshot.getKey());
+                                                                final long getLastSeenMessage = Long.parseLong(MemoryData.getLastMsgTS(Messages.this, getKey));
+
+                                                                lastMessage = chatDataSnapshot.child("msg").getValue(String.class);
+                                                                if (getMessageKey > getLastSeenMessage) {
+                                                                    unseenMessages++;
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
                                             }
 
-                                            lastMessage = chatDataSnapshot.child("msg").getValue(String.class);
-                                            if (getMessageKey > getLastSeenMessage) {
-                                                unseenMessages++;
+                                            incre++;
+
+
+                                            Log.d(TAG, "Loop : " + incre + " " + dataSet + " " + chatKey);
+
+                                            Log.d(TAG, "--------");
+
+                                            if (!dataSet) {
+
+                                                dataSet = true;
+
+                                                MessagesList messagesList = new MessagesList(getName, getMobile, lastMessage, "", unseenMessages, chatKey);
+                                                messagesLists.add(messagesList);
+                                                messagesAdapter.updateData(messagesLists);
                                             }
                                         }
-                                    }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
                                 }
-
-                                incre++;
-
-
-                                if (!dataSet && oppositeNum.equals(mobile)) {
-                                    MessagesList messagesList = new MessagesList(getName, oppositeNum, lastMessage, "", unseenMessages, chatKey);
-                                    messagesLists.add(messagesList);
-                                    messagesAdapter.updateData(messagesLists);
-                                    dataSet = true;
-                                }
-
                             }
                         }
-                    }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
             }
 
@@ -178,10 +206,10 @@ public class Messages extends AppCompatActivity {
         });
     }
 
-
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(Messages.this, UserHomepage.class);
         startActivity(intent);
     }
+
 }
