@@ -49,6 +49,7 @@ public class OfferAdapter extends RecyclerView.Adapter {
                 .circleCrop()
                 .error(com.google.firebase.database.R.drawable.common_google_signin_btn_icon_dark_normal)
                 .into(viewHolderClass.img);
+
         viewHolderClass.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

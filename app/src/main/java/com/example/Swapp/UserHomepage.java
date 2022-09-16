@@ -106,6 +106,25 @@ public class UserHomepage extends AppCompatActivity {
 
                 }
                 pendingTrades = 0L;
+
+                for(DataSnapshot ds : snapshot.getChildren()) {
+                    String itemid = ds.getKey();
+                    databaseReference = FirebaseDatabase.getInstance().getReference("items/" + itemid + "/Accepted_Offers");
+                    databaseReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            currentTrades = currentTrades + snapshot.getChildrenCount();
+                            currentCounts.setText(currentTrades.toString());
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                }
+                currentTrades = 0L;
             }
 
             @Override
@@ -186,5 +205,11 @@ public class UserHomepage extends AppCompatActivity {
                 startActivity(new Intent(UserHomepage.this, currentLoc.class));
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        System.exit(0);
     }
 }

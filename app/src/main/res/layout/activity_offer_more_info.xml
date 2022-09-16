@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+  <RelativeLayout
+      android:id="@+id/footer"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:background="@drawable/footer"
+      android:gravity="center">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="5dp"
+        android:gravity="start"
+        android:textSize="20dp"
+        android:text="Offered by:"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/Item_Offerer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins"
+        android:gravity="end"
+        android:paddingTop="15dp"
+        android:paddingRight="15dp"
+        android:text="Offerer Name"
+        android:textColor="@color/black"
+        android:textSize="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:gravity="start"
+        android:textSize="20dp"
+        android:text="Rating:"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/black"
+        android:layout_below="@id/Item_Offerer"/>
+
+    <RatingBar
+        android:id="@+id/rating"
+        style="?android:attr/ratingBarStyleIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Item_Offerer"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:numStars="5"
+        android:paddingBottom="10dp" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+
+        android:background="@android:color/darker_gray"
+        android:layout_below="@id/rating"/>
+
+    <LinearLayout
+        android:layout_below="@id/divider"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+      <androidx.appcompat.widget.AppCompatButton
+          android:id="@+id/acceptBtn"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:layout_marginTop="10dp"
+          android:layout_marginEnd="10dp"
+          android:layout_marginBottom="10dp"
+          android:layout_weight="1"
+          android:background="@drawable/successfultoastbg"
+          android:fontFamily="@font/poppins_semibold"
+          android:padding="10dp"
+          android:text="ACCEPT"
+          android:textAllCaps="false"
+          android:textColor="@color/white"
+          android:textSize="24dp" />
+
+      <androidx.appcompat.widget.AppCompatButton
+          android:id="@+id/declineBtn"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:layout_marginStart="10dp"
+          android:layout_marginTop="10dp"
+          android:layout_marginEnd="10dp"
+          android:layout_marginBottom="10dp"
+          android:background="@drawable/errortoastbg"
+          android:fontFamily="@font/poppins_semibold"
+          android:padding="10dp"
+          android:text="DECLINE"
+          android:textAllCaps="false"
+          android:textColor="@color/white"
+          android:textSize="24dp" />
+
+
+    </LinearLayout>
+
+  </RelativeLayout>
+
+
+  <RelativeLayout
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:layout_above="@id/footer"
+      android:gravity="center">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/moreInfoImage"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:src="@drawable/noimage"
+            android:scaleType="centerCrop"/>
+
+        <View
+            android:id="@+id/imageDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black"/>
+
+        <TextView
+            android:id="@+id/Item_Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="-10dp"
+            android:paddingLeft="10dp"
+            android:textSize="26sp"
+            android:text="Name of the item"
+            android:fontFamily="@font/poppins_semibold"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/Item_Location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:textSize="18sp"
+            android:text="Item Location"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="10dp"
+            android:textSize="16sp"
+            android:text="Item Description: "
+            android:fontFamily="@font/poppins"
+            android:gravity="left|bottom"
+            android:textColor="#717171" />
+
+        <TextView
+            android:id="@+id/Item_Desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-5dp"
+            android:paddingLeft="10dp"
+            android:textSize="20sp"
+            android:text="Description of the item"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="left|top"
+            android:textColor="@color/black" />
+      </LinearLayout>
+    </ScrollView>
+  </RelativeLayout>
+</RelativeLayout>

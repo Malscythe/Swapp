@@ -1,16 +1,25 @@
 package com.example.Swapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.Swapp.chat.Chat;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -21,6 +30,7 @@ public class OfferAdapter2 extends RecyclerView.Adapter {
 
     private static final String TAG = "TAG";
     List<OfferFetch> offerFetchList;
+
 
     public OfferAdapter2(List<OfferFetch> offerFetchList) {
         this.offerFetchList = offerFetchList;
@@ -47,6 +57,19 @@ public class OfferAdapter2 extends RecyclerView.Adapter {
                 .circleCrop()
                 .error(com.google.firebase.database.R.drawable.common_google_signin_btn_icon_dark_normal)
                 .into(viewHolderClass.img);
+
+        viewHolderClass.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(view.getContext(), OfferMoreInfo.class);
+                intent.putExtra("url", offerFetch.getImage_Url());
+                intent.putExtra("parentKey", offerFetch.getParentKey());
+                intent.putExtra("userID", offerFetch.getPoster_UID());
+                view.getContext().startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -61,6 +84,7 @@ public class OfferAdapter2 extends RecyclerView.Adapter {
 
         public ViewHolderClass(@NonNull View itemView) {
             super(itemView);
+
             textView = itemView.findViewById(R.id.offereditemname);
             img = itemView.findViewById(R.id.offeredpic);
             itemlocation = itemView.findViewById(R.id.offeredlocation);

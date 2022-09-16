@@ -4,16 +4,17 @@ import java.io.Serializable;
 
 public class OfferFetch implements Serializable {
 
-    String Item_Name, Item_Location, Image_Url , Poster_UID;
+    String Item_Name, Item_Location, Image_Url , Poster_UID, ParentKey;
 
     public OfferFetch() {
     }
 
-    public OfferFetch(String item_Name, String item_Location, String image_Url, String poster_UID) {
+    public OfferFetch(String item_Name, String item_Location, String image_Url, String poster_UID, String parentKey) {
         Item_Name = item_Name;
         Item_Location = item_Location;
         Image_Url = image_Url;
         Poster_UID = poster_UID;
+        ParentKey = parentKey;
     }
 
     public String getItem_Name() {
@@ -46,5 +47,13 @@ public class OfferFetch implements Serializable {
 
     public void setPoster_UID(String poster_UID) {
         Poster_UID = poster_UID;
+    }
+
+    public String getParentKey() {
+        return ParentKey;
+    }
+
+    public void setParentKey(String parentKey) {
+        ParentKey = parentKey;
     }
 }

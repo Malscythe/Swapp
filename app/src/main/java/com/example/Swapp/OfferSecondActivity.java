@@ -45,13 +45,12 @@ public class OfferSecondActivity extends AppCompatActivity {
         String uid = firebaseAuth.getCurrentUser().getUid();
         String itemid = getIntent().getStringExtra("itemid");
         databaseReference = FirebaseDatabase.getInstance().getReference("items/" + itemid + "/Offers");
-        Log.w(TAG, "items/" + itemid + "/Offers");
+
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds: snapshot.getChildren())
                 {
-                    Log.w(TAG, itemid);
                     OfferFetch offerFetch = ds.getValue(OfferFetch.class);
                     offerFetchList.add(offerFetch);
                 }
@@ -65,5 +64,12 @@ public class OfferSecondActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(OfferSecondActivity.this, OfferMainAcitvity.class);
+        startActivity(intent);
     }
 }

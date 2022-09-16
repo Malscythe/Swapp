@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.Swapp.MemoryData;
+import com.example.Swapp.Messages;
+import com.example.Swapp.UserHomepage;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,6 +45,8 @@ public class Chat extends AppCompatActivity {
     private RecyclerView chattingRecyclerView;
     private ChatAdapter chatAdapter;
     private boolean loadingFirstTime = true;
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    String uid = firebaseAuth.getCurrentUser().getUid();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +81,10 @@ public class Chat extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 if (chatKey.isEmpty()) {
-                    chatKey = "1";
                     if (snapshot.hasChild("chat")) {
                         chatKey = String.valueOf(snapshot.child("chat").getChildrenCount() + 1);
+                    } else {
+                        chatKey = "1";
                     }
                 }
 
@@ -132,7 +139,9 @@ public class Chat extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                chattingRecyclerView.smoothScrollToPosition(chatLists.size() - 1);
+                if (chatLists.size() != 0) {
+                    chattingRecyclerView.smoothScrollToPosition(chatLists.size() - 1);
+                }
 
                 final String getTxtMessage = messageEditText.getText().toString();
 
@@ -156,6 +165,27 @@ public class Chat extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        databaseReference.child("users").child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String name = snapshot.child("First_Name").getValue(String.class).concat(" " + snapshot.child("Last_Name").getValue(String.class));
+                Intent intent = new Intent(Chat.this, Messages.class);
+                intent.putExtra("mobile", snapshot.child("Phone").getValue(String.class));
+                intent.putExtra("email", snapshot.child("Email").getValue(String.class));
+                intent.putExtra("name", name);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

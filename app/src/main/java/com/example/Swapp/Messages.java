@@ -116,6 +116,11 @@ public class Messages extends AppCompatActivity {
                         String user1 = dataSnapshot1.child("user_1").getValue(String.class);
                         String user2 = dataSnapshot1.child("user_2").getValue(String.class);
 
+                        Log.w(TAG, "Current Number: " + currentMobile);
+                        Log.w(TAG, "My Number: " + mobile);
+                        Log.w(TAG, "User 1: " + user1);
+                        Log.w(TAG, "User 2: " + user2);
+
                         if ((user1.equals(currentMobile) || user2.equals(currentMobile)) && (!currentMobile.equals(mobile))) {
 
                             final String getName = dataSnapshot.child("First_Name").getValue(String.class).concat(" " + dataSnapshot.child("Last_Name").getValue(String.class));

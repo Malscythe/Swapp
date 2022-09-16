@@ -186,7 +186,7 @@ public class offerItem extends AppCompatActivity {
                                 insertItems.child(item_id).child("Offers").child(uid).child("Item_Name").setValue(binding.itemName.getText().toString());
                                 insertItems.child(item_id).child("Offers").child(uid).child("Poster_Name").setValue(userName);
                                 insertItems.child(item_id).child("Offers").child(uid).child("Poster_UID").setValue(uid);
-
+                                insertItems.child(item_id).child("Offers").child(uid).child("ParentKey").setValue(item_id);
 
                             }
                         });
