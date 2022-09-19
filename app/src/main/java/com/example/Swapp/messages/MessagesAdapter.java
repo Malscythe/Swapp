@@ -67,6 +67,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
                 intent.putExtra("name", list2.getName());
                 intent.putExtra("profile_pic", list2.getProfilePic());
                 intent.putExtra("chat_key", list2.getChatKey());
+                intent.putExtra("userStatus", list2.getStatus());
 
                 context.startActivity(intent);
             }
@@ -77,6 +78,10 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
 
     public void updateData(List<MessagesList> messagesLists) {
         this.messagesLists = messagesLists;
+        notifyDataSetChanged();
+    }
+
+    public void refreshData() {
         notifyDataSetChanged();
     }
 

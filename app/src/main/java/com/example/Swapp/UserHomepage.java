@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.content.res.ResourcesCompat;
 
+import android.app.ActivityManager;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -46,6 +47,8 @@ import java.lang.reflect.Type;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 
 import Swapp.R;
@@ -85,16 +88,19 @@ public class UserHomepage extends AppCompatActivity {
         unsuccessfulCounts = findViewById(R.id.unsuccessfulText);
         currentCounts = findViewById(R.id.currentText);
         firebaseAuth = FirebaseAuth.getInstance();
+
         String uid = firebaseAuth.getCurrentUser().getUid();
 
         MemoryData.saveUid(uid, UserHomepage.this);
+
+        Log.w(TAG, MemoryData.getLastMsgTS(UserHomepage.this, "1", "09275201847"));
 
         databaseReference = FirebaseDatabase.getInstance().getReference("items/");
         databaseReference.orderByChild("Poster_UID").equalTo(uid).addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds : snapshot.getChildren()) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
                     String itemid = ds.getKey();
                     databaseReference = FirebaseDatabase.getInstance().getReference("items/" + itemid + "/Offers");
                     databaseReference.addValueEventListener(new ValueEventListener() {
@@ -113,7 +119,7 @@ public class UserHomepage extends AppCompatActivity {
                 }
                 pendingTrades = 0L;
 
-                for(DataSnapshot ds : snapshot.getChildren()) {
+                for (DataSnapshot ds : snapshot.getChildren()) {
                     String itemid = ds.getKey();
                     databaseReference = FirebaseDatabase.getInstance().getReference("items/" + itemid + "/Accepted_Offers");
                     databaseReference.addValueEventListener(new ValueEventListener() {
@@ -178,25 +184,15 @@ public class UserHomepage extends AppCompatActivity {
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                databaseReference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String numToSave = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
-                        //MemoryData.saveLastMsgTS("", "1", UserHomepage.this, numToSave);
-                        MemoryData.saveUid("", UserHomepage.this);
-                        MemoryData.saveData("", UserHomepage.this);
-                        MemoryData.saveName("", UserHomepage.this);
-                        MemoryData.saveState(false, UserHomepage.this);
-                        startActivity(new Intent(UserHomepage.this, login.class));
-                    }
+                MemoryData.saveUid("", UserHomepage.this);
+                MemoryData.saveData("", UserHomepage.this);
+                MemoryData.saveName("", UserHomepage.this);
+                MemoryData.saveState(false, UserHomepage.this);
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                DatabaseReference df = FirebaseDatabase.getInstance().getReference();
+                df.child("users-status").child(uid).child("Status").setValue("Offline");
 
-                    }
-                });
-
-                firebaseAuth.signOut();
+                startActivity(new Intent(UserHomepage.this, login.class));
             }
         });
         trdbtn.setOnClickListener(new View.OnClickListener() {
@@ -231,5 +227,21 @@ public class UserHomepage extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         System.exit(0);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        MemoryData.saveUid("", UserHomepage.this);
+        MemoryData.saveData("", UserHomepage.this);
+        MemoryData.saveName("", UserHomepage.this);
+        MemoryData.saveState(false, UserHomepage.this);
+
+        String uid = firebaseAuth.getCurrentUser().getUid();
+        Log.w(TAG, "DESTROYED : " + uid);
+        DatabaseReference df = FirebaseDatabase.getInstance().getReference();
+        df.child("users-status").child(uid).child("Status").setValue("Offline");
+        startActivity(new Intent(UserHomepage.this, login.class));
     }
 }

@@ -38,6 +38,7 @@ import Swapp.R;
 
 public class login extends AppCompatActivity {
 
+    private static final String TAG = "TAG";
     TextInputEditText email, password;
     Button login;
     FirebaseAuth fAuth;
@@ -51,8 +52,11 @@ public class login extends AppCompatActivity {
         setContentView(R.layout.login);
 
         rememberMe = findViewById(R.id.checkBox);
+        fAuth = FirebaseAuth.getInstance();
+
 
         if (MemoryData.getState(this).equals("true")) {
+            databaseReference.child("users-status").child(fAuth.getCurrentUser().getUid()).child("Status").setValue("Online");
             Intent intent = new Intent(login.this, UserHomepage.class);
             intent.putExtra("mobile", MemoryData.getData(this));
             intent.putExtra("name", "");
@@ -74,7 +78,6 @@ public class login extends AppCompatActivity {
         password = findViewById(R.id.loginPassword);
         login = findViewById(R.id.btnLogin);
         forgotPassword = findViewById(R.id.uForgotPassword);
-        fAuth = FirebaseAuth.getInstance();
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +106,34 @@ public class login extends AppCompatActivity {
                             fAuth.signInWithEmailAndPassword(userEmail, userPass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
-                                    checkAccessLevel(authResult.getUser().getUid());
+
+                                    String uid = fAuth.getCurrentUser().getUid();
+
+                                    databaseReference.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        private static final String TAG = "TAG";
+
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            if (snapshot.child("isAdmin").getValue(String.class).equals("1")){
+
+                                                Log.w(TAG, "IN ADMIN");
+                                                startActivity(new Intent(login.this, AdminHomepage.class));
+
+                                            } else if (snapshot.child("isAdmin").getValue(String.class).equals("0")){
+
+                                                MemoryData.saveData(snapshot.child("Phone").getValue().toString(), login.this);
+                                                MemoryData.saveName(snapshot.child("First_Name").getValue().toString().concat(" " + snapshot.child("Last_Name").getValue().toString()), login.this);
+                                                databaseReference.child("users-status").child(uid).child("Status").setValue("Online");
+                                                startActivity(new Intent(login.this, UserHomepage.class));
+                                            }
+                                            finish();
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
@@ -141,29 +171,6 @@ public class login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), forgotpassword.class));
-            }
-        });
-    }
-
-    private void checkAccessLevel(String uid) {
-
-        databaseReference.child("users").child(uid).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child("isAdmin").getValue(String.class).equals("1")){
-                    startActivity(new Intent(getApplicationContext(), AdminHomepage.class));
-                    finish();
-                } else {
-                    MemoryData.saveData(snapshot.child("Phone").getValue().toString(), login.this);
-                    MemoryData.saveName(snapshot.child("First_Name").getValue().toString().concat(" " + snapshot.child("First_Name").getValue().toString()), login.this);
-                    startActivity(new Intent(getApplicationContext(), UserHomepage.class));
-                    finish();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }

@@ -14,6 +14,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.net.Uri;
@@ -88,16 +89,25 @@ public class Chat extends AppCompatActivity {
         final EditText messageEditText = findViewById(R.id.messageEditText);
         final CircleImageView profilePic = findViewById(R.id.profilePic);
         final ImageView sendBtn = findViewById(R.id.sendBtn);
+        final TextView userStatus = findViewById(R.id.userStatus);
         chattingRecyclerView = findViewById(R.id.chattingRecyclerView);
 
         final String getName = getIntent().getStringExtra("name");
         final String getProfilePic = getIntent().getStringExtra("profile_pic");
         chatKey = getIntent().getStringExtra("chat_key");
         final String getMobile = getIntent().getStringExtra("mobile");
+        final String getStatus = getIntent().getStringExtra("userStatus");
 
         getUserMobile = MemoryData.getData(Chat.this);
 
         name.setText(getName);
+        if (getStatus.equals("Online")) {
+            userStatus.setText("Online");
+            userStatus.setTextColor(Color.parseColor("#00C853"));
+        } else if (getStatus.equals("Offline")) {
+            userStatus.setText("Offline");
+            userStatus.setTextColor(Color.parseColor("#818181"));
+        }
         //Picasso.get().load(getProfilePic).into(profilePic);
 
         chattingRecyclerView.setHasFixedSize(true);
@@ -113,8 +123,6 @@ public class Chat extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                Log.w("TAG", MemoryData.getUid(Chat.this));
 
                 if (chatKey.isEmpty()) {
                     if (snapshot.hasChild("chat")) {
@@ -133,7 +141,7 @@ public class Chat extends AppCompatActivity {
                             final String getMsg = messagesSnapshot.child("msg").getValue(String.class);
 
                             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                            SimpleDateFormat databaseFormat = new SimpleDateFormat("ddMMyyyyhhmmssaa", Locale.getDefault());
+                            SimpleDateFormat databaseFormat = new SimpleDateFormat("ddMMyyyykkmmssaa", Locale.getDefault());
 
                             String date = messageTimestamps.substring(0, 2) + "-" + messageTimestamps.substring(2, 4) + "-" + messageTimestamps.substring(4,8);
                             String time = messageTimestamps.substring(8, 10) + ":" + messageTimestamps.substring(10, 12) + " " + messageTimestamps.substring(14,16);
@@ -145,6 +153,8 @@ public class Chat extends AppCompatActivity {
 
                             if (loadingFirstTime || Long.parseLong(messageTimestamps.substring(0,14)) > Long.parseLong(MemoryData.getLastMsgTS(Chat.this, chatKey, numToSave).substring(0, 14))) {
                                 Log.w("TAG", numToSave);
+                                Log.w("TAG", "" +MemoryData.getLastMsgTS(Chat.this, chatKey, numToSave).length());
+
                                 MemoryData.saveLastMsgTS(databaseFormat.format(timestamp), chatKey, Chat.this, numToSave);
 
                                 loadingFirstTime = false;
@@ -179,22 +189,21 @@ public class Chat extends AppCompatActivity {
 
                 final String getTxtMessage = messageEditText.getText().toString();
 
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyyhhmmssaa", Locale.getDefault());
-
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyykkmmssaa", Locale.getDefault());
 
-                databaseReference.child("chat").child(chatKey).child("user_1").setValue(getUserMobile);
-                databaseReference.child("chat").child(chatKey).child("user_2").setValue(getMobile);
-                databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("mobile").setValue(getUserMobile);
-                databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("msg").setValue(getTxtMessage);
+
 
                 databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         String numToSave = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
                         Log.w("TAG", "SEND BTN" + numToSave);
-
                         MemoryData.saveLastMsgTS(simpleDateFormat.format(timestamp), chatKey, Chat.this, numToSave);
+                        databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("mobile").setValue(getUserMobile);
+                        databaseReference.child("chat").child(chatKey).child("user_1").setValue(getUserMobile);
+                        databaseReference.child("chat").child(chatKey).child("user_2").setValue(getMobile);
+                        databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("msg").setValue(getTxtMessage);
                     }
 
                     @Override
@@ -241,7 +250,7 @@ public class Chat extends AppCompatActivity {
                 intent.putExtra("mobile", snapshot.child("Phone").getValue(String.class));
                 intent.putExtra("email", snapshot.child("Email").getValue(String.class));
                 intent.putExtra("name", name);
-                startActivity(intent);
+                startActivity(intent);;
             }
 
             @Override
@@ -272,9 +281,10 @@ public class Chat extends AppCompatActivity {
             final String getMobile = getIntent().getStringExtra("mobile");
             getUserMobile = MemoryData.getData(Chat.this);
 
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyyhhmmssaa", Locale.getDefault());
+
 
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyykkmmssaa", Locale.getDefault());
 
             if (imageUri == null){
                 Uri noimageUri = (new Uri.Builder())
@@ -329,18 +339,20 @@ public class Chat extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Uri> task) {
 
-                                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyyhhmmssaa", Locale.getDefault());
+
 
                                     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyykkmmssaa", Locale.getDefault());
 
                                     databaseReference.child("chat").child(chatKey).child("user_1").setValue(getUserMobile);
                                     databaseReference.child("chat").child(chatKey).child("user_2").setValue(getMobile);
+                                    MemoryData.saveLastMsgTS(simpleDateFormat.format(timestamp), chatKey, Chat.this, numToSave);
                                     databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("msg").setValue(task.getResult().toString());
                                     databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("mobile").setValue(getUserMobile);
 
                                     chattingRecyclerView.scrollToPosition(chatLists.size() - 1);
 
-                                    MemoryData.saveLastMsgTS(simpleDateFormat.format(timestamp), chatKey, Chat.this, numToSave);
+
                                 }
                             });
                         }

@@ -104,72 +104,73 @@ public class Messages extends AppCompatActivity {
                 chatKey = "";
                 oppositeNum = "";
 
-                for (DataSnapshot dataSnapshot : snapshot.child("users").getChildren()) {
+                    for (DataSnapshot dataSnapshot : snapshot.child("users").getChildren()) {
 
-                    dataSet = false;
+                        dataSet = false;
 
-                    String currentMobile = dataSnapshot.child("Phone").getValue(String.class);
+                        String currentMobile = dataSnapshot.child("Phone").getValue(String.class);
 
-                    for (DataSnapshot dataSnapshot1 : snapshot.child("chat").getChildren()) {
+                        for (DataSnapshot dataSnapshot1 : snapshot.child("chat").getChildren()) {
 
-                        String user1 = dataSnapshot1.child("user_1").getValue(String.class);
-                        String user2 = dataSnapshot1.child("user_2").getValue(String.class);
+                            String user1 = dataSnapshot1.child("user_1").getValue(String.class);
+                            String user2 = dataSnapshot1.child("user_2").getValue(String.class);
 
-                        if ((user1.equals(currentMobile) || user2.equals(currentMobile)) && (!currentMobile.equals(mobile))) {
+                            if ((user1.equals(currentMobile) || user2.equals(currentMobile)) && (!currentMobile.equals(mobile))) {
 
-                            final String getName = dataSnapshot.child("First_Name").getValue(String.class).concat(" " + dataSnapshot.child("Last_Name").getValue(String.class));
+                                final String getName = dataSnapshot.child("First_Name").getValue(String.class).concat(" " + dataSnapshot.child("Last_Name").getValue(String.class));
+                                final String getCurrentId = dataSnapshot.getKey();
 
-                            int getChatCounts = (int) snapshot.getChildrenCount();
+                                int getChatCounts = (int) snapshot.getChildrenCount();
 
-                            if (getChatCounts > 0) {
+                                if (getChatCounts > 0) {
 
-                                final String getKey = dataSnapshot1.getKey();
-                                chatKey = getKey;
+                                    final String getKey = dataSnapshot1.getKey();
+                                    chatKey = getKey;
 
-                                if ((dataSnapshot1.child("user_1").getValue(String.class).equals(currentMobile) || dataSnapshot1.child("user_2").getValue(String.class).equals(currentMobile)) && dataSnapshot1.hasChild("messages")) {
+                                    if ((dataSnapshot1.child("user_1").getValue(String.class).equals(currentMobile) || dataSnapshot1.child("user_2").getValue(String.class).equals(currentMobile)) && dataSnapshot1.hasChild("messages")) {
 
-                                    final String getUserOne = dataSnapshot1.child("user_1").getValue(String.class);
-                                    final String getUserTwo = dataSnapshot1.child("user_2").getValue(String.class);
+                                        final String getUserOne = dataSnapshot1.child("user_1").getValue(String.class);
+                                        final String getUserTwo = dataSnapshot1.child("user_2").getValue(String.class);
 
-                                    if ((getUserOne.equals(currentMobile) && getUserTwo.equals(mobile)) || (getUserOne.equals(mobile) && getUserTwo.equals(currentMobile))) {
+                                        if ((getUserOne.equals(currentMobile) && getUserTwo.equals(mobile)) || (getUserOne.equals(mobile) && getUserTwo.equals(currentMobile))) {
 
-                                        if (dataSnapshot1.child("user_1").getValue(String.class).equals(currentMobile)) {
-                                            oppositeNum = dataSnapshot1.child("user_2").getValue(String.class);
-                                        } else if (dataSnapshot1.child("user_2").getValue(String.class).equals(currentMobile)) {
-                                            oppositeNum = dataSnapshot1.child("user_1").getValue(String.class);
-                                        }
-
-                                        for (DataSnapshot chatDataSnapshot : dataSnapshot1.child("messages").getChildren()) {
-
-                                            String messengerNumber = chatDataSnapshot.child("mobile").getValue(String.class);
-                                            String message = chatDataSnapshot.child("msg").getValue(String.class);
-
-                                            final long getMessageKey = Long.parseLong(chatDataSnapshot.getKey().substring(0, 14));
-                                            final long getLastSeenMessage;
-
-                                            if (MemoryData.getLastMsgTS(Messages.this, getKey, mobile).equals("") || MemoryData.getLastMsgTS(Messages.this, getKey, mobile) == null) {
-                                                getLastSeenMessage = 0L;
-                                            } else {
-                                                getLastSeenMessage = Long.parseLong(MemoryData.getLastMsgTS(Messages.this, getKey, mobile).substring(0, 14));
+                                            if (dataSnapshot1.child("user_1").getValue(String.class).equals(currentMobile)) {
+                                                oppositeNum = dataSnapshot1.child("user_2").getValue(String.class);
+                                            } else if (dataSnapshot1.child("user_2").getValue(String.class).equals(currentMobile)) {
+                                                oppositeNum = dataSnapshot1.child("user_1").getValue(String.class);
                                             }
 
-                                            if (message != null)
-                                            if (chatDataSnapshot.child("msg").getValue(String.class).length() > 100) {
+                                            for (DataSnapshot chatDataSnapshot : dataSnapshot1.child("messages").getChildren()) {
 
-                                                if (messengerNumber != null) {
-                                                    if (chatDataSnapshot.child("msg").getValue(String.class).substring(0, 55).equals("https://firebasestorage.googleapis.com/v0/b/bugsbusters") && (chatDataSnapshot.child("mobile").getValue(String.class).equals(mobile))) {
-                                                        lastMessage = "You sent a photo";
-                                                    } else if (chatDataSnapshot.child("msg").getValue(String.class).substring(0, 55).equals("https://firebasestorage.googleapis.com/v0/b/bugsbusters") && (chatDataSnapshot.child("mobile").getValue(String.class).equals(currentMobile))){
+                                                String messengerNumber = chatDataSnapshot.child("mobile").getValue(String.class);
+                                                String message = chatDataSnapshot.child("msg").getValue(String.class);
 
-                                                        lastMessage = getName + " sent a photo";
+                                                final long getMessageKey = Long.parseLong(chatDataSnapshot.getKey().substring(0, 14));
+                                                final long getLastSeenMessage;
+
+                                                if (MemoryData.getLastMsgTS(Messages.this, getKey, mobile).equals("") || MemoryData.getLastMsgTS(Messages.this, getKey, mobile) == null) {
+                                                    getLastSeenMessage = 0L;
+                                                } else {
+                                                    getLastSeenMessage = Long.parseLong(MemoryData.getLastMsgTS(Messages.this, getKey, mobile).substring(0, 14));
+                                                }
+
+                                                if (message != null)
+                                                    if (chatDataSnapshot.child("msg").getValue(String.class).length() > 100) {
+
+                                                        if (messengerNumber != null) {
+                                                            if (chatDataSnapshot.child("msg").getValue(String.class).substring(0, 55).equals("https://firebasestorage.googleapis.com/v0/b/bugsbusters") && (chatDataSnapshot.child("mobile").getValue(String.class).equals(mobile))) {
+                                                                lastMessage = "You sent a photo";
+                                                            } else if (chatDataSnapshot.child("msg").getValue(String.class).substring(0, 55).equals("https://firebasestorage.googleapis.com/v0/b/bugsbusters") && (chatDataSnapshot.child("mobile").getValue(String.class).equals(currentMobile))) {
+
+                                                                lastMessage = getName + " sent a photo";
+                                                            } else {
+                                                                lastMessage = chatDataSnapshot.child("msg").getValue(String.class);
+                                                            }
+                                                        }
+
                                                     } else {
                                                         lastMessage = chatDataSnapshot.child("msg").getValue(String.class);
                                                     }
-                                                }
-
-                                            } else {
-                                                lastMessage = chatDataSnapshot.child("msg").getValue(String.class);
-                                            }
 
 
                                                 if (getMessageKey > getLastSeenMessage) {
@@ -181,9 +182,9 @@ public class Messages extends AppCompatActivity {
                                             }
                                         }
                                     }
-
                                     if (!dataSet && oppositeNum.equals(mobile)) {
-                                        MessagesList messagesList = new MessagesList(getName, currentMobile, lastMessage, "", unseenMessages, chatKey);
+                                        MessagesList messagesList = new MessagesList(getName, currentMobile, lastMessage, "", unseenMessages, chatKey, snapshot.child("users-status").child(getCurrentId).child("Status").getValue(String.class));
+                                        Log.w(TAG, "" + messagesList.getStatus());
                                         messagesLists.add(messagesList);
                                         messagesAdapter.updateData(messagesLists);
                                         dataSet = true;
@@ -206,6 +207,7 @@ public class Messages extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(Messages.this, UserHomepage.class);
         startActivity(intent);
+        finish();
     }
 
 }
