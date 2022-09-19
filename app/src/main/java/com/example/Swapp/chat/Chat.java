@@ -46,7 +46,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.snapshot.ChildrenNode;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -66,6 +68,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Chat extends AppCompatActivity {
 
+    private static final String TAG = "TAG";
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bugsbusters-de865-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
     private final List<ChatList> chatLists = new ArrayList<>();
@@ -151,15 +154,14 @@ public class Chat extends AppCompatActivity {
 
                             String numToSave = snapshot.child("users").child(MemoryData.getUid(Chat.this)).child("Phone").getValue(String.class);
 
-                            if (loadingFirstTime || Long.parseLong(messageTimestamps.substring(0,14)) > Long.parseLong(MemoryData.getLastMsgTS(Chat.this, chatKey, numToSave).substring(0, 14))) {
-                                Log.w("TAG", numToSave);
-                                Log.w("TAG", "" +MemoryData.getLastMsgTS(Chat.this, chatKey, numToSave).length());
+                            MemoryData.saveLastMsgTS(messageTimestamps.substring(0,14), chatKey, Chat.this, numToSave);
 
-                                MemoryData.saveLastMsgTS(databaseFormat.format(timestamp), chatKey, Chat.this, numToSave);
+                                if (loadingFirstTime || Long.parseLong(messageTimestamps.substring(0,14)) > Long.parseLong(MemoryData.getLastMsgTS(Chat.this, chatKey, numToSave).substring(0, 14))) {
 
-                                loadingFirstTime = false;
-                                chatAdapter.updateChatList(chatLists);
-                            }
+                                    loadingFirstTime = false;
+                                    chatAdapter.updateChatList(chatLists);
+                                }
+
 
                             chattingRecyclerView.scrollToPosition(chatLists.size() - 1);
                         }
@@ -192,19 +194,37 @@ public class Chat extends AppCompatActivity {
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyykkmmssaa", Locale.getDefault());
 
-
-
                 databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         String numToSave = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
-                        Log.w("TAG", "SEND BTN" + numToSave);
-                        MemoryData.saveLastMsgTS(simpleDateFormat.format(timestamp), chatKey, Chat.this, numToSave);
-                        databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("mobile").setValue(getUserMobile);
-                        databaseReference.child("chat").child(chatKey).child("user_1").setValue(getUserMobile);
-                        databaseReference.child("chat").child(chatKey).child("user_2").setValue(getMobile);
-                        databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("msg").setValue(getTxtMessage);
+
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                        ref.child("chat").child(chatKey).child("messages").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                List<String> list = new ArrayList<>();
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+
+                                    list.add(dataSnapshot.getKey());
+                                }
+
+                                Log.w(TAG, numToSave);
+                                MemoryData.saveLastMsgTS(list.get(list.size() - 1), chatKey, Chat.this, numToSave);
+                                databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("mobile").setValue(getUserMobile);
+                                databaseReference.child("chat").child(chatKey).child("user_1").setValue(getUserMobile);
+                                databaseReference.child("chat").child(chatKey).child("user_2").setValue(getMobile);
+                                databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("msg").setValue(getTxtMessage);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                     }
+
+
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
@@ -339,20 +359,33 @@ public class Chat extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Uri> task) {
 
-
-
                                     Timestamp timestamp = new Timestamp(System.currentTimeMillis());
                                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyykkmmssaa", Locale.getDefault());
 
-                                    databaseReference.child("chat").child(chatKey).child("user_1").setValue(getUserMobile);
-                                    databaseReference.child("chat").child(chatKey).child("user_2").setValue(getMobile);
-                                    MemoryData.saveLastMsgTS(simpleDateFormat.format(timestamp), chatKey, Chat.this, numToSave);
-                                    databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("msg").setValue(task.getResult().toString());
-                                    databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("mobile").setValue(getUserMobile);
+                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                                    ref.child("chat").child(chatKey).child("messages").addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            List<String> list = new ArrayList<>();
+                                            for (DataSnapshot dataSnapshot : snapshot.getChildren()){
 
-                                    chattingRecyclerView.scrollToPosition(chatLists.size() - 1);
+                                                list.add(dataSnapshot.getKey());
+                                            }
 
+                                            MemoryData.saveLastMsgTS(list.get(list.size() - 1), chatKey, Chat.this, numToSave);
+                                            databaseReference.child("chat").child(chatKey).child("user_1").setValue(getUserMobile);
+                                            databaseReference.child("chat").child(chatKey).child("user_2").setValue(getMobile);
+                                            databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("msg").setValue(task.getResult().toString());
+                                            databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("mobile").setValue(getUserMobile);
 
+                                            chattingRecyclerView.scrollToPosition(chatLists.size() - 1);
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
                                 }
                             });
                         }

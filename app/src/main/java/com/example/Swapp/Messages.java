@@ -174,17 +174,13 @@ public class Messages extends AppCompatActivity {
 
 
                                                 if (getMessageKey > getLastSeenMessage) {
-                                                    Log.w(TAG, getMessageKey + " > " + getLastSeenMessage);
                                                     unseenMessages++;
-                                                } else {
-                                                    Log.w(TAG, getMessageKey + " < " + getLastSeenMessage);
                                                 }
                                             }
                                         }
                                     }
                                     if (!dataSet && oppositeNum.equals(mobile)) {
                                         MessagesList messagesList = new MessagesList(getName, currentMobile, lastMessage, "", unseenMessages, chatKey, snapshot.child("users-status").child(getCurrentId).child("Status").getValue(String.class));
-                                        Log.w(TAG, "" + messagesList.getStatus());
                                         messagesLists.add(messagesList);
                                         messagesAdapter.updateData(messagesLists);
                                         dataSet = true;
