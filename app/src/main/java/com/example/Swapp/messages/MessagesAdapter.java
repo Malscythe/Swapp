@@ -14,10 +14,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.Swapp.MemoryData;
 import com.example.Swapp.Messages;
 import com.example.Swapp.chat.Chat;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import Swapp.R;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -57,6 +61,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
         holder.rootLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(context, Chat.class);
                 intent.putExtra("mobile", list2.getMobile());
                 intent.putExtra("name", list2.getName());

@@ -30,9 +30,9 @@ public final class MemoryData {
         }
     }
 
-    public static void saveLastMsgTS(String data, String chatId, Context context) {
+    public static void saveLastMsgTS(String data, String chatId, Context context, String number) {
         try {
-            FileOutputStream fileOutputStream = context.openFileOutput(chatId + ".txt", Context.MODE_PRIVATE);
+            FileOutputStream fileOutputStream = context.openFileOutput(chatId + "-" + number + ".txt", Context.MODE_PRIVATE);
             fileOutputStream.write(data.getBytes());
             fileOutputStream.close();
         } catch (IOException e) {
@@ -48,6 +48,35 @@ public final class MemoryData {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void saveUid(String data, Context context) {
+        try {
+            FileOutputStream fileOutputStream = context.openFileOutput("uid.txt", Context.MODE_PRIVATE);
+            fileOutputStream.write(data.getBytes());
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String getUid(Context context) {
+        String data = "";
+        try {
+            FileInputStream fis = context.openFileInput("uid.txt");
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line);
+            }
+            data = sb.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return data;
     }
 
     public static String getData(Context context) {
@@ -107,10 +136,10 @@ public final class MemoryData {
         return data;
     }
 
-    public static String getLastMsgTS(Context context, String chatId) {
+    public static String getLastMsgTS(Context context, String chatId, String number) {
         String data = "0";
         try {
-            FileInputStream fis = context.openFileInput(chatId + ".txt");
+            FileInputStream fis = context.openFileInput(chatId + "-" + number + ".txt");
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader bufferedReader = new BufferedReader(isr);
             StringBuilder sb = new StringBuilder();

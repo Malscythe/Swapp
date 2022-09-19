@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:fitsSystemWindows="true"
+    android:id="@+id/chatLayoutView"
     tools:context="com.example.Swapp.chat.Chat">
 
     <RelativeLayout
@@ -68,27 +69,40 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/bottomBar"
-        android:layout_marginBottom="20dp"
-        android:layout_below="@id/topBar" />
+        android:layout_below="@id/topBar"
+        android:layout_marginBottom="20dp" />
 
     <RelativeLayout
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/round_back_light_10"
+        android:background="@color/white"
         android:paddingTop="10dp"
         android:paddingBottom="10dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/sendImg"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="7dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/ic_baseline_image_24" />
 
         <EditText
             android:id="@+id/messageEditText"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
+            android:layout_toEndOf="@id/sendImg"
+            android:textColor="@color/black"
             android:layout_toStartOf="@id/sendBtn"
-            android:backgroundTint="#00000000"
+            android:background="@drawable/edittext_bg"
             android:hint="Type your message here..."
+            android:paddingLeft="20dp"
             android:textSize="14sp" />
 
         <ImageView
@@ -97,7 +111,7 @@
             android:layout_height="50dp"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/ic_send_icon3" />
+            android:src="@drawable/ic_baseline_send_24" />
 
     </RelativeLayout>
 

@@ -1,30 +1,58 @@
 package com.example.Swapp.chat;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.os.BuildCompat;
+import androidx.core.view.inputmethod.EditorInfoCompat;
+import androidx.core.view.inputmethod.InputConnectionCompat;
+import androidx.core.view.inputmethod.InputContentInfoCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.Swapp.MemoryData;
 import com.example.Swapp.Messages;
+import com.example.Swapp.PostItem;
 import com.example.Swapp.UserHomepage;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,6 +75,8 @@ public class Chat extends AppCompatActivity {
     private boolean loadingFirstTime = true;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     String uid = firebaseAuth.getCurrentUser().getUid();
+    Button sendImg;
+    Uri imageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,9 +106,15 @@ public class Chat extends AppCompatActivity {
         chatAdapter = new ChatAdapter(chatLists, Chat.this);
         chattingRecyclerView.setAdapter(chatAdapter);
 
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        Log.w("TAG", MemoryData.getUid(Chat.this));
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                Log.w("TAG", MemoryData.getUid(Chat.this));
 
                 if (chatKey.isEmpty()) {
                     if (snapshot.hasChild("chat")) {
@@ -96,21 +132,23 @@ public class Chat extends AppCompatActivity {
                             final String getMobile = messagesSnapshot.child("mobile").getValue(String.class);
                             final String getMsg = messagesSnapshot.child("msg").getValue(String.class);
 
-                            Timestamp timestamp = new Timestamp(Long.parseLong(messageTimestamps.substring(0, 16)));
-                            SimpleDateFormat databaseFormat = new SimpleDateFormat("ddMMyyyyhhmmssSSaa", Locale.getDefault());
+                            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                            SimpleDateFormat databaseFormat = new SimpleDateFormat("ddMMyyyyhhmmssaa", Locale.getDefault());
 
                             String date = messageTimestamps.substring(0, 2) + "-" + messageTimestamps.substring(2, 4) + "-" + messageTimestamps.substring(4,8);
-                            String time = messageTimestamps.substring(8, 10) + ":" + messageTimestamps.substring(10, 12) + " " + messageTimestamps.substring(16,18);
+                            String time = messageTimestamps.substring(8, 10) + ":" + messageTimestamps.substring(10, 12) + " " + messageTimestamps.substring(14,16);
 
                             ChatList chatList = new ChatList(getMobile, getName, getMsg, date, time);
                             chatLists.add(chatList);
 
-                            if (loadingFirstTime || Long.parseLong(messageTimestamps.substring(0,16)) > Long.parseLong(MemoryData.getLastMsgTS(Chat.this, chatKey).substring(0, 16))) {
-                                MemoryData.saveLastMsgTS(databaseFormat.format(timestamp), chatKey, Chat.this);
+                            String numToSave = snapshot.child("users").child(MemoryData.getUid(Chat.this)).child("Phone").getValue(String.class);
+
+                            if (loadingFirstTime || Long.parseLong(messageTimestamps.substring(0,14)) > Long.parseLong(MemoryData.getLastMsgTS(Chat.this, chatKey, numToSave).substring(0, 14))) {
+                                Log.w("TAG", numToSave);
+                                MemoryData.saveLastMsgTS(databaseFormat.format(timestamp), chatKey, Chat.this, numToSave);
 
                                 loadingFirstTime = false;
                                 chatAdapter.updateChatList(chatLists);
-
                             }
 
                             chattingRecyclerView.scrollToPosition(chatLists.size() - 1);
@@ -139,34 +177,57 @@ public class Chat extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (chatLists.size() != 0) {
-                    chattingRecyclerView.smoothScrollToPosition(chatLists.size() - 1);
-                }
-
                 final String getTxtMessage = messageEditText.getText().toString();
 
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyyhhmmssSSaa", Locale.getDefault());
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyyhhmmssaa", Locale.getDefault());
 
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                MemoryData.saveLastMsgTS(simpleDateFormat.format(timestamp), chatKey, Chat.this);
-
 
                 databaseReference.child("chat").child(chatKey).child("user_1").setValue(getUserMobile);
                 databaseReference.child("chat").child(chatKey).child("user_2").setValue(getMobile);
-                databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("msg").setValue(getTxtMessage);
                 databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("mobile").setValue(getUserMobile);
+                databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("msg").setValue(getTxtMessage);
+
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String numToSave = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
+                        Log.w("TAG", "SEND BTN" + numToSave);
+
+                        MemoryData.saveLastMsgTS(simpleDateFormat.format(timestamp), chatKey, Chat.this, numToSave);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
                 messageEditText.setText("");
+
                 InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
+                chattingRecyclerView.scrollToPosition(chatLists.size() - 1);
             }
         });
+
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+
+        sendImg = findViewById(R.id.sendImg);
+
+        sendImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectImage();
+            }
+        });
+
     }
 
     @Override
@@ -188,5 +249,109 @@ public class Chat extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void selectImage() {
+
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 100);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 100 && data != null && data.getData() != null) {
+
+            imageUri = data.getData();
+
+            chatKey = getIntent().getStringExtra("chat_key");
+            final String getMobile = getIntent().getStringExtra("mobile");
+            getUserMobile = MemoryData.getData(Chat.this);
+
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyyhhmmssaa", Locale.getDefault());
+
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+            if (imageUri == null){
+                Uri noimageUri = (new Uri.Builder())
+                        .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+                        .authority(getResources().getResourcePackageName(R.drawable.noimage))
+                        .appendPath(getResources().getResourcePackageName(R.drawable.noimage))
+                        .appendPath(getResources().getResourcePackageName(R.drawable.noimage))
+                        .build();
+                imageUri = noimageUri;
+            }
+
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/chat/"+ chatKey + "/" + simpleDateFormat.format(timestamp));
+            Bitmap bitmap = null;
+
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getApplication().getContentResolver(), imageUri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap = Bitmap.createScaledBitmap(bitmap, 720, 720, false);
+
+            float ratioX = 720 / (float) bitmap.getWidth();
+            float ratioY = 720 / (float) bitmap.getHeight();
+            float middleX = 720 / 2.0f;
+            float middleY = 720 / 2.0f;
+
+            Matrix scaleMatrix = new Matrix();
+            scaleMatrix.setScale(ratioX, ratioY, middleX, middleY);
+
+            Canvas canvas = new Canvas(bitmap);
+            canvas.setMatrix(scaleMatrix);
+            canvas.drawBitmap(bitmap, middleX - bitmap.getWidth() / 2, middleY - bitmap.getHeight() / 2, new Paint(Paint.FILTER_BITMAP_FLAG));
+
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] data1 = baos.toByteArray();
+            UploadTask uploadTask = storageReference.putBytes(data1);
+
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bugsbusters-de865-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                    databaseReference.child("users").child(uid).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            String numToSave = snapshot.child("Phone").getValue(String.class);
+
+                            taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Uri> task) {
+
+                                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyyhhmmssaa", Locale.getDefault());
+
+                                    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+                                    databaseReference.child("chat").child(chatKey).child("user_1").setValue(getUserMobile);
+                                    databaseReference.child("chat").child(chatKey).child("user_2").setValue(getMobile);
+                                    databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("msg").setValue(task.getResult().toString());
+                                    databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("mobile").setValue(getUserMobile);
+
+                                    chattingRecyclerView.scrollToPosition(chatLists.size() - 1);
+
+                                    MemoryData.saveLastMsgTS(simpleDateFormat.format(timestamp), chatKey, Chat.this, numToSave);
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            });
+        }
     }
 }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_marginTop="20dp"
@@ -19,15 +20,88 @@
             <TextView
                 android:layout_gravity="start"
                 android:id="@+id/oppoMessage"
-                android:padding="20dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:background="@drawable/msg_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="16sp"
                 android:textColor="@color/white"
                 android:text="This is the reply"/>
 
             <TextView
                 android:id="@+id/oppoMsgTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="5dp"
+                android:textSize="10sp"
+                android:text="10-08-2022 05:12 PM"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/oppoImgSentLayout"
+            android:layout_marginStart="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="50dp"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_gravity="start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp">
+
+                <ImageView
+                    android:id="@+id/oppoImgSent"
+                    android:layout_width="200dp"
+                    android:layout_height="250dp"
+                    android:src="@drawable/noimage"
+                    android:scaleType="centerCrop"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/oppoImgSentTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="5dp"
+                android:textSize="10sp"
+                android:text="10-08-2022 05:12 PM"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/myImgSentLayout"
+            android:layout_marginStart="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_gravity="end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp">
+
+                <ImageView
+                    android:id="@+id/myImgSent"
+                    android:layout_width="200dp"
+                    android:layout_height="250dp"
+                    android:src="@drawable/noimage"
+                    android:scaleType="centerCrop"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/myImgSentTime"
+                android:layout_gravity="end"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -48,11 +122,15 @@
             <TextView
                 android:layout_gravity="end"
                 android:id="@+id/myMessage"
-                android:padding="20dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:background="@drawable/my_msg_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
+                android:textSize="16sp"
                 android:text="This is my message"/>
 
             <TextView

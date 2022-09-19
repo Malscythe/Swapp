@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.Swapp.chat.Chat;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -42,7 +43,10 @@ import com.google.firebase.firestore.auth.User;
 import org.w3c.dom.Text;
 
 import java.lang.reflect.Type;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import Swapp.R;
 
@@ -64,6 +68,7 @@ public class UserHomepage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_homepage);
 
@@ -82,6 +87,7 @@ public class UserHomepage extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         String uid = firebaseAuth.getCurrentUser().getUid();
 
+        MemoryData.saveUid(uid, UserHomepage.this);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("items/");
         databaseReference.orderByChild("Poster_UID").equalTo(uid).addValueEventListener(new ValueEventListener() {
@@ -172,11 +178,25 @@ public class UserHomepage extends AppCompatActivity {
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String numToSave = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
+                        //MemoryData.saveLastMsgTS("", "1", UserHomepage.this, numToSave);
+                        MemoryData.saveUid("", UserHomepage.this);
+                        MemoryData.saveData("", UserHomepage.this);
+                        MemoryData.saveName("", UserHomepage.this);
+                        MemoryData.saveState(false, UserHomepage.this);
+                        startActivity(new Intent(UserHomepage.this, login.class));
+                    }
 
-                MemoryData.saveData("", UserHomepage.this);
-                MemoryData.saveName("", UserHomepage.this);
-                MemoryData.saveState(false, UserHomepage.this);
-                startActivity(new Intent(UserHomepage.this, login.class));
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+                firebaseAuth.signOut();
             }
         });
         trdbtn.setOnClickListener(new View.OnClickListener() {

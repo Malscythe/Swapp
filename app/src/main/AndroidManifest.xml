@@ -17,6 +17,7 @@ package="Swapp">
 
     <activity
         android:name="com.example.Swapp.popup"
+        android:theme="@style/Theme.AppCompat.CustomTheme"
         android:exported="true" />
 
     <activity
@@ -46,7 +47,6 @@ package="Swapp">
 
     <activity
         android:name="com.example.Swapp.chat.Chat"
-        android:windowSoftInputMode="adjustResize"
         android:exported="true" />
 
     <activity
@@ -76,8 +76,14 @@ package="Swapp">
     <activity
         android:name="com.example.Swapp.deliverytrack"
         android:exported="true" />
+
     <activity
         android:name="com.example.Swapp.currentLoc"
+        android:exported="true" />
+
+    <activity
+        android:name="com.example.Swapp.imageFullScreen"
+        android:theme="@style/Theme.AppCompat.CustomTheme"
         android:exported="true" />
 
     <activity
@@ -113,6 +119,8 @@ package="Swapp">
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
+
+            <data android:mimeType="image/*"/>
         </intent-filter>
     </activity>
 

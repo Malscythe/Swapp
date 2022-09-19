@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -36,6 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Swapp.R;
+import okhttp3.internal.Util;
 
 public class Messages extends AppCompatActivity {
 
@@ -54,9 +56,6 @@ public class Messages extends AppCompatActivity {
 
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bugsbusters-de865-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    String uid = firebaseAuth.getCurrentUser().getUid();
-    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     ArrayList itemList;
     ArrayList messageKeyList;
     ArrayList arrMessageList;
@@ -116,11 +115,6 @@ public class Messages extends AppCompatActivity {
                         String user1 = dataSnapshot1.child("user_1").getValue(String.class);
                         String user2 = dataSnapshot1.child("user_2").getValue(String.class);
 
-                        Log.w(TAG, "Current Number: " + currentMobile);
-                        Log.w(TAG, "My Number: " + mobile);
-                        Log.w(TAG, "User 1: " + user1);
-                        Log.w(TAG, "User 2: " + user2);
-
                         if ((user1.equals(currentMobile) || user2.equals(currentMobile)) && (!currentMobile.equals(mobile))) {
 
                             final String getName = dataSnapshot.child("First_Name").getValue(String.class).concat(" " + dataSnapshot.child("Last_Name").getValue(String.class));
@@ -147,18 +141,42 @@ public class Messages extends AppCompatActivity {
 
                                         for (DataSnapshot chatDataSnapshot : dataSnapshot1.child("messages").getChildren()) {
 
-                                            final long getMessageKey = Long.parseLong(chatDataSnapshot.getKey().substring(0, 16));
+                                            String messengerNumber = chatDataSnapshot.child("mobile").getValue(String.class);
+                                            String message = chatDataSnapshot.child("msg").getValue(String.class);
+
+                                            final long getMessageKey = Long.parseLong(chatDataSnapshot.getKey().substring(0, 14));
                                             final long getLastSeenMessage;
 
-                                            if (MemoryData.getLastMsgTS(Messages.this, getKey).equals("") || MemoryData.getLastMsgTS(Messages.this, getKey) == null) {
+                                            if (MemoryData.getLastMsgTS(Messages.this, getKey, mobile).equals("") || MemoryData.getLastMsgTS(Messages.this, getKey, mobile) == null) {
                                                 getLastSeenMessage = 0L;
                                             } else {
-                                                getLastSeenMessage = Long.parseLong(MemoryData.getLastMsgTS(Messages.this, getKey).substring(0, 16));
+                                                getLastSeenMessage = Long.parseLong(MemoryData.getLastMsgTS(Messages.this, getKey, mobile).substring(0, 14));
                                             }
 
+                                            if (message != null)
+                                            if (chatDataSnapshot.child("msg").getValue(String.class).length() > 100) {
+
+                                                if (messengerNumber != null) {
+                                                    if (chatDataSnapshot.child("msg").getValue(String.class).substring(0, 55).equals("https://firebasestorage.googleapis.com/v0/b/bugsbusters") && (chatDataSnapshot.child("mobile").getValue(String.class).equals(mobile))) {
+                                                        lastMessage = "You sent a photo";
+                                                    } else if (chatDataSnapshot.child("msg").getValue(String.class).substring(0, 55).equals("https://firebasestorage.googleapis.com/v0/b/bugsbusters") && (chatDataSnapshot.child("mobile").getValue(String.class).equals(currentMobile))){
+
+                                                        lastMessage = getName + " sent a photo";
+                                                    } else {
+                                                        lastMessage = chatDataSnapshot.child("msg").getValue(String.class);
+                                                    }
+                                                }
+
+                                            } else {
                                                 lastMessage = chatDataSnapshot.child("msg").getValue(String.class);
+                                            }
+
+
                                                 if (getMessageKey > getLastSeenMessage) {
+                                                    Log.w(TAG, getMessageKey + " > " + getLastSeenMessage);
                                                     unseenMessages++;
+                                                } else {
+                                                    Log.w(TAG, getMessageKey + " < " + getLastSeenMessage);
                                                 }
                                             }
                                         }

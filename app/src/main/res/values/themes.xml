@@ -33,7 +33,7 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
         <item name="windowActionModeOverlay">false</item>
-        <item name="android:windowBackground">@drawable/chart_bg</item>
+        <item name="android:windowBackground">#CC000000</item>
     </style>
 
 </resources>
