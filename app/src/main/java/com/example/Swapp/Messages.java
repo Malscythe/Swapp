@@ -148,7 +148,7 @@ public class Messages extends AppCompatActivity {
                                                 final long getMessageKey = Long.parseLong(chatDataSnapshot.getKey().substring(0, 14));
                                                 final long getLastSeenMessage;
 
-                                                if (MemoryData.getLastMsgTS(Messages.this, getKey, mobile).equals("") || MemoryData.getLastMsgTS(Messages.this, getKey, mobile) == null) {
+                                                if (MemoryData.getLastMsgTS(Messages.this, getKey, mobile).equals("") || MemoryData.getLastMsgTS(Messages.this, getKey, mobile) == null || MemoryData.getLastMsgTS(Messages.this, getKey, mobile).length() < 3) {
                                                     getLastSeenMessage = 0L;
                                                 } else {
                                                     getLastSeenMessage = Long.parseLong(MemoryData.getLastMsgTS(Messages.this, getKey, mobile).substring(0, 14));
@@ -156,7 +156,6 @@ public class Messages extends AppCompatActivity {
 
                                                 if (message != null)
                                                     if (chatDataSnapshot.child("msg").getValue(String.class).length() > 100) {
-
                                                         if (messengerNumber != null) {
                                                             if (chatDataSnapshot.child("msg").getValue(String.class).substring(0, 55).equals("https://firebasestorage.googleapis.com/v0/b/bugsbusters") && (chatDataSnapshot.child("mobile").getValue(String.class).equals(mobile))) {
                                                                 lastMessage = "You sent a photo";
