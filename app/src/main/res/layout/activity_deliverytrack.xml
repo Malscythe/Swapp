@@ -1,291 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary2"
+    android:background="@color/white"
     tools:context="com.example.Swapp.deliverytrack">
 
-  <ImageView
-      android:id="@+id/btnEntrego"
-      android:layout_width="114dp"
-      android:layout_height="103dp"
-      app:layout_constraintBottom_toTopOf="@+id/row1B"
-      app:layout_constraintEnd_toStartOf="@+id/col1r"
-      app:layout_constraintStart_toStartOf="@+id/row1"
-      app:layout_constraintTop_toTopOf="@+id/row1T"
-      app:srcCompat="@drawable/entrego" />
-
-  <ImageView
-      android:id="@+id/btngogo"
-      android:layout_width="114dp"
-      android:layout_height="103dp"
-      app:layout_constraintBottom_toTopOf="@+id/row1B"
-      app:layout_constraintEnd_toStartOf="@+id/col3R"
-      app:layout_constraintStart_toStartOf="@+id/col3L"
-      app:layout_constraintTop_toTopOf="@+id/row1T"
-      app:srcCompat="@drawable/gogoexp" />
-
-  <ImageView
-      android:id="@+id/btnjrmt"
-      android:layout_width="114dp"
-      android:layout_height="103dp"
-      app:layout_constraintBottom_toTopOf="@+id/row1B"
-      app:layout_constraintEnd_toStartOf="@+id/col2R"
-      app:layout_constraintStart_toStartOf="@+id/col2L"
-      app:layout_constraintTop_toTopOf="@+id/row1T"
-      app:srcCompat="@drawable/jrmt" />
-
-  <ImageView
-      android:id="@+id/btnjt"
-      android:layout_width="114dp"
-      android:layout_height="103dp"
-      app:layout_constraintBottom_toTopOf="@+id/row2B"
-      app:layout_constraintEnd_toStartOf="@+id/col2R"
-      app:layout_constraintStart_toStartOf="@+id/col2L"
-      app:layout_constraintTop_toTopOf="@+id/row2T"
-      app:srcCompat="@drawable/jt" />
-
-  <ImageView
-      android:id="@+id/btnlbc"
-      android:layout_width="114dp"
-      android:layout_height="103dp"
-      app:layout_constraintBottom_toTopOf="@+id/row2B"
-      app:layout_constraintEnd_toStartOf="@+id/col1r"
-      app:layout_constraintStart_toStartOf="@+id/row1"
-      app:layout_constraintTop_toTopOf="@+id/row2T"
-      app:srcCompat="@drawable/lbc" />
-
-  <ImageView
-      android:id="@+id/btnninja"
-      android:layout_width="114dp"
-      android:layout_height="103dp"
-      app:layout_constraintBottom_toTopOf="@+id/row2B"
-      app:layout_constraintEnd_toStartOf="@+id/col3R"
-      app:layout_constraintStart_toStartOf="@+id/col3L"
-      app:layout_constraintTop_toTopOf="@+id/row2T"
-      app:srcCompat="@drawable/ninjavan" />
+  <TextView
+      android:id="@+id/title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:layout_marginLeft="15dp"
+      android:layout_marginTop="20dp"
+      android:layout_marginBottom="5dp"
+      android:fontFamily="@font/montserrat_bold"
+      android:gravity="start"
+      android:text="COURIER TRACKER"
+      android:textColor="@color/primary2"
+      android:textSize="30dp" />
 
   <TextView
-      android:id="@+id/textView11"
+      android:id="@+id/contentText"
+      android:layout_below="@+id/title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:fontFamily="@font/poppins"
-      android:text="Tracking of Delivery"
-      android:textSize="34sp"
-      app:layout_constraintBottom_toTopOf="@+id/titleB"
-      app:layout_constraintEnd_toStartOf="@+id/titleR"
-      app:layout_constraintStart_toStartOf="@+id/titleL"
-      app:layout_constraintTop_toTopOf="@+id/titleT" />
+      android:layout_marginTop="10dp"
+      android:layout_marginBottom="10dp"
+      android:textColor="@color/black"
+      android:layout_marginLeft="15dp"
+      android:text="Navigate couriers tracking service by selecting the courier and navigate using web window below."/>
 
-  <TextView
-      android:id="@+id/textView13"
-      android:layout_width="115dp"
-      android:layout_height="24dp"
+  <com.google.android.material.textfield.TextInputLayout
+      android:layout_below="@id/contentText"
+      android:id="@+id/courierListLayout"
+      style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_marginBottom="10dp"
+      android:layout_toLeftOf="@id/trackBtn"
+      app:boxStrokeColor="@color/primary2"
+      app:boxStrokeWidth="2dp">
+
+    <AutoCompleteTextView
+        android:id="@+id/courierList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:fontFamily="@font/poppins_medium"
+        android:hint="Select courier"
+        android:inputType="none"
+        android:textColor="@color/primary2" />
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <androidx.appcompat.widget.AppCompatButton
+      android:id="@+id/trackBtn"
+      android:layout_below="@id/contentText"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="GO"
+      android:layout_marginTop="10dp"
+      android:textColor="@color/white"
       android:fontFamily="@font/poppins_medium"
-      android:text="Entrego"
-      android:textAlignment="center"
-      android:textSize="16sp"
-      android:textStyle="bold"
-      app:layout_constraintBottom_toTopOf="@+id/textB"
-      app:layout_constraintEnd_toStartOf="@+id/col1r"
-      app:layout_constraintStart_toStartOf="@+id/row1"
-      app:layout_constraintTop_toTopOf="@+id/textT" />
+      android:layout_marginEnd="10dp"
+      android:textSize="20dp"
+      android:background="@drawable/buttonborder"
+      android:layout_alignParentEnd="true"/>
 
-  <TextView
-      android:id="@+id/textView14"
-      android:layout_width="115dp"
-      android:layout_height="24dp"
-      android:fontFamily="@font/poppins_medium"
-      android:text="JRMT"
-      android:textAlignment="center"
-      android:textSize="16sp"
-      android:textStyle="bold"
-      app:layout_constraintBottom_toTopOf="@+id/textB"
-      app:layout_constraintEnd_toStartOf="@+id/col2R"
-      app:layout_constraintStart_toStartOf="@+id/col2L"
-      app:layout_constraintTop_toTopOf="@+id/textT" />
-
-  <TextView
-      android:id="@+id/textView15"
-      android:layout_width="115dp"
-      android:layout_height="24dp"
-      android:fontFamily="@font/poppins_medium"
-      android:text="GOGO Express"
-      android:textAlignment="center"
-      android:textSize="16sp"
-      android:textStyle="bold"
-      app:layout_constraintBottom_toTopOf="@+id/textB"
-      app:layout_constraintEnd_toStartOf="@+id/col3R"
-      app:layout_constraintStart_toStartOf="@+id/col3L"
-      app:layout_constraintTop_toTopOf="@+id/textT" />
-
-  <TextView
-      android:id="@+id/textView16"
-      android:layout_width="115dp"
-      android:layout_height="24dp"
-      android:fontFamily="@font/poppins_medium"
-      android:text="LBC"
-      android:textAlignment="center"
-      android:textSize="16sp"
-      android:textStyle="bold"
-      app:layout_constraintBottom_toTopOf="@+id/text2B"
-      app:layout_constraintEnd_toStartOf="@+id/col1r"
-      app:layout_constraintStart_toStartOf="@+id/row1"
-      app:layout_constraintTop_toTopOf="@+id/text2T" />
-
-  <TextView
-      android:id="@+id/textView17"
-      android:layout_width="115dp"
-      android:layout_height="24dp"
-      android:fontFamily="@font/poppins_medium"
-      android:text="J&amp;T Express"
-      android:textAlignment="center"
-      android:textSize="16sp"
-      android:textStyle="bold"
-      app:layout_constraintBottom_toTopOf="@+id/text2B"
-      app:layout_constraintEnd_toStartOf="@+id/col2R"
-      app:layout_constraintStart_toStartOf="@+id/col2L"
-      app:layout_constraintTop_toTopOf="@+id/text2T" />
-
-  <TextView
-      android:id="@+id/textView18"
-      android:layout_width="115dp"
-      android:layout_height="24dp"
-      android:fontFamily="@font/poppins_medium"
-      android:text="Ninja Van"
-      android:textAlignment="center"
-      android:textSize="16sp"
-      android:textStyle="bold"
-      app:layout_constraintBottom_toTopOf="@+id/text2B"
-      app:layout_constraintEnd_toStartOf="@+id/col3R"
-      app:layout_constraintStart_toStartOf="@+id/col3L"
-      app:layout_constraintTop_toTopOf="@+id/text2T" />
-
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/row1"
+  <com.google.android.material.divider.MaterialDivider
+      android:id="@+id/divider"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.03892944" />
+      android:layout_below="@id/courierListLayout"
+      android:layout_marginTop="10dp"
+      app:dividerColor="@color/primary2" />
 
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/col1r"
-      android:layout_width="wrap_content"
+  <androidx.cardview.widget.CardView
+      android:layout_below="@id/divider"
+      android:layout_width="match_parent"
+      android:layout_alignParentBottom="true"
       android:layout_height="wrap_content"
-      android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.3187348" />
+      android:background="@drawable/border"
+      android:id="@+id/cardView"
+      tools:ignore="WebViewLayout">
 
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/col2L"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.3625304" />
+    <WebView
+        android:id="@+id/webView"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/col2R"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.6374696" />
+  </androidx.cardview.widget.CardView>
 
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/col3L"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.6836983" />
-
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/col3R"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.9659367" />
-
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/row1T"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.292868" />
-
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/row1B"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.4491654" />
-
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/row2T"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.5523521" />
-
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/row2B"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.71016693" />
-
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/textT"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.48103186" />
-
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/textB"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.5174507" />
-
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/text2T"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.7481032" />
-
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/text2B"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.7830046" />
-
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/titleT"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.050075874" />
-
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/titleB"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.13505311" />
-
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/titleL"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.10218978" />
-
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/titleR"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.9026764" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

@@ -136,15 +136,6 @@ public class signup extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
 
-        String userPhone = mobileNumber.getText().toString();
-        String valEmail = email.getText().toString().trim();
-        String valPassword = password.getText().toString().trim();
-        String valRePassword = rePassword.getText().toString().trim();
-        String userFirstName = firstName.getText().toString();
-        String userLastName = lastName.getText().toString();
-        String userBirthDate = birthDate.getText().toString();
-        String userGender = gender.getText().toString();
-
 
         email.addTextChangedListener(new TextWatcher() {
             @Override

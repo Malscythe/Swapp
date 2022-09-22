@@ -61,5 +61,15 @@
         <item>Taguig</item>
         <item>Valenzuela</item>
     </string-array>
+
+    <string-array name="courierList">
+        <item>Entrego</item>
+        <item>JRMT Express</item>
+        <item>Ninja Van</item>
+        <item>JT Express</item>
+        <item>2GO Express</item>
+        <item>LBC Express</item>
+        <item>Others</item>
+    </string-array>
     <string name="googleApi">AIzaSyAS1tYA2wm2lkOOaYmJW77jxb6e9bEgBvg</string>
 </resources>

@@ -96,45 +96,52 @@ public class UserHomepage extends AppCompatActivity {
         Log.w(TAG, MemoryData.getLastMsgTS(UserHomepage.this, "1", "09275201847"));
 
         databaseReference = FirebaseDatabase.getInstance().getReference("items/");
-        databaseReference.orderByChild("Poster_UID").equalTo(uid).addValueEventListener(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    String itemid = ds.getKey();
-                    databaseReference = FirebaseDatabase.getInstance().getReference("items/" + itemid + "/Offers");
-                    databaseReference.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            pendingTrades = pendingTrades + snapshot.getChildrenCount();
-                            pendingCounts.setText(pendingTrades.toString());
-                        }
+                    if (ds.child("Poster_UID").getValue(String.class).equals(uid)) {
+                        String itemid = ds.getKey();
+                        databaseReference = FirebaseDatabase.getInstance().getReference("items/" + itemid + "/Offers");
+                        databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                pendingTrades = pendingTrades + snapshot.getChildrenCount();
+                                pendingCounts.setText(pendingTrades.toString());
+                            }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
 
-                        }
-                    });
-
+                            }
+                        });
+                    }
                 }
                 pendingTrades = 0L;
 
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    String itemid = ds.getKey();
-                    databaseReference = FirebaseDatabase.getInstance().getReference("items/" + itemid + "/Accepted_Offers");
-                    databaseReference.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            currentTrades = currentTrades + snapshot.getChildrenCount();
-                            currentCounts.setText(currentTrades.toString());
-                        }
+                    if (ds.child("Poster_UID").getValue(String.class).equals(uid)) {
+                        String itemid = ds.getKey();
+                        databaseReference = FirebaseDatabase.getInstance().getReference("items/" + itemid + "/Accepted_Offers");
+                        databaseReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                currentTrades = currentTrades + snapshot.getChildrenCount();
+                                currentCounts.setText(currentTrades.toString());
+                            }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
 
-                        }
-                    });
+                            }
+                        });
+                    }
 
+                    if (ds.child("Accepted_Offers").child(uid).exists()) {
+                        currentTrades = Long.parseLong(currentCounts.getText().toString()) + 1L;
+                        currentCounts.setText(currentTrades.toString());
+                    }
                 }
                 currentTrades = 0L;
             }

@@ -125,17 +125,17 @@ public class OfferMoreInfo extends AppCompatActivity {
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
                 Query query = ref.child("items/" + parentKey + "/Offers").orderByChild("Image_Url").equalTo(url);
 
-                databaseReference.child("users").child(offererID).addValueEventListener(new ValueEventListener() {
+                databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                        String mobile = snapshot.child("Phone").getValue(String.class);
-                        String userName = snapshot.child("First_Name").getValue(String.class).concat(" " + snapshot.child("Last_Name").getValue(String.class));
+                        String mobile = snapshot.child("users").child(offererID).child("Phone").getValue(String.class);
+                        String userName = snapshot.child("users").child(offererID).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(offererID).child("Last_Name").getValue(String.class));
 
                         query.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
-                            public void onDataChange(DataSnapshot snapshot) {
-                                for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                            public void onDataChange(DataSnapshot snapshot1) {
+                                for (DataSnapshot dataSnapshot: snapshot1.getChildren()) {
 
                                     ref.child("items").child(parentKey).child("Accepted_Offers").child(offererID).child("Image_Url").setValue(url);
                                     ref.child("items").child(parentKey).child("Accepted_Offers").child(offererID).child("Item_Description").setValue(itemDesc.getText().toString());
@@ -150,6 +150,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                     intent.putExtra("mobile", mobile);
                                     intent.putExtra("name", userName);
                                     intent.putExtra("chat_key", "");
+                                    intent.putExtra("userStatus", snapshot.child("users-status").child(offererID).child("Status").getValue(String.class));
 
                                     startActivity(intent);
                                 }

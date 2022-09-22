@@ -81,10 +81,6 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
         notifyDataSetChanged();
     }
 
-    public void refreshData() {
-        notifyDataSetChanged();
-    }
-
     @Override
     public int getItemCount() {
         return messagesLists.size();
