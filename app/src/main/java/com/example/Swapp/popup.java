@@ -66,19 +66,41 @@ public class popup extends AppCompatActivity {
     private void loadPieChartData() {
         Typeface tf = getResources().getFont(R.font.poppins);
         ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(0.10f, "Current"));
-        entries.add(new PieEntry(0.15f, "Successful"));
-        entries.add(new PieEntry(0.10f, "Unsuccessful"));
-        entries.add(new PieEntry(0.25f, "Pending"));
+
+        Float current = Float.parseFloat(getIntent().getStringExtra("current"));
+        Float pending = Float.parseFloat(getIntent().getStringExtra("pending"));
+        Float successful = Float.parseFloat(getIntent().getStringExtra("successful"));
+        Float unsuccessful = Float.parseFloat(getIntent().getStringExtra("unsuccessful"));
+
+        if (current != 0f) {
+            entries.add(new PieEntry(current / 100, "Current"));
+        } else {
+            entries.remove(new PieEntry(current, "Current"));
+        }
+
+        if (pending != 0f) {
+            entries.add(new PieEntry(pending / 100, "Pending"));
+        } else {
+            entries.remove(new PieEntry(pending, "Pending"));
+        }
+
+        if (successful != 0f) {
+            entries.add(new PieEntry(successful / 100, "Successful"));
+        } else {
+            entries.remove(new PieEntry(successful, "Successful"));
+        }
+
+        if (unsuccessful != 0f) {
+            entries.add(new PieEntry(unsuccessful / 100, "Unsuccessful"));
+        } else {
+            entries.remove(new PieEntry(unsuccessful, "Unsuccessful"));
+        }
 
         ArrayList<Integer> colors = new ArrayList<>();
-        for (int color: ColorTemplate.MATERIAL_COLORS) {
-            colors.add(color);
-        }
-
-        for (int color: ColorTemplate.VORDIPLOM_COLORS) {
-            colors.add(color);
-        }
+        colors.add(Color.parseColor("#FFFFBB33"));
+        colors.add(Color.parseColor("#FF33B5E5"));
+        colors.add(Color.parseColor("#FF99CC00"));
+        colors.add(Color.parseColor("#FFFF4444"));
 
         PieDataSet dataSet = new PieDataSet(entries, "");
         dataSet.setColors(colors);

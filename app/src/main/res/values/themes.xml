@@ -35,5 +35,11 @@
         <item name="windowActionModeOverlay">false</item>
         <item name="android:windowBackground">#CC000000</item>
     </style>
+    <style name="piechart" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="windowActionModeOverlay">false</item>
+        <item name="android:windowBackground">#00000000</item>
+    </style>
 
 </resources>

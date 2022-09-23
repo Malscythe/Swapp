@@ -11,13 +11,13 @@
       android:id="@+id/topBanner"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="LISTED ITEMS"
-      android:fontFamily="@font/poppins_medium"
-      android:textColor="@color/black"
-      android:textSize="36dp"
+      android:layout_centerHorizontal="true"
       android:layout_marginTop="20dp"
       android:layout_marginBottom="20dp"
-      android:layout_centerHorizontal="true"/>
+      android:fontFamily="@font/montserrat_bold"
+      android:text="LISTED ITEMS"
+      android:textColor="@color/black"
+      android:textSize="36dp" />
   
   <androidx.recyclerview.widget.RecyclerView
       android:layout_width="match_parent"

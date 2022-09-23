@@ -25,6 +25,7 @@ import java.util.List;
 
 import Swapp.R;
 import de.hdodenhof.circleimageview.CircleImageView;
+import maes.tech.intentanim.CustomIntent;
 
 public class OfferAdapter2 extends RecyclerView.Adapter {
 
@@ -67,6 +68,7 @@ public class OfferAdapter2 extends RecyclerView.Adapter {
                 intent.putExtra("parentKey", offerFetch.getParentKey());
                 intent.putExtra("userID", offerFetch.getPoster_UID());
                 view.getContext().startActivity(intent);
+                CustomIntent.customType(view.getContext(), "left-to-right");
             }
         });
 

@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.Swapp.ItemSwipe;
 import com.example.Swapp.MemoryData;
 import com.example.Swapp.MoreInfo;
 import com.example.Swapp.UserHomepage;
@@ -26,6 +27,7 @@ import com.example.Swapp.popup;
 import java.util.List;
 
 import Swapp.R;
+import maes.tech.intentanim.CustomIntent;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> {
 
@@ -102,6 +104,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
                     Intent intent = new Intent(holder.itemView.getContext(), imageFullScreen.class);
                     intent.putExtra("imageUrl", list2.getMessage());
                     context.startActivity(intent);
+                    CustomIntent.customType(context, "fadein-to-fadeout");
                 }
             }
         });
@@ -113,6 +116,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
                     Intent intent = new Intent(holder.itemView.getContext(), imageFullScreen.class);
                     intent.putExtra("imageUrl", list2.getMessage());
                     context.startActivity(intent);
+                    CustomIntent.customType(context, "fadein-to-fadeout");
                 }
             }
         });

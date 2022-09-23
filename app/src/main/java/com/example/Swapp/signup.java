@@ -54,6 +54,7 @@ import java.util.Map;
 
 import Swapp.R;
 import Swapp.databinding.SignupBinding;
+import maes.tech.intentanim.CustomIntent;
 
 public class signup extends AppCompatActivity {
 
@@ -430,6 +431,7 @@ public class signup extends AppCompatActivity {
                             });
 
                             startActivity(new Intent(getApplicationContext(), login.class));
+                            CustomIntent.customType(signup.this, "right-to-left");
 
                         } else {
                             Toast toast = new Toast(getApplicationContext());
@@ -451,6 +453,7 @@ public class signup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), login.class));
+                CustomIntent.customType(signup.this, "right-to-left");
             }
         });
 

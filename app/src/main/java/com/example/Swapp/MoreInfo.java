@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import Swapp.R;
+import maes.tech.intentanim.CustomIntent;
 
 public class MoreInfo extends AppCompatActivity {
 
@@ -70,6 +71,7 @@ public class MoreInfo extends AppCompatActivity {
                             Intent intent = new Intent(MoreInfo.this, offerItem.class);
                             intent.putExtra("itemid", snapshot.child("Item_Name").getValue().toString().concat("-" + snapshot.child("Poster_UID").getValue().toString()));
                             startActivity(intent);
+                            CustomIntent.customType(MoreInfo.this, "left-to-right");
                         }
                     });
                 }
@@ -115,6 +117,7 @@ public class MoreInfo extends AppCompatActivity {
                         intent.putExtra("location", snapshot.child("Item_Location").getValue().toString());
                     }
                     startActivity(intent);
+                    CustomIntent.customType(MoreInfo.this, "right-to-left");
                 }
             }
 

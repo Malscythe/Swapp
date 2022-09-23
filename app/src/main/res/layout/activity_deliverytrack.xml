@@ -12,8 +12,8 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentTop="true"
-      android:layout_marginLeft="15dp"
-      android:layout_marginTop="20dp"
+      android:layout_marginLeft="30dp"
+      android:layout_marginTop="25dp"
       android:layout_marginBottom="5dp"
       android:fontFamily="@font/montserrat_bold"
       android:gravity="start"
@@ -23,15 +23,16 @@
 
   <TextView
       android:id="@+id/contentText"
-      android:layout_below="@+id/title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:fontFamily="@font/poppins"
+      android:layout_below="@+id/title"
+      android:layout_marginLeft="30dp"
       android:layout_marginTop="10dp"
-      android:layout_marginBottom="10dp"
-      android:textColor="@color/black"
-      android:layout_marginLeft="15dp"
-      android:text="Navigate couriers tracking service by selecting the courier and navigate using web window below."/>
+      android:layout_marginRight="100dp"
+      android:layout_marginBottom="20dp"
+      android:fontFamily="@font/poppins"
+      android:text="Navigate the courier tracking service by selecting the courier and navigating using the web window below."
+      android:textColor="@color/black" />
 
   <com.google.android.material.textfield.TextInputLayout
       android:layout_below="@id/contentText"
@@ -39,10 +40,9 @@
       style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginLeft="10dp"
-      android:layout_marginRight="10dp"
+      android:layout_marginLeft="30dp"
+      android:layout_marginRight="30dp"
       android:layout_marginBottom="10dp"
-      android:layout_toLeftOf="@id/trackBtn"
       app:boxStrokeColor="@color/primary2"
       app:boxStrokeWidth="2dp">
 
@@ -59,14 +59,15 @@
 
   <androidx.appcompat.widget.AppCompatButton
       android:id="@+id/trackBtn"
-      android:layout_below="@id/contentText"
-      android:layout_width="wrap_content"
+      android:layout_below="@id/courierListLayout"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="GO"
-      android:layout_marginTop="10dp"
       android:textColor="@color/white"
       android:fontFamily="@font/poppins_medium"
-      android:layout_marginEnd="10dp"
+      android:layout_marginEnd="30dp"
+      android:layout_marginStart="30dp"
+      android:layout_marginBottom="30dp"
       android:textSize="20dp"
       android:background="@drawable/buttonborder"
       android:layout_alignParentEnd="true"/>
@@ -75,7 +76,7 @@
       android:id="@+id/divider"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_below="@id/courierListLayout"
+      android:layout_below="@id/trackBtn"
       android:layout_marginTop="10dp"
       app:dividerColor="@color/primary2" />
 

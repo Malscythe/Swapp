@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Swapp.R;
+import maes.tech.intentanim.CustomIntent;
 
 public class OfferMainAcitvity extends AppCompatActivity {
 
@@ -73,5 +74,6 @@ public class OfferMainAcitvity extends AppCompatActivity {
 
         Intent intent = new Intent(OfferMainAcitvity.this, UserHomepage.class);
         startActivity(intent);
+        CustomIntent.customType(OfferMainAcitvity.this, "right-to-left");
     }
 }

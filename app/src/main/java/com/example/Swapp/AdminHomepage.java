@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import Swapp.R;
+import maes.tech.intentanim.CustomIntent;
 
 public class AdminHomepage extends AppCompatActivity {
 
@@ -33,6 +34,7 @@ public class AdminHomepage extends AppCompatActivity {
             public void onClick(View view) {
                 Intent FileMaintenance = new Intent(AdminHomepage.this, FileMaintenance.class);
                 startActivity(FileMaintenance);
+                CustomIntent.customType(AdminHomepage.this, "left-to-right");
             }
         });
 

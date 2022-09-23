@@ -52,12 +52,13 @@ import java.util.List;
 import java.util.Locale;
 
 import Swapp.R;
+import maes.tech.intentanim.CustomIntent;
 
 public class UserHomepage extends AppCompatActivity {
 
     private static final String TAG = "TAG";
 
-    TextView viewChart, pendingCounts, successfulCounts, unsuccessfulCounts, currentCounts;
+    TextView viewChart, pendingCounts, successfulCounts, unsuccessfulCounts, currentCounts, name;
     Dialog chartDialog;
     ImageView logoutBtn, imgbtn;
     Button trdbtn, dlvrbtn, accsetting, inbbtn;
@@ -88,8 +89,10 @@ public class UserHomepage extends AppCompatActivity {
         unsuccessfulCounts = findViewById(R.id.unsuccessfulText);
         currentCounts = findViewById(R.id.currentText);
         firebaseAuth = FirebaseAuth.getInstance();
+        name = findViewById(R.id.userFullName);
 
         String uid = firebaseAuth.getCurrentUser().getUid();
+        name.setText(MemoryData.getName(UserHomepage.this));
 
         MemoryData.saveUid(uid, UserHomepage.this);
 
@@ -165,6 +168,7 @@ public class UserHomepage extends AppCompatActivity {
                         intent.putExtra("email", snapshot.child("Email").getValue(String.class));
                         intent.putExtra("name", name);
                         startActivity(intent);
+                        CustomIntent.customType(UserHomepage.this, "left-to-right");
                     }
 
                     @Override
@@ -184,7 +188,13 @@ public class UserHomepage extends AppCompatActivity {
         viewChart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(UserHomepage.this, popup.class));
+                Intent intent = new Intent(UserHomepage.this, popup.class);
+                intent.putExtra("pending", pendingCounts.getText().toString());
+                intent.putExtra("current", currentCounts.getText().toString());
+                intent.putExtra("successful", successfulCounts.getText().toString());
+                intent.putExtra("unsuccessful", unsuccessfulCounts.getText().toString());
+                startActivity(intent);
+                CustomIntent.customType(UserHomepage.this, "fadein-to-fadeout");
             }
         });
 
@@ -206,12 +216,14 @@ public class UserHomepage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(UserHomepage.this, Categories.class));
+                CustomIntent.customType(UserHomepage.this, "left-to-right");
             }
         });
         dlvrbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(UserHomepage.this, deliverytrack.class));
+                CustomIntent.customType(UserHomepage.this, "left-to-right");
             }
         });
 
@@ -219,6 +231,7 @@ public class UserHomepage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(UserHomepage.this, OfferMainAcitvity.class));
+                CustomIntent.customType(UserHomepage.this, "left-to-right");
             }
         });
 
@@ -226,6 +239,7 @@ public class UserHomepage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(UserHomepage.this, currentLoc.class));
+                CustomIntent.customType(UserHomepage.this, "left-to-right");
             }
         });
     }

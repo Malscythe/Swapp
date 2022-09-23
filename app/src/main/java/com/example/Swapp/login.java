@@ -35,6 +35,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import Swapp.R;
+import maes.tech.intentanim.CustomIntent;
 
 public class login extends AppCompatActivity {
 
@@ -125,6 +126,7 @@ public class login extends AppCompatActivity {
                                                 MemoryData.saveName(snapshot.child("First_Name").getValue().toString().concat(" " + snapshot.child("Last_Name").getValue().toString()), login.this);
                                                 databaseReference.child("users-status").child(uid).child("Status").setValue("Online");
                                                 startActivity(new Intent(login.this, UserHomepage.class));
+                                                CustomIntent.customType(login.this, "left-to-right");
                                             }
                                             finish();
                                         }

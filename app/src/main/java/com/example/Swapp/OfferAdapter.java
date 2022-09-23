@@ -17,6 +17,7 @@ import java.util.List;
 
 import Swapp.R;
 import de.hdodenhof.circleimageview.CircleImageView;
+import maes.tech.intentanim.CustomIntent;
 
 public class OfferAdapter extends RecyclerView.Adapter {
 
@@ -56,6 +57,7 @@ public class OfferAdapter extends RecyclerView.Adapter {
                 Intent intent = new Intent(view.getContext(), OfferSecondActivity.class);
                 intent.putExtra("itemid", itemID);
                 view.getContext().startActivity(intent);
+                CustomIntent.customType(view.getContext(), "left-to-right");
             }
         });
     }

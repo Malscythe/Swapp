@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -32,6 +33,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 import Swapp.R;
+import maes.tech.intentanim.CustomIntent;
 
 public class FileMaintenance extends AppCompatActivity {
 
@@ -130,4 +132,10 @@ public class FileMaintenance extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(FileMaintenance.this, AdminHomepage.class));
+        CustomIntent.customType(FileMaintenance.this, "right-to-left");
+    }
 }

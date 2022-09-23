@@ -43,6 +43,7 @@ import java.io.IOException;
 import Swapp.R;
 import Swapp.databinding.ActivityOfferItemBinding;
 import Swapp.databinding.ActivityPostItemBinding;
+import maes.tech.intentanim.CustomIntent;
 
 public class offerItem extends AppCompatActivity {
 
@@ -210,6 +211,7 @@ public class offerItem extends AppCompatActivity {
                 toast.show();
 
                 startActivity(new Intent(offerItem.this, Categories.class));
+                CustomIntent.customType(offerItem.this, "right-to-left");
 
             }
         }).addOnFailureListener(new OnFailureListener() {

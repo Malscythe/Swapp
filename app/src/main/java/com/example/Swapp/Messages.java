@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Swapp.R;
+import maes.tech.intentanim.CustomIntent;
 import okhttp3.internal.Util;
 
 public class Messages extends AppCompatActivity {
@@ -84,6 +85,7 @@ public class Messages extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Messages.this, UserHomepage.class);
                 startActivity(intent);
+                CustomIntent.customType(Messages.this, "right-to-left");
             }
         });
 
@@ -204,7 +206,7 @@ public class Messages extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(Messages.this, UserHomepage.class);
         startActivity(intent);
-        finish();
+        CustomIntent.customType(Messages.this, "right-to-left");
     }
 
 }

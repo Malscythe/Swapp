@@ -41,6 +41,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import Swapp.R;
+import maes.tech.intentanim.CustomIntent;
 
 public class OfferMoreInfo extends AppCompatActivity {
 
@@ -153,6 +154,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                     intent.putExtra("userStatus", snapshot.child("users-status").child(offererID).child("Status").getValue(String.class));
 
                                     startActivity(intent);
+                                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                                 }
                             }
 
@@ -185,6 +187,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                             Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
                             intent.putExtra("itemid", parentKey);
                             startActivity(intent);
+                            CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
                         }
                     }
 

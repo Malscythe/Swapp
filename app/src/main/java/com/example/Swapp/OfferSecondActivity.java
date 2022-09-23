@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Swapp.R;
+import maes.tech.intentanim.CustomIntent;
 
 public class OfferSecondActivity extends AppCompatActivity {
 
@@ -71,5 +72,6 @@ public class OfferSecondActivity extends AppCompatActivity {
         super.onBackPressed();
         Intent intent = new Intent(OfferSecondActivity.this, OfferMainAcitvity.class);
         startActivity(intent);
+        CustomIntent.customType(OfferSecondActivity.this, "right-to-left");
     }
 }

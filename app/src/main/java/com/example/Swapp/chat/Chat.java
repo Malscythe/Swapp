@@ -65,6 +65,7 @@ import java.util.Locale;
 
 import Swapp.R;
 import de.hdodenhof.circleimageview.CircleImageView;
+import maes.tech.intentanim.CustomIntent;
 
 public class Chat extends AppCompatActivity {
 
@@ -240,6 +241,7 @@ public class Chat extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+                CustomIntent.customType(Chat.this, "right-to-left");
             }
         });
 
@@ -266,6 +268,7 @@ public class Chat extends AppCompatActivity {
                 intent.putExtra("email", snapshot.child("Email").getValue(String.class));
                 intent.putExtra("name", name);
                 startActivity(intent);;
+
             }
 
             @Override
@@ -273,6 +276,7 @@ public class Chat extends AppCompatActivity {
 
             }
         });
+        CustomIntent.customType(Chat.this, "right-to-left");
     }
 
     private void selectImage() {
@@ -295,8 +299,6 @@ public class Chat extends AppCompatActivity {
             chatKey = getIntent().getStringExtra("chat_key");
             final String getMobile = getIntent().getStringExtra("mobile");
             getUserMobile = MemoryData.getData(Chat.this);
-
-
 
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyykkmmssaa", Locale.getDefault());

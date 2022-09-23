@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import org.w3c.dom.Text;
 
 import Swapp.R;
+import maes.tech.intentanim.CustomIntent;
 
 public class forgotpassword extends AppCompatActivity {
 
@@ -57,6 +58,7 @@ public class forgotpassword extends AppCompatActivity {
                     public void onSuccess(Void unused) {
                         Log.d(TAG, "Success");
                         startActivity(new Intent(getApplicationContext(), postforgotpassword.class));
+                        CustomIntent.customType(forgotpassword.this, "left-to-right");
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -76,4 +78,10 @@ public class forgotpassword extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(forgotpassword.this, login.class));
+        CustomIntent.customType(forgotpassword.this, "right-to-left");
+    }
 }

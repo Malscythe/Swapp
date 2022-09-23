@@ -319,6 +319,7 @@
             android:text="Full Name"
             android:textColor="@color/white"
             android:textSize="18dp"
+            android:id="@+id/userFullName"
             app:layout_constraintBottom_toTopOf="@id/nameBot"
             app:layout_constraintEnd_toEndOf="@id/nameRight"
             app:layout_constraintStart_toStartOf="@id/nameLeft"

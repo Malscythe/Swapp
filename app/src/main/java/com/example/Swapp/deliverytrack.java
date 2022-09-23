@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import com.google.android.material.textfield.TextInputEditText;
 
 import Swapp.R;
+import maes.tech.intentanim.CustomIntent;
 
 public class deliverytrack extends AppCompatActivity {
 
@@ -69,5 +70,14 @@ public class deliverytrack extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Intent intent = new Intent(deliverytrack.this, UserHomepage.class);
+        startActivity(intent);
+        CustomIntent.customType(this, "right-to-left");
     }
 }

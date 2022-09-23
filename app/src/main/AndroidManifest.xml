@@ -18,7 +18,7 @@ package="Swapp">
 
     <activity
         android:name="com.example.Swapp.popup"
-        android:theme="@style/Theme.AppCompat.CustomTheme"
+        android:theme="@style/piechart"
         android:exported="true" />
 
     <activity

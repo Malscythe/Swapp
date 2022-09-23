@@ -41,6 +41,7 @@ import java.io.IOException;
 
 import Swapp.R;
 import Swapp.databinding.ActivityPostItemBinding;
+import maes.tech.intentanim.CustomIntent;
 
 public class PostItem extends AppCompatActivity {
 
@@ -76,7 +77,6 @@ public class PostItem extends AppCompatActivity {
         binding.postItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 uploadItem();
             }
         });
@@ -245,5 +245,12 @@ public class PostItem extends AppCompatActivity {
             binding.itemImage.setImageURI(imageUri);
 
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(PostItem.this, Categories.class));
+        CustomIntent.customType(PostItem.this, "right-to-left");
     }
 }

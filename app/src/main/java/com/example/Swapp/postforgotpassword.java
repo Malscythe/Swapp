@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import Swapp.R;
+import maes.tech.intentanim.CustomIntent;
 
 public class postforgotpassword extends AppCompatActivity {
 
@@ -24,6 +25,7 @@ public class postforgotpassword extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), login.class));
+                CustomIntent.customType(postforgotpassword.this, "right-to-left");
             }
         });
     }

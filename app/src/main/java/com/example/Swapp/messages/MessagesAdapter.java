@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.Swapp.MemoryData;
 import com.example.Swapp.Messages;
+import com.example.Swapp.UserHomepage;
 import com.example.Swapp.chat.Chat;
 
 import java.sql.Timestamp;
@@ -25,6 +26,7 @@ import java.util.Locale;
 
 import Swapp.R;
 import de.hdodenhof.circleimageview.CircleImageView;
+import maes.tech.intentanim.CustomIntent;
 
 public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyViewHolder> {
 
@@ -68,8 +70,8 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
                 intent.putExtra("profile_pic", list2.getProfilePic());
                 intent.putExtra("chat_key", list2.getChatKey());
                 intent.putExtra("userStatus", list2.getStatus());
-
                 context.startActivity(intent);
+                CustomIntent.customType(context, "left-to-right");
             }
         });
 

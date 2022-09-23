@@ -16,6 +16,7 @@ import com.google.firebase.firestore.auth.User;
 import Swapp.R;
 import Swapp.databinding.ActivityCategoriesBinding;
 import Swapp.databinding.ActivityOfferItemBinding;
+import maes.tech.intentanim.CustomIntent;
 
 public class Categories extends AppCompatActivity {
 
@@ -61,6 +62,7 @@ public class Categories extends AppCompatActivity {
                 intent.putExtra("category", "Men's Apparel");
                 intent.putExtra("location", binding.itemLocation.getText().toString());
                 startActivity(intent);
+                CustomIntent.customType(Categories.this, "left-to-right");
             }
         });
 
@@ -68,6 +70,7 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Categories.this, UserHomepage.class));
+                CustomIntent.customType(Categories.this, "right-to-left");
             }
         });
 
@@ -80,6 +83,7 @@ public class Categories extends AppCompatActivity {
                 extras.putString("location", binding.itemLocation.getText().toString());
                 intent.putExtras(extras);
                 startActivity(intent);
+                CustomIntent.customType(Categories.this, "left-to-right");
             }
         });
 
@@ -92,6 +96,7 @@ public class Categories extends AppCompatActivity {
                 extras.putString("location", binding.itemLocation.getText().toString());
                 intent.putExtras(extras);
                 startActivity(intent);
+                CustomIntent.customType(Categories.this, "left-to-right");
             }
         });
 
@@ -104,6 +109,7 @@ public class Categories extends AppCompatActivity {
                 extras.putString("location", binding.itemLocation.getText().toString());
                 intent.putExtras(extras);
                 startActivity(intent);
+                CustomIntent.customType(Categories.this, "left-to-right");
             }
         });
 
@@ -116,6 +122,7 @@ public class Categories extends AppCompatActivity {
                 extras.putString("location", binding.itemLocation.getText().toString());
                 intent.putExtras(extras);
                 startActivity(intent);
+                CustomIntent.customType(Categories.this, "left-to-right");
             }
         });
 
@@ -128,6 +135,7 @@ public class Categories extends AppCompatActivity {
                 extras.putString("location", binding.itemLocation.getText().toString());
                 intent.putExtras(extras);
                 startActivity(intent);
+                CustomIntent.customType(Categories.this, "left-to-right");
             }
         });
 
@@ -140,6 +148,7 @@ public class Categories extends AppCompatActivity {
                 extras.putString("location", binding.itemLocation.getText().toString());
                 intent.putExtras(extras);
                 startActivity(intent);
+                CustomIntent.customType(Categories.this, "left-to-right");
             }
         });
 
@@ -152,6 +161,7 @@ public class Categories extends AppCompatActivity {
                 extras.putString("location", binding.itemLocation.getText().toString());
                 intent.putExtras(extras);
                 startActivity(intent);
+                CustomIntent.customType(Categories.this, "left-to-right");
             }
         });
         appliances.setOnClickListener(new View.OnClickListener() {
@@ -163,6 +173,7 @@ public class Categories extends AppCompatActivity {
                 extras.putString("location", binding.itemLocation.getText().toString());
                 intent.putExtras(extras);
                 startActivity(intent);
+                CustomIntent.customType(Categories.this, "left-to-right");
             }
         });
 
@@ -175,6 +186,7 @@ public class Categories extends AppCompatActivity {
                 extras.putString("location", binding.itemLocation.getText().toString());
                 intent.putExtras(extras);
                 startActivity(intent);
+                CustomIntent.customType(Categories.this, "left-to-right");
             }
         });
         audio.setOnClickListener(new View.OnClickListener() {
@@ -186,6 +198,7 @@ public class Categories extends AppCompatActivity {
                 extras.putString("location", binding.itemLocation.getText().toString());
                 intent.putExtras(extras);
                 startActivity(intent);
+                CustomIntent.customType(Categories.this, "left-to-right");
             }
         });
 
@@ -198,6 +211,7 @@ public class Categories extends AppCompatActivity {
                 extras.putString("location", binding.itemLocation.getText().toString());
                 intent.putExtras(extras);
                 startActivity(intent);
+                CustomIntent.customType(Categories.this, "left-to-right");
             }
         });
         womens.setOnClickListener(new View.OnClickListener() {
@@ -209,6 +223,7 @@ public class Categories extends AppCompatActivity {
                 extras.putString("location", binding.itemLocation.getText().toString());
                 intent.putExtras(extras);
                 startActivity(intent);
+                CustomIntent.customType(Categories.this, "left-to-right");
             }
         });
 
@@ -221,6 +236,7 @@ public class Categories extends AppCompatActivity {
                 extras.putString("location", binding.itemLocation.getText().toString());
                 intent.putExtras(extras);
                 startActivity(intent);
+                CustomIntent.customType(Categories.this, "left-to-right");
             }
         });
 
@@ -229,6 +245,7 @@ public class Categories extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Categories.this, PostItem.class);
                 startActivity(intent);
+                CustomIntent.customType(Categories.this, "left-to-right");
             }
         });
     }
@@ -237,5 +254,6 @@ public class Categories extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(Categories.this, UserHomepage.class);
         startActivity(intent);
+        CustomIntent.customType(Categories.this, "right-to-left");
     }
 }

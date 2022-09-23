@@ -26,12 +26,7 @@ public class imageFullScreen extends AppCompatActivity {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-        int width = dm.widthPixels;
-        int height = dm.heightPixels;
-
         String imageUrl = getIntent().getStringExtra("imageUrl");
-
-        //getWindow().setLayout((int)(width*.8),(int)(height*.55));
 
         fullImage = findViewById(R.id.imageFullView);
         imageLayout = findViewById(R.id.imageLayout);

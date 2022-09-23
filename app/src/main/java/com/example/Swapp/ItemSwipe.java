@@ -33,6 +33,7 @@ import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 import java.util.ArrayList;
 
 import Swapp.R;
+import maes.tech.intentanim.CustomIntent;
 
 public class ItemSwipe extends AppCompatActivity {
 
@@ -126,6 +127,7 @@ public class ItemSwipe extends AppCompatActivity {
                             intent.putExtra("location", "NotAny");
                         }
                         startActivity(intent);
+                        CustomIntent.customType(ItemSwipe.this, "fadein-to-fadeout");
                     }
                 });
             }
@@ -231,5 +233,6 @@ public class ItemSwipe extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(ItemSwipe.this, Categories.class);
         startActivity(intent);
+        CustomIntent.customType(ItemSwipe.this, "right-to-left");
     }
 }
