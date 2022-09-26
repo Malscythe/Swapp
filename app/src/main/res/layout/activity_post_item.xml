@@ -1,300 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.Swapp.PostItem">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/leftMargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.1" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/rightMargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.9" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/imageLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.35" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/imageRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.65" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/imageTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/imageBot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.20" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/itemNameTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.23" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/itemNameBot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.34" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/itemCategoryLocationTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.35" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/itemCategoryLocationBot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.46" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/itemCategoryRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.48" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/itemLocationLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.52" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/itemPrefTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.47" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/itemPrefBot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.58" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/itemDescTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.59" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/itemDescBot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.85" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/postBtnTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.87" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/postBtnBot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.95" />
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/itemImage"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/noimage"
-        app:layout_constraintBottom_toTopOf="@id/imageBot"
-        app:layout_constraintEnd_toEndOf="@id/imageRight"
-        app:layout_constraintStart_toStartOf="@id/imageLeft"
-        app:layout_constraintTop_toBottomOf="@id/imageTop"
-        app:strokeColor="@color/primary2"
-        app:strokeWidth="5dp" />
-
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/selectImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        app:icon="@drawable/ic_baseline_camera_alt_24"
-        app:iconTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.67"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.167" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/itemNameL"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:boxStrokeColor="@color/primary2"
-        app:boxStrokeWidth="2dp"
-        app:helperText="*Required"
-        app:layout_constraintBottom_toTopOf="@id/itemNameBot"
-        app:layout_constraintEnd_toEndOf="@id/rightMargin"
-        app:layout_constraintStart_toStartOf="@id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@id/itemNameTop">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/itemName"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/poppins_medium"
-            android:hint="Item Name"
-            android:importantForAutofill="no"
-            android:textColor="@color/black" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="match_parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/itemCategoryL"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:boxStrokeColor="@color/primary2"
-        app:boxStrokeWidth="2dp"
-        app:helperText="*Required"
-        app:layout_constraintBottom_toTopOf="@id/itemCategoryLocationBot"
-        app:layout_constraintEnd_toEndOf="@id/itemCategoryRight"
-        app:layout_constraintStart_toStartOf="@id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@+id/itemCategoryLocationTop">
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/itemImage"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_margin="50dp"
+                android:scaleType="centerCrop"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/noimage"
+                app:strokeColor="@color/primary2"
+                app:strokeWidth="5dp" />
 
-        <AutoCompleteTextView
-            android:id="@+id/itemCategory"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:fontFamily="@font/poppins_medium"
-            android:hint="Category"
-            android:inputType="none"
-            android:textColor="@color/black" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/selectImage"
+                android:layout_below="@id/itemImage"
+                android:layout_marginTop="-80dp"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                app:icon="@drawable/ic_baseline_camera_alt_24"
+                app:iconTint="@color/white" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/itemLocationL"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:boxStrokeColor="@color/primary2"
-        app:boxStrokeWidth="2dp"
-        app:helperText="*Required"
-        app:layout_constraintBottom_toTopOf="@id/itemCategoryLocationBot"
-        app:layout_constraintEnd_toEndOf="@id/rightMargin"
-        app:layout_constraintStart_toStartOf="@id/itemLocationLeft"
-        app:layout_constraintTop_toBottomOf="@+id/itemCategoryLocationTop">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/itemNameL"
+                android:layout_below="@id/itemImage"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/white"
+                app:boxStrokeColor="@color/primary2"
+                app:boxStrokeWidth="2dp"
+                app:helperText="*Required">
 
-        <AutoCompleteTextView
-            android:id="@+id/itemLocation"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:fontFamily="@font/poppins_medium"
-            android:hint="Location"
-            android:inputType="none"
-            android:textColor="@color/black" />
-    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/itemName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="Item Name"
+                    android:importantForAutofill="no"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/itemPrefL"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:boxStrokeColor="@color/primary2"
-        app:boxStrokeWidth="2dp"
-        app:helperText="*Required"
-        app:layout_constraintBottom_toTopOf="@id/itemPrefBot"
-        app:layout_constraintEnd_toEndOf="@id/rightMargin"
-        app:layout_constraintStart_toStartOf="@id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@id/itemPrefTop">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/itemCategoryL"
+                android:layout_below="@id/itemNameL"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="10dp"
+                app:boxStrokeColor="@color/primary2"
+                app:boxStrokeWidth="2dp"
+                app:helperText="*Required">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/itemPref"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/poppins_medium"
-            android:hint="Preferred Item"
-            android:importantForAutofill="no"
-            android:textColor="@color/black" />
-    </com.google.android.material.textfield.TextInputLayout>
+                <AutoCompleteTextView
+                    android:id="@+id/itemCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="Category"
+                    android:inputType="none"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/itemDescL"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:boxStrokeColor="@color/primary2"
-        app:boxStrokeWidth="2dp"
-        app:helperText="*Required"
-        android:scrollbarSize="100dp"
-        app:layout_constraintBottom_toTopOf="@id/itemDescBot"
-        app:layout_constraintEnd_toEndOf="@id/rightMargin"
-        app:layout_constraintStart_toStartOf="@id/leftMargin"
-        app:layout_constraintTop_toBottomOf="@id/itemDescTop"
-        app:layout_constraintVertical_bias="0.0">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/itemLocationL"
+                android:layout_below="@id/itemCategoryL"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/white"
+                app:endIconMode="custom"
+                app:endIconTint="@color/primary2"
+                app:endIconDrawable="@drawable/ic_baseline_my_location_24"
+                app:boxStrokeColor="@color/primary2"
+                app:boxStrokeWidth="2dp"
+                app:helperText="*Required">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/itemDesc"
-            android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:fontFamily="@font/poppins_medium"
-            android:hint="Item Description"
-            android:gravity="top"
-            android:importantForAutofill="no"
-            android:textColor="@color/black" />
-    </com.google.android.material.textfield.TextInputLayout>
-    
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/postItemBtn"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/buttonborder"
-        android:text="Post Item"
-        android:textColor="@color/white"
-        android:textSize="24dp"
-        android:textAllCaps="false"
-        android:fontFamily="@font/poppins_semibold"
-        app:layout_constraintStart_toStartOf="@id/leftMargin"
-        app:layout_constraintEnd_toEndOf="@id/rightMargin"
-        app:layout_constraintTop_toBottomOf="@id/postBtnTop"
-        app:layout_constraintBottom_toTopOf="@id/postBtnBot"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/itemLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="Address"
+                    android:importantForAutofill="no"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/itemPrefL"
+                android:layout_below="@id/itemLocationL"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/white"
+                app:boxStrokeColor="@color/primary2"
+                app:boxStrokeWidth="2dp"
+                app:helperText="*Required">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/itemPref"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="What item do you prefer for this item?"
+                    android:importantForAutofill="no"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/itemRFSL"
+                android:layout_below="@id/itemPrefL"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/white"
+                app:boxStrokeColor="@color/primary2"
+                app:boxStrokeWidth="2dp"
+                app:helperText="*Required">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/itemRFS"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="Reason For Selling"
+                    android:importantForAutofill="no"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/postItemBtn"
+                android:layout_below="@id/itemRFSL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/buttonborder"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Next"
+                android:textColor="@color/white"
+                android:textSize="24sp" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

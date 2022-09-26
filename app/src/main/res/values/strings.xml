@@ -72,4 +72,6 @@
         <item>Others</item>
     </string-array>
     <string name="googleApi">AIzaSyAS1tYA2wm2lkOOaYmJW77jxb6e9bEgBvg</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

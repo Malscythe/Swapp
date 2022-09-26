@@ -238,7 +238,10 @@ public class UserHomepage extends AppCompatActivity {
         imgbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(UserHomepage.this, currentLoc.class));
+
+                Intent intent = new Intent(UserHomepage.this, currentLoc.class);
+                intent.putExtra("fromUserHomepage", "true");
+                startActivity(intent);
                 CustomIntent.customType(UserHomepage.this, "left-to-right");
             }
         });

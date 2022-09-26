@@ -244,6 +244,7 @@ public class Categories extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Categories.this, PostItem.class);
+                intent.putExtra("address", "");
                 startActivity(intent);
                 CustomIntent.customType(Categories.this, "left-to-right");
             }

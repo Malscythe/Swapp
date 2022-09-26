@@ -63,10 +63,6 @@ public class PostItem extends AppCompatActivity {
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.dropdown_item, categoriesArr);
         binding.itemCategory.setAdapter(arrayAdapter);
 
-        String[] locationsArr = getResources().getStringArray(R.array.locations);
-        arrayAdapter = new ArrayAdapter(this, R.layout.dropdown_item, locationsArr);
-        binding.itemLocation.setAdapter(arrayAdapter);
-
         binding.selectImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,6 +76,24 @@ public class PostItem extends AppCompatActivity {
                 uploadItem();
             }
         });
+
+
+        binding.itemLocationL.setEndIconOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PostItem.this, currentLoc.class);
+                intent.putExtra("fromUserHomepage", "false");
+                startActivity(intent);
+                CustomIntent.customType(PostItem.this, "left-to-right");
+            }
+        });
+
+        if (!getIntent().getStringExtra("address").equals("")) {
+            binding.itemLocation.setEnabled(true);
+            binding.itemLocation.setText(getIntent().getStringExtra("address"));
+        } else {
+            binding.itemLocation.setEnabled(false);
+        }
     }
 
     private void uploadItem() {
@@ -123,15 +137,6 @@ public class PostItem extends AppCompatActivity {
         } else {
             binding.itemPrefL.setError(null);
             binding.itemPrefL.setErrorIconDrawable(null);
-        }
-
-        if (TextUtils.isEmpty(binding.itemDesc.getText().toString())) {
-            binding.itemDescL.setError("This cannot be empty.");
-            binding.itemDescL.setErrorIconDrawable(null);
-            return;
-        } else {
-            binding.itemDescL.setError(null);
-            binding.itemDescL.setErrorIconDrawable(null);
         }
 
         if (imageUri == null){
@@ -180,7 +185,6 @@ public class PostItem extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Uri> task) {
                                         insertItems.child("Image_Url").setValue(task.getResult().toString());
                                         insertItems.child("Item_Category").setValue(binding.itemCategory.getText().toString());
-                                        insertItems.child("Item_Description").setValue(binding.itemDesc.getText().toString());
                                         insertItems.child("Item_Location").setValue(binding.itemLocation.getText().toString());
                                         insertItems.child("Item_Name").setValue(binding.itemName.getText().toString());
                                         insertItems.child("Item_Preferred").setValue(binding.itemPref.getText().toString());
@@ -252,5 +256,6 @@ public class PostItem extends AppCompatActivity {
         super.onBackPressed();
         startActivity(new Intent(PostItem.this, Categories.class));
         CustomIntent.customType(PostItem.this, "right-to-left");
+        finish();
     }
 }
