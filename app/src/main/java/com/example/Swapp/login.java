@@ -125,7 +125,9 @@ public class login extends AppCompatActivity {
                                                 MemoryData.saveData(snapshot.child("Phone").getValue().toString(), login.this);
                                                 MemoryData.saveName(snapshot.child("First_Name").getValue().toString().concat(" " + snapshot.child("Last_Name").getValue().toString()), login.this);
                                                 databaseReference.child("users-status").child(uid).child("Status").setValue("Online");
-                                                startActivity(new Intent(login.this, UserHomepage.class));
+                                                Intent intent = new Intent(login.this, UserHomepage.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                startActivity(intent);
                                                 CustomIntent.customType(login.this, "left-to-right");
                                             }
                                             finish();
@@ -175,5 +177,11 @@ public class login extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), forgotpassword.class));
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        System.exit(0);
     }
 }

@@ -283,15 +283,6 @@
             app:layout_constraintGuide_percent=".53" />
 
         <ImageView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:src="@drawable/ic_baseline_menu_24"
-            app:layout_constraintBottom_toTopOf="@id/navBot"
-            app:layout_constraintEnd_toEndOf="@id/menuRight"
-            app:layout_constraintStart_toStartOf="@id/menuLeft"
-            app:layout_constraintTop_toBottomOf="@id/navTop" />
-
-        <ImageView
             android:id="@+id/logoutBtn"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -758,15 +749,5 @@
         app:layout_constraintEnd_toEndOf="@id/thirdRight"
         app:layout_constraintStart_toStartOf="@id/thirdLeft"
         app:layout_constraintTop_toBottomOf="@id/threeBot" />
-
-    <ImageButton
-        android:id="@+id/locatebtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/reportRight"
-        app:layout_constraintStart_toStartOf="@+id/thirdLeft"
-        app:layout_constraintTop_toBottomOf="@+id/textView20"
-        app:srcCompat="@android:drawable/ic_menu_mylocation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

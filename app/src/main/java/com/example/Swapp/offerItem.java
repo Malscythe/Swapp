@@ -251,7 +251,11 @@ public class offerItem extends AppCompatActivity {
             binding.itemImage.setImageURI(imageUri);
 
         }
+    }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        CustomIntent.customType(offerItem.this, "right-to-left");
     }
 }

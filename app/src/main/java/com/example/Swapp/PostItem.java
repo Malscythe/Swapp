@@ -82,7 +82,7 @@ public class PostItem extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(PostItem.this, currentLoc.class);
-                intent.putExtra("fromUserHomepage", "false");
+                intent.putExtra("from", "postitem");
                 startActivity(intent);
                 CustomIntent.customType(PostItem.this, "left-to-right");
             }

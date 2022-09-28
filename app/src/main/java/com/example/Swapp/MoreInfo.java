@@ -20,6 +20,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 import Swapp.R;
 import maes.tech.intentanim.CustomIntent;
 
@@ -111,11 +113,7 @@ public class MoreInfo extends AppCompatActivity {
                 if (snapshot.exists() && snapshot.child("Image_Url").getValue().equals(url)) {
                     Intent intent = new Intent(MoreInfo.this, ItemSwipe.class);
                     intent.putExtra("category", snapshot.child("Item_Category").getValue().toString());
-                    if (passedLocation.equals("Any")) {
-                        intent.putExtra("location", "Any");
-                    } else {
-                        intent.putExtra("location", snapshot.child("Item_Location").getValue().toString());
-                    }
+                    intent.putExtra("keys", getIntent().getSerializableExtra("keys"));
                     startActivity(intent);
                     CustomIntent.customType(MoreInfo.this, "right-to-left");
                 }

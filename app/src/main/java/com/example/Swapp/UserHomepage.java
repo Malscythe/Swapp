@@ -76,8 +76,6 @@ public class UserHomepage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_homepage);
 
-        imgbtn = findViewById(R.id.locatebtn);
-
         inbbtn = findViewById(R.id.inboxBtn);
         viewChart = findViewById(R.id.viewBtn);
         chartDialog = new Dialog(this);
@@ -95,8 +93,6 @@ public class UserHomepage extends AppCompatActivity {
         name.setText(MemoryData.getName(UserHomepage.this));
 
         MemoryData.saveUid(uid, UserHomepage.this);
-
-        Log.w(TAG, MemoryData.getLastMsgTS(UserHomepage.this, "1", "09275201847"));
 
         databaseReference = FirebaseDatabase.getInstance().getReference("items/");
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -164,6 +160,7 @@ public class UserHomepage extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         String name = snapshot.child("First_Name").getValue(String.class).concat(" " + snapshot.child("Last_Name").getValue(String.class));
                         Intent intent = new Intent(UserHomepage.this, Messages.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         intent.putExtra("mobile", snapshot.child("Phone").getValue(String.class));
                         intent.putExtra("email", snapshot.child("Email").getValue(String.class));
                         intent.putExtra("name", name);
@@ -189,6 +186,7 @@ public class UserHomepage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(UserHomepage.this, popup.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intent.putExtra("pending", pendingCounts.getText().toString());
                 intent.putExtra("current", currentCounts.getText().toString());
                 intent.putExtra("successful", successfulCounts.getText().toString());
@@ -209,20 +207,26 @@ public class UserHomepage extends AppCompatActivity {
                 DatabaseReference df = FirebaseDatabase.getInstance().getReference();
                 df.child("users-status").child(uid).child("Status").setValue("Offline");
 
-                startActivity(new Intent(UserHomepage.this, login.class));
+                Intent intent = new Intent(UserHomepage.this, login.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
             }
         });
         trdbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(UserHomepage.this, Categories.class));
+                Intent intent = new Intent(UserHomepage.this, Categories.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
                 CustomIntent.customType(UserHomepage.this, "left-to-right");
             }
         });
         dlvrbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(UserHomepage.this, deliverytrack.class));
+                Intent intent = new Intent(UserHomepage.this, deliverytrack.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
                 CustomIntent.customType(UserHomepage.this, "left-to-right");
             }
         });
@@ -230,17 +234,8 @@ public class UserHomepage extends AppCompatActivity {
         accsetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(UserHomepage.this, OfferMainAcitvity.class));
-                CustomIntent.customType(UserHomepage.this, "left-to-right");
-            }
-        });
-
-        imgbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent = new Intent(UserHomepage.this, currentLoc.class);
-                intent.putExtra("fromUserHomepage", "true");
+                Intent intent = new Intent(UserHomepage.this, OfferMainAcitvity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
                 CustomIntent.customType(UserHomepage.this, "left-to-right");
             }
@@ -250,12 +245,6 @@ public class UserHomepage extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        System.exit(0);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
 
         MemoryData.saveUid("", UserHomepage.this);
         MemoryData.saveData("", UserHomepage.this);
@@ -263,9 +252,10 @@ public class UserHomepage extends AppCompatActivity {
         MemoryData.saveState(false, UserHomepage.this);
 
         String uid = firebaseAuth.getCurrentUser().getUid();
-        Log.w(TAG, "DESTROYED : " + uid);
+
         DatabaseReference df = FirebaseDatabase.getInstance().getReference();
         df.child("users-status").child(uid).child("Status").setValue("Offline");
-        startActivity(new Intent(UserHomepage.this, login.class));
+
+        finishAffinity();
     }
 }

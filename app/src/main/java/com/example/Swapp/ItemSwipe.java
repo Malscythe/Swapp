@@ -1,6 +1,6 @@
 package com.example.Swapp;
 
-import  androidx.annotation.NonNull;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -40,16 +40,9 @@ public class ItemSwipe extends AppCompatActivity {
     private static final String TAG = "Debug";
     private cards cards_data[];
     private arrayAdapter arrayAdapter;
-    private int i;
-    String chosenCategory;
-    Intent intent = getIntent();
 
     RelativeLayout noMoreItemBanner;
 
-
-    private FirebaseDatabase fDatabase;
-
-    ListView listView;
     ArrayList<cards> rowItems;
 
     Button noMoreItemsBtn;
@@ -60,15 +53,8 @@ public class ItemSwipe extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_swipe);
-        String categoryPassed = getIntent().getStringExtra("category");
-        String locationPassed = getIntent().getStringExtra("location");
-        if(intent == null){
-            if (categoryPassed.equals("all")) {
-                chosenCategory = "all";
-            } else {
-                chosenCategory = categoryPassed;
-            }
-        }
+        ArrayList<String> keysList = (ArrayList<String>) getIntent().getSerializableExtra("keys");
+
 
         noMoreItemBanner = findViewById(R.id.noMoreItemBanner);
         noMoreItemsBtn = findViewById(R.id.returnToCategories);
@@ -77,7 +63,10 @@ public class ItemSwipe extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ItemSwipe.this, Categories.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
+                CustomIntent.customType(ItemSwipe.this, "right-to-left");
+                finish();
             }
         });
 
@@ -120,14 +109,12 @@ public class ItemSwipe extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DataSnapshot> task) {
                         DataSnapshot dataSnapshot = task.getResult();
                         Intent intent = new Intent(ItemSwipe.this, MoreInfo.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         intent.putExtra("url", dataSnapshot.child("Image_Url").getValue().toString());
-                        if (locationPassed.equals("Any")) {
-                            intent.putExtra("location", locationPassed);
-                        } else  {
-                            intent.putExtra("location", "NotAny");
-                        }
+                        intent.putExtra("keys", keysList);
                         startActivity(intent);
-                        CustomIntent.customType(ItemSwipe.this, "fadein-to-fadeout");
+                        CustomIntent.customType(ItemSwipe.this, "right-to-left");
+                        finish();
                     }
                 });
             }
@@ -144,66 +131,42 @@ public class ItemSwipe extends AppCompatActivity {
         });
 
 
-        // Optionally add an OnItemClickListener
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
-                Toast.makeText(ItemSwipe.this, "Clicked", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
 
-    public void getItems(){
-        String locationPassed = getIntent().getStringExtra("location");
+    public void getItems() {
+        ArrayList<String> keysList = (ArrayList<String>) getIntent().getSerializableExtra("keys");
+
+        if (keysList.isEmpty()) {
+            noMoreItemBanner.setVisibility(View.VISIBLE);
+        }
+
+
         DatabaseReference items = FirebaseDatabase.getInstance().getReference().child("items");
         items.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if(snapshot.exists() && snapshot.child("Item_Category").getValue().toString().equals(chosenCategory) && locationPassed.equals("Any")) {
 
-                    cards item = new cards(snapshot.child("Image_Url").getValue().toString(),
-                            snapshot.child("Item_Category").getValue().toString(),
-                            snapshot.child("Item_Description").getValue().toString(),
-                            snapshot.child("Item_Location").getValue().toString(),
-                            snapshot.child("Item_Name").getValue().toString(),
-                            snapshot.child("Item_Preferred").getValue().toString(),
-                            snapshot.child("Poster_Name").getValue().toString(),
-                            snapshot.child("Poster_UID").getValue().toString());
-                    rowItems.add(item);
-                    arrayAdapter.notifyDataSetChanged();
-                } else if (snapshot.exists() && chosenCategory.equals("all") && locationPassed.equals("Any")) {
-                    cards item = new cards(snapshot.child("Image_Url").getValue().toString(),
-                            snapshot.child("Item_Category").getValue().toString(),
-                            snapshot.child("Item_Description").getValue().toString(),
-                            snapshot.child("Item_Location").getValue().toString(),
-                            snapshot.child("Item_Name").getValue().toString(),
-                            snapshot.child("Item_Preferred").getValue().toString(),
-                            snapshot.child("Poster_Name").getValue().toString(),
-                            snapshot.child("Poster_UID").getValue().toString());
-                    rowItems.add(item);
-                    arrayAdapter.notifyDataSetChanged();
-                } else if (snapshot.exists() && snapshot.child("Item_Category").getValue().toString().equals(chosenCategory) && snapshot.child("Item_Location").getValue().toString().equals(locationPassed)) {
-                    cards item = new cards(snapshot.child("Image_Url").getValue().toString(),
-                            snapshot.child("Item_Category").getValue().toString(),
-                            snapshot.child("Item_Description").getValue().toString(),
-                            snapshot.child("Item_Location").getValue().toString(),
-                            snapshot.child("Item_Name").getValue().toString(),
-                            snapshot.child("Item_Preferred").getValue().toString(),
-                            snapshot.child("Poster_Name").getValue().toString(),
-                            snapshot.child("Poster_UID").getValue().toString());
-                    rowItems.add(item);
-                    arrayAdapter.notifyDataSetChanged();
-                } else if (snapshot.exists() && chosenCategory.equals("all") && snapshot.child("Item_Location").getValue().toString().equals(locationPassed)) {
-                    cards item = new cards(snapshot.child("Image_Url").getValue().toString(),
-                            snapshot.child("Item_Category").getValue().toString(),
-                            snapshot.child("Item_Description").getValue().toString(),
-                            snapshot.child("Item_Location").getValue().toString(),
-                            snapshot.child("Item_Name").getValue().toString(),
-                            snapshot.child("Item_Preferred").getValue().toString(),
-                            snapshot.child("Poster_Name").getValue().toString(),
-                            snapshot.child("Poster_UID").getValue().toString());
-                    rowItems.add(item);
-                    arrayAdapter.notifyDataSetChanged();
+                for (int i = 0; i < keysList.size(); i++) {
+
+                    if (snapshot.exists() && snapshot.getKey().equals(keysList.get(i))) {
+
+                        cards item = new cards(snapshot.child("Image_Url").getValue().toString(),
+                                snapshot.child("Item_Category").getValue().toString(),
+                                snapshot.child("Item_Description").getValue().toString(),
+                                snapshot.child("Item_Location").getValue().toString(),
+                                snapshot.child("Item_Name").getValue().toString(),
+                                snapshot.child("Item_Preferred").getValue().toString(),
+                                snapshot.child("Poster_Name").getValue().toString(),
+                                snapshot.child("Poster_UID").getValue().toString());
+                        rowItems.add(item);
+                        arrayAdapter.notifyDataSetChanged();
+                    }
                 }
             }
 
@@ -232,7 +195,9 @@ public class ItemSwipe extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(ItemSwipe.this, Categories.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
         CustomIntent.customType(ItemSwipe.this, "right-to-left");
+        finish();
     }
 }
