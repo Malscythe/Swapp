@@ -1,8 +1,10 @@
 package com.example.Swapp.chat;
 
+import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.Swapp.ItemSwipe;
 import com.example.Swapp.MemoryData;
 import com.example.Swapp.MoreInfo;
@@ -24,6 +28,7 @@ import com.example.Swapp.UserHomepage;
 import com.example.Swapp.imageFullScreen;
 import com.example.Swapp.popup;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import Swapp.R;
@@ -62,6 +67,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
             }
         }
 
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, yyyy");
+        SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("hh:mm aa");
+
 
         if (list2.getMobile().equals(userMobile) && !isImage) {
             holder.myLayout.setVisibility(View.VISIBLE);
@@ -76,7 +84,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
             holder.oppoLayout.setVisibility(View.GONE);
             holder.oppoImgSentLayout.setVisibility(View.GONE);
             holder.myImgSentLayout.setVisibility(View.VISIBLE);
-
             Glide.with(holder.myImgSent.getContext()).load(list2.getMessage()).into(holder.myImgSent);
             holder.myImgSentTime.setText(list2.getDate() + " " + list2.getTime());
         } else if (!list2.getMobile().equals(userMobile) && !isImage) {
@@ -96,6 +103,59 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
             Glide.with(holder.oppoImgSent.getContext()).load(list2.getMessage()).into(holder.oppoImgSent);
             holder.oppoImgSentTime.setText(list2.getDate() + " " + list2.getTime());
         }
+
+        holder.myTime.setVisibility(View.GONE);
+        holder.oppoTime.setVisibility(View.GONE);
+
+        holder.myLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.myTime.setVisibility(View.VISIBLE);
+                YoYo.with(Techniques.SlideInUp)
+                        .duration(100)
+                        .onEnd(new YoYo.AnimatorCallback() {
+                            @Override
+                            public void call(Animator animator) {
+                                YoYo.with(Techniques.SlideOutDown)
+                                        .delay(3000)
+                                        .duration(500)
+                                        .onEnd(new YoYo.AnimatorCallback() {
+                                            @Override
+                                            public void call(Animator animator) {
+                                                holder.myTime.setVisibility(View.GONE);
+                                            }
+                                        })
+                                        .playOn(holder.myTime);
+                            }
+                        })
+                        .playOn(holder.myTime);
+            }
+        });
+
+        holder.oppoLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.oppoTime.setVisibility(View.VISIBLE);
+                YoYo.with(Techniques.SlideInUp)
+                        .duration(100)
+                        .onEnd(new YoYo.AnimatorCallback() {
+                            @Override
+                            public void call(Animator animator) {
+                                YoYo.with(Techniques.SlideOutDown)
+                                        .delay(3000)
+                                        .duration(500)
+                                        .onEnd(new YoYo.AnimatorCallback() {
+                                            @Override
+                                            public void call(Animator animator) {
+                                                holder.oppoTime.setVisibility(View.GONE);
+                                            }
+                                        })
+                                        .playOn(holder.oppoTime);
+                            }
+                        })
+                        .playOn(holder.oppoTime);
+            }
+        });
 
         holder.myImgSent.setOnClickListener(new View.OnClickListener() {
             @Override

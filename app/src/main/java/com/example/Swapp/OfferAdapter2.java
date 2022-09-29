@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -55,11 +57,10 @@ public class OfferAdapter2 extends RecyclerView.Adapter {
         Glide.with(viewHolderClass.img.getContext())
                 .load(offerFetch.getImage_Url())
                 .placeholder(com.firebase.ui.database.R.drawable.common_google_signin_btn_icon_dark)
-                .circleCrop()
                 .error(com.google.firebase.database.R.drawable.common_google_signin_btn_icon_dark_normal)
                 .into(viewHolderClass.img);
 
-        viewHolderClass.itemView.setOnClickListener(new View.OnClickListener() {
+        viewHolderClass.moreInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -82,11 +83,12 @@ public class OfferAdapter2 extends RecyclerView.Adapter {
     public class ViewHolderClass extends RecyclerView.ViewHolder {
 
         TextView textView, itemlocation;
-        CircleImageView img;
+        ImageView img, moreInfo;
 
         public ViewHolderClass(@NonNull View itemView) {
             super(itemView);
 
+            moreInfo = itemView.findViewById(R.id.moreInfo);
             textView = itemView.findViewById(R.id.offereditemname);
             img = itemView.findViewById(R.id.offeredpic);
             itemlocation = itemView.findViewById(R.id.offeredlocation);

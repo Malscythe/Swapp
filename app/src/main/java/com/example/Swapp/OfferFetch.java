@@ -5,16 +5,18 @@ import java.io.Serializable;
 public class OfferFetch implements Serializable {
 
     String Item_Name, Item_Location, Image_Url , Poster_UID, ParentKey;
+    Long OfferCount;
 
     public OfferFetch() {
     }
 
-    public OfferFetch(String item_Name, String item_Location, String image_Url, String poster_UID, String parentKey) {
+    public OfferFetch(String item_Name, String item_Location, String image_Url, String poster_UID, String parentKey, Long offerCount) {
         Item_Name = item_Name;
         Item_Location = item_Location;
         Image_Url = image_Url;
         Poster_UID = poster_UID;
         ParentKey = parentKey;
+        OfferCount = offerCount;
     }
 
     public String getItem_Name() {
@@ -39,6 +41,14 @@ public class OfferFetch implements Serializable {
 
     public void setImage_Url(String image_Url) {
         Image_Url = image_Url;
+    }
+
+    public Long getOfferCount() {
+        return OfferCount;
+    }
+
+    public void setOfferCount(Long offerCount) {
+        OfferCount = offerCount;
     }
 
     public String getPoster_UID() {

@@ -134,8 +134,6 @@ public class Messages extends AppCompatActivity {
 
                             if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
 
-                                Log.w(TAG, currentMobile);
-
                                 final String getName = dataSnapshot.child("First_Name").getValue(String.class).concat(" " + dataSnapshot.child("Last_Name").getValue(String.class));
                                 final String getCurrentId = dataSnapshot.getKey();
 

@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,17 +43,17 @@ public class OfferAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ViewHolderClass viewHolderClass = (ViewHolderClass) holder;
         final OfferFetch offerFetch = offerFetchList.get(position);
+        viewHolderClass.offerCount.setText(offerFetch.getOfferCount().toString());
         viewHolderClass.textView.setText(offerFetch.getItem_Name());
         viewHolderClass.itemlocation.setText(offerFetch.getItem_Location());
         String itemID = offerFetch.getItem_Name().concat("-" + offerFetch.getPoster_UID());
         Glide.with(viewHolderClass.img.getContext())
                 .load(offerFetch.getImage_Url())
                 .placeholder(com.firebase.ui.database.R.drawable.common_google_signin_btn_icon_dark)
-                .circleCrop()
                 .error(com.google.firebase.database.R.drawable.common_google_signin_btn_icon_dark_normal)
                 .into(viewHolderClass.img);
 
-        viewHolderClass.itemView.setOnClickListener(new View.OnClickListener() {
+        viewHolderClass.gotoOffers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), OfferSecondActivity.class);
@@ -69,11 +71,15 @@ public class OfferAdapter extends RecyclerView.Adapter {
 
     public class ViewHolderClass extends RecyclerView.ViewHolder {
 
-        TextView textView, itemlocation;
-        CircleImageView img;
+        TextView textView, itemlocation, offerCount;
+        LinearLayout gotoOffers;
+        ImageView img;
 
         public ViewHolderClass(@NonNull View itemView) {
             super(itemView);
+
+            gotoOffers = itemView.findViewById(R.id.gotoOffers);
+            offerCount = itemView.findViewById(R.id.postedOfferCount);
             textView = itemView.findViewById(R.id.posteditemname);
             img = itemView.findViewById(R.id.postedpic);
             itemlocation = itemView.findViewById(R.id.postedlocation);

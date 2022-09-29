@@ -6,26 +6,38 @@
     android:layout_height="match_parent"
     tools:context="com.example.Swapp.Categories">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/backBtn"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/ic_arraw_back__1_" />
-
-    <TextView
+    <RelativeLayout
         android:id="@+id/CategoryBanner"
-        android:layout_width="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:fontFamily="@font/poppins_semibold"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
-        android:textSize="24dp"
-        android:text="Categories"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/black" />
+        android:background="@drawable/black_bottom_border">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/backBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_arraw_back__1_"
+            android:backgroundTint="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/poppins"
+            android:text="CATEGORIES"
+            android:textColor="@color/white"
+            android:textSize="24dp" />
+
+
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -48,9 +60,9 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/all"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
+                    android:layout_width="100dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:backgroundTint="#8E8888"
                     android:elevation="10dp"
@@ -59,28 +71,29 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="20dp"
-                            android:src="@drawable/ic_grid"
-                            app:tint="#403D3D" />
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
                             android:layout_marginTop="10dp"
-                            android:layout_marginRight="20dp"
                             android:layout_marginBottom="10dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginRight="5dp"
                             android:fontFamily="@font/poppins_semibold"
                             android:text="BROWSE \nALL"
+                            android:layout_weight="1"
                             android:textColor="@color/white"
-                            android:textSize="20dp" />
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_gravity="end|top"
+                            android:src="@drawable/ic_grid"
+                            app:tint="#403D3D" />
 
                     </LinearLayout>
 
@@ -88,9 +101,9 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/mens"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
+                    android:layout_width="100dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:backgroundTint="#30C5FF"
                     android:elevation="10dp"
@@ -99,28 +112,29 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="20dp"
-                            android:src="@drawable/ic_shirt"
-                            app:tint="#145670" />
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
-                            android:layout_marginRight="20dp"
+                            android:layout_marginRight="5dp"
                             android:layout_marginBottom="10dp"
+                            android:layout_weight="1"
                             android:fontFamily="@font/poppins_semibold"
                             android:text="MEN'S \nAPPAREL"
                             android:textColor="@color/white"
-                            android:textSize="20dp" />
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="end|top"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ic_shirt"
+                            app:tint="#145670" />
 
                     </LinearLayout>
 
@@ -135,9 +149,9 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/gadgets"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
+                    android:layout_width="100dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:backgroundTint="#64F58D"
                     android:elevation="10dp"
@@ -146,28 +160,29 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="20dp"
-                            android:src="@drawable/ic_entertainment__1_"
-                            app:tint="#388C50" />
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="5dp"
                             android:layout_marginBottom="10dp"
+                            android:layout_weight="1"
                             android:fontFamily="@font/poppins_semibold"
                             android:text="GADGETS"
                             android:textColor="@color/white"
-                            android:textSize="20dp" />
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="end|top"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ic_entertainment__1_"
+                            app:tint="#388C50" />
 
                     </LinearLayout>
 
@@ -175,9 +190,9 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/games"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
+                    android:layout_width="100dp"
+                    android:layout_height="75dp"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:backgroundTint="#F61067"
                     android:elevation="10dp"
@@ -186,28 +201,29 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="20dp"
-                            android:src="@drawable/ic_game"
-                            app:tint="#8F0B3D" />
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="5dp"
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/poppins_semibold"
+                            android:layout_weight="1"
                             android:text="GAMES"
                             android:textColor="@color/white"
-                            android:textSize="20dp" />
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="end|top"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ic_game"
+                            app:tint="#8F0B3D" />
 
                     </LinearLayout>
 
@@ -222,9 +238,9 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/bags"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:backgroundTint="#9A7197"
                     android:elevation="10dp"
@@ -233,28 +249,29 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="20dp"
-                            android:src="@drawable/ic_bags"
-                            app:tint="#614860" />
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="5dp"
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/poppins_semibold"
+                            android:layout_weight="1"
                             android:text="BAGS"
                             android:textColor="@color/white"
-                            android:textSize="20dp" />
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="end|top"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ic_bags"
+                            app:tint="#614860" />
 
                     </LinearLayout>
 
@@ -262,9 +279,9 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/groceries"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:backgroundTint="#F46036"
                     android:elevation="10dp"
@@ -273,28 +290,29 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="20dp"
-                            android:src="@drawable/ic_svgexport_6__2_"
-                            app:tint="#953A20" />
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="5dp"
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/poppins_semibold"
+                            android:layout_weight="1"
                             android:text="GROCERIES"
                             android:textColor="@color/white"
-                            android:textSize="20dp" />
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="end|top"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ic_svgexport_6__2_"
+                            app:tint="#953A20" />
 
                     </LinearLayout>
 
@@ -309,9 +327,9 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/furniture"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:backgroundTint="#F6C5AF"
                     android:elevation="10dp"
@@ -320,28 +338,29 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="20dp"
-                            android:src="@drawable/ic_furniture"
-                            app:tint="#7E6559" />
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="5dp"
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/poppins_semibold"
+                            android:layout_weight="1"
                             android:text="FURNITURES"
                             android:textColor="@color/white"
-                            android:textSize="20dp" />
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="end|top"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ic_furniture"
+                            app:tint="#7E6559" />
 
                     </LinearLayout>
 
@@ -349,9 +368,9 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/babies"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:backgroundTint="#EFCA08"
                     android:elevation="10dp"
@@ -360,28 +379,29 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="20dp"
-                            android:src="@drawable/ic_toys"
-                            app:tint="#806C05" />
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
-                            android:layout_marginRight="20dp"
+                            android:layout_marginRight="5dp"
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/poppins_semibold"
-                            android:text="BABIES &amp; \KIDS"
+                            android:layout_weight="1"
+                            android:text="BABIES &amp; \nKIDS"
                             android:textColor="@color/white"
-                            android:textSize="20dp" />
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="end|top"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ic_toys"
+                            app:tint="#806C05" />
 
                     </LinearLayout>
 
@@ -396,9 +416,9 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/appliances"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:backgroundTint="#5E807F"
                     android:elevation="10dp"
@@ -407,28 +427,29 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="20dp"
-                            android:src="@drawable/ic_appliances"
-                            app:tint="#3E5352" />
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="5dp"
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/poppins_semibold"
+                            android:layout_weight="1"
                             android:text="APPLIANCES"
                             android:textColor="@color/white"
-                            android:textSize="20dp" />
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="end|top"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ic_appliances"
+                            app:tint="#3E5352" />
 
                     </LinearLayout>
 
@@ -436,9 +457,9 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/motors"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:backgroundTint="#394032"
                     android:elevation="10dp"
@@ -447,28 +468,29 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="20dp"
-                            android:src="@drawable/ic_motor"
-                            app:tint="#23271F" />
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="5dp"
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/poppins_semibold"
+                            android:layout_weight="1"
                             android:text="MOTORS"
                             android:textColor="@color/white"
-                            android:textSize="20dp" />
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="end|top"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ic_motor"
+                            app:tint="#23271F" />
 
                     </LinearLayout>
 
@@ -483,9 +505,9 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/audio"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:backgroundTint="#F7C548"
                     android:elevation="10dp"
@@ -494,28 +516,29 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="20dp"
-                            android:src="@drawable/ic_headphone"
-                            app:tint="#816727" />
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="5dp"
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/poppins_semibold"
+                            android:layout_weight="1"
                             android:text="AUDIO"
                             android:textColor="@color/white"
-                            android:textSize="20dp" />
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="end|top"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ic_headphone"
+                            app:tint="#816727" />
 
                     </LinearLayout>
 
@@ -523,9 +546,9 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/school"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:backgroundTint="#52D1DC"
                     android:elevation="10dp"
@@ -534,28 +557,29 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="20dp"
-                            android:src="@drawable/ic_school"
-                            app:tint="#2B6F75" />
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="5dp"
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/poppins_semibold"
+                            android:layout_weight="1"
                             android:text="SCHOOL"
                             android:textColor="@color/white"
-                            android:textSize="20dp" />
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="end|top"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ic_school"
+                            app:tint="#2B6F75" />
 
                     </LinearLayout>
 
@@ -570,9 +594,9 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/womens"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:backgroundTint="#FF88DC"
                     android:elevation="10dp"
@@ -581,28 +605,29 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="20dp"
-                            android:src="@drawable/ic_dress"
-                            app:tint="#7C416B" />
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
+                            android:layout_marginLeft="10dp"
                             android:layout_marginTop="10dp"
-                            android:layout_marginRight="20dp"
+                            android:layout_marginRight="5dp"
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/poppins_semibold"
+                            android:layout_weight="1"
                             android:text="WOMEN'S \nAPPAREL"
                             android:textColor="@color/white"
-                            android:textSize="20dp" />
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="end|top"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ic_dress"
+                            app:tint="#7C416B" />
 
                     </LinearLayout>
 
@@ -610,9 +635,9 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/other"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="10dp"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:backgroundTint="#2CF6B3"
                     android:elevation="10dp"
@@ -621,28 +646,29 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="20dp"
-                            android:src="@drawable/ic_dots"
-                            app:tint="#177E5C" />
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="5dp"
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/poppins_semibold"
+                            android:layout_weight="1"
                             android:text="OTHERS"
                             android:textColor="@color/white"
-                            android:textSize="20dp" />
+                            android:textSize="16sp" />
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="end|top"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/ic_dots"
+                            app:tint="#177E5C" />
 
                     </LinearLayout>
 

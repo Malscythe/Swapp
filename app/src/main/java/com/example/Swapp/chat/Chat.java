@@ -3,6 +3,8 @@ package com.example.Swapp.chat;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.os.BuildCompat;
 import androidx.core.view.inputmethod.EditorInfoCompat;
 import androidx.core.view.inputmethod.InputConnectionCompat;
@@ -10,8 +12,11 @@ import androidx.core.view.inputmethod.InputContentInfoCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -58,6 +63,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -88,6 +95,7 @@ public class Chat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        final ImageView callBtn = findViewById(R.id.voiceCall);
         final ImageView backBtn = findViewById(R.id.backBtn);
         final TextView name = findViewById(R.id.name);
         final EditText messageEditText = findViewById(R.id.messageEditText);
@@ -121,7 +129,12 @@ public class Chat extends AppCompatActivity {
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        Log.w("TAG", MemoryData.getUid(Chat.this));
+        callBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                makePhoneCall();
+            }
+        });
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -143,15 +156,23 @@ public class Chat extends AppCompatActivity {
                             final String getMobile = messagesSnapshot.child("mobile").getValue(String.class);
                             final String getMsg = messagesSnapshot.child("msg").getValue(String.class);
 
-                            String date = messageTimestamps.substring(0, 2) + "-" + messageTimestamps.substring(2, 4) + "-" + messageTimestamps.substring(4,8);
-                            String time = messageTimestamps.substring(8, 10) + ":" + messageTimestamps.substring(10, 12) + " " + messageTimestamps.substring(14,16);
+                            try {
+                                SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyhhmmssaa");
+                                Date parsedDate = dateFormat.parse(messageTimestamps);
+                                Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
 
-                            ChatList chatList = new ChatList(getMobile, getName, getMsg, date, time);
-                            chatLists.add(chatList);
+                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMM dd, yyyy");
+                                SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("hh:mm aa");
 
-                            String numToSave = snapshot.child("users").child(MemoryData.getUid(Chat.this)).child("Phone").getValue(String.class);
+                                String date = simpleDateFormat.format(timestamp);
+                                String time = simpleTimeFormat.format(timestamp);
 
-                            MemoryData.saveLastMsgTS(messageTimestamps.substring(0,14), chatKey, Chat.this, numToSave);
+                                ChatList chatList = new ChatList(getMobile, getName, getMsg, date, time);
+                                chatLists.add(chatList);
+
+                                String numToSave = snapshot.child("users").child(MemoryData.getUid(Chat.this)).child("Phone").getValue(String.class);
+
+                                MemoryData.saveLastMsgTS(messageTimestamps.substring(0,14), chatKey, Chat.this, numToSave);
 
                                 if (loadingFirstTime || Long.parseLong(messageTimestamps.substring(0,14)) > Long.parseLong(MemoryData.getLastMsgTS(Chat.this, chatKey, numToSave).substring(0, 14))) {
 
@@ -160,7 +181,10 @@ public class Chat extends AppCompatActivity {
                                 }
 
 
-                            chattingRecyclerView.scrollToPosition(chatLists.size() - 1);
+                                chattingRecyclerView.scrollToPosition(chatLists.size() - 1);
+                            } catch (Exception e) {
+                                Log.w(TAG, e.getMessage());
+                            }
                         }
 
                     }
@@ -207,8 +231,6 @@ public class Chat extends AppCompatActivity {
                                     list.add(dataSnapshot.getKey());
                                 }
 
-                                Log.w(TAG, numToSave);
-
                                 databaseReference.child("chat").child(chatKey).child("user_1").setValue(getUserMobile);
                                 databaseReference.child("chat").child(chatKey).child("user_2").setValue(getMobile);
                                 databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("msg").setValue(getTxtMessage);
@@ -254,6 +276,34 @@ public class Chat extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void makePhoneCall() {
+        final String getMobile = getIntent().getStringExtra("mobile");
+        String number = getMobile;
+
+        if (number.length() > 0) {
+            if (ContextCompat.checkSelfPermission(Chat.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(Chat.this, new String[] {Manifest.permission.CALL_PHONE}, 1);
+            } else {
+                String dial = "tel:" + number;
+                startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
+            }
+        } else {
+            Toast.makeText(this, "Cannot contact the number.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                makePhoneCall();
+            } else {
+                Toast.makeText(this, "Permission Denied.", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override
@@ -396,4 +446,6 @@ public class Chat extends AppCompatActivity {
             });
         }
     }
+
+
 }

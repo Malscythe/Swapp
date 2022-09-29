@@ -96,6 +96,7 @@ public class OfferMainAcitvity extends AppCompatActivity {
                 for(DataSnapshot ds: snapshot.getChildren())
                 {
                     OfferFetch offerFetch = ds.getValue(OfferFetch.class);
+                    offerFetch.setOfferCount(snapshot.child("Offers").getChildrenCount());
                     offerFetchList.add(offerFetch);
                 }
 

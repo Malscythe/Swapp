@@ -11,32 +11,31 @@
 
   <RelativeLayout
       android:id="@+id/topBanner"
-      android:layout_marginBottom="10dp"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="@drawable/bottom_border">
+      android:background="@drawable/black_bottom_border">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:fontFamily="@font/poppins"
-        android:text="Messages"
-        android:textColor="@color/primary_black"
+        android:text="MESSAGES"
+        android:textColor="@color/white"
         android:textSize="24sp" />
 
   </RelativeLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@+id/topBanner"
-        android:layout_above="@id/bottom_nav"
-        android:id="@+id/messagesRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/messagesRecyclerView"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_above="@id/bottom_nav"
+      android:layout_below="@+id/topBanner" />
 
   <com.google.android.material.bottomnavigation.BottomNavigationView
       android:id="@+id/bottom_nav"

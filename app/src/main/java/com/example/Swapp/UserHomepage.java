@@ -301,16 +301,6 @@ public class UserHomepage extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
 
-        MemoryData.saveUid("", UserHomepage.this);
-        MemoryData.saveData("", UserHomepage.this);
-        MemoryData.saveName("", UserHomepage.this);
-        MemoryData.saveState(false, UserHomepage.this);
-
-        String uid = firebaseAuth.getCurrentUser().getUid();
-
-        DatabaseReference df = FirebaseDatabase.getInstance().getReference();
-        df.child("users-status").child(uid).child("Status").setValue("Offline");
-
         finishAffinity();
     }
 }
