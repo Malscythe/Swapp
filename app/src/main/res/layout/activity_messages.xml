@@ -1,42 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-  <LinearLayout
+  <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="#F9F9F9"
     tools:context="com.example.Swapp.Messages">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+  <RelativeLayout
+      android:id="@+id/topBanner"
+      android:layout_marginBottom="10dp"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/bottom_border">
 
-      <ImageView
-          android:id="@+id/backBtn"
-          android:layout_width="35dp"
-          android:layout_height="35dp"
-          android:layout_centerVertical="true"
-          android:layout_marginStart="20dp"
-          android:layout_marginTop="40dp"
-          android:padding="6dp"
-          android:src="@drawable/back_icon" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/poppins"
+        android:text="Messages"
+        android:textColor="@color/primary_black"
+        android:textSize="24sp" />
 
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:textColor="@color/black"
-          android:text="Messages"
-          android:textStyle="bold"
-          android:textSize="18sp"
-          android:layout_centerInParent="true"/>
-
-    </RelativeLayout>
+  </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/topBanner"
+        android:layout_above="@id/bottom_nav"
         android:id="@+id/messagesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-  </LinearLayout>
+  <com.google.android.material.bottomnavigation.BottomNavigationView
+      android:id="@+id/bottom_nav"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:background="@drawable/bottom_nav_border"
+      app:itemIconSize="24dp"
+      app:itemIconTint="@color/selector"
+      app:itemRippleColor="#73CFD3"
+      app:itemTextColor="@color/selector"
+      app:menu="@menu/bottom_nav" />
+
+  </RelativeLayout>

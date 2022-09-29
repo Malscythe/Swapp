@@ -123,6 +123,7 @@ public class login extends AppCompatActivity {
                                             } else if (snapshot.child("isAdmin").getValue(String.class).equals("0")){
 
                                                 MemoryData.saveData(snapshot.child("Phone").getValue().toString(), login.this);
+                                                MemoryData.saveFirstName(snapshot.child("First_Name").getValue(String.class), com.example.Swapp.login.this);
                                                 MemoryData.saveName(snapshot.child("First_Name").getValue().toString().concat(" " + snapshot.child("Last_Name").getValue().toString()), login.this);
                                                 databaseReference.child("users-status").child(uid).child("Status").setValue("Online");
                                                 Intent intent = new Intent(login.this, UserHomepage.class);

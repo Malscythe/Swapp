@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.res.ResourcesCompat;
 
 import android.app.ActivityManager;
@@ -17,10 +18,13 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.Swapp.chat.Chat;
 import com.github.mikephil.charting.animation.Easing;
@@ -31,6 +35,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -52,36 +57,40 @@ import java.util.List;
 import java.util.Locale;
 
 import Swapp.R;
+import de.hdodenhof.circleimageview.CircleImageView;
 import maes.tech.intentanim.CustomIntent;
 
 public class UserHomepage extends AppCompatActivity {
 
     private static final String TAG = "TAG";
 
-    TextView viewChart, pendingCounts, successfulCounts, unsuccessfulCounts, currentCounts, name;
+    TextView pendingCounts, successfulCounts, unsuccessfulCounts, currentCounts, name;
     Dialog chartDialog;
-    ImageView logoutBtn, imgbtn;
-    Button trdbtn, dlvrbtn, accsetting, inbbtn;
+    ImageView viewChart;
+    CircleImageView accsetting;
+    Button dlvrbtn, inbbtn;
+    CardView tradeButton;
     Long pendingTrades = 0L;
     Long currentTrades = 0L;
     Long successfulTrades = 0L;
     Long unsuccessfulTrades = 0L;
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
+    BottomNavigationView bottomNavigationView;
     DatabaseReference databaseReferenceUrl = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bugsbusters-de865-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_homepage);
 
         inbbtn = findViewById(R.id.inboxBtn);
+        bottomNavigationView = findViewById(R.id.bottom_nav);
         viewChart = findViewById(R.id.viewBtn);
         chartDialog = new Dialog(this);
-        logoutBtn = findViewById(R.id.logoutBtn);
-        trdbtn = findViewById(R.id.tradeButton);
-        accsetting = findViewById(R.id.accSettings);
+//        logoutBtn = findViewById(R.id.logoutBtn);
+        tradeButton = findViewById(R.id.tradeButton);
+        accsetting = findViewById(R.id.accountSetting);
         pendingCounts = findViewById(R.id.pendingText);
         successfulCounts = findViewById(R.id.successfulText);
         unsuccessfulCounts = findViewById(R.id.unsuccessfulText);
@@ -90,7 +99,45 @@ public class UserHomepage extends AppCompatActivity {
         name = findViewById(R.id.userFullName);
 
         String uid = firebaseAuth.getCurrentUser().getUid();
-        name.setText(MemoryData.getName(UserHomepage.this));
+
+        bottomNavigationView.setSelectedItemId(R.id.homepage);
+
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.inbox:
+                        databaseReferenceUrl.child("users").child(uid).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                String name = snapshot.child("First_Name").getValue(String.class).concat(" " + snapshot.child("Last_Name").getValue(String.class));
+                                Intent intent = new Intent(UserHomepage.this, Messages.class);
+                                intent.putExtra("mobile", snapshot.child("Phone").getValue(String.class));
+                                intent.putExtra("email", snapshot.child("Email").getValue(String.class));
+                                intent.putExtra("name", name);
+                                startActivity(intent);
+                                overridePendingTransition(0, 0);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                        return true;
+                    case R.id.home:
+                        return true;
+                    case  R.id.offers:
+                        Intent intent = new Intent(UserHomepage.this, OfferMainAcitvity.class);
+                        startActivity(intent);
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return true;
+            }
+        });
+
+        name.setText(MemoryData.getFirstName(UserHomepage.this) + "!");
 
         MemoryData.saveUid(uid, UserHomepage.this);
 
@@ -196,23 +243,23 @@ public class UserHomepage extends AppCompatActivity {
             }
         });
 
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MemoryData.saveUid("", UserHomepage.this);
-                MemoryData.saveData("", UserHomepage.this);
-                MemoryData.saveName("", UserHomepage.this);
-                MemoryData.saveState(false, UserHomepage.this);
-
-                DatabaseReference df = FirebaseDatabase.getInstance().getReference();
-                df.child("users-status").child(uid).child("Status").setValue("Offline");
-
-                Intent intent = new Intent(UserHomepage.this, login.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }
-        });
-        trdbtn.setOnClickListener(new View.OnClickListener() {
+//        logoutBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                MemoryData.saveUid("", UserHomepage.this);
+//                MemoryData.saveData("", UserHomepage.this);
+//                MemoryData.saveName("", UserHomepage.this);
+//                MemoryData.saveState(false, UserHomepage.this);
+//
+//                DatabaseReference df = FirebaseDatabase.getInstance().getReference();
+//                df.child("users-status").child(uid).child("Status").setValue("Offline");
+//
+//                Intent intent = new Intent(UserHomepage.this, login.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                startActivity(intent);
+//            }
+//        });
+        tradeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(UserHomepage.this, Categories.class);
@@ -234,10 +281,18 @@ public class UserHomepage extends AppCompatActivity {
         accsetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(UserHomepage.this, OfferMainAcitvity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                MemoryData.saveUid("", UserHomepage.this);
+                MemoryData.saveData("", UserHomepage.this);
+                MemoryData.saveName("", UserHomepage.this);
+                MemoryData.saveFirstName("", UserHomepage.this);
+                MemoryData.saveState(false, UserHomepage.this);
+
+                DatabaseReference df = FirebaseDatabase.getInstance().getReference();
+                df.child("users-status").child(uid).child("Status").setValue("Offline");
+
+                Intent intent = new Intent(UserHomepage.this, login.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
-                CustomIntent.customType(UserHomepage.this, "left-to-right");
             }
         });
     }

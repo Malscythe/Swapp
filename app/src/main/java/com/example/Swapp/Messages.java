@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -17,6 +18,8 @@ import com.example.Swapp.messages.MessagesAdapter;
 import com.example.Swapp.messages.MessagesList;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -60,8 +63,7 @@ public class Messages extends AppCompatActivity {
     ArrayList itemList;
     ArrayList messageKeyList;
     ArrayList arrMessageList;
-
-    ImageView backBtn;
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,14 +80,27 @@ public class Messages extends AppCompatActivity {
 
         messagesRecyleView = findViewById(R.id.messagesRecyclerView);
 
-        backBtn = findViewById(R.id.backBtn);
+        bottomNavigationView = findViewById(R.id.bottom_nav);
+        bottomNavigationView.setSelectedItemId(R.id.inbox);
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Messages.this, UserHomepage.class);
-                startActivity(intent);
-                CustomIntent.customType(Messages.this, "right-to-left");
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.inbox:
+                        return true;
+                    case R.id.home:
+                        Intent intent = new Intent(Messages.this, UserHomepage.class);
+                        startActivity(intent);
+                        overridePendingTransition(0,0);
+                        return true;
+                    case  R.id.offers:
+                        Intent intent1 = new Intent(Messages.this, OfferMainAcitvity.class);
+                        startActivity(intent1);
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return true;
             }
         });
 

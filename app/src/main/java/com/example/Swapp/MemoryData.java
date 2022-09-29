@@ -20,6 +20,16 @@ public final class MemoryData {
         }
     }
 
+    public static void saveFirstName(String data, Context context) {
+        try {
+            FileOutputStream fileOutputStream = context.openFileOutput("firstName.txt", Context.MODE_PRIVATE);
+            fileOutputStream.write(data.getBytes());
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void saveState(Boolean state, Context context) {
         try {
             FileOutputStream fileOutputStream = context.openFileOutput("loginState.txt", Context.MODE_PRIVATE);
@@ -102,6 +112,25 @@ public final class MemoryData {
         String data = "";
         try {
             FileInputStream fis = context.openFileInput("nameee.txt");
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line);
+            }
+            data = sb.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return data;
+    }
+
+    public static String getFirstName(Context context) {
+        String data = "";
+        try {
+            FileInputStream fis = context.openFileInput("firstName.txt");
             InputStreamReader isr = new InputStreamReader(fis);
             BufferedReader bufferedReader = new BufferedReader(isr);
             StringBuilder sb = new StringBuilder();

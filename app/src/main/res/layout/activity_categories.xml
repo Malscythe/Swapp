@@ -52,7 +52,7 @@
                     android:layout_height="150dp"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    android:backgroundTint="#2B2A2A"
+                    android:backgroundTint="#8E8888"
                     android:elevation="10dp"
                     app:cardCornerRadius="10dp">
 
@@ -68,7 +68,7 @@
                             android:layout_marginTop="20dp"
                             android:layout_marginRight="20dp"
                             android:src="@drawable/ic_grid"
-                            app:tint="#191919" />
+                            app:tint="#403D3D" />
 
                         <TextView
                             android:layout_width="match_parent"

@@ -18,7 +18,7 @@
       android:fontFamily="@font/montserrat_bold"
       android:gravity="start"
       android:text="COURIER TRACKER"
-      android:textColor="@color/primary2"
+      android:textColor="@color/primary"
       android:textSize="30dp" />
 
   <TextView
@@ -43,7 +43,7 @@
       android:layout_marginLeft="30dp"
       android:layout_marginRight="30dp"
       android:layout_marginBottom="10dp"
-      app:boxStrokeColor="@color/primary2"
+      app:boxStrokeColor="@color/primary"
       app:boxStrokeWidth="2dp">
 
     <AutoCompleteTextView
@@ -54,7 +54,7 @@
         android:fontFamily="@font/poppins_medium"
         android:hint="Select courier"
         android:inputType="none"
-        android:textColor="@color/primary2" />
+        android:textColor="@color/primary" />
   </com.google.android.material.textfield.TextInputLayout>
 
   <androidx.appcompat.widget.AppCompatButton
@@ -78,7 +78,7 @@
       android:layout_height="wrap_content"
       android:layout_below="@id/trackBtn"
       android:layout_marginTop="10dp"
-      app:dividerColor="@color/primary2" />
+      app:dividerColor="@color/primary" />
 
   <androidx.cardview.widget.CardView
       android:layout_below="@id/divider"

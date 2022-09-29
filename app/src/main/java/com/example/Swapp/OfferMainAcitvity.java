@@ -8,8 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,6 +38,7 @@ public class OfferMainAcitvity extends AppCompatActivity {
     OfferAdapter offerAdapter;
     DatabaseReference databaseReference;
     FirebaseAuth firebaseAuth;
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,44 @@ public class OfferMainAcitvity extends AppCompatActivity {
         offerFetchList = new ArrayList<>();
         firebaseAuth = FirebaseAuth.getInstance();
         String uid = firebaseAuth.getCurrentUser().getUid();
+
+        bottomNavigationView = findViewById(R.id.bottom_nav);
+        bottomNavigationView.setSelectedItemId(R.id.offers);
+
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.inbox:
+                        databaseReference = FirebaseDatabase.getInstance().getReference();
+                        databaseReference.child("users").child(uid).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                String name = snapshot.child("First_Name").getValue(String.class).concat(" " + snapshot.child("Last_Name").getValue(String.class));
+                                Intent intent = new Intent(OfferMainAcitvity.this, Messages.class);
+                                intent.putExtra("mobile", snapshot.child("Phone").getValue(String.class));
+                                intent.putExtra("email", snapshot.child("Email").getValue(String.class));
+                                intent.putExtra("name", name);
+                                startActivity(intent);
+                                overridePendingTransition(0, 0);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                        return true;
+                    case R.id.home:
+                        startActivity(new Intent(OfferMainAcitvity.this, UserHomepage.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case  R.id.offers:
+                        return true;
+                }
+                return true;
+            }
+        });
 
         databaseReference = FirebaseDatabase.getInstance().getReference("items/");
         databaseReference.orderByChild("Poster_UID").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {

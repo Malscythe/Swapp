@@ -57,7 +57,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
         } else {
             holder.unseenMessages.setVisibility(View.VISIBLE);
             holder.unseenMessages.setText(list2.getUnseenMessages()+"");
-            holder.lastMessage.setTextColor(context.getResources().getColor(R.color.primary2));
+            holder.lastMessage.setTextColor(context.getResources().getColor(R.color.primary));
         }
 
         holder.rootLayout.setOnClickListener(new View.OnClickListener() {

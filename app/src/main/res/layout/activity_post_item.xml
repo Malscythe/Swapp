@@ -22,7 +22,7 @@
                 android:scaleType="centerCrop"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/noimage"
-                app:strokeColor="@color/primary2"
+                app:strokeColor="@color/primary"
                 app:strokeWidth="5dp" />
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -46,7 +46,7 @@
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="10dp"
                 android:background="@color/white"
-                app:boxStrokeColor="@color/primary2"
+                app:boxStrokeColor="@color/primary"
                 app:boxStrokeWidth="2dp"
                 app:helperText="*Required">
 
@@ -69,7 +69,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="10dp"
-                app:boxStrokeColor="@color/primary2"
+                app:boxStrokeColor="@color/primary"
                 app:boxStrokeWidth="2dp"
                 app:helperText="*Required">
 
@@ -94,9 +94,9 @@
                 android:layout_marginBottom="10dp"
                 android:background="@color/white"
                 app:endIconMode="custom"
-                app:endIconTint="@color/primary2"
+                app:endIconTint="@color/primary"
                 app:endIconDrawable="@drawable/ic_baseline_my_location_24"
-                app:boxStrokeColor="@color/primary2"
+                app:boxStrokeColor="@color/primary"
                 app:boxStrokeWidth="2dp"
                 app:helperText="*Required">
 
@@ -120,7 +120,7 @@
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="10dp"
                 android:background="@color/white"
-                app:boxStrokeColor="@color/primary2"
+                app:boxStrokeColor="@color/primary"
                 app:boxStrokeWidth="2dp"
                 app:helperText="*Required">
 
@@ -144,7 +144,7 @@
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="10dp"
                 android:background="@color/white"
-                app:boxStrokeColor="@color/primary2"
+                app:boxStrokeColor="@color/primary"
                 app:boxStrokeWidth="2dp"
                 app:helperText="*Required">
 

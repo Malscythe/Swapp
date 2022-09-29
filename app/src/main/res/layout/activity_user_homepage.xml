@@ -1,753 +1,502 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EFEFEF"
+    android:background="#F9F9F9"
     tools:context="com.example.Swapp.UserHomepage">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/outboundTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="-.5" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/bgBot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".35" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/outboundLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="-.35" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/outboundRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="1.35" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/reportTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".25" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/reportBot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".50" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/reportLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".1" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/reportRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".90" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/tradeTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".55" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/tradeBot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".67" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/tradeLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".1" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/tradeRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".90" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/threeTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".70" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/threeBot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".80" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/firstLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".1" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/firstRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".34" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/secondLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".37" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/secondRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".63" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/thirdLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".66" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/thirdRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".9" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/layout_bg_primary"
-        app:layout_constraintBottom_toTopOf="@id/bgBot"
-        app:layout_constraintEnd_toEndOf="@id/outboundRight"
-        app:layout_constraintStart_toStartOf="@id/outboundLeft"
-        app:layout_constraintTop_toTopOf="@id/outboundTop">
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/navTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".62" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/navBot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".67" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/menuLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".25" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/menuRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".32" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/logOutLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".67" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/logOutRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".74" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/picTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".70" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/picBot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".84" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/picLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".27" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/picRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".42" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/nameTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".73" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/nameBot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".78" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/nameLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".42" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/nameRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".65" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/ratingTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".77" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/ratingBot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".79" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/ratingLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".42" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/ratingRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".53" />
-
-        <ImageView
-            android:id="@+id/logoutBtn"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:src="@drawable/ic_baseline_logout_36"
-            app:layout_constraintBottom_toTopOf="@id/navBot"
-            app:layout_constraintEnd_toEndOf="@id/logOutRight"
-            app:layout_constraintStart_toStartOf="@id/logOutLeft"
-            app:layout_constraintTop_toBottomOf="@id/navTop" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:padding="6dp"
-            android:src="@drawable/default_picture"
-            app:layout_constraintBottom_toTopOf="@id/picBot"
-            app:layout_constraintEnd_toEndOf="@id/picRight"
-            app:layout_constraintStart_toStartOf="@id/picLeft"
-            app:layout_constraintTop_toBottomOf="@id/picTop" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:fontFamily="@font/poppins"
-            android:gravity="bottom"
-            android:text="Full Name"
-            android:textColor="@color/white"
-            android:textSize="18dp"
-            android:id="@+id/userFullName"
-            app:layout_constraintBottom_toTopOf="@id/nameBot"
-            app:layout_constraintEnd_toEndOf="@id/nameRight"
-            app:layout_constraintStart_toStartOf="@id/nameLeft"
-            app:layout_constraintTop_toBottomOf="@id/nameTop" />
-
-        <RatingBar
-            style="?attr/ratingBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:numStars="5"
-            app:layout_constraintBottom_toTopOf="@id/ratingBot"
-            app:layout_constraintEnd_toEndOf="@id/ratingRight"
-            app:layout_constraintStart_toStartOf="@id/ratingLeft"
-            app:layout_constraintTop_toBottomOf="@id/ratingTop" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/reportbg"
-        app:layout_constraintBottom_toTopOf="@id/reportBot"
-        app:layout_constraintEnd_toEndOf="@id/reportRight"
-        app:layout_constraintStart_toStartOf="@id/reportLeft"
-        app:layout_constraintTop_toBottomOf="@id/reportTop">
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/reportTitleTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".1" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/reportTitleBot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".3" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/reportTitleLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".05" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/reportTitleRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="1" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/dividerTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".3" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/dividerBot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".35" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/clickChartTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".05" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/clickChartBot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".15" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/clickChartLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".5" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/clickChartRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".95" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/dividerVertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".5" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/horiDivTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".65" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/horiDivBot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".67" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/leftDivLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".05" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/leftDivRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".45" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/rightDivLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".55" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/rightDivRight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".95" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/topDivTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".37" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/topDivBot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".53" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/botDivBot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".83" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/botDivBot2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent=".97" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:fontFamily="@font/poppins_medium"
-            android:gravity="bottom"
-            android:text="Trades Report Summary"
-            android:textColor="@color/primary2"
-            android:textSize="16dp"
-            app:layout_constraintBottom_toTopOf="@id/reportTitleBot"
-            app:layout_constraintEnd_toEndOf="@id/reportTitleRight"
-            app:layout_constraintStart_toStartOf="@id/reportTitleLeft"
-            app:layout_constraintTop_toBottomOf="@id/reportTitleTop" />
-
-        <TextView
-            android:id="@+id/viewBtn"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:fontFamily="@font/poppins"
-            android:gravity="end"
-            android:text="View chart >>"
-            android:textColor="@color/black"
-            android:textSize="11dp"
-            app:layout_constraintBottom_toTopOf="@id/clickChartBot"
-            app:layout_constraintEnd_toEndOf="@id/clickChartRight"
-            app:layout_constraintStart_toStartOf="@id/clickChartLeft"
-            app:layout_constraintTop_toBottomOf="@id/clickChartTop" />
-
-        <com.google.android.material.divider.MaterialDivider
+    <ScrollView
+        android:id="@+id/homeScroll"
+        android:layout_width="match_parent"
+        android:layout_above="@id/bottom_nav"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:dividerInsetEnd="16dp"
-            app:dividerInsetStart="16dp"
-            app:layout_constraintBottom_toTopOf="@id/dividerBot"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dividerTop" />
+            android:layout_height="wrap_content">
 
-        <View
-            android:layout_width="1.5dp"
-            android:layout_height="fill_parent"
-            android:layout_marginTop="70dp"
-            android:layout_marginBottom="10dp"
-            android:background="#EFEFEF"
-            app:layout_constraintStart_toStartOf="@id/dividerVertical"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/montserrat_extrabold"
+                android:text="Swapp"
+                android:textColor="@color/primary_black"
+                android:textSize="36sp" />
 
-        <com.google.android.material.divider.MaterialDivider
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/horiDivBot"
-            app:layout_constraintEnd_toEndOf="@id/leftDivRight"
-            app:layout_constraintStart_toStartOf="@id/leftDivLeft"
-            app:layout_constraintTop_toBottomOf="@id/horiDivTop" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/accountSetting"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:src="@drawable/ic_default_picture" />
 
-        <com.google.android.material.divider.MaterialDivider
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/horiDivBot"
-            app:layout_constraintEnd_toEndOf="@id/rightDivRight"
-            app:layout_constraintStart_toStartOf="@id/rightDivLeft"
-            app:layout_constraintTop_toBottomOf="@id/horiDivTop" />
+            <TextView
+                android:id="@+id/welcomeBanner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="90dp"
+                android:layout_marginRight="5dp"
+                android:fontFamily="@font/poppins"
+                android:text="Welcome"
+                android:textColor="@color/primary_black"
+                android:textSize="24sp" />
 
-        <TextView
-            android:id="@+id/successfulText"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:fontFamily="@font/poppins_semibold"
-            android:gravity="start|top"
-            android:text="24"
-            android:textColor="@android:color/holo_green_light"
-            android:textSize="24dp"
-            app:layout_constraintBottom_toTopOf="@id/topDivBot"
-            app:layout_constraintEnd_toEndOf="@id/leftDivRight"
-            app:layout_constraintStart_toStartOf="@id/leftDivLeft"
-            app:layout_constraintTop_toBottomOf="@id/topDivTop" />
+            <TextView
+                android:id="@+id/userFullName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="90dp"
+                android:layout_marginBottom="25dp"
+                android:layout_toRightOf="@id/welcomeBanner"
+                android:fontFamily="@font/poppins"
+                android:text="Name"
+                android:textColor="@color/primary"
+                android:textSize="24sp" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:fontFamily="@font/poppins"
-            android:gravity="start|top"
-            android:text="Successful Trades"
-            android:textColor="@color/primary2"
-            android:textSize="11dp"
-            app:layout_constraintBottom_toTopOf="@id/horiDivTop"
-            app:layout_constraintEnd_toEndOf="@id/leftDivRight"
-            app:layout_constraintStart_toStartOf="@id/leftDivLeft"
-            app:layout_constraintTop_toBottomOf="@id/topDivBot" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/reportSummary"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_below="@id/userFullName"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                app:cardElevation="5dp"
+                app:cardCornerRadius="20dp"
+                android:backgroundTint="@color/primary_black">
 
-        <TextView
-            android:id="@+id/pendingText"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:fontFamily="@font/poppins_semibold"
-            android:gravity="start|top"
-            android:text="0"
-            android:textColor="@android:color/holo_blue_light"
-            android:textSize="24dp"
-            app:layout_constraintBottom_toTopOf="@id/topDivBot"
-            app:layout_constraintEnd_toEndOf="@id/rightDivRight"
-            app:layout_constraintStart_toStartOf="@id/rightDivLeft"
-            app:layout_constraintTop_toBottomOf="@id/topDivTop" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Trades Report Summary"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:fontFamily="@font/poppins"
-            android:gravity="start|top"
-            android:text="Pending Trades"
-            android:textColor="@color/primary2"
-            android:textSize="11dp"
-            app:layout_constraintBottom_toTopOf="@id/horiDivTop"
-            app:layout_constraintEnd_toEndOf="@id/rightDivRight"
-            app:layout_constraintStart_toStartOf="@id/rightDivLeft"
-            app:layout_constraintTop_toBottomOf="@id/topDivBot" />
+                <ImageView
+                    android:id="@+id/viewBtn"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/ic_chart_icon" />
 
-        <TextView
-            android:id="@+id/unsuccessfulText"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:fontFamily="@font/poppins_semibold"
-            android:gravity="start|top"
-            android:text="2"
-            android:textColor="@android:color/holo_red_light"
-            android:textSize="24dp"
-            app:layout_constraintBottom_toTopOf="@id/botDivBot"
-            app:layout_constraintEnd_toEndOf="@id/leftDivRight"
-            app:layout_constraintStart_toStartOf="@id/leftDivLeft"
-            app:layout_constraintTop_toBottomOf="@id/horiDivBot" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:fontFamily="@font/poppins"
-            android:gravity="start|top"
-            android:text="Unsuccessful Trades"
-            android:textColor="@color/primary2"
-            android:textSize="11dp"
-            app:layout_constraintBottom_toTopOf="@id/botDivBot2"
-            app:layout_constraintEnd_toEndOf="@id/leftDivRight"
-            app:layout_constraintStart_toStartOf="@id/leftDivLeft"
-            app:layout_constraintTop_toBottomOf="@id/botDivBot" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/currentText"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:fontFamily="@font/poppins_semibold"
-            android:gravity="start|top"
-            android:text="4"
-            android:textColor="@android:color/holo_orange_light"
-            android:textSize="24dp"
-            app:layout_constraintBottom_toTopOf="@id/botDivBot"
-            app:layout_constraintEnd_toEndOf="@id/rightDivRight"
-            app:layout_constraintStart_toStartOf="@id/rightDivLeft"
-            app:layout_constraintTop_toBottomOf="@id/horiDivBot" />
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="150dp"
+                            android:layout_height="70dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="70dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="10dp">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:fontFamily="@font/poppins"
-            android:gravity="start|top"
-            android:text="Current Trades"
-            android:textColor="@color/primary2"
-            android:textSize="11dp"
-            app:layout_constraintBottom_toTopOf="@id/botDivBot2"
-            app:layout_constraintEnd_toEndOf="@id/rightDivRight"
-            app:layout_constraintStart_toStartOf="@id/rightDivLeft"
-            app:layout_constraintTop_toBottomOf="@id/botDivBot" />
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/blue_gradient"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="top|end"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:src="@drawable/ic_pending_icon"
+                                app:tint="#FF017277" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/tradeButton"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/buttonborder"
-        android:drawableEnd="@drawable/ic_baseline_swap_horiz_24"
-        android:fontFamily="@font/poppins_semibold"
-        android:gravity="left|center"
-        android:padding="20dp"
-        android:text="Start Trading"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="24dp"
-        app:layout_constraintBottom_toTopOf="@id/tradeBot"
-        app:layout_constraintEnd_toEndOf="@id/tradeRight"
-        app:layout_constraintStart_toStartOf="@id/tradeLeft"
-        app:layout_constraintTop_toBottomOf="@id/tradeTop" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginBottom="5dp"
+                                android:fontFamily="@font/poppins"
+                                android:text="Pending"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/deliverBtn"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/buttonborder"
-        android:drawableTop="@drawable/ic_motor"
-        android:fontFamily="@font/poppins_semibold"
-        android:paddingTop="18dp"
-        app:layout_constraintBottom_toTopOf="@id/threeBot"
-        app:layout_constraintEnd_toEndOf="@id/firstRight"
-        app:layout_constraintStart_toStartOf="@id/firstLeft"
-        app:layout_constraintTop_toBottomOf="@id/threeTop" />
+                            <TextView
+                                android:id="@+id/pendingText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:text="0"
+                                android:textColor="@android:color/white"
+                                android:textSize="24sp" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/inboxBtn"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/buttonborder"
-        android:drawableTop="@drawable/ic_baseline_inbox_24"
-        android:fontFamily="@font/poppins_semibold"
-        android:paddingTop="10dp"
-        app:layout_constraintBottom_toTopOf="@id/threeBot"
-        app:layout_constraintEnd_toEndOf="@id/secondRight"
-        app:layout_constraintStart_toStartOf="@id/secondLeft"
-        app:layout_constraintTop_toBottomOf="@id/threeTop" />
+                        </androidx.cardview.widget.CardView>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/accSettings"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/buttonborder"
-        android:drawableTop="@drawable/ic_baseline_settings_24"
-        android:fontFamily="@font/poppins_semibold"
-        android:paddingTop="10dp"
-        app:layout_constraintBottom_toTopOf="@id/threeBot"
-        app:layout_constraintEnd_toEndOf="@id/thirdRight"
-        app:layout_constraintStart_toStartOf="@id/thirdLeft"
-        app:layout_constraintTop_toBottomOf="@id/threeTop" />
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="150dp"
+                            android:layout_height="70dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="70dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="10dp">
 
-    <TextView
-        android:layout_width="wrap_content"
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/orange_gradient"/>
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="top|end"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:src="@drawable/ic_current_icon"
+                                app:tint="#FF916A1B" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginBottom="5dp"
+                                android:fontFamily="@font/poppins"
+                                android:text="Current"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/currentText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:text="0"
+                                android:textColor="@android:color/white"
+                                android:textSize="24sp" />
+
+                        </androidx.cardview.widget.CardView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="150dp"
+                            android:layout_height="70dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="10dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/green_gradient"/>
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="top|end"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:src="@drawable/ic_successful_icon"
+                                app:tint="#FF597701" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginBottom="5dp"
+                                android:fontFamily="@font/poppins"
+                                android:text="Successful"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/successfulText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:text="0"
+                                android:textColor="@android:color/white"
+                                android:textSize="24sp" />
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="150dp"
+                            android:layout_height="70dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="10dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/red_gradient"/>
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="top|end"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:src="@drawable/ic_unsuccessful_icon"
+                                app:tint="#FF7C2121" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginBottom="5dp"
+                                android:fontFamily="@font/poppins"
+                                android:text="Unsuccessful"
+                                android:textColor="@color/white"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/unsuccessfulText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginTop="5dp"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:text="0"
+                                android:textColor="@android:color/white"
+                                android:textSize="24sp" />
+
+                        </androidx.cardview.widget.CardView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/postItemButton"
+                android:layout_width="match_parent"
+                android:layout_height="135dp"
+                android:layout_below="@id/reportSummary"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="30dp"
+                android:background="@color/white"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:backgroundTint="@color/primary"
+                        app:cardCornerRadius="20dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="20dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/poppins"
+                                android:text="Begin posting items and barter to other traders."
+                                android:textColor="@color/white"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center|end"
+                                android:layout_marginEnd="30dp"
+                                android:src="@drawable/ic_postitem_icon" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start|center"
+                            android:layout_marginStart="20dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins"
+                            android:text="Post an item"
+                            android:textColor="@color/primary_black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="end|center"
+                            android:layout_marginEnd="20dp"
+                            android:src="@drawable/ic_next_icon"
+                            app:tint="@color/primary" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/tradeButton"
+                android:layout_width="match_parent"
+                android:layout_height="135dp"
+                android:layout_below="@+id/postItemButton"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/white"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:backgroundTint="@color/primary_black"
+                        app:cardCornerRadius="20dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="20dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/poppins"
+                                android:text="Start trading by looking at items posted by users near you."
+                                android:textColor="@color/white"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_gravity="center|end"
+                                android:layout_marginEnd="30dp"
+                                android:src="@drawable/ic_lookitem_icon" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start|center"
+                            android:layout_marginStart="20dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/poppins"
+                            android:text="Go to categories"
+                            android:textColor="@color/primary_black"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="end|center"
+                            android:layout_marginEnd="20dp"
+                            android:src="@drawable/ic_next_icon"
+                            app:tint="@color/primary" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/deliverBtn"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/buttonborder"
+                android:drawableTop="@drawable/ic_motor"
+                android:fontFamily="@font/poppins_semibold"
+                android:paddingTop="18dp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/inboxBtn"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/buttonborder"
+                android:drawableTop="@drawable/ic_baseline_inbox_24"
+                android:fontFamily="@font/poppins_semibold"
+                android:paddingTop="10dp" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins"
-        android:gravity="center"
-        android:text="Delivery\nTracking"
-        android:textColor="@color/black"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="@id/firstRight"
-        app:layout_constraintStart_toStartOf="@id/firstLeft"
-        app:layout_constraintTop_toBottomOf="@id/threeBot" />
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottom_nav_border"
+        app:itemRippleColor="#73CFD3"
+        app:elevation="10dp"
+        app:itemIconTint="@color/selector"
+        app:itemTextColor="@color/selector"
+        app:itemIconSize="24dp"
+        app:menu="@menu/bottom_nav" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins"
-        android:gravity="center"
-        android:text="Inbox"
-        android:textColor="@color/black"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="@id/secondRight"
-        app:layout_constraintStart_toStartOf="@id/secondLeft"
-        app:layout_constraintTop_toBottomOf="@id/threeBot" />
-
-    <TextView
-        android:id="@+id/textView20"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins"
-        android:gravity="center"
-        android:text="Account Settings"
-        android:textColor="@color/black"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="@id/thirdRight"
-        app:layout_constraintStart_toStartOf="@id/thirdLeft"
-        app:layout_constraintTop_toBottomOf="@id/threeBot" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
