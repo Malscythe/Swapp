@@ -63,10 +63,13 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import Swapp.R;
 import Swapp.databinding.FragmentMapsBinding;
@@ -149,6 +152,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                             public void onSuccess(Location location) {
 
                                 ArrayList<String> keys = new ArrayList<>();
+                                HashMap<String, Marker> hashMapMarker = new HashMap<>();
 
                                 String hideSearch = bundle.getString("from");
 
@@ -197,18 +201,30 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                                             Location.distanceBetween(Double.parseDouble(dataSnapshot.child("lat").getValue(String.class)), Double.parseDouble(dataSnapshot.child("long").getValue(String.class)),
                                                                     circle.getCenter().latitude, circle.getCenter().longitude, distance);
 
-                                                            if (distance[0] < circle.getRadius()) {
+                                                            if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(dataSnapshot.getKey())) {
                                                                 markerOptions = new MarkerOptions();
                                                                 markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                                                                 markerOptions.position(latLng1);
+
                                                                 marker = mMap.addMarker(markerOptions);
+                                                                hashMapMarker.put(dataSnapshot.getKey(), marker);
 
                                                                 keys.add(dataSnapshot.getKey());
 
                                                                 Set<String> set = new HashSet<>(keys);
                                                                 keys.clear();
                                                                 keys.addAll(set);
+
+                                                                Log.w("TAG", hashMapMarker.toString());
+
+
+                                                            } else if (hashMapMarker.containsKey(dataSnapshot.getKey()) && distance[0] > circle.getRadius()) {
+                                                                marker = hashMapMarker.get(dataSnapshot.getKey());
+                                                                marker.remove();
+                                                                hashMapMarker.remove(dataSnapshot.getKey());
+                                                                keys.remove(dataSnapshot.getKey());
                                                             }
+
 
                                                             if (newRadius == 0f) {
                                                                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16f));
