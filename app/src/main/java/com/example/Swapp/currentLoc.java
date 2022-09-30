@@ -5,8 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -29,52 +34,51 @@ public class currentLoc extends AppCompatActivity {
         String category = getIntent().getStringExtra("category");
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        Log.d("TAG", category);
-
-        if (category.equals("all")) {
-            databaseReference.child("items").addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (!snapshot.hasChildren()) {
-                        Intent intent = new Intent(currentLoc.this, alert_dialog_noitem.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        startActivity(intent);
-                        CustomIntent.customType(currentLoc.this, "fadein-to-fadeout");
+            if (category.equals("all")) {
+                databaseReference.child("items").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (!snapshot.hasChildren()) {
+                            Intent intent = new Intent(currentLoc.this, alert_dialog_noitem.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                            CustomIntent.customType(currentLoc.this, "fadein-to-fadeout");
+                        }
                     }
-                }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                }
-            });
-        } else {
-            databaseReference.child("items").orderByChild("Item_Category").equalTo(category).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (!snapshot.hasChildren()) {
-                        Intent intent = new Intent(currentLoc.this, alert_dialog_noitem.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        startActivity(intent);
-                        CustomIntent.customType(currentLoc.this, "fadein-to-fadeout");
                     }
-                }
+                });
+            } else {
+                databaseReference.child("items").orderByChild("Item_Category").equalTo(category).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (!snapshot.hasChildren()) {
+                            Intent intent = new Intent(currentLoc.this, alert_dialog_noitem.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                            CustomIntent.customType(currentLoc.this, "fadein-to-fadeout");
+                        }
+                    }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                }
-            });
+                    }
+                });
+            }
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            final MapsFragment mapsFragment = new MapsFragment();
+
+            Bundle b = new Bundle();
+            b.putString("from", getIntent().getStringExtra("from"));
+            b.putString("category", getIntent().getStringExtra("category"));
+            mapsFragment.setArguments(b);
+            fragmentTransaction.add(R.id.container, mapsFragment).commit();
         }
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        final MapsFragment mapsFragment = new MapsFragment();
-
-        Bundle b = new Bundle();
-        b.putString("from", getIntent().getStringExtra("from"));
-        b.putString("category", getIntent().getStringExtra("category"));
-        mapsFragment.setArguments(b);
-        fragmentTransaction.add(R.id.container, mapsFragment).commit();
-    }
 }

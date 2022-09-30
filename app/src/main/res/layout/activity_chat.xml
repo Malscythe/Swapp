@@ -72,11 +72,12 @@
             android:id="@+id/voiceCall"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
             android:src="@drawable/ic_baseline_phone_24" />
 
     </RelativeLayout>

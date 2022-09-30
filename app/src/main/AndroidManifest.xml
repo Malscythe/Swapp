@@ -99,7 +99,7 @@
 
     <meta-data
         android:name="com.google.android.geo.API_KEY"
-        android:value="${MAPS_API_KEY}" />
+        android:value="AIzaSyABuWu_G8rYXzT86rtvsc8s58ZGOB6DgTU" />
 
     <activity
         android:name="com.example.Swapp.AdminHomepage"
