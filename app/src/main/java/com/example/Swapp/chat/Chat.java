@@ -39,6 +39,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.Swapp.MemoryData;
 import com.example.Swapp.Messages;
 import com.example.Swapp.PostItem;
@@ -53,10 +56,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.annotations.NotNull;
 import com.google.firebase.database.snapshot.ChildrenNode;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.normal.TedPermission;
+import com.kroegerama.imgpicker.BottomSheetImagePicker;
+import com.kroegerama.imgpicker.ButtonType;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
@@ -74,7 +82,7 @@ import Swapp.R;
 import de.hdodenhof.circleimageview.CircleImageView;
 import maes.tech.intentanim.CustomIntent;
 
-public class Chat extends AppCompatActivity {
+public class Chat extends AppCompatActivity implements BottomSheetImagePicker.OnImagesSelectedListener {
 
     private static final String TAG = "TAG";
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bugsbusters-de865-default-rtdb.asia-southeast1.firebasedatabase.app/");
@@ -157,7 +165,7 @@ public class Chat extends AppCompatActivity {
                             final String getMsg = messagesSnapshot.child("msg").getValue(String.class);
 
                             try {
-                                SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyyhhmmssaa");
+                                SimpleDateFormat dateFormat = new SimpleDateFormat("MMddyyyykkmmssaa");
                                 Date parsedDate = dateFormat.parse(messageTimestamps);
                                 Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
 
@@ -213,7 +221,7 @@ public class Chat extends AppCompatActivity {
                 final String getTxtMessage = messageEditText.getText().toString();
 
                 Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyykkmmssaa", Locale.getDefault());
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMddyyyykkmmssaa", Locale.getDefault());
 
                 databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -331,10 +339,12 @@ public class Chat extends AppCompatActivity {
 
     private void selectImage() {
 
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, 100);
+        new BottomSheetImagePicker.Builder(getString(R.string.file_provider))
+                .cameraButton(ButtonType.Button)
+                .galleryButton(ButtonType.Button)
+                .singleSelectTitle(R.string.pick_single)
+                .requestTag("single")
+                .show(getSupportFragmentManager(), null);
 
     }
 
@@ -344,108 +354,100 @@ public class Chat extends AppCompatActivity {
 
         if(requestCode == 100 && data != null && data.getData() != null) {
 
-            imageUri = data.getData();
 
-            chatKey = getIntent().getStringExtra("chat_key");
-            final String getMobile = getIntent().getStringExtra("mobile");
-            getUserMobile = MemoryData.getData(Chat.this);
-
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyykkmmssaa", Locale.getDefault());
-
-            if (imageUri == null){
-                Uri noimageUri = (new Uri.Builder())
-                        .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
-                        .authority(getResources().getResourcePackageName(R.drawable.noimage))
-                        .appendPath(getResources().getResourcePackageName(R.drawable.noimage))
-                        .appendPath(getResources().getResourcePackageName(R.drawable.noimage))
-                        .build();
-                imageUri = noimageUri;
-            }
-
-            StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/chat/"+ chatKey + "/" + simpleDateFormat.format(timestamp));
-            Bitmap bitmap = null;
-
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getApplication().getContentResolver(), imageUri);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap = Bitmap.createScaledBitmap(bitmap, 720, 720, false);
-
-            float ratioX = 720 / (float) bitmap.getWidth();
-            float ratioY = 720 / (float) bitmap.getHeight();
-            float middleX = 720 / 2.0f;
-            float middleY = 720 / 2.0f;
-
-            Matrix scaleMatrix = new Matrix();
-            scaleMatrix.setScale(ratioX, ratioY, middleX, middleY);
-
-            Canvas canvas = new Canvas(bitmap);
-            canvas.setMatrix(scaleMatrix);
-            canvas.drawBitmap(bitmap, middleX - bitmap.getWidth() / 2, middleY - bitmap.getHeight() / 2, new Paint(Paint.FILTER_BITMAP_FLAG));
-
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            byte[] data1 = baos.toByteArray();
-            UploadTask uploadTask = storageReference.putBytes(data1);
-
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bugsbusters-de865-default-rtdb.asia-southeast1.firebasedatabase.app/");
-                    databaseReference.child("users").child(uid).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                            String numToSave = snapshot.child("Phone").getValue(String.class);
-
-                            taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Uri> task) {
-
-                                    Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-                                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("ddMMyyyykkmmssaa", Locale.getDefault());
-
-                                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                                    ref.child("chat").child(chatKey).child("messages").addValueEventListener(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            List<String> list = new ArrayList<>();
-                                            for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-
-                                                list.add(dataSnapshot.getKey());
-                                            }
-
-                                            MemoryData.saveLastMsgTS(list.get(list.size() - 1), chatKey, Chat.this, numToSave);
-                                            databaseReference.child("chat").child(chatKey).child("user_1").setValue(getUserMobile);
-                                            databaseReference.child("chat").child(chatKey).child("user_2").setValue(getMobile);
-                                            databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("msg").setValue(task.getResult().toString());
-                                            databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("mobile").setValue(getUserMobile);
-
-                                            chattingRecyclerView.scrollToPosition(chatLists.size() - 1);
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
-
-                                        }
-                                    });
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-                }
-            });
         }
     }
 
 
+    @Override
+    public void onImagesSelected(@NotNull List<? extends Uri> uris, @Nullable String tag) {
+        for (Uri uri : uris) {
+            imageUri = uri;
+        }
+
+        chatKey = getIntent().getStringExtra("chat_key");
+        final String getMobile = getIntent().getStringExtra("mobile");
+        getUserMobile = MemoryData.getData(Chat.this);
+
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMddyyyykkmmssaa", Locale.getDefault());
+
+        if (imageUri == null){
+            Uri noimageUri = (new Uri.Builder())
+                    .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+                    .authority(getResources().getResourcePackageName(R.drawable.noimage))
+                    .appendPath(getResources().getResourcePackageName(R.drawable.noimage))
+                    .appendPath(getResources().getResourcePackageName(R.drawable.noimage))
+                    .build();
+            imageUri = noimageUri;
+        }
+
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/chat/"+ chatKey + "/" + simpleDateFormat.format(timestamp));
+        Bitmap bitmap = null;
+
+        Glide.with(Chat.this).asBitmap().load(imageUri).into(new SimpleTarget<Bitmap>() {
+            @Override
+            public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+                resource.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] data1 = baos.toByteArray();
+                UploadTask uploadTask = storageReference.putBytes(data1);
+
+                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bugsbusters-de865-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                        databaseReference.child("users").child(uid).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                String numToSave = snapshot.child("Phone").getValue(String.class);
+
+                                taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Uri> task) {
+
+                                        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMddyyyykkmmssaa", Locale.getDefault());
+
+                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                                        ref.child("chat").child(chatKey).child("messages").addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                List<String> list = new ArrayList<>();
+                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+
+                                                    list.add(dataSnapshot.getKey());
+                                                }
+
+                                                MemoryData.saveLastMsgTS(list.get(list.size() - 1), chatKey, Chat.this, numToSave);
+                                                databaseReference.child("chat").child(chatKey).child("user_1").setValue(getUserMobile);
+                                                databaseReference.child("chat").child(chatKey).child("user_2").setValue(getMobile);
+                                                databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("msg").setValue(task.getResult().toString());
+                                                databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("mobile").setValue(getUserMobile);
+
+                                                chattingRecyclerView.scrollToPosition(chatLists.size() - 1);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
 }

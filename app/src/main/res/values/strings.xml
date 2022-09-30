@@ -21,6 +21,10 @@
         <item>Others</item>
     </string-array>
 
+    <string name="file_provider" translatable="false">com.kroegerama.imgpicker.demo.fileprovider</string>
+
+    <string name="pick_single">Select an image</string>
+
     <string-array name="locations">
         <item>Caloocan</item>
         <item>Las Piñas</item>
