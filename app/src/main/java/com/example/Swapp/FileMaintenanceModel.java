@@ -3,36 +3,30 @@ package com.example.Swapp;
 
 public class FileMaintenanceModel {
 
-    String Phone, Email, First_Name, Gender, Last_Name, Surl;
+  String First_Name, Last_Name, Email, Gender, Phone, surl;
 
-    public FileMaintenanceModel() {
-
+    public FileMaintenanceModel(String surl) {
+        this.surl = surl;
     }
 
+    public String getSurl() {
+        return surl;
+    }
 
-    public FileMaintenanceModel(String phone, String email, String first_Name, String gender, String last_Name, String surl) {
-        Phone = phone;
-        Email = email;
+    public void setSurl(String surl) {
+        this.surl = surl;
+    }
+
+    FileMaintenanceModel()
+{
+
+}
+    public FileMaintenanceModel(String first_Name, String last_Name, String email, String gender, String phone) {
         First_Name = first_Name;
-        Gender = gender;
         Last_Name = last_Name;
-        Surl = surl;
-    }
-
-    public String getPhone() {
-        return Phone;
-    }
-
-    public void setPhone(String birth_Date) {
-        Phone = birth_Date;
-    }
-
-    public String getEmail() {
-        return Email;
-    }
-
-    public void setEmail(String email) {
         Email = email;
+        Gender = gender;
+        Phone = phone;
     }
 
     public String getFirst_Name() {
@@ -43,14 +37,6 @@ public class FileMaintenanceModel {
         First_Name = first_Name;
     }
 
-    public String getGender() {
-        return Gender;
-    }
-
-    public void setGender(String gender) {
-        Gender = gender;
-    }
-
     public String getLast_Name() {
         return Last_Name;
     }
@@ -59,11 +45,27 @@ public class FileMaintenanceModel {
         Last_Name = last_Name;
     }
 
-    public String getSurl() {
-        return Surl;
+    public String getEmail() {
+        return Email;
     }
 
-    public void setSurl(String surl) {
-        Surl = surl;
+    public void setEmail(String email) {
+        Email = email;
+    }
+
+    public String getGender() {
+        return Gender;
+    }
+
+    public void setGender(String gender) {
+        Gender = gender;
+    }
+
+    public String getPhone() {
+        return Phone;
+    }
+
+    public void setPhone(String phone) {
+        Phone = phone;
     }
 }

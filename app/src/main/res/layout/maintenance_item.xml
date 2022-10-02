@@ -24,40 +24,38 @@
             app:civ_border_width="2dp" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/fNameText"
-            android:text="First Name"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:textColor="#000"
-            android:layout_toRightOf="@+id/img1"
-            android:layout_marginLeft="10dp"
-            />
-        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/lNameText"
-            android:text="Last Name"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:textColor="#000"
-            android:layout_toRightOf="@+id/img1"
-            android:layout_below="@id/fNameText"
             android:layout_marginLeft="10dp"
-            />
+            android:layout_toRightOf="@+id/img1"
+            android:text="First Name"
+            android:textColor="#000"
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/lNameText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/useremail"
-            android:text="Email"
-            android:textSize="15sp"
-            android:textColor="#000"
+            android:layout_below="@id/fNameText"
+            android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/img1"
+            android:text="Last Name"
+            android:textColor="#000"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/useremail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@id/lNameText"
             android:layout_marginLeft="10dp"
-            />
+            android:layout_toRightOf="@+id/img1"
+            android:text="Email"
+            android:textColor="#000"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/usergender"

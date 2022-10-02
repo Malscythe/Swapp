@@ -100,6 +100,7 @@ package="Swapp">
 
     <activity
         android:name="com.example.Swapp.FileMaintenance"
+        android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
         android:exported="true" />
 
     <meta-data
