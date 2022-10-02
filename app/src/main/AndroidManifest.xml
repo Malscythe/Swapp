@@ -93,6 +93,7 @@ package="Swapp">
         android:exported="true"
         android:noHistory="true" />
 
+
     <activity
         android:name="com.example.Swapp.imageFullScreen"
         android:exported="true"
