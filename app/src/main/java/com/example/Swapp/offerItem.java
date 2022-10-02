@@ -42,7 +42,6 @@ import java.io.IOException;
 
 import Swapp.R;
 import Swapp.databinding.ActivityOfferItemBinding;
-import Swapp.databinding.ActivityPostItemBinding;
 import maes.tech.intentanim.CustomIntent;
 
 public class offerItem extends AppCompatActivity {
@@ -63,9 +62,6 @@ public class offerItem extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityOfferItemBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        String item_id = getIntent().getStringExtra("itemid");
-        Log.w(TAG, item_id);
 
         String[] categoriesArr = getResources().getStringArray(R.array.categories);
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.dropdown_item, categoriesArr);

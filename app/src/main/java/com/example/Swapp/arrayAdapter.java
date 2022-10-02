@@ -23,7 +23,7 @@ public class arrayAdapter extends ArrayAdapter<cards> {
     public arrayAdapter(Context context, int resourceId, List<cards> items) {
         super(context, resourceId, items);
     }
-
+    
     public View getView(int position, View convertView, ViewGroup parent) {
         cards card_item = getItem(position);
 

@@ -93,7 +93,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            app:cardCornerRadius="5dp"
             app:cardBackgroundColor="@color/white"
             android:elevation="2dp">
 
@@ -101,6 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
 
                     <ImageView
                         android:id="@+id/itemImage"

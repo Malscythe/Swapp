@@ -1,146 +1,150 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="Swapp">
+xmlns:tools="http://schemas.android.com/tools"
+package="Swapp">
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+<uses-permission android:name="android.permission.CALL_PHONE" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <application
-        android:allowBackup="true"
-        android:icon="@mipmap/swappicon"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.Swapp"
-        android:usesCleartextTraffic="true">
+<application
+    android:allowBackup="true"
+    android:icon="@mipmap/swappicon"
+    android:label="@string/app_name"
+    android:roundIcon="@mipmap/ic_launcher_round"
+    android:supportsRtl="true"
+    android:theme="@style/Theme.Swapp"
+    android:usesCleartextTraffic="true">
 
-        <activity
-            android:name="com.example.Swapp.signup"
-            android:exported="true" />
+    <activity
+        android:name="com.example.Swapp.signup"
+        android:exported="true" />
 
-        <activity
-            android:name="com.example.Swapp.popup"
-            android:exported="true"
-            android:theme="@style/piechart" />
+    <activity
+        android:name="com.example.Swapp.popup"
+        android:exported="true"
+        android:theme="@style/piechart" />
 
-        <activity
-            android:name="com.example.Swapp.MoreInfo"
-            android:exported="true" />
+    <activity
+        android:name="com.example.Swapp.MoreInfo"
+        android:exported="true" />
 
 
-        <activity
-            android:name="com.example.Swapp.OfferSecondActivity"
-            android:exported="true" />
+    <activity
+        android:name="com.example.Swapp.OfferSecondActivity"
+        android:exported="true" />
 
-        <activity
-            android:name="com.example.Swapp.offerItem"
-            android:exported="true" />
+    <activity
+        android:name="com.example.Swapp.offerItem"
+        android:exported="true" />
 
-        <activity
-            android:name="com.example.Swapp.UserHomepage"
-            android:exported="true" />
+    <activity
+        android:name="com.example.Swapp.UserHomepage"
+        android:exported="true" />
 
-        <activity
-            android:name="com.example.Swapp.OfferMainAcitvity"
-            android:exported="true" />
+    <activity
+        android:name="com.example.Swapp.OfferMainAcitvity"
+        android:exported="true" />
 
-        <activity
-            android:name="com.example.Swapp.Categories"
-            android:exported="true" />
+    <activity
+        android:name="com.example.Swapp.Categories"
+        android:exported="true" />
 
-        <activity
-            android:name="com.example.Swapp.chat.Chat"
-            android:exported="true" />
+    <activity
+        android:name="com.example.Swapp.chat.Chat"
+        android:exported="true" />
 
-        <activity
-            android:name="com.example.Swapp.ItemSwipe"
-            android:exported="true" />
+    <activity
+        android:name="com.example.Swapp.ItemSwipe"
+        android:exported="true" />
 
-        <activity
-            android:name="com.example.Swapp.forgotpassword"
-            android:exported="true" />
+    <activity
+        android:name="com.example.Swapp.forgotpassword"
+        android:exported="true" />
 
-        <activity
-            android:name="com.example.Swapp.Messages"
-            android:exported="true" />
+    <activity
+        android:name="com.example.Swapp.Messages"
+        android:exported="true" />
 
-        <activity
-            android:name="com.example.Swapp.postforgotpassword"
-            android:exported="true" />
+    <activity
+        android:name="com.example.Swapp.postforgotpassword"
+        android:exported="true" />
 
-        <activity
-            android:name="com.example.Swapp.PostItem"
-            android:exported="true" />
+    <activity
+        android:name="com.example.Swapp.PostItem_S1"
+        android:exported="true" />
 
-        <activity
-            android:name="com.example.Swapp.OfferMoreInfo"
-            android:exported="true" />
+    <activity
+        android:name="com.example.Swapp.PostItem_S2"
+        android:exported="true" />
 
-        <activity
-            android:name="com.example.Swapp.deliverytrack"
-            android:exported="true" />
+    <activity
+        android:name="com.example.Swapp.OfferMoreInfo"
+        android:exported="true" />
 
-        <activity
-            android:name="com.example.Swapp.currentLoc"
-            android:exported="true"
-            android:noHistory="true" />
+    <activity
+        android:name="com.example.Swapp.deliverytrack"
+        android:exported="true" />
 
-        <activity
-            android:name="com.example.Swapp.imageFullScreen"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.CustomTheme" />
+    <activity
+        android:name="com.example.Swapp.currentLoc"
+        android:exported="true"
+        android:noHistory="true" />
 
-        <activity
-            android:name="com.example.Swapp.FileMaintenance"
-            android:exported="true" />
+    <activity
+        android:name="com.example.Swapp.imageFullScreen"
+        android:exported="true"
+        android:theme="@style/Theme.AppCompat.CustomTheme" />
 
+    <activity
+        android:name="com.example.Swapp.FileMaintenance"
+        android:exported="true" />
+
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyABuWu_G8rYXzT86rtvsc8s58ZGOB6DgTU" />
+
+    <activity
+        android:name="com.example.Swapp.AdminHomepage"
+        android:exported="true" />
+
+    <activity
+        android:name="com.example.Swapp.alert_dialog_noitem"
+        android:exported="true" />
+
+    <activity
+        android:name="com.example.Swapp.login"
+        android:exported="true"
+        android:label="Swapp">
+
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+            <data android:mimeType="image/*" />
+        </intent-filter>
+
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
+
+    <meta-data
+        android:name="preloaded_fonts"
+        android:resource="@array/preloaded_fonts" />
+
+    <provider
+        android:name="androidx.core.content.FileProvider"
+        android:authorities="@string/file_provider"
+        android:exported="false"
+        android:grantUriPermissions="true">
         <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyABuWu_G8rYXzT86rtvsc8s58ZGOB6DgTU" />
+            android:name="android.support.FILE_PROVIDER_PATHS"
+            android:resource="@xml/file_paths" />
+    </provider>
 
-        <activity
-            android:name="com.example.Swapp.AdminHomepage"
-            android:exported="true" />
-
-        <activity
-            android:name="com.example.Swapp.alert_dialog_noitem"
-            android:exported="true" />
-
-        <activity
-            android:name="com.example.Swapp.login"
-            android:exported="true"
-            android:label="Swapp">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <data android:mimeType="image/*" />
-            </intent-filter>
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
-
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="@string/file_provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
-
-    </application>
+</application>
 
 </manifest>

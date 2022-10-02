@@ -55,7 +55,6 @@ public class ItemSwipe extends AppCompatActivity {
         setContentView(R.layout.activity_item_swipe);
         ArrayList<String> keysList = (ArrayList<String>) getIntent().getSerializableExtra("keys");
 
-
         noMoreItemBanner = findViewById(R.id.noMoreItemBanner);
         noMoreItemsBtn = findViewById(R.id.returnToCategories);
 
@@ -145,7 +144,6 @@ public class ItemSwipe extends AppCompatActivity {
         if (keysList.isEmpty()) {
             noMoreItemBanner.setVisibility(View.VISIBLE);
         }
-
 
         DatabaseReference items = FirebaseDatabase.getInstance().getReference().child("items");
         items.addChildEventListener(new ChildEventListener() {

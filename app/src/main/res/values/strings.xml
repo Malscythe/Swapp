@@ -21,6 +21,16 @@
         <item>Others</item>
     </string-array>
 
+    <string-array name="measurements">
+        <item>Shoulder Width</item>
+        <item>Arm Length</item>
+        <item>Sleeve Length</item>
+        <item>Bust</item>
+        <item>Waist</item>
+        <item>Hips</item>
+        <item>Leg Length</item>
+    </string-array>
+
     <string name="file_provider" translatable="false">com.kroegerama.imgpicker.demo.fileprovider</string>
 
     <string name="pick_single">Select an image</string>
