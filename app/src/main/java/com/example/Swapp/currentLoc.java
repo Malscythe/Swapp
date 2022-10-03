@@ -51,6 +51,16 @@ public class currentLoc extends AppCompatActivity {
 
                     }
                 });
+            } else if (category.equals("postitem")) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                final MapsFragment mapsFragment = new MapsFragment();
+
+                Bundle b = new Bundle();
+                b.putString("from", getIntent().getStringExtra("from"));
+                b.putString("category", getIntent().getStringExtra("category"));
+                mapsFragment.setArguments(b);
+                fragmentTransaction.add(R.id.container, mapsFragment).commit();
             } else {
                 databaseReference.child("items").orderByChild("Item_Category").equalTo(category).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -69,16 +79,6 @@ public class currentLoc extends AppCompatActivity {
                     }
                 });
             }
-
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            final MapsFragment mapsFragment = new MapsFragment();
-
-            Bundle b = new Bundle();
-            b.putString("from", getIntent().getStringExtra("from"));
-            b.putString("category", getIntent().getStringExtra("category"));
-            mapsFragment.setArguments(b);
-            fragmentTransaction.add(R.id.container, mapsFragment).commit();
         }
 
 }
