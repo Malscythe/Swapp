@@ -47,7 +47,7 @@
         android:layout_marginRight="30dp"
         android:layout_marginBottom="5dp"
         android:fontFamily="@font/poppins"
-        android:text="* Required"
+        android:text="Fields with an asterisk (*) are required."
         android:textColor="@android:color/holo_red_light"
         android:textSize="12sp"
         android:textStyle="italic" />
@@ -122,7 +122,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/itemRFSL"
+        android:id="@+id/itemRFTL"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -149,7 +149,7 @@
         android:id="@+id/nextBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/itemRFSL"
+        android:layout_below="@id/itemRFTL"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="30dp"

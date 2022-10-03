@@ -465,11 +465,17 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                             List<Address> addresses = geocoder.getFromLocation(markerPosition.latitude, markerPosition.longitude, 1);
                             String latitude = String.valueOf(markerPosition.latitude);
                             String longitude = String.valueOf(markerPosition.longitude);
-                            String pinAddress = addresses.get(0).getAddressLine(0);
 
-                            Intent intent = new Intent(getContext(), PostItem_S1.class);
+                            Intent intent = new Intent(getContext(), PostItem_S3.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                            intent.putExtra("address", pinAddress);
+                            intent.putExtra("city", addresses.get(0).getLocality());
+                            intent.putExtra("state", addresses.get(0).getAdminArea());
+                            intent.putExtra("country", addresses.get(0).getCountryName());
+                            intent.putExtra("postalCode", addresses.get(0).getPostalCode());
+                            intent.putExtra("houseNo", addresses.get(0).getFeatureName());
+                            intent.putExtra("street", addresses.get(0).getThoroughfare());
+                            intent.putExtra("brgy", addresses.get(0).getSubLocality());
+                            intent.putExtra("currentState", "postLocation");
                             intent.putExtra("latitude", latitude);
                             intent.putExtra("longitude", longitude);
                             startActivity(intent);

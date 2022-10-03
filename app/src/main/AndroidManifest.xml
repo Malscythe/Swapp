@@ -81,6 +81,10 @@ package="Swapp">
         android:exported="true" />
 
     <activity
+        android:name="com.example.Swapp.PostItem_S3"
+        android:exported="true" />
+
+    <activity
         android:name="com.example.Swapp.OfferMoreInfo"
         android:exported="true" />
 

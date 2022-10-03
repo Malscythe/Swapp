@@ -1,49 +1,60 @@
 package com.example.Swapp;
 
-import androidx.appcompat.app.AppCompatActivity;
+import static com.github.mikephil.charting.animation.Easing.Linear;
 
-import android.animation.Animator;
+import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.transition.Fade;
-import android.transition.Transition;
-import android.transition.TransitionManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewTreeObserver;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
-import com.google.android.flexbox.FlexboxLayout;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.badge.BadgeUtils;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.kofigyan.stateprogressbar.StateProgressBar;
+
+import java.util.ArrayList;
 
 import Swapp.R;
+import Swapp.databinding.ActivityPostItemS1Binding;
+import Swapp.databinding.ActivityPostItemS2Binding;
 
 public class PostItem_S2 extends AppCompatActivity {
 
-    TextView showAdditionalSize, hideAdditionalSize, R1C2, R1C3, R1C4, R1C5;
     CheckBox sizeXS, sizeS, sizeM, sizeL, sizeXL, sizeXXL, sizeXXXL;
-    RelativeLayout additionalSizeInterface;
-    FlexboxLayout xsRow, sRow, mRow, lRow, xlRow, xxlRow, xxxlRow;
-    AutoCompleteTextView m1, m2, m3, m4;
-    TextView xs1, xs2, xs3, xs4, s1, s2, s3, s4, med1, med2, med3, med4, l1, l2, l3, l4, xl1, xl2, xl3, xl4, xxl1, xxl2, xxl3, xxl4, xxxl1, xxxl2, xxxl3, xxxl4;
-
+    RelativeLayout apparelL, gadgetsL, gameL, bagsL, groceriesL, furnitureL, bnkL, appliancesL, motorsL, audioL, schoolL, otherL;
+    AutoCompleteTextView clothingTypeW, clothingTypeM;
+    TextInputLayout mApparelL, wApparelL;
+    Button nextBtn;
+    String[] descriptionData = {"Details", "Description", "Location", "Images"};
+    String activeLayout;
+    ActivityPostItemS2Binding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post_item_s2);
+        binding = ActivityPostItemS2Binding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        String category = getIntent().getStringExtra("category");
+        String item_name = getIntent().getStringExtra("item_name");
+        String reasonForTrading = getIntent().getStringExtra("rft");
+        String preferred_item = getIntent().getStringExtra("pref_item");
+
+        StateProgressBar stateProgressBar = findViewById(R.id.stateProgress);
+        stateProgressBar.setStateDescriptionData(descriptionData);
 
         sizeXS = findViewById(R.id.size_XS);
         sizeS = findViewById(R.id.size_S);
@@ -53,311 +64,1078 @@ public class PostItem_S2 extends AppCompatActivity {
         sizeXXL = findViewById(R.id.size_2XL);
         sizeXXXL = findViewById(R.id.size_3XL);
 
-        xs1 = findViewById(R.id.R2C2);
-        xs2 = findViewById(R.id.R2C3);
-        xs3 = findViewById(R.id.R2C4);
-        xs4 = findViewById(R.id.R2C5);
-        s1 = findViewById(R.id.R3C2);
-        s2 = findViewById(R.id.R3C3);
-        s3 = findViewById(R.id.R3C4);
-        s4 = findViewById(R.id.R3C5);
-        med1 = findViewById(R.id.R4C2);
-        med2 = findViewById(R.id.R4C3);
-        med3 = findViewById(R.id.R4C4);
-        med4 = findViewById(R.id.R4C5);
-        l1 = findViewById(R.id.R5C2);
-        l2 = findViewById(R.id.R5C3);
-        l3 = findViewById(R.id.R5C4);
-        l4 = findViewById(R.id.R5C5);
-        xl1 = findViewById(R.id.R6C2);
-        xl2 = findViewById(R.id.R6C3);
-        xl3 = findViewById(R.id.R6C4);
-        xl4 = findViewById(R.id.R6C5);
-        xxl1 = findViewById(R.id.R7C2);
-        xxl2 = findViewById(R.id.R7C3);
-        xxl3 = findViewById(R.id.R7C4);
-        xxl4 = findViewById(R.id.R7C5);
-        xxxl1 = findViewById(R.id.R8C2);
-        xxxl2 = findViewById(R.id.R8C3);
-        xxxl3 = findViewById(R.id.R8C4);
-        xxxl4 = findViewById(R.id.R8C5);
+        nextBtn = findViewById(R.id.nextBtn);
 
-        R1C2 = findViewById(R.id.R1C2);
-        R1C3 = findViewById(R.id.R1C3);
-        R1C4 = findViewById(R.id.R1C4);
-        R1C5 = findViewById(R.id.R1C5);
+        mApparelL = findViewById(R.id.clothingTypeML);
+        wApparelL = findViewById(R.id.clothingTypeWL);
 
-        m1 = findViewById(R.id.R1C2Header);
-        m2 = findViewById(R.id.R1C3Header);
-        m3 = findViewById(R.id.R1C4Header);
-        m4 = findViewById(R.id.R1C5Header);
+        gadgetsL = findViewById(R.id.gadgetsInterface);
+        gameL = findViewById(R.id.gamesInterface);
+        bagsL = findViewById(R.id.bagsInterface);
+        groceriesL = findViewById(R.id.groceriesInterface);
+        furnitureL = findViewById(R.id.furnitureInterface);
+        bnkL = findViewById(R.id.bnkInterface);
+        appliancesL = findViewById(R.id.appliancesInterface);
+        motorsL = findViewById(R.id.motorInterface);
+        audioL = findViewById(R.id.audioInterface);
+        schoolL = findViewById(R.id.schoolInterface);
+        otherL = findViewById(R.id.otherInterface);
+        apparelL = findViewById(R.id.apparelDescription);
 
-        showAdditionalSize = findViewById(R.id.showAdditionalSize);
-        hideAdditionalSize = findViewById(R.id.hideAdditionalSize);
+        clothingTypeM = findViewById(R.id.clothingTypeM);
+        clothingTypeW = findViewById(R.id.clothingTypeW);
 
-        additionalSizeInterface = findViewById(R.id.additionalSizeInterface);
+        String[] clothingW = getResources().getStringArray(R.array.wApparel);
+        ArrayAdapter arrayAdapterW = new ArrayAdapter(this, R.layout.dropdown_item, clothingW);
+        clothingTypeW.setAdapter(arrayAdapterW);
 
-        xsRow = findViewById(R.id.xsRow);
-        sRow = findViewById(R.id.sRow);
-        mRow = findViewById(R.id.mRow);
-        lRow = findViewById(R.id.lRow);
-        xlRow = findViewById(R.id.xlRow);
-        xxlRow = findViewById(R.id.xxlRow);
-        xxxlRow = findViewById(R.id.xxxlRow);
+        String[] clothingM = getResources().getStringArray(R.array.mApparel);
+        ArrayAdapter arrayAdapterM = new ArrayAdapter(this, R.layout.dropdown_item, clothingM);
+        clothingTypeM.setAdapter(arrayAdapterM);
 
-        String[] measurementsArr = getResources().getStringArray(R.array.measurements);
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.dropdown_item, measurementsArr);
-        m1.setAdapter(arrayAdapter);
-        m2.setAdapter(arrayAdapter);
-        m3.setAdapter(arrayAdapter);
-        m4.setAdapter(arrayAdapter);
+        switch (category) {
+            case "Men's Apparel":
+                apparelL.setVisibility(View.VISIBLE);
+                mApparelL.setVisibility(View.VISIBLE);
+                wApparelL.setVisibility(View.GONE);
+                gadgetsL.setVisibility(View.GONE);
+                gameL.setVisibility(View.GONE);
+                bagsL.setVisibility(View.GONE);
+                groceriesL.setVisibility(View.GONE);
+                furnitureL.setVisibility(View.GONE);
+                bnkL.setVisibility(View.GONE);
+                appliancesL.setVisibility(View.GONE);
+                motorsL.setVisibility(View.GONE);
+                audioL.setVisibility(View.GONE);
+                otherL.setVisibility(View.GONE);
+                schoolL.setVisibility(View.GONE);
 
-        m1.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                nextBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
-            }
+                        if (TextUtils.isEmpty(binding.clothingTypeM.getText().toString())) {
+                            binding.clothingTypeML.setError("This cannot be empty.");
+                            binding.clothingTypeML.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.clothingTypeML.setError(null);
+                            binding.clothingTypeML.setErrorIconDrawable(null);
+                        }
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        if (TextUtils.isEmpty(binding.brand.getText().toString())) {
+                            binding.brandL.setError("This cannot be empty.");
+                            binding.brandL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.brandL.setError(null);
+                            binding.brandL.setErrorIconDrawable(null);
+                        }
 
-            }
+                        if (TextUtils.isEmpty(binding.color.getText().toString())) {
+                            binding.colorL.setError("This cannot be empty.");
+                            binding.colorL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.colorL.setError(null);
+                            binding.colorL.setErrorIconDrawable(null);
+                        }
 
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (R1C2.getText().toString().equals(editable.toString()) || R1C3.getText().toString().equals(editable.toString()) || R1C4.getText().toString().equals(editable.toString()) || R1C5.getText().toString().equals(editable.toString())) {
-                    Toast.makeText(PostItem_S2.this, "This item is already present in measurement header.", Toast.LENGTH_SHORT).show();
+                        if (TextUtils.isEmpty(binding.material.getText().toString())) {
+                            binding.materialL.setError("This cannot be empty.");
+                            binding.materialL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.materialL.setError(null);
+                            binding.materialL.setErrorIconDrawable(null);
+                        }
 
-                } else {
-                    R1C2.setText(editable);
-                }
-            }
-        });
+                        if (TextUtils.isEmpty(binding.usage.getText().toString())) {
+                            binding.usageL.setError("This cannot be empty.");
+                            binding.usageL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.usageL.setError(null);
+                            binding.usageL.setErrorIconDrawable(null);
+                        }
 
-        m2.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        if (!sizeXS.isChecked() && !sizeS.isChecked() && !sizeM.isChecked() && !sizeL.isChecked() && !sizeXL.isChecked() && !sizeXXL.isChecked() && !sizeXXXL.isChecked()) {
+                            binding.sizeError.setVisibility(View.VISIBLE);
+                            return;
+                        } else {
+                            binding.sizeError.setVisibility(View.GONE);
+                        }
 
-            }
+                        if (TextUtils.isEmpty(binding.description.getText().toString())) {
+                            binding.descriptionL.setError("This cannot be empty.");
+                            binding.descriptionL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.descriptionL.setError(null);
+                            binding.descriptionL.setErrorIconDrawable(null);
+                        }
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        ArrayList<String> sizesArr = new ArrayList<String>();
 
-            }
+                        if (sizeXS.isChecked()){
+                            sizesArr.add("XS");
+                        } else {
+                            sizesArr.remove("XS");
+                        }
 
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if ((R1C2.getText().toString().equals(editable.toString()) ||
-                    R1C3.getText().toString().equals(editable.toString()) ||
-                    R1C4.getText().toString().equals(editable.toString()) ||
-                    R1C5.getText().toString().equals(editable.toString()))) {
+                        if (sizeS.isChecked()) {
+                            sizesArr.add("S");
+                        } else {
+                            sizesArr.remove("S");
+                        }
 
-                    Toast.makeText(PostItem_S2.this, "This item is already present in measurement header.", Toast.LENGTH_SHORT).show();
+                        if (sizeM.isChecked()){
+                            sizesArr.add("M");
+                        } else {
+                            sizesArr.remove("M");
+                        }
 
-                } else {
+                        if (sizeL.isChecked()) {
+                            sizesArr.add("L");
+                        } else {
+                            sizesArr.remove("L");
+                        }
 
-                    R1C3.setText(editable);
+                        if (sizeXL.isChecked()){
+                            sizesArr.add("XL");
+                        } else {
+                            sizesArr.remove("XL");
+                        }
 
-                }
-            }
-        });
+                        if (sizeXXL.isChecked()) {
+                            sizesArr.add("2XL");
+                        } else {
+                            sizesArr.remove("2XL");
+                        }
 
-        m3.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        if (sizeXXXL.isChecked()){
+                            sizesArr.add("3XL");
+                        } else {
+                            sizesArr.remove("3XL");
+                        }
 
-            }
+                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        intent.putExtra("mensClothingType", binding.clothingTypeM.getText().toString());
+                        intent.putExtra("mensBrand", binding.brand.getText().toString());
+                        intent.putExtra("mensColor", binding.color.getText().toString());
+                        intent.putExtra("mensMaterial", binding.material.getText().toString());
+                        intent.putExtra("mensUsage", binding.usage.getText().toString());
+                        intent.putExtra("mensSizes", sizesArr.toString());
+                        intent.putExtra("mensDescription", binding.description.getText().toString());
+                        intent.putExtra("currentState", "preLocation");
+                        intent.putExtra("item_name", item_name);
+                        intent.putExtra("rft", reasonForTrading);
+                        intent.putExtra("category", category);
+                        intent.putExtra("pref_item", preferred_item);
+                        startActivity(intent);
+                    }
+                });
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                break;
+            case "Gadgets":
+                apparelL.setVisibility(View.GONE);
+                gadgetsL.setVisibility(View.VISIBLE);
+                gameL.setVisibility(View.GONE);
+                bagsL.setVisibility(View.GONE);
+                groceriesL.setVisibility(View.GONE);
+                furnitureL.setVisibility(View.GONE);
+                bnkL.setVisibility(View.GONE);
+                appliancesL.setVisibility(View.GONE);
+                motorsL.setVisibility(View.GONE);
+                audioL.setVisibility(View.GONE);
+                otherL.setVisibility(View.GONE);
+                schoolL.setVisibility(View.GONE);
 
-            }
+                nextBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (TextUtils.isEmpty(binding.gadgetsType.getText().toString())) {
+                            binding.gadgetsTypeL.setError("This cannot be empty.");
+                            binding.gadgetsTypeL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.gadgetsTypeL.setError(null);
+                            binding.gadgetsTypeL.setErrorIconDrawable(null);
+                        }
 
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (R1C2.getText().toString().equals(editable.toString()) || R1C3.getText().toString().equals(editable.toString()) || R1C4.getText().toString().equals(editable.toString()) || R1C5.getText().toString().equals(editable.toString())) {
-                    Toast.makeText(PostItem_S2.this, "This item is already present in measurement header.", Toast.LENGTH_SHORT).show();
-                } else {
-                    R1C4.setText(editable);
-                }
-            }
-        });
+                        if (TextUtils.isEmpty(binding.gadgetsBrand.getText().toString())) {
+                            binding.gadgetsBrandL.setError("This cannot be empty.");
+                            binding.gadgetsBrandL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.gadgetsBrandL.setError(null);
+                            binding.gadgetsBrandL.setErrorIconDrawable(null);
+                        }
 
-        m4.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        if (TextUtils.isEmpty(binding.gadgetColor.getText().toString())) {
+                            binding.gadgetColorL.setError("This cannot be empty.");
+                            binding.gadgetColorL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.gadgetColorL.setError(null);
+                            binding.gadgetColorL.setErrorIconDrawable(null);
+                        }
 
-            }
+                        if (TextUtils.isEmpty(binding.gadgetUsage.getText().toString())) {
+                            binding.gadgetUsageL.setError("This cannot be empty.");
+                            binding.gadgetUsageL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.gadgetUsageL.setError(null);
+                            binding.gadgetUsageL.setErrorIconDrawable(null);
+                        }
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        if (TextUtils.isEmpty(binding.gadgetDescription.getText().toString())) {
+                            binding.gadgetDescriptionL.setError("This cannot be empty.");
+                            binding.gadgetDescriptionL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.gadgetDescriptionL.setError(null);
+                            binding.gadgetDescriptionL.setErrorIconDrawable(null);
+                        }
 
-            }
+                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        intent.putExtra("gadgetType", binding.gadgetsType.getText().toString());
+                        intent.putExtra("gadgetBrand", binding.gadgetsBrand.getText().toString());
+                        intent.putExtra("gadgetColor", binding.gadgetColor.getText().toString());
+                        intent.putExtra("gadgetUsage", binding.gadgetUsage.getText().toString());
+                        intent.putExtra("gadgetDescription", binding.gadgetDescription.getText().toString());
+                        intent.putExtra("item_name", item_name);
+                        intent.putExtra("rft", reasonForTrading);
+                        intent.putExtra("category", category);
+                        intent.putExtra("pref_item", preferred_item);
+                        startActivity(intent);
+                    }
+                });
+                break;
+            case "Game":
+                apparelL.setVisibility(View.GONE);
+                gadgetsL.setVisibility(View.GONE);
+                gameL.setVisibility(View.VISIBLE);
+                bagsL.setVisibility(View.GONE);
+                groceriesL.setVisibility(View.GONE);
+                furnitureL.setVisibility(View.GONE);
+                bnkL.setVisibility(View.GONE);
+                appliancesL.setVisibility(View.GONE);
+                motorsL.setVisibility(View.GONE);
+                audioL.setVisibility(View.GONE);
+                otherL.setVisibility(View.GONE);
+                schoolL.setVisibility(View.GONE);
 
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (R1C2.getText().toString().equals(editable.toString()) || R1C3.getText().toString().equals(editable.toString()) || R1C4.getText().toString().equals(editable.toString()) || R1C5.getText().toString().equals(editable.toString())) {
-                    Toast.makeText(PostItem_S2.this, "This item is already present in measurement header.", Toast.LENGTH_SHORT).show();
-                } else {
-                    R1C5.setText(editable);
-                }
-            }
-        });
+                apparelL.setVisibility(View.GONE);
+                gadgetsL.setVisibility(View.VISIBLE);
+                gameL.setVisibility(View.GONE);
+                bagsL.setVisibility(View.GONE);
+                groceriesL.setVisibility(View.GONE);
+                furnitureL.setVisibility(View.GONE);
+                bnkL.setVisibility(View.GONE);
+                appliancesL.setVisibility(View.GONE);
+                motorsL.setVisibility(View.GONE);
+                audioL.setVisibility(View.GONE);
+                otherL.setVisibility(View.GONE);
+                schoolL.setVisibility(View.GONE);
 
-        sizeXS.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                nextBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (TextUtils.isEmpty(binding.gameType.getText().toString())) {
+                            binding.gameTypeL.setError("This cannot be empty.");
+                            binding.gameTypeL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.gameTypeL.setError(null);
+                            binding.gameTypeL.setErrorIconDrawable(null);
+                        }
 
-                if (b && hideAdditionalSize.getVisibility() == View.GONE) {
-                    showAdditionalSize.setVisibility(View.VISIBLE);
-                    xsRow.setVisibility(View.VISIBLE);
-                } else if (!sizeS.isChecked() && !sizeM.isChecked() && !sizeL.isChecked() && !sizeXL.isChecked() && !sizeXXL.isChecked() && !sizeXXXL.isChecked()){
-                    showAdditionalSize.setVisibility(View.GONE);
-                    xsRow.setVisibility(View.GONE);
-                } else {
-                    xsRow.setVisibility(View.GONE);
-                }
+                        if (TextUtils.isEmpty(binding.gameBrand.getText().toString())) {
+                            binding.gameBrandL.setError("This cannot be empty.");
+                            binding.gameBrandL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.gameBrandL.setError(null);
+                            binding.gameBrandL.setErrorIconDrawable(null);
+                        }
 
-            }
-        });
+                        if (TextUtils.isEmpty(binding.gametUsage.getText().toString())) {
+                            binding.gameUsageL.setError("This cannot be empty.");
+                            binding.gameUsageL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.gameUsageL.setError(null);
+                            binding.gameUsageL.setErrorIconDrawable(null);
+                        }
 
-        sizeS.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                        if (TextUtils.isEmpty(binding.gameDescription.getText().toString())) {
+                            binding.gameDescriptionL.setError("This cannot be empty.");
+                            binding.gameDescriptionL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.gameDescriptionL.setError(null);
+                            binding.gameDescriptionL.setErrorIconDrawable(null);
+                        }
 
-                if (b && hideAdditionalSize.getVisibility() == View.GONE) {
-                    showAdditionalSize.setVisibility(View.VISIBLE);
-                    sRow.setVisibility(View.VISIBLE);
-                } else if (!sizeXS.isChecked() && !sizeM.isChecked() && !sizeL.isChecked() && !sizeXL.isChecked() && !sizeXXL.isChecked() && !sizeXXXL.isChecked()) {
-                    showAdditionalSize.setVisibility(View.GONE);
-                    sRow.setVisibility(View.GONE);
-                } else {
-                    sRow.setVisibility(View.GONE);
-                }
+                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        intent.putExtra("gameType", binding.gameType.getText().toString());
+                        intent.putExtra("gameBrand", binding.gameBrand.getText().toString());
+                        intent.putExtra("gameUsage", binding.gametUsage.getText().toString());
+                        intent.putExtra("gameDescription", binding.gameDescription.getText().toString());
+                        intent.putExtra("item_name", item_name);
+                        intent.putExtra("rft", reasonForTrading);
+                        intent.putExtra("category", category);
+                        intent.putExtra("pref_item", preferred_item);
+                        startActivity(intent);
+                    }
+                });
 
-            }
-        });
+                break;
+            case "Bags":
+                apparelL.setVisibility(View.GONE);
+                gadgetsL.setVisibility(View.GONE);
+                gameL.setVisibility(View.GONE);
+                bagsL.setVisibility(View.VISIBLE);
+                groceriesL.setVisibility(View.GONE);
+                furnitureL.setVisibility(View.GONE);
+                bnkL.setVisibility(View.GONE);
+                appliancesL.setVisibility(View.GONE);
+                motorsL.setVisibility(View.GONE);
+                audioL.setVisibility(View.GONE);
+                otherL.setVisibility(View.GONE);
+                schoolL.setVisibility(View.GONE);
 
-        sizeM.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                nextBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (TextUtils.isEmpty(binding.bagType.getText().toString())) {
+                            binding.bagTypeL.setError("This cannot be empty.");
+                            binding.bagTypeL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.bagTypeL.setError(null);
+                            binding.bagTypeL.setErrorIconDrawable(null);
+                        }
 
-                if (b && hideAdditionalSize.getVisibility() == View.GONE) {
-                    showAdditionalSize.setVisibility(View.VISIBLE);
-                    mRow.setVisibility(View.VISIBLE);
-                } else  if (!sizeS.isChecked() && !sizeXS.isChecked() && !sizeL.isChecked() && !sizeXL.isChecked() && !sizeXXL.isChecked() && !sizeXXXL.isChecked()){
-                    showAdditionalSize.setVisibility(View.GONE);
-                    mRow.setVisibility(View.GONE);
-                } else {
-                    mRow.setVisibility(View.GONE);
-                }
+                        if (TextUtils.isEmpty(binding.bagBrand.getText().toString())) {
+                            binding.bagBrandL.setError("This cannot be empty.");
+                            binding.bagBrandL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.bagBrandL.setError(null);
+                            binding.bagBrandL.setErrorIconDrawable(null);
+                        }
 
-            }
-        });
+                        if (TextUtils.isEmpty(binding.bagColor.getText().toString())) {
+                            binding.bagColorL.setError("This cannot be empty.");
+                            binding.bagColorL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.bagColorL.setError(null);
+                            binding.bagColorL.setErrorIconDrawable(null);
+                        }
 
-        sizeL.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                        if (TextUtils.isEmpty(binding.bagUsage.getText().toString())) {
+                            binding.bagUsageL.setError("This cannot be empty.");
+                            binding.bagUsageL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.bagUsageL.setError(null);
+                            binding.bagUsageL.setErrorIconDrawable(null);
+                        }
 
-                if (b && hideAdditionalSize.getVisibility() == View.GONE) {
-                    showAdditionalSize.setVisibility(View.VISIBLE);
-                    lRow.setVisibility(View.VISIBLE);
-                } else if (!sizeS.isChecked() && !sizeM.isChecked() && !sizeXS.isChecked() && !sizeXL.isChecked() && !sizeXXL.isChecked() && !sizeXXXL.isChecked()) {
-                    showAdditionalSize.setVisibility(View.GONE);
-                    lRow.setVisibility(View.GONE);
-                } else {
-                    lRow.setVisibility(View.GONE);
-                }
+                        if (TextUtils.isEmpty(binding.bagDescription.getText().toString())) {
+                            binding.bagDescriptionL.setError("This cannot be empty.");
+                            binding.bagDescriptionL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.bagDescriptionL.setError(null);
+                            binding.bagDescriptionL.setErrorIconDrawable(null);
+                        }
 
-            }
-        });
+                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        intent.putExtra("gadgetType", binding.gadgetsType.getText().toString());
+                        intent.putExtra("gadgetBrand", binding.gadgetsBrand.getText().toString());
+                        intent.putExtra("gadgetColor", binding.gadgetColor.getText().toString());
+                        intent.putExtra("gadgetUsage", binding.gadgetUsage.getText().toString());
+                        intent.putExtra("gadgetDescription", binding.gadgetDescription.getText().toString());
+                        intent.putExtra("item_name", item_name);
+                        intent.putExtra("rft", reasonForTrading);
+                        intent.putExtra("category", category);
+                        intent.putExtra("pref_item", preferred_item);
+                        startActivity(intent);
+                    }
+                });
 
-        sizeXL.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                break;
+            case "Groceries":
+                apparelL.setVisibility(View.GONE);
+                gadgetsL.setVisibility(View.GONE);
+                gameL.setVisibility(View.GONE);
+                bagsL.setVisibility(View.GONE);
+                groceriesL.setVisibility(View.VISIBLE);
+                furnitureL.setVisibility(View.GONE);
+                bnkL.setVisibility(View.GONE);
+                appliancesL.setVisibility(View.GONE);
+                motorsL.setVisibility(View.GONE);
+                audioL.setVisibility(View.GONE);
+                otherL.setVisibility(View.GONE);
+                schoolL.setVisibility(View.GONE);
 
-                Log.d("TAG", "" + !sizeL.isChecked());
+                nextBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (TextUtils.isEmpty(binding.groceryList.getText().toString())) {
+                            binding.groceryListL.setError("This cannot be empty.");
+                            binding.groceryListL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.groceryListL.setError(null);
+                            binding.groceryListL.setErrorIconDrawable(null);
+                        }
 
-                if (b && hideAdditionalSize.getVisibility() == View.GONE) {
-                    showAdditionalSize.setVisibility(View.VISIBLE);
-                    xlRow.setVisibility(View.VISIBLE);
-                } else if (!sizeS.isChecked() && !sizeM.isChecked() && !sizeL.isChecked() && !sizeXS.isChecked() && !sizeXXL.isChecked() && !sizeXXXL.isChecked()) {
-                    Log.d("TAG", "IN" );
-                    showAdditionalSize.setVisibility(View.GONE);
-                    xlRow.setVisibility(View.GONE);
-                } else {
-                    xlRow.setVisibility(View.GONE);
-                }
+                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        intent.putExtra("groceryList", binding.groceryList.getText().toString());
+                        intent.putExtra("item_name", item_name);
+                        intent.putExtra("rft", reasonForTrading);
+                        intent.putExtra("category", category);
+                        intent.putExtra("pref_item", preferred_item);
+                        startActivity(intent);
+                    }
+                });
 
-            }
-        });
+                break;
+            case "Furniture":
+                apparelL.setVisibility(View.GONE);
+                gadgetsL.setVisibility(View.GONE);
+                gameL.setVisibility(View.GONE);
+                bagsL.setVisibility(View.GONE);
+                groceriesL.setVisibility(View.GONE);
+                furnitureL.setVisibility(View.VISIBLE);
+                bnkL.setVisibility(View.GONE);
+                appliancesL.setVisibility(View.GONE);
+                motorsL.setVisibility(View.GONE);
+                audioL.setVisibility(View.GONE);
+                otherL.setVisibility(View.GONE);
+                schoolL.setVisibility(View.GONE);
 
-        sizeXXL.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                nextBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (TextUtils.isEmpty(binding.furnitureBrand.getText().toString())) {
+                            binding.furnitureBrandL.setError("This cannot be empty.");
+                            binding.furnitureBrandL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.furnitureBrandL.setError(null);
+                            binding.furnitureBrandL.setErrorIconDrawable(null);
+                        }
 
-                if (b && hideAdditionalSize.getVisibility() == View.GONE) {
-                    showAdditionalSize.setVisibility(View.VISIBLE);
-                    xxlRow.setVisibility(View.VISIBLE);
-                } else if (!sizeS.isChecked() && !sizeM.isChecked() && !sizeL.isChecked() && !sizeXL.isChecked() && !sizeXS.isChecked() && !sizeXXXL.isChecked()) {
-                    showAdditionalSize.setVisibility(View.GONE);
-                    xxlRow.setVisibility(View.GONE);
-                } else {
-                    xxlRow.setVisibility(View.GONE);
-                }
+                        if (TextUtils.isEmpty(binding.furnitureColor.getText().toString())) {
+                            binding.furnitureColorL.setError("This cannot be empty.");
+                            binding.furnitureColorL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.furnitureColorL.setError(null);
+                            binding.furnitureColorL.setErrorIconDrawable(null);
+                        }
 
-            }
-        });
+                        if (TextUtils.isEmpty(binding.furnitureUsage.getText().toString())) {
+                            binding.furnitureUsageL.setError("This cannot be empty.");
+                            binding.furnitureUsageL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.furnitureUsageL.setError(null);
+                            binding.furnitureUsageL.setErrorIconDrawable(null);
+                        }
 
-        sizeXXXL.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                        if (TextUtils.isEmpty(binding.furnitureSizeHeight.getText().toString()) || TextUtils.isEmpty(binding.furnitureSizeWidth.getText().toString()) || TextUtils.isEmpty(binding.furnitureSizeLength.getText().toString())) {
+                            binding.furnitureDimensionError.setVisibility(View.VISIBLE);
+                            binding.furnitureDimensionError.setText("Dimensions cannot be empty.");
+                            return;
+                        } else {
+                            binding.furnitureDimensionError.setVisibility(View.GONE);
+                            binding.furnitureDimensionError.setText("");
+                        }
 
-                if (b && hideAdditionalSize.getVisibility() == View.GONE) {
-                    showAdditionalSize.setVisibility(View.VISIBLE);
-                    xxxlRow.setVisibility(View.VISIBLE);
-                } else if (!sizeS.isChecked() && !sizeM.isChecked() && !sizeL.isChecked() && !sizeXL.isChecked() && !sizeXXL.isChecked() && !sizeXS.isChecked()) {
-                    showAdditionalSize.setVisibility(View.GONE);
-                    xxxlRow.setVisibility(View.GONE);
-                } else {
-                    xxxlRow.setVisibility(View.GONE);
-                }
+                        if (TextUtils.isEmpty(binding.furnitureDescription.getText().toString())) {
+                            binding.furnitureDescriptionL.setError("This cannot be empty.");
+                            binding.furnitureDescriptionL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.furnitureDescriptionL.setError(null);
+                            binding.furnitureDescriptionL.setErrorIconDrawable(null);
+                        }
 
-            }
-        });
+                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        intent.putExtra("furnitureBrand", binding.furnitureBrand.getText().toString());
+                        intent.putExtra("furnitureColor", binding.furnitureColor.getText().toString());
+                        intent.putExtra("furnitureUsage", binding.furnitureUsage.getText().toString());
+                        intent.putExtra("furnitureHeight", binding.furnitureSizeHeight.getText().toString());
+                        intent.putExtra("furnitureWidth", binding.furnitureSizeWidth.getText().toString());
+                        intent.putExtra("furnitureLength", binding.furnitureSizeLength.getText().toString());
+                        intent.putExtra("furnitureDescription", binding.furnitureDescription.getText().toString());
+                        intent.putExtra("item_name", item_name);
+                        intent.putExtra("rft", reasonForTrading);
+                        intent.putExtra("category", category);
+                        intent.putExtra("pref_item", preferred_item);
+                        startActivity(intent);
+                    }
+                });
 
-       showAdditionalSize.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               showAdditionalSize.setVisibility(View.GONE);
-               hideAdditionalSize.setVisibility(View.VISIBLE);
-               additionalSizeInterface.setVisibility(View.VISIBLE);
+                break;
+            case "Babies & Kids":
+                apparelL.setVisibility(View.GONE);
+                gadgetsL.setVisibility(View.GONE);
+                gameL.setVisibility(View.GONE);
+                bagsL.setVisibility(View.GONE);
+                groceriesL.setVisibility(View.GONE);
+                furnitureL.setVisibility(View.GONE);
+                bnkL.setVisibility(View.VISIBLE);
+                appliancesL.setVisibility(View.GONE);
+                motorsL.setVisibility(View.GONE);
+                audioL.setVisibility(View.GONE);
+                otherL.setVisibility(View.GONE);
+                schoolL.setVisibility(View.GONE);
 
-               sizeXS.setEnabled(false);
-               sizeS.setEnabled(false);
-               sizeM.setEnabled(false);
-               sizeL.setEnabled(false);
-               sizeXL.setEnabled(false);
-               sizeXXL.setEnabled(false);
-               sizeXXXL.setEnabled(false);
-           }
-       });
+                nextBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (TextUtils.isEmpty(binding.bnkType.getText().toString())) {
+                            binding.bnkTypeL.setError("This cannot be empty.");
+                            binding.bnkTypeL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.bnkTypeL.setError(null);
+                            binding.bnkTypeL.setErrorIconDrawable(null);
+                        }
 
-        hideAdditionalSize.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                hideAdditionalSize.setVisibility(View.GONE);
-                showAdditionalSize.setVisibility(View.VISIBLE);
-                additionalSizeInterface.setVisibility(View.GONE);
+                        if (TextUtils.isEmpty(binding.bnkBrand.getText().toString())) {
+                            binding.bnkBrandL.setError("This cannot be empty.");
+                            binding.bnkBrandL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.bnkBrandL.setError(null);
+                            binding.bnkBrandL.setErrorIconDrawable(null);
+                        }
 
-                sizeXS.setEnabled(true);
-                sizeS.setEnabled(true);
-                sizeM.setEnabled(true);
-                sizeL.setEnabled(true);
-                sizeXL.setEnabled(true);
-                sizeXXL.setEnabled(true);
-                sizeXXXL.setEnabled(true);
-            }
-        });
+                        if (TextUtils.isEmpty(binding.bnkUsage.getText().toString())) {
+                            binding.bnkUsageL.setError("This cannot be empty.");
+                            binding.bnkUsageL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.bnkUsageL.setError(null);
+                            binding.bnkUsageL.setErrorIconDrawable(null);
+                        }
+
+                        if (TextUtils.isEmpty(binding.bnkAge.getText().toString())) {
+                            binding.bnkAgeL.setError("This cannot be empty.");
+                            binding.bnkAgeL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.bnkAgeL.setError(null);
+                            binding.bnkAgeL.setErrorIconDrawable(null);
+                        }
+
+                        if (TextUtils.isEmpty(binding.bnkDescription.getText().toString())) {
+                            binding.bnkDescriptionL.setError("This cannot be empty.");
+                            binding.bnkDescriptionL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.bnkDescriptionL.setError(null);
+                            binding.bnkDescriptionL.setErrorIconDrawable(null);
+                        }
+
+                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        intent.putExtra("bnkAge", binding.bnkAge.getText().toString());
+                        intent.putExtra("bnkBrand", binding.bnkBrand.getText().toString());
+                        intent.putExtra("bnkType", binding.bnkType.getText().toString());
+                        intent.putExtra("bnkUsage", binding.bnkUsage.getText().toString());
+                        intent.putExtra("bnkDescription", binding.bnkDescription.getText().toString());
+                        intent.putExtra("item_name", item_name);
+                        intent.putExtra("rft", reasonForTrading);
+                        intent.putExtra("category", category);
+                        intent.putExtra("pref_item", preferred_item);
+                        startActivity(intent);
+                    }
+                });
+
+                break;
+            case "Appliances":
+                apparelL.setVisibility(View.GONE);
+                gadgetsL.setVisibility(View.GONE);
+                gameL.setVisibility(View.GONE);
+                bagsL.setVisibility(View.GONE);
+                groceriesL.setVisibility(View.GONE);
+                furnitureL.setVisibility(View.GONE);
+                bnkL.setVisibility(View.GONE);
+                appliancesL.setVisibility(View.VISIBLE);
+                motorsL.setVisibility(View.GONE);
+                audioL.setVisibility(View.GONE);
+                otherL.setVisibility(View.GONE);
+                schoolL.setVisibility(View.GONE);
+
+                nextBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (TextUtils.isEmpty(binding.appliancesType.getText().toString())) {
+                            binding.appliancesTypeL.setError("This cannot be empty.");
+                            binding.appliancesTypeL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.appliancesTypeL.setError(null);
+                            binding.appliancesTypeL.setErrorIconDrawable(null);
+                        }
+
+                        if (TextUtils.isEmpty(binding.appliancesBrand.getText().toString())) {
+                            binding.appliancesBrandL.setError("This cannot be empty.");
+                            binding.appliancesBrandL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.appliancesBrandL.setError(null);
+                            binding.appliancesBrandL.setErrorIconDrawable(null);
+                        }
+
+                        if (TextUtils.isEmpty(binding.appliancesColor.getText().toString())) {
+                            binding.appliancesColorL.setError("This cannot be empty.");
+                            binding.appliancesColorL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.appliancesColorL.setError(null);
+                            binding.appliancesColorL.setErrorIconDrawable(null);
+                        }
+
+                        if (TextUtils.isEmpty(binding.appliancesUsage.getText().toString())) {
+                            binding.appliancesUsageL.setError("This cannot be empty.");
+                            binding.appliancesUsageL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.appliancesUsageL.setError(null);
+                            binding.appliancesUsageL.setErrorIconDrawable(null);
+                        }
+
+                        if (TextUtils.isEmpty(binding.appliancesDescription.getText().toString())) {
+                            binding.appliancesDescriptionL.setError("This cannot be empty.");
+                            binding.appliancesDescriptionL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.appliancesDescriptionL.setError(null);
+                            binding.appliancesDescriptionL.setErrorIconDrawable(null);
+                        }
+
+                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        intent.putExtra("appliancesType", binding.appliancesType.getText().toString());
+                        intent.putExtra("appliancesBrand", binding.appliancesBrand.getText().toString());
+                        intent.putExtra("appliancesColor", binding.appliancesColor.getText().toString());
+                        intent.putExtra("appliancesUsage", binding.appliancesUsage.getText().toString());
+                        intent.putExtra("appliancesDescription", binding.appliancesDescription.getText().toString());
+                        intent.putExtra("item_name", item_name);
+                        intent.putExtra("rft", reasonForTrading);
+                        intent.putExtra("category", category);
+                        intent.putExtra("pref_item", preferred_item);
+                        startActivity(intent);
+                    }
+                });
+
+                break;
+            case "Motors":
+                apparelL.setVisibility(View.GONE);
+                gadgetsL.setVisibility(View.GONE);
+                gameL.setVisibility(View.GONE);
+                bagsL.setVisibility(View.GONE);
+                groceriesL.setVisibility(View.GONE);
+                furnitureL.setVisibility(View.GONE);
+                bnkL.setVisibility(View.GONE);
+                appliancesL.setVisibility(View.GONE);
+                motorsL.setVisibility(View.VISIBLE);
+                audioL.setVisibility(View.GONE);
+                otherL.setVisibility(View.GONE);
+                schoolL.setVisibility(View.GONE);
+
+                nextBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (TextUtils.isEmpty(binding.motorModel.getText().toString())) {
+                            binding.motorModelL.setError("This cannot be empty.");
+                            binding.motorModelL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.motorModelL.setError(null);
+                            binding.motorModelL.setErrorIconDrawable(null);
+                        }
+
+                        if (TextUtils.isEmpty(binding.motorBrand.getText().toString())) {
+                            binding.motorBrandL.setError("This cannot be empty.");
+                            binding.motorBrandL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.motorBrandL.setError(null);
+                            binding.motorBrandL.setErrorIconDrawable(null);
+                        }
+
+                        if (TextUtils.isEmpty(binding.motorColor.getText().toString())) {
+                            binding.motorColorL.setError("This cannot be empty.");
+                            binding.motorColorL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.motorColorL.setError(null);
+                            binding.motorColorL.setErrorIconDrawable(null);
+                        }
+
+                        if (TextUtils.isEmpty(binding.motorUsage.getText().toString())) {
+                            binding.motorUsageL.setError("This cannot be empty.");
+                            binding.motorUsageL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.motorUsageL.setError(null);
+                            binding.motorUsageL.setErrorIconDrawable(null);
+                        }
+
+                        if (TextUtils.isEmpty(binding.motorDescription.getText().toString())) {
+                            binding.motorDescriptionL.setError("This cannot be empty.");
+                            binding.motorDescriptionL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.motorDescriptionL.setError(null);
+                            binding.motorDescriptionL.setErrorIconDrawable(null);
+                        }
+
+                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        intent.putExtra("appliancesType", binding.appliancesType.getText().toString());
+                        intent.putExtra("appliancesBrand", binding.appliancesBrand.getText().toString());
+                        intent.putExtra("appliancesColor", binding.appliancesColor.getText().toString());
+                        intent.putExtra("appliancesUsage", binding.appliancesUsage.getText().toString());
+                        intent.putExtra("appliancesDescription", binding.appliancesDescription.getText().toString());
+                        intent.putExtra("item_name", item_name);
+                        intent.putExtra("rft", reasonForTrading);
+                        intent.putExtra("category", category);
+                        intent.putExtra("pref_item", preferred_item);
+                        startActivity(intent);
+                    }
+                });
+
+                break;
+            case "Audio":
+                apparelL.setVisibility(View.GONE);
+                gadgetsL.setVisibility(View.GONE);
+                gameL.setVisibility(View.GONE);
+                bagsL.setVisibility(View.GONE);
+                groceriesL.setVisibility(View.GONE);
+                furnitureL.setVisibility(View.GONE);
+                bnkL.setVisibility(View.GONE);
+                appliancesL.setVisibility(View.GONE);
+                motorsL.setVisibility(View.GONE);
+                audioL.setVisibility(View.VISIBLE);
+                otherL.setVisibility(View.GONE);
+                schoolL.setVisibility(View.GONE);
+
+                nextBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        if (TextUtils.isEmpty(binding.audioArtist.getText().toString())) {
+                            binding.audioArtistL.setError("This cannot be empty.");
+                            binding.audioArtistL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.audioArtistL.setError(null);
+                            binding.audioArtistL.setErrorIconDrawable(null);
+                        }
+
+                        if (TextUtils.isEmpty(binding.audioReleaseDate.getText().toString())) {
+                            binding.audioReleaseDateL.setError("This cannot be empty.");
+                            binding.audioReleaseDateL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.audioReleaseDateL.setError(null);
+                            binding.audioReleaseDateL.setErrorIconDrawable(null);
+                        }
+
+                        if (TextUtils.isEmpty(binding.audioUsage.getText().toString())) {
+                            binding.audioUsageL.setError("This cannot be empty.");
+                            binding.audioUsageL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.audioUsageL.setError(null);
+                            binding.audioUsageL.setErrorIconDrawable(null);
+                        }
+
+                        if (TextUtils.isEmpty(binding.audioDescription.getText().toString())) {
+                            binding.audioDescriptionL.setError("This cannot be empty.");
+                            binding.audioDescriptionL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.audioDescriptionL.setError(null);
+                            binding.audioDescriptionL.setErrorIconDrawable(null);
+                        }
+
+                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        intent.putExtra("audioArtist", binding.audioArtist.getText().toString());
+                        intent.putExtra("audioReleaseDate", binding.audioReleaseDate.getText().toString());
+                        intent.putExtra("audioUsage", binding.audioUsage.getText().toString());
+                        intent.putExtra("audioDescription", binding.audioDescription.getText().toString());
+                        intent.putExtra("item_name", item_name);
+                        intent.putExtra("rft", reasonForTrading);
+                        intent.putExtra("category", category);
+                        intent.putExtra("pref_item", preferred_item);
+                        startActivity(intent);
+                    }
+                });
+
+                break;
+            case "School":
+                apparelL.setVisibility(View.GONE);
+                gadgetsL.setVisibility(View.GONE);
+                gameL.setVisibility(View.GONE);
+                bagsL.setVisibility(View.GONE);
+                groceriesL.setVisibility(View.GONE);
+                furnitureL.setVisibility(View.GONE);
+                bnkL.setVisibility(View.GONE);
+                appliancesL.setVisibility(View.GONE);
+                motorsL.setVisibility(View.GONE);
+                audioL.setVisibility(View.GONE);
+                otherL.setVisibility(View.GONE);
+                schoolL.setVisibility(View.VISIBLE);
+
+                nextBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (TextUtils.isEmpty(binding.schoolType.getText().toString())) {
+                            binding.schoolTypeL.setError("This cannot be empty.");
+                            binding.schoolTypeL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.schoolTypeL.setError(null);
+                            binding.schoolTypeL.setErrorIconDrawable(null);
+                        }
+
+                        if (TextUtils.isEmpty(binding.schoolBrand.getText().toString())) {
+                            binding.schoolBrandL.setError("This cannot be empty.");
+                            binding.schoolBrandL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.schoolBrandL.setError(null);
+                            binding.schoolBrandL.setErrorIconDrawable(null);
+                        }
+
+                        if (TextUtils.isEmpty(binding.schoolColor.getText().toString())) {
+                            binding.schoolColorL.setError("This cannot be empty.");
+                            binding.schoolColorL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.schoolColorL.setError(null);
+                            binding.schoolColorL.setErrorIconDrawable(null);
+                        }
+
+                        if (TextUtils.isEmpty(binding.schoolUsage.getText().toString())) {
+                            binding.schoolUsageL.setError("This cannot be empty.");
+                            binding.schoolUsageL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.schoolUsageL.setError(null);
+                            binding.schoolUsageL.setErrorIconDrawable(null);
+                        }
+
+                        if (TextUtils.isEmpty(binding.schoolDescription.getText().toString())) {
+                            binding.schoolDescriptionL.setError("This cannot be empty.");
+                            binding.schoolDescriptionL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.schoolDescriptionL.setError(null);
+                            binding.schoolDescriptionL.setErrorIconDrawable(null);
+                        }
+
+                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        intent.putExtra("schoolType", binding.schoolType.getText().toString());
+                        intent.putExtra("schoolBrand", binding.schoolBrand.getText().toString());
+                        intent.putExtra("schoolColor", binding.schoolColor.getText().toString());
+                        intent.putExtra("schoolUsage", binding.schoolUsage.getText().toString());
+                        intent.putExtra("schoolDescription", binding.schoolDescription.getText().toString());
+                        intent.putExtra("item_name", item_name);
+                        intent.putExtra("rft", reasonForTrading);
+                        intent.putExtra("category", category);
+                        intent.putExtra("pref_item", preferred_item);
+                        startActivity(intent);
+                    }
+                });
+
+                break;
+            case "Women's Apparel":
+                mApparelL.setVisibility(View.GONE);
+                wApparelL.setVisibility(View.VISIBLE);
+                apparelL.setVisibility(View.VISIBLE);
+                gadgetsL.setVisibility(View.GONE);
+                gameL.setVisibility(View.GONE);
+                bagsL.setVisibility(View.GONE);
+                groceriesL.setVisibility(View.GONE);
+                furnitureL.setVisibility(View.GONE);
+                bnkL.setVisibility(View.GONE);
+                appliancesL.setVisibility(View.GONE);
+                motorsL.setVisibility(View.GONE);
+                audioL.setVisibility(View.GONE);
+                otherL.setVisibility(View.GONE);
+                schoolL.setVisibility(View.GONE);
+
+                nextBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (TextUtils.isEmpty(binding.clothingTypeW.getText().toString())) {
+                            binding.clothingTypeWL.setError("This cannot be empty.");
+                            binding.clothingTypeWL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.clothingTypeWL.setError(null);
+                            binding.clothingTypeWL.setErrorIconDrawable(null);
+                        }
+
+                        if (TextUtils.isEmpty(binding.brand.getText().toString())) {
+                            binding.brandL.setError("This cannot be empty.");
+                            binding.brandL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.brandL.setError(null);
+                            binding.brandL.setErrorIconDrawable(null);
+                        }
+
+                        if (TextUtils.isEmpty(binding.color.getText().toString())) {
+                            binding.colorL.setError("This cannot be empty.");
+                            binding.colorL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.colorL.setError(null);
+                            binding.colorL.setErrorIconDrawable(null);
+                        }
+
+                        if (TextUtils.isEmpty(binding.material.getText().toString())) {
+                            binding.materialL.setError("This cannot be empty.");
+                            binding.materialL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.materialL.setError(null);
+                            binding.materialL.setErrorIconDrawable(null);
+                        }
+
+                        if (TextUtils.isEmpty(binding.usage.getText().toString())) {
+                            binding.usageL.setError("This cannot be empty.");
+                            binding.usageL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.usageL.setError(null);
+                            binding.usageL.setErrorIconDrawable(null);
+                        }
+
+                        if (!sizeXS.isChecked() && !sizeS.isChecked() && !sizeM.isChecked() && !sizeL.isChecked() && !sizeXL.isChecked() && !sizeXXL.isChecked() && !sizeXXXL.isChecked()) {
+                            binding.sizeError.setVisibility(View.VISIBLE);
+                            return;
+                        } else {
+                            binding.sizeError.setVisibility(View.GONE);
+                        }
+
+                        if (TextUtils.isEmpty(binding.description.getText().toString())) {
+                            binding.descriptionL.setError("This cannot be empty.");
+                            binding.descriptionL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.descriptionL.setError(null);
+                            binding.descriptionL.setErrorIconDrawable(null);
+                        }
+
+                        ArrayList<String> sizesArr = new ArrayList<String>();
+
+                        if (sizeXS.isChecked()){
+                            sizesArr.add("XS");
+                        }
+
+                        if (sizeS.isChecked()) {
+                            sizesArr.add("S");
+                        }
+
+                        if (sizeM.isChecked()){
+                            sizesArr.add("M");
+                        }
+
+                        if (sizeL.isChecked()) {
+                            sizesArr.add("L");
+                        }
+
+                        if (sizeXL.isChecked()){
+                            sizesArr.add("XL");
+                        }
+
+                        if (sizeXXL.isChecked()) {
+                            sizesArr.add("2XL");
+                        }
+
+                        if (sizeXXXL.isChecked()){
+                            sizesArr.add("3XL");
+                        }
+
+                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        intent.putExtra("womensClothingType", binding.clothingTypeW.getText().toString());
+                        intent.putExtra("womensBrand", binding.brand.getText().toString());
+                        intent.putExtra("womensColor", binding.color.getText().toString());
+                        intent.putExtra("womensMaterial", binding.material.getText().toString());
+                        intent.putExtra("womensUsage", binding.usage.getText().toString());
+                        intent.putExtra("womensSizes", sizesArr.toString());
+                        intent.putExtra("womensDescription", binding.description.getText().toString());
+                        intent.putExtra("item_name", item_name);
+                        intent.putExtra("rft", reasonForTrading);
+                        intent.putExtra("category", category);
+                        intent.putExtra("pref_item", preferred_item);
+                        startActivity(intent);
+                    }
+                });
+
+                break;
+            case "Others":
+                apparelL.setVisibility(View.GONE);
+                gadgetsL.setVisibility(View.GONE);
+                gameL.setVisibility(View.GONE);
+                bagsL.setVisibility(View.GONE);
+                groceriesL.setVisibility(View.GONE);
+                furnitureL.setVisibility(View.GONE);
+                bnkL.setVisibility(View.GONE);
+                appliancesL.setVisibility(View.GONE);
+                motorsL.setVisibility(View.GONE);
+                audioL.setVisibility(View.GONE);
+                otherL.setVisibility(View.VISIBLE);
+                schoolL.setVisibility(View.GONE);
+
+                nextBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (TextUtils.isEmpty(binding.otherType.getText().toString())) {
+                            binding.otherTypeL.setError("This cannot be empty.");
+                            binding.otherTypeL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.otherTypeL.setError(null);
+                            binding.otherTypeL.setErrorIconDrawable(null);
+                        }
+
+                        if (TextUtils.isEmpty(binding.otherDescription.getText().toString())) {
+                            binding.otherDescriptionL.setError("This cannot be empty.");
+                            binding.otherDescriptionL.setErrorIconDrawable(null);
+                            return;
+                        } else {
+                            binding.otherDescriptionL.setError(null);
+                            binding.otherDescriptionL.setErrorIconDrawable(null);
+                        }
+
+                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        intent.putExtra("otherType", binding.otherType.getText().toString());
+                        intent.putExtra("otherDescription", binding.otherDescription.getText().toString());
+                        intent.putExtra("item_name", item_name);
+                        intent.putExtra("rft", reasonForTrading);
+                        intent.putExtra("category", category);
+                        intent.putExtra("pref_item", preferred_item);
+                        startActivity(intent);
+                    }
+                });
+
+                break;
+        }
     }
 }

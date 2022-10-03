@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins"
-                android:textColor="@color/black"
+                android:textColor="@color/primary_black"
                 android:textSize="12sp"
                 android:text="Pin point address:" />
 
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:fontFamily="@font/poppins_semibold"
-                android:textColor="@color/primary"
+                android:textColor="@color/primary_black"
                 android:text="Current address"/>
 
         </LinearLayout>
@@ -68,7 +68,7 @@
 
     <LinearLayout
         android:id="@+id/getRadius"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_margin="20dp"

@@ -21,14 +21,24 @@
         <item>Others</item>
     </string-array>
 
-    <string-array name="measurements">
-        <item>Shoulder Width</item>
-        <item>Arm Length</item>
-        <item>Sleeve Length</item>
-        <item>Bust</item>
-        <item>Waist</item>
-        <item>Hips</item>
-        <item>Leg Length</item>
+    <string-array name="wApparel">
+        <item>Tops</item>
+        <item>Bottoms</item>
+        <item>Dresses</item>
+        <item>Two-Piece</item>
+        <item>Active Wear</item>
+        <item>Jumpsuits</item>
+        <item>Underwear</item>
+    </string-array>
+
+    <string-array name="mApparel">
+        <item>Tops</item>
+        <item>Bottoms</item>
+        <item>Outerwear</item>
+        <item>Hoodies</item>
+        <item>Active Wear</item>
+        <item>Sweatshirts</item>
+        <item>Underwear</item>
     </string-array>
 
     <string name="file_provider" translatable="false">com.kroegerama.imgpicker.demo.fileprovider</string>
