@@ -88,13 +88,15 @@ public class PostItem_S1 extends AppCompatActivity {
         intent.putExtra("item_name", binding.itemName.getText().toString());
         intent.putExtra("rft", binding.itemRFT.getText().toString());
         intent.putExtra("pref_item", binding.itemPref.getText().toString());
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
+        CustomIntent.customType(PostItem_S1.this, "left-to-right");
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(PostItem_S1.this, Categories.class));
+        startActivity(new Intent(PostItem_S1.this, UserHomepage.class));
         CustomIntent.customType(PostItem_S1.this, "right-to-left");
         finish();
     }

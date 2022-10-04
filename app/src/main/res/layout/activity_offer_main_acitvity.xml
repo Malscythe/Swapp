@@ -11,7 +11,7 @@
         android:id="@+id/topBanner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/black_bottom_border">
+        android:background="@drawable/bottom_border">
 
         <TextView
             android:layout_width="wrap_content"
@@ -23,7 +23,7 @@
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/poppins"
             android:text="LISTED ITEMS"
-            android:textColor="@color/white"
+            android:textColor="@color/primary_black"
             android:textSize="24sp" />
 
     </RelativeLayout>

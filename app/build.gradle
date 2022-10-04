@@ -38,7 +38,9 @@ android {
 
 dependencies {
 
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
+    implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
     implementation 'com.kofigyan.stateprogressbar:stateprogressbar:1.0.0'
     implementation 'com.kroegerama:bottomsheet-imagepicker:1.1.2'
     implementation 'io.github.ParkSangGwon:tedpermission-normal:3.3.0'

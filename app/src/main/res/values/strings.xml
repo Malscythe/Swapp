@@ -21,6 +21,18 @@
         <item>Others</item>
     </string-array>
 
+    <plurals name="pick_multi">
+        <item quantity="one">One image selected</item>
+        <item quantity="other">%1$d images selected</item>
+    </plurals>
+
+    <plurals name="pick_multi_more">
+        <item quantity="one">Please select one more image…</item>
+        <item quantity="other">Please select %1$d more images…</item>
+    </plurals>
+
+    <string name="pick_multi_limit">You have more than %1$d images selected…</string>
+
     <string-array name="wApparel">
         <item>Tops</item>
         <item>Bottoms</item>

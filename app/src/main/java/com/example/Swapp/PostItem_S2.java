@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import Swapp.R;
 import Swapp.databinding.ActivityPostItemS1Binding;
 import Swapp.databinding.ActivityPostItemS2Binding;
+import maes.tech.intentanim.CustomIntent;
 
 public class PostItem_S2 extends AppCompatActivity {
 
@@ -232,7 +233,9 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("rft", reasonForTrading);
                         intent.putExtra("category", category);
                         intent.putExtra("pref_item", preferred_item);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
+                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
                     }
                 });
 
@@ -309,7 +312,9 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("rft", reasonForTrading);
                         intent.putExtra("category", category);
                         intent.putExtra("pref_item", preferred_item);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
+                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
                     }
                 });
                 break;
@@ -388,7 +393,9 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("rft", reasonForTrading);
                         intent.putExtra("category", category);
                         intent.putExtra("pref_item", preferred_item);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
+                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
                     }
                 });
 
@@ -456,16 +463,18 @@ public class PostItem_S2 extends AppCompatActivity {
                         }
 
                         Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
-                        intent.putExtra("gadgetType", binding.gadgetsType.getText().toString());
-                        intent.putExtra("gadgetBrand", binding.gadgetsBrand.getText().toString());
-                        intent.putExtra("gadgetColor", binding.gadgetColor.getText().toString());
-                        intent.putExtra("gadgetUsage", binding.gadgetUsage.getText().toString());
-                        intent.putExtra("gadgetDescription", binding.gadgetDescription.getText().toString());
+                        intent.putExtra("bagType", binding.bagType.getText().toString());
+                        intent.putExtra("bagBrand", binding.bagBrand.getText().toString());
+                        intent.putExtra("bagColor", binding.bagColor.getText().toString());
+                        intent.putExtra("bagUsage", binding.bagUsage.getText().toString());
+                        intent.putExtra("bagDescription", binding.bagDescription.getText().toString());
                         intent.putExtra("item_name", item_name);
                         intent.putExtra("rft", reasonForTrading);
                         intent.putExtra("category", category);
                         intent.putExtra("pref_item", preferred_item);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
+                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
                     }
                 });
 
@@ -502,7 +511,9 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("rft", reasonForTrading);
                         intent.putExtra("category", category);
                         intent.putExtra("pref_item", preferred_item);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
+                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
                     }
                 });
 
@@ -581,7 +592,9 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("rft", reasonForTrading);
                         intent.putExtra("category", category);
                         intent.putExtra("pref_item", preferred_item);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
+                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
                     }
                 });
 
@@ -658,7 +671,9 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("rft", reasonForTrading);
                         intent.putExtra("category", category);
                         intent.putExtra("pref_item", preferred_item);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
+                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
                     }
                 });
 
@@ -735,7 +750,9 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("rft", reasonForTrading);
                         intent.putExtra("category", category);
                         intent.putExtra("pref_item", preferred_item);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
+                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
                     }
                 });
 
@@ -803,16 +820,18 @@ public class PostItem_S2 extends AppCompatActivity {
                         }
 
                         Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
-                        intent.putExtra("appliancesType", binding.appliancesType.getText().toString());
-                        intent.putExtra("appliancesBrand", binding.appliancesBrand.getText().toString());
-                        intent.putExtra("appliancesColor", binding.appliancesColor.getText().toString());
-                        intent.putExtra("appliancesUsage", binding.appliancesUsage.getText().toString());
-                        intent.putExtra("appliancesDescription", binding.appliancesDescription.getText().toString());
+                        intent.putExtra("motorModel", binding.motorModel.getText().toString());
+                        intent.putExtra("motorBrand", binding.motorBrand.getText().toString());
+                        intent.putExtra("motorColor", binding.motorColor.getText().toString());
+                        intent.putExtra("motorUsage", binding.motorUsage.getText().toString());
+                        intent.putExtra("motorDescription", binding.motorDescription.getText().toString());
                         intent.putExtra("item_name", item_name);
                         intent.putExtra("rft", reasonForTrading);
                         intent.putExtra("category", category);
                         intent.putExtra("pref_item", preferred_item);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
+                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
                     }
                 });
 
@@ -880,7 +899,9 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("rft", reasonForTrading);
                         intent.putExtra("category", category);
                         intent.putExtra("pref_item", preferred_item);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
+                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
                     }
                 });
 
@@ -957,7 +978,9 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("rft", reasonForTrading);
                         intent.putExtra("category", category);
                         intent.putExtra("pref_item", preferred_item);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
+                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
                     }
                 });
 
@@ -1084,7 +1107,9 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("rft", reasonForTrading);
                         intent.putExtra("category", category);
                         intent.putExtra("pref_item", preferred_item);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
+                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
                     }
                 });
 
@@ -1131,11 +1156,22 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("rft", reasonForTrading);
                         intent.putExtra("category", category);
                         intent.putExtra("pref_item", preferred_item);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
+                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
                     }
                 });
 
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(PostItem_S2.this, PostItem_S1.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+        CustomIntent.customType(PostItem_S2.this, "right-to-left");
     }
 }

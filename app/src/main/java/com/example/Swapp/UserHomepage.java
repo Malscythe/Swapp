@@ -74,7 +74,7 @@ public class UserHomepage extends AppCompatActivity {
     ImageView viewChart;
     CircleImageView accsetting;
     Button dlvrbtn, inbbtn;
-    CardView tradeButton;
+    CardView tradeButton, postButton;
     Long pendingTrades = 0L;
     Long currentTrades = 0L;
     Long successfulTrades = 0L;
@@ -95,6 +95,7 @@ public class UserHomepage extends AppCompatActivity {
         chartDialog = new Dialog(this);
 //        logoutBtn = findViewById(R.id.logoutBtn);
         tradeButton = findViewById(R.id.tradeButton);
+        postButton = findViewById(R.id.postItemButton);
         accsetting = findViewById(R.id.accountSetting);
         pendingCounts = findViewById(R.id.pendingText);
         successfulCounts = findViewById(R.id.successfulText);
@@ -273,6 +274,17 @@ public class UserHomepage extends AppCompatActivity {
                 CustomIntent.customType(UserHomepage.this, "left-to-right");
             }
         });
+
+        postButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UserHomepage.this, PostItem_S1.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                CustomIntent.customType(UserHomepage.this, "left-to-right");
+            }
+        });
+
         dlvrbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
