@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,6 +47,14 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.kroegerama.imgpicker.BottomSheetImagePicker;
 import com.kroegerama.imgpicker.ButtonType;
+import com.sinch.android.rtc.PushPair;
+import com.sinch.android.rtc.Sinch;
+import com.sinch.android.rtc.SinchClient;
+import com.sinch.android.rtc.SinchError;
+import com.sinch.android.rtc.calling.Call;
+import com.sinch.android.rtc.calling.CallClient;
+import com.sinch.android.rtc.calling.CallClientListener;
+import com.sinch.android.rtc.calling.CallListener;
 
 import java.io.ByteArrayOutputStream;
 import java.sql.Timestamp;
@@ -74,6 +83,13 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
     String uid = firebaseAuth.getCurrentUser().getUid();
     Button sendImg;
     Uri imageUri;
+
+    private static final String APP_KEY = "ea982823-cc94-4f19-b063-8af4b03e2bfc";
+    private static final String APP_SECRET = "l2Xdo2leA0CliIGOklUAIw==";
+    private static final String ENVIRONMENT = "clientapi.sinch.com";
+
+    private Call call;
+    private SinchClient sinchClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -264,30 +280,69 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
     }
 
     private void makePhoneCall() {
+
         final String getMobile = getIntent().getStringExtra("mobile");
         String number = getMobile;
 
         if (number.length() > 0) {
-            if (ContextCompat.checkSelfPermission(Chat.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(Chat.this, new String[] {Manifest.permission.CALL_PHONE}, 1);
+            if (ContextCompat.checkSelfPermission(Chat.this,
+                    Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(Chat.this,
+                    Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(Chat.this, new String[] {Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_PHONE_STATE}, 1);
             } else {
-                String dial = "tel:" + number;
-                startActivity(new Intent(Intent.ACTION_CALL, Uri.parse(dial)));
+                sinchClient = Sinch.getSinchClientBuilder()
+                        .context(this)
+                        .userId(getUserMobile)
+                        .applicationKey(APP_KEY)
+                        .environmentHost(ENVIRONMENT)
+                        .build();
+
+                sinchClient.startListeningOnActiveConnection();
+                sinchClient.start();
+
+                sinchClient.getCallClient().addCallClientListener(new SinchCallClientListener());
+
+                if (call == null) {
+                    call = sinchClient.getCallClient().callUser(getMobile);
+                    call.addCallListener(new SinchCallListener());
+                } else {
+                    call.hangup();
+                }
             }
         } else {
             Toast.makeText(this, "Cannot contact the number.", Toast.LENGTH_LONG).show();
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 1) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                makePhoneCall();
-            } else {
-                Toast.makeText(this, "Permission Denied.", Toast.LENGTH_SHORT).show();
-            }
+    private class SinchCallListener implements CallListener {
+
+
+        @Override
+        public void onCallEnded(Call endedCall) {
+            call = null;
+            SinchError a = endedCall.getDetails().getError();
+            setVolumeControlStream(AudioManager.USE_DEFAULT_STREAM_TYPE);
+        }
+
+        @Override
+        public void onCallEstablished(Call establishedCall) {
+            setVolumeControlStream(AudioManager.STREAM_VOICE_CALL);
+        }
+
+        @Override
+        public void onCallProgressing(Call progressingCall) {
+
+        }
+    }
+
+    private class SinchCallClientListener implements CallClientListener {
+        @Override
+        public void onIncomingCall(CallClient callClient, Call incomingCall) {
+            call = incomingCall;
+            Toast.makeText(Chat.this, "incoming call", Toast.LENGTH_SHORT).show();
+            call.answer();
+            call.addCallListener(new SinchCallListener());
         }
     }
 

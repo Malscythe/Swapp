@@ -73,14 +73,12 @@ public class UserHomepage extends AppCompatActivity {
     Dialog chartDialog;
     ImageView viewChart;
     CircleImageView accsetting;
-    Button dlvrbtn, inbbtn;
     CardView tradeButton, postButton;
     Long pendingTrades = 0L;
     Long currentTrades = 0L;
     Long successfulTrades = 0L;
     Long unsuccessfulTrades = 0L;
     FirebaseAuth firebaseAuth;
-    DatabaseReference databaseReference;
     BottomNavigationView bottomNavigationView;
     DatabaseReference databaseReferenceUrl = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bugsbusters-de865-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
@@ -89,7 +87,6 @@ public class UserHomepage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_homepage);
 
-        inbbtn = findViewById(R.id.inboxBtn);
         bottomNavigationView = findViewById(R.id.bottom_nav);
         viewChart = findViewById(R.id.viewBtn);
         chartDialog = new Dialog(this);
@@ -147,97 +144,25 @@ public class UserHomepage extends AppCompatActivity {
 
         MemoryData.saveUid(uid, UserHomepage.this);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("items/");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-
+        databaseReferenceUrl.child("items").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    if (ds.child("Poster_UID").getValue(String.class).equals(uid)) {
-                        String itemid = ds.getKey();
-                        databaseReference = FirebaseDatabase.getInstance().getReference("items/" + itemid + "/Offers");
-                        databaseReference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                pendingTrades = pendingTrades + snapshot.getChildrenCount();
-                                pendingCounts.setText(pendingTrades.toString());
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-                    }
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                   pendingTrades = pendingTrades + dataSnapshot.child("Offers").getChildrenCount();
+                   pendingCounts.setText(pendingTrades.toString());
                 }
-                pendingTrades = 0L;
-
-                for (DataSnapshot ds : snapshot.getChildren()) {
-                    if (ds.child("Poster_UID").getValue(String.class).equals(uid)) {
-                        String itemid = ds.getKey();
-                        databaseReference = FirebaseDatabase.getInstance().getReference("items/" + itemid + "/Accepted_Offers");
-                        databaseReference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                currentTrades = currentTrades + snapshot.getChildrenCount();
-                                currentCounts.setText(currentTrades.toString());
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-                    }
-
-                    if (ds.child("Accepted_Offers").child(uid).exists()) {
-                        currentTrades = Long.parseLong(currentCounts.getText().toString()) + 1L;
-                        currentCounts.setText(currentTrades.toString());
-                    }
-                }
-                currentTrades = 0L;
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-
         });
-
-        inbbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                databaseReferenceUrl.child("users").child(uid).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String name = snapshot.child("First_Name").getValue(String.class).concat(" " + snapshot.child("Last_Name").getValue(String.class));
-                        Intent intent = new Intent(UserHomepage.this, Messages.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        intent.putExtra("mobile", snapshot.child("Phone").getValue(String.class));
-                        intent.putExtra("email", snapshot.child("Email").getValue(String.class));
-                        intent.putExtra("name", name);
-                        startActivity(intent);
-                        CustomIntent.customType(UserHomepage.this, "left-to-right");
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-            }
-        });
-
-        dlvrbtn = findViewById(R.id.deliverBtn);
-
-        successfulCounts.setText(successfulTrades.toString());
-        unsuccessfulCounts.setText(unsuccessfulTrades.toString());
-        currentCounts.setText(currentTrades.toString());
 
         viewChart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent = new Intent(UserHomepage.this, popup.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intent.putExtra("pending", pendingCounts.getText().toString());
@@ -249,22 +174,6 @@ public class UserHomepage extends AppCompatActivity {
             }
         });
 
-//        logoutBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                MemoryData.saveUid("", UserHomepage.this);
-//                MemoryData.saveData("", UserHomepage.this);
-//                MemoryData.saveName("", UserHomepage.this);
-//                MemoryData.saveState(false, UserHomepage.this);
-//
-//                DatabaseReference df = FirebaseDatabase.getInstance().getReference();
-//                df.child("users-status").child(uid).child("Status").setValue("Offline");
-//
-//                Intent intent = new Intent(UserHomepage.this, login.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                startActivity(intent);
-//            }
-//        });
         tradeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -272,6 +181,7 @@ public class UserHomepage extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
                 CustomIntent.customType(UserHomepage.this, "left-to-right");
+                finish();
             }
         });
 
@@ -282,16 +192,7 @@ public class UserHomepage extends AppCompatActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
                 CustomIntent.customType(UserHomepage.this, "left-to-right");
-            }
-        });
-
-        dlvrbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(UserHomepage.this, deliverytrack.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                startActivity(intent);
-                CustomIntent.customType(UserHomepage.this, "left-to-right");
+                finish();
             }
         });
 

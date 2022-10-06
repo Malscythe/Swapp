@@ -308,6 +308,7 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("gadgetColor", binding.gadgetColor.getText().toString());
                         intent.putExtra("gadgetUsage", binding.gadgetUsage.getText().toString());
                         intent.putExtra("gadgetDescription", binding.gadgetDescription.getText().toString());
+                        intent.putExtra("currentState", "preLocation");
                         intent.putExtra("item_name", item_name);
                         intent.putExtra("rft", reasonForTrading);
                         intent.putExtra("category", category);
@@ -389,6 +390,7 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("gameBrand", binding.gameBrand.getText().toString());
                         intent.putExtra("gameUsage", binding.gametUsage.getText().toString());
                         intent.putExtra("gameDescription", binding.gameDescription.getText().toString());
+                        intent.putExtra("currentState", "preLocation");
                         intent.putExtra("item_name", item_name);
                         intent.putExtra("rft", reasonForTrading);
                         intent.putExtra("category", category);
@@ -468,6 +470,7 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("bagColor", binding.bagColor.getText().toString());
                         intent.putExtra("bagUsage", binding.bagUsage.getText().toString());
                         intent.putExtra("bagDescription", binding.bagDescription.getText().toString());
+                        intent.putExtra("currentState", "preLocation");
                         intent.putExtra("item_name", item_name);
                         intent.putExtra("rft", reasonForTrading);
                         intent.putExtra("category", category);
@@ -509,6 +512,7 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("groceryList", binding.groceryList.getText().toString());
                         intent.putExtra("item_name", item_name);
                         intent.putExtra("rft", reasonForTrading);
+                        intent.putExtra("currentState", "preLocation");
                         intent.putExtra("category", category);
                         intent.putExtra("pref_item", preferred_item);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -588,6 +592,7 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("furnitureWidth", binding.furnitureSizeWidth.getText().toString());
                         intent.putExtra("furnitureLength", binding.furnitureSizeLength.getText().toString());
                         intent.putExtra("furnitureDescription", binding.furnitureDescription.getText().toString());
+                        intent.putExtra("currentState", "preLocation");
                         intent.putExtra("item_name", item_name);
                         intent.putExtra("rft", reasonForTrading);
                         intent.putExtra("category", category);
@@ -667,6 +672,7 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("bnkType", binding.bnkType.getText().toString());
                         intent.putExtra("bnkUsage", binding.bnkUsage.getText().toString());
                         intent.putExtra("bnkDescription", binding.bnkDescription.getText().toString());
+                        intent.putExtra("currentState", "preLocation");
                         intent.putExtra("item_name", item_name);
                         intent.putExtra("rft", reasonForTrading);
                         intent.putExtra("category", category);
@@ -746,6 +752,7 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("appliancesColor", binding.appliancesColor.getText().toString());
                         intent.putExtra("appliancesUsage", binding.appliancesUsage.getText().toString());
                         intent.putExtra("appliancesDescription", binding.appliancesDescription.getText().toString());
+                        intent.putExtra("currentState", "preLocation");
                         intent.putExtra("item_name", item_name);
                         intent.putExtra("rft", reasonForTrading);
                         intent.putExtra("category", category);
@@ -825,6 +832,7 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("motorColor", binding.motorColor.getText().toString());
                         intent.putExtra("motorUsage", binding.motorUsage.getText().toString());
                         intent.putExtra("motorDescription", binding.motorDescription.getText().toString());
+                        intent.putExtra("currentState", "preLocation");
                         intent.putExtra("item_name", item_name);
                         intent.putExtra("rft", reasonForTrading);
                         intent.putExtra("category", category);
@@ -895,6 +903,7 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("audioReleaseDate", binding.audioReleaseDate.getText().toString());
                         intent.putExtra("audioUsage", binding.audioUsage.getText().toString());
                         intent.putExtra("audioDescription", binding.audioDescription.getText().toString());
+                        intent.putExtra("currentState", "preLocation");
                         intent.putExtra("item_name", item_name);
                         intent.putExtra("rft", reasonForTrading);
                         intent.putExtra("category", category);
@@ -974,6 +983,7 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("schoolColor", binding.schoolColor.getText().toString());
                         intent.putExtra("schoolUsage", binding.schoolUsage.getText().toString());
                         intent.putExtra("schoolDescription", binding.schoolDescription.getText().toString());
+                        intent.putExtra("currentState", "preLocation");
                         intent.putExtra("item_name", item_name);
                         intent.putExtra("rft", reasonForTrading);
                         intent.putExtra("category", category);
@@ -1103,6 +1113,7 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("womensUsage", binding.usage.getText().toString());
                         intent.putExtra("womensSizes", sizesArr.toString());
                         intent.putExtra("womensDescription", binding.description.getText().toString());
+                        intent.putExtra("currentState", "preLocation");
                         intent.putExtra("item_name", item_name);
                         intent.putExtra("rft", reasonForTrading);
                         intent.putExtra("category", category);
@@ -1152,6 +1163,7 @@ public class PostItem_S2 extends AppCompatActivity {
                         Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
                         intent.putExtra("otherType", binding.otherType.getText().toString());
                         intent.putExtra("otherDescription", binding.otherDescription.getText().toString());
+                        intent.putExtra("currentState", "preLocation");
                         intent.putExtra("item_name", item_name);
                         intent.putExtra("rft", reasonForTrading);
                         intent.putExtra("category", category);
