@@ -1,5 +1,6 @@
 package com.example.Swapp;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -35,6 +36,7 @@ import java.util.List;
 import java.util.Set;
 
 import Swapp.R;
+import maes.tech.intentanim.CustomIntent;
 
 public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePicker.OnImagesSelectedListener {
 
@@ -45,6 +47,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
     private ImageAdapter adapter;
     private Handler sliderHandler = new Handler();
     String[] descriptionData = {"Details", "Description", "Location", "Images"};
+    PostingItemDialog postingItemDialog = new PostingItemDialog(PostItem_S4.this);
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -136,6 +139,9 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                 imageList.clear();
                 imageList.addAll(set);
 
+                postingItemDialog.startLoadingDialog();
+                Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+
                 switch (category) {
                     case "Men's Apparel":
 
@@ -220,6 +226,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                             });
                         }
 
+                        postingItemDialog.DismissDialog();
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
+                        CustomIntent.customType(PostItem_S4.this, "left-to-right");
+
                         break;
                     case "Gadgets":
 
@@ -300,6 +311,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                             });
                         }
 
+                        postingItemDialog.DismissDialog();
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
+                        CustomIntent.customType(PostItem_S4.this, "left-to-right");
+
                         break;
                     case "Game":
 
@@ -377,6 +393,12 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                 }
                             });
                         }
+
+                        postingItemDialog.DismissDialog();
+
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
+                        CustomIntent.customType(PostItem_S4.this, "left-to-right");
 
                         break;
                     case "Bags":
@@ -458,6 +480,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                             });
                         }
 
+                        postingItemDialog.DismissDialog();
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
+                        CustomIntent.customType(PostItem_S4.this, "left-to-right");
+
                         break;
                     case "Groceries":
 
@@ -529,6 +556,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                 }
                             });
                         }
+
+                        postingItemDialog.DismissDialog();
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
+                        CustomIntent.customType(PostItem_S4.this, "left-to-right");
 
                         break;
                     case "Furniture":
@@ -614,6 +646,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                             });
                         }
 
+                        postingItemDialog.DismissDialog();
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
+                        CustomIntent.customType(PostItem_S4.this, "left-to-right");
+
                         break;
                     case "Babies & Kids":
 
@@ -693,6 +730,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                 }
                             });
                         }
+
+                        postingItemDialog.DismissDialog();
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
+                        CustomIntent.customType(PostItem_S4.this, "left-to-right");
 
                         break;
                     case "Appliances":
@@ -774,6 +816,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                             });
                         }
 
+                        postingItemDialog.DismissDialog();
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
+                        CustomIntent.customType(PostItem_S4.this, "left-to-right");
+
                         break;
                     case "Motors":
 
@@ -854,6 +901,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                             });
                         }
 
+                        postingItemDialog.DismissDialog();
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
+                        CustomIntent.customType(PostItem_S4.this, "left-to-right");
+
                         break;
                     case "Audio":
 
@@ -931,6 +983,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                 }
                             });
                         }
+
+                        postingItemDialog.DismissDialog();
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
+                        CustomIntent.customType(PostItem_S4.this, "left-to-right");
 
                         break;
                     case "School":
@@ -1011,6 +1068,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                 }
                             });
                         }
+
+                        postingItemDialog.DismissDialog();
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
+                        CustomIntent.customType(PostItem_S4.this, "left-to-right");
 
                         break;
                     case "Women's Apparel":
@@ -1096,6 +1158,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                             });
                         }
 
+                        postingItemDialog.DismissDialog();
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
+                        CustomIntent.customType(PostItem_S4.this, "left-to-right");
+
                         break;
                     case "Others":
 
@@ -1169,6 +1236,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                 }
                             });
                         }
+
+                        postingItemDialog.DismissDialog();
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
+                        CustomIntent.customType(PostItem_S4.this, "left-to-right");
 
                         break;
                 }
