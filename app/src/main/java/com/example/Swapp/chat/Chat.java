@@ -2,6 +2,7 @@ package com.example.Swapp.chat;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -112,6 +114,22 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
 
         getUserMobile = MemoryData.getData(Chat.this);
 
+        sinchClient = Sinch.getSinchClientBuilder()
+                .context(this)
+                .userId(getUserMobile)
+                .applicationKey(APP_KEY)
+                .environmentHost(ENVIRONMENT)
+                .build();
+
+        sinchClient.setSupportManagedPush(true);
+        sinchClient.startListeningOnActiveConnection();
+
+        sinchClient.getCallClient().addCallClientListener(new SinchCallClientListener() {
+
+        });
+
+        sinchClient.start();
+
         name.setText(getName);
         if (getStatus.equals("Online")) {
             userStatus.setText("Online");
@@ -173,9 +191,9 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
 
                                 String numToSave = snapshot.child("users").child(MemoryData.getUid(Chat.this)).child("Phone").getValue(String.class);
 
-                                MemoryData.saveLastMsgTS(messageTimestamps.substring(0,14), chatKey, Chat.this, numToSave);
+                                MemoryData.saveLastMsgTS(messageTimestamps.substring(0, 14), chatKey, Chat.this, numToSave);
 
-                                if (loadingFirstTime || Long.parseLong(messageTimestamps.substring(0,14)) > Long.parseLong(MemoryData.getLastMsgTS(Chat.this, chatKey, numToSave).substring(0, 14))) {
+                                if (loadingFirstTime || Long.parseLong(messageTimestamps.substring(0, 14)) > Long.parseLong(MemoryData.getLastMsgTS(Chat.this, chatKey, numToSave).substring(0, 14))) {
 
                                     loadingFirstTime = false;
                                     chatAdapter.updateChatList(chatLists);
@@ -227,7 +245,7 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 List<String> list = new ArrayList<>();
 
-                                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
                                     list.add(dataSnapshot.getKey());
                                 }
@@ -282,68 +300,86 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
     private void makePhoneCall() {
 
         final String getMobile = getIntent().getStringExtra("mobile");
-        String number = getMobile;
 
-        if (number.length() > 0) {
-            if (ContextCompat.checkSelfPermission(Chat.this,
-                    Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED ||
+        if (ContextCompat.checkSelfPermission(Chat.this,
+                Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(Chat.this,
-                    Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(Chat.this, new String[] {Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_PHONE_STATE}, 1);
-            } else {
-                sinchClient = Sinch.getSinchClientBuilder()
-                        .context(this)
-                        .userId(getUserMobile)
-                        .applicationKey(APP_KEY)
-                        .environmentHost(ENVIRONMENT)
-                        .build();
-
-                sinchClient.startListeningOnActiveConnection();
-                sinchClient.start();
-
-                sinchClient.getCallClient().addCallClientListener(new SinchCallClientListener());
-
-                if (call == null) {
-                    call = sinchClient.getCallClient().callUser(getMobile);
-                    call.addCallListener(new SinchCallListener());
-                } else {
-                    call.hangup();
-                }
-            }
+                        Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(Chat.this, new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_PHONE_STATE}, 1);
         } else {
-            Toast.makeText(this, "Cannot contact the number.", Toast.LENGTH_LONG).show();
+            callUser(getMobile);
         }
     }
 
     private class SinchCallListener implements CallListener {
 
-
         @Override
         public void onCallEnded(Call endedCall) {
+            Toast.makeText(Chat.this, "Call ended", Toast.LENGTH_SHORT).show();
             call = null;
-            SinchError a = endedCall.getDetails().getError();
-            setVolumeControlStream(AudioManager.USE_DEFAULT_STREAM_TYPE);
+            endedCall.hangup();
+
         }
 
         @Override
         public void onCallEstablished(Call establishedCall) {
-            setVolumeControlStream(AudioManager.STREAM_VOICE_CALL);
+            Toast.makeText(Chat.this, "Call established", Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onCallProgressing(Call progressingCall) {
-
+            Toast.makeText(Chat.this, "Ringing...", Toast.LENGTH_SHORT).show();
         }
     }
 
     private class SinchCallClientListener implements CallClientListener {
         @Override
         public void onIncomingCall(CallClient callClient, Call incomingCall) {
-            call = incomingCall;
-            Toast.makeText(Chat.this, "incoming call", Toast.LENGTH_SHORT).show();
-            call.answer();
-            call.addCallListener(new SinchCallListener());
+            AlertDialog alertDialog = new AlertDialog.Builder(Chat.this).create();
+            alertDialog.setTitle("CALLING");
+            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Reject", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                    incomingCall.hangup();
+                }
+            });
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Answer", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    call = incomingCall;
+                    call.answer();
+                    call.addCallListener(new SinchCallListener());
+                    Toast.makeText(Chat.this, "Call is started", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            alertDialog.show();
         }
+    }
+
+    public void callUser (String userTocall) {
+        if (call == null) {
+            call = sinchClient.getCallClient().callUser(userTocall);
+            call.addCallListener(new SinchCallListener());
+
+            openCallerDialog(call);
+        }
+    }
+
+    private void openCallerDialog(Call call) {
+        AlertDialog alertDialog = new AlertDialog.Builder(Chat.this).create();
+        alertDialog.setTitle("ALERT");
+        alertDialog.setMessage("Calling");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Hang up", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                call.hangup();
+            }
+        });
+
+        alertDialog.show();
     }
 
     @Override
@@ -357,7 +393,8 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
                 intent.putExtra("mobile", snapshot.child("Phone").getValue(String.class));
                 intent.putExtra("email", snapshot.child("Email").getValue(String.class));
                 intent.putExtra("name", name);
-                startActivity(intent);;
+                startActivity(intent);
+                ;
 
             }
 
@@ -400,7 +437,7 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMddyyyykkmmssaa", Locale.getDefault());
 
-        if (imageUri == null){
+        if (imageUri == null) {
             Uri noimageUri = (new Uri.Builder())
                     .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
                     .authority(getResources().getResourcePackageName(R.drawable.noimage))
@@ -410,7 +447,7 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
             imageUri = noimageUri;
         }
 
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/chat/"+ chatKey + "/" + simpleDateFormat.format(timestamp));
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/chat/" + chatKey + "/" + simpleDateFormat.format(timestamp));
         Bitmap bitmap = null;
 
         Glide.with(Chat.this).asBitmap().load(imageUri).into(new SimpleTarget<Bitmap>() {
@@ -445,7 +482,7 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 List<String> list = new ArrayList<>();
-                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
                                                     list.add(dataSnapshot.getKey());
                                                 }
