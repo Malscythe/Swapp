@@ -38,7 +38,6 @@ android {
 }
 
 
-
 dependencies {
 
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
@@ -69,7 +68,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:20.0.1'
     implementation 'com.lorentzos.swipecards:library:1.0.9'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
-    implementation files('C:\\Users\\Terence\\Downloads\\Compressed\\Swappasdasdasd\\app\\libs\\sinch-android-rtc-4.11.20+e744c85.aar')
+    implementation fileTree(dir: "libs", include: ["*.aar"])
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
