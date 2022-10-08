@@ -10,6 +10,7 @@ import androidx.core.content.res.ResourcesCompat;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,6 +19,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -104,6 +106,8 @@ public class UserHomepage extends AppCompatActivity {
         String uid = firebaseAuth.getCurrentUser().getUid();
 
         bottomNavigationView.setSelectedItemId(R.id.homepage);
+
+
 
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override

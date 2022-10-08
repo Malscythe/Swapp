@@ -108,4 +108,7 @@
         <item>Others</item>
     </string-array>
 
+    <string name="com_auth0_client_id">5qLPTJ0VE8rHKJHfZWdrczh4barrRu3V</string>
+    <string name="com_auth0_domain">dev-3e834zax.jp.auth0.com</string>
+
 </resources>

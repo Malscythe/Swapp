@@ -1,22 +1,10 @@
 package com.example.Swapp.chat;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.Manifest;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,11 +17,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.Swapp.MemoryData;
 import com.example.Swapp.Messages;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.security.ProviderInstaller;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -49,22 +47,31 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.kroegerama.imgpicker.BottomSheetImagePicker;
 import com.kroegerama.imgpicker.ButtonType;
-import com.sinch.android.rtc.PushPair;
+
+import com.sinch.android.rtc.AudioController;
+import com.sinch.android.rtc.ClientRegistration;
+import com.sinch.android.rtc.Internals;
+import com.sinch.android.rtc.NotificationResult;
 import com.sinch.android.rtc.Sinch;
 import com.sinch.android.rtc.SinchClient;
+import com.sinch.android.rtc.SinchClientListener;
 import com.sinch.android.rtc.SinchError;
 import com.sinch.android.rtc.calling.Call;
 import com.sinch.android.rtc.calling.CallClient;
 import com.sinch.android.rtc.calling.CallClientListener;
+import com.sinch.android.rtc.MissingPermissionException;
 import com.sinch.android.rtc.calling.CallListener;
 
 import java.io.ByteArrayOutputStream;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import javax.net.ssl.SSLContext;
 
 import Swapp.R;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -88,7 +95,7 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
 
     private static final String APP_KEY = "ea982823-cc94-4f19-b063-8af4b03e2bfc";
     private static final String APP_SECRET = "l2Xdo2leA0CliIGOklUAIw==";
-    private static final String ENVIRONMENT = "clientapi.sinch.com";
+    private static final String ENVIRONMENT = "ocra.api.sinch.com";
 
     private Call call;
     private SinchClient sinchClient;
@@ -114,6 +121,16 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
 
         getUserMobile = MemoryData.getData(Chat.this);
 
+
+        name.setText(getName);
+        if (getStatus.equals("Online")) {
+            userStatus.setText("Online");
+            userStatus.setTextColor(Color.parseColor("#00C853"));
+        } else if (getStatus.equals("Offline")) {
+            userStatus.setText("Offline");
+            userStatus.setTextColor(Color.parseColor("#818181"));
+        }
+
         sinchClient = Sinch.getSinchClientBuilder()
                 .context(this)
                 .userId(getUserMobile)
@@ -124,21 +141,9 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
         sinchClient.setSupportManagedPush(true);
         sinchClient.startListeningOnActiveConnection();
 
-        sinchClient.getCallClient().addCallClientListener(new SinchCallClientListener() {
-
-        });
+        sinchClient.getCallClient().addCallClientListener(new SinchCallClientListener());
 
         sinchClient.start();
-
-        name.setText(getName);
-        if (getStatus.equals("Online")) {
-            userStatus.setText("Online");
-            userStatus.setTextColor(Color.parseColor("#00C853"));
-        } else if (getStatus.equals("Offline")) {
-            userStatus.setText("Offline");
-            userStatus.setTextColor(Color.parseColor("#818181"));
-        }
-        //Picasso.get().load(getProfilePic).into(profilePic);
 
         chattingRecyclerView.setHasFixedSize(true);
         chattingRecyclerView.setLayoutManager(new LinearLayoutManager(Chat.this));
@@ -151,7 +156,12 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
         callBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                makePhoneCall();
+                if (call == null) {
+                    call = sinchClient.getCallClient().callUser(getMobile);
+                    call.addCallListener(new SinchCallListener());
+
+                    openCallerDialog(call);
+                }
             }
         });
 
@@ -297,38 +307,38 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
 
     }
 
-    private void makePhoneCall() {
+    private void openCallerDialog(Call call) {
+        AlertDialog alertDialog1 = new AlertDialog.Builder(Chat.this).create();
+        alertDialog1.setTitle("Alert");
+        alertDialog1.setMessage("Calling");
+        alertDialog1.setButton(AlertDialog.BUTTON_NEUTRAL, "Hang up", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                call.hangup();
+            }
+        });
 
-        final String getMobile = getIntent().getStringExtra("mobile");
-
-        if (ContextCompat.checkSelfPermission(Chat.this,
-                Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(Chat.this,
-                        Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(Chat.this, new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_PHONE_STATE}, 1);
-        } else {
-            callUser(getMobile);
-        }
+        alertDialog1.show();
     }
 
     private class SinchCallListener implements CallListener {
 
         @Override
+        public void onCallProgressing(Call call) {
+            Toast.makeText(getApplicationContext(), "Ringing...", Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onCallEstablished(Call call) {
+            Toast.makeText(getApplicationContext(), "Call established", Toast.LENGTH_LONG).show();
+        }
+
+        @Override
         public void onCallEnded(Call endedCall) {
-            Toast.makeText(Chat.this, "Call ended", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Call ended", Toast.LENGTH_LONG).show();
             call = null;
             endedCall.hangup();
-
-        }
-
-        @Override
-        public void onCallEstablished(Call establishedCall) {
-            Toast.makeText(Chat.this, "Call established", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onCallProgressing(Call progressingCall) {
-            Toast.makeText(Chat.this, "Ringing...", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -341,7 +351,7 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.dismiss();
-                    incomingCall.hangup();
+                    call.hangup();
                 }
             });
             alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Answer", new DialogInterface.OnClickListener() {
@@ -350,36 +360,12 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
                     call = incomingCall;
                     call.answer();
                     call.addCallListener(new SinchCallListener());
-                    Toast.makeText(Chat.this, "Call is started", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Call is started", Toast.LENGTH_LONG).show();
                 }
             });
 
             alertDialog.show();
         }
-    }
-
-    public void callUser (String userTocall) {
-        if (call == null) {
-            call = sinchClient.getCallClient().callUser(userTocall);
-            call.addCallListener(new SinchCallListener());
-
-            openCallerDialog(call);
-        }
-    }
-
-    private void openCallerDialog(Call call) {
-        AlertDialog alertDialog = new AlertDialog.Builder(Chat.this).create();
-        alertDialog.setTitle("ALERT");
-        alertDialog.setMessage("Calling");
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Hang up", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-                call.hangup();
-            }
-        });
-
-        alertDialog.show();
     }
 
     @Override
@@ -416,13 +402,6 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
                 .show(getSupportFragmentManager(), null);
 
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-    }
-
 
     @Override
     public void onImagesSelected(@NotNull List<? extends Uri> uris, @Nullable String tag) {
@@ -515,4 +494,5 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
             }
         });
     }
+
 }
