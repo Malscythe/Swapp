@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.example.Swapp.JWT;
 import com.example.Swapp.MemoryData;
 import com.example.Swapp.Messages;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -121,6 +122,62 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
 
         getUserMobile = MemoryData.getData(Chat.this);
 
+        sinchClient = Sinch.getSinchClientBuilder()
+                .context(this)
+                .applicationKey(APP_KEY)
+                .environmentHost(ENVIRONMENT)
+                .userId(getUserMobile)
+                .build();
+
+        sinchClient.setSupportManagedPush(true);
+        sinchClient.startListeningOnActiveConnection();
+
+        sinchClient.getCallClient().addCallClientListener(new SinchCallClientListener());
+
+        sinchClient.addSinchClientListener(new SinchClientListener() {
+            @Override
+            public void onClientStarted(SinchClient sinchClient) {
+
+            }
+
+            @Override
+            public void onClientFailed(SinchClient sinchClient, SinchError sinchError) {
+
+            }
+
+            @Override
+            public void onLogMessage(int i, String s, String s1) {
+
+            }
+
+            @Override
+            public void onPushTokenRegistered() {
+
+            }
+
+            @Override
+            public void onPushTokenRegistrationFailed(SinchError sinchError) {
+
+            }
+
+            @Override
+            public void onCredentialsRequired(ClientRegistration clientRegistration) {
+                String jwt = JWT.create(APP_KEY, APP_SECRET, getUserMobile);
+                clientRegistration.register(jwt);
+            }
+
+            @Override
+            public void onUserRegistered() {
+
+            }
+
+            @Override
+            public void onUserRegistrationFailed(SinchError sinchError) {
+
+            }
+        });
+
+        sinchClient.start();
 
         name.setText(getName);
         if (getStatus.equals("Online")) {
@@ -130,20 +187,6 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
             userStatus.setText("Offline");
             userStatus.setTextColor(Color.parseColor("#818181"));
         }
-
-        sinchClient = Sinch.getSinchClientBuilder()
-                .context(this)
-                .userId(getUserMobile)
-                .applicationKey(APP_KEY)
-                .environmentHost(ENVIRONMENT)
-                .build();
-
-        sinchClient.setSupportManagedPush(true);
-        sinchClient.startListeningOnActiveConnection();
-
-        sinchClient.getCallClient().addCallClientListener(new SinchCallClientListener());
-
-        sinchClient.start();
 
         chattingRecyclerView.setHasFixedSize(true);
         chattingRecyclerView.setLayoutManager(new LinearLayoutManager(Chat.this));

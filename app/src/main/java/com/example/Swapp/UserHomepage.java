@@ -107,8 +107,6 @@ public class UserHomepage extends AppCompatActivity {
 
         bottomNavigationView.setSelectedItemId(R.id.homepage);
 
-
-
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
