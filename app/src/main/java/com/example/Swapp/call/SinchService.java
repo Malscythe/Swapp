@@ -414,6 +414,8 @@ public class SinchService extends Service {
                             .setContentText(userId)
                             .setPriority(NotificationCompat.PRIORITY_MAX)
                             .setContentIntent(pendingIntent)
+                            .setLargeIcon(getBitmap(getApplicationContext(), R.drawable.call_pressed))
+                            .setSmallIcon(R.drawable.call_pressed)
                             .setFullScreenIntent(pendingIntent, true)
                             .addAction(R.drawable.button_accept, "Answer",  getPendingIntent(fullScreenIntent, ACTION_ANSWER))
                             .addAction(R.drawable.button_decline, "Ignore", getPendingIntent(fullScreenIntent, ACTION_IGNORE))

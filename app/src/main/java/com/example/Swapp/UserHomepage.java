@@ -173,6 +173,9 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
         accsetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                getSinchServiceInterface().stopClient();
+
                 MemoryData.saveUid("", UserHomepage.this);
                 MemoryData.saveData("", UserHomepage.this);
                 MemoryData.saveName("", UserHomepage.this);
@@ -269,5 +272,11 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
     @Override
     public void onCredentialsRequired(ClientRegistration clientRegistration) {
         clientRegistration.register(JWT.create(APP_KEY, APP_SECRET, mUserId));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        getSinchServiceInterface().stopClient();
     }
 }

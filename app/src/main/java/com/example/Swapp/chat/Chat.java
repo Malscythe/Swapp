@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.daimajia.androidanimations.library.specials.out.TakingOffAnimator;
 import com.example.Swapp.call.CallScreenActivity;
 import com.example.Swapp.MemoryData;
 import com.example.Swapp.Messages;
@@ -117,13 +119,18 @@ public class Chat extends BaseActivity implements BottomSheetImagePicker.OnImage
         callBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Call call = getSinchServiceInterface().callUser(getUID);
-                String callId = call.getCallId();
+                if (getStatus.equals("Online")) {
+                    Call call = getSinchServiceInterface().callUser(getUID);
+                    String callId = call.getCallId();
 
-                Intent callScreen = new Intent(Chat.this, CallScreenActivity.class);
-                callScreen.putExtra(SinchService.CALL_ID, callId);
-                callScreen.putExtra("userName", getName);
-                startActivity(callScreen);
+                    Intent callScreen = new Intent(Chat.this, CallScreenActivity.class);
+                    callScreen.putExtra(SinchService.CALL_ID, callId);
+                    callScreen.putExtra("userName", getName);
+                    startActivity(callScreen);
+                } else {
+                    Toast.makeText(Chat.this, "User is offline!", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
