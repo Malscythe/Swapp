@@ -1,75 +1,46 @@
 package com.example.Swapp;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.cardview.widget.CardView;
-import androidx.core.content.res.ResourcesCompat;
+import static com.example.Swapp.call.SinchService.APP_KEY;
+import static com.example.Swapp.call.SinchService.APP_SECRET;
+import static com.example.Swapp.call.SinchService.ENVIRONMENT;
 
-import android.app.ActivityManager;
-import android.app.AlertDialog;
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+
 import android.app.Dialog;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.IBinder;
-import android.provider.Settings;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.Swapp.chat.Chat;
-import com.github.mikephil.charting.animation.Easing;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
+import com.example.Swapp.call.BaseActivity;
+import com.example.Swapp.call.SinchService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.auth.User;
-
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Type;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
+import com.sinch.android.rtc.ClientRegistration;
+import com.sinch.android.rtc.PushTokenRegistrationCallback;
+import com.sinch.android.rtc.Sinch;
+import com.sinch.android.rtc.SinchError;
+import com.sinch.android.rtc.UserController;
+import com.sinch.android.rtc.UserRegistrationCallback;
 
 import Swapp.R;
 import de.hdodenhof.circleimageview.CircleImageView;
 import maes.tech.intentanim.CustomIntent;
 
-public class UserHomepage extends AppCompatActivity {
+public class UserHomepage extends BaseActivity implements SinchService.StartFailedListener, PushTokenRegistrationCallback, UserRegistrationCallback {
 
     private static final String TAG = "TAG";
+    private String mUserId;
 
     TextView pendingCounts, successfulCounts, unsuccessfulCounts, currentCounts, name;
     Dialog chartDialog;
@@ -112,6 +83,7 @@ public class UserHomepage extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.inbox:
+                        initializeSinch();
                         databaseReferenceUrl.child("users").child(uid).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -222,5 +194,80 @@ public class UserHomepage extends AppCompatActivity {
         super.onBackPressed();
 
         finishAffinity();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onServiceConnected() {
+        if (getSinchServiceInterface().isStarted()) {
+
+        } else {
+            getSinchServiceInterface().setStartListener(this);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    private void startClientAndOpenPlaceCallActivity() {
+        if (!getSinchServiceInterface().isStarted()) {
+            getSinchServiceInterface().startClient();
+        }
+    }
+
+    @Override
+    public void onFailed(SinchError error) {
+
+    }
+
+    @Override
+    public void onStarted() {
+
+    }
+
+    private void initializeSinch() {
+        String username = firebaseAuth.getCurrentUser().getUid();
+        getSinchServiceInterface().setUsername(username);
+
+        mUserId = username;
+        UserController uc = Sinch.getUserControllerBuilder()
+                .context(getApplicationContext())
+                .applicationKey(APP_KEY)
+                .userId(mUserId)
+                .environmentHost(ENVIRONMENT)
+                .build();
+        uc.registerUser(this, this);
+    }
+
+    @Override
+    public void onUserRegistrationFailed(SinchError sinchError) {
+        Toast.makeText(this, "Registration failed!", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onUserRegistered() {
+        // Instance is registered, but we'll wait for another callback, assuring that the push token is
+        // registered as well, meaning we can receive incoming calls.
+    }
+
+    @Override
+    public void onPushTokenRegistered() {
+        startClientAndOpenPlaceCallActivity();
+    }
+
+    @Override
+    public void onPushTokenRegistrationFailed(SinchError sinchError) {
+        Toast.makeText(this, "Push token registration failed - incoming calls can't be received!", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onCredentialsRequired(ClientRegistration clientRegistration) {
+        clientRegistration.register(JWT.create(APP_KEY, APP_SECRET, mUserId));
     }
 }

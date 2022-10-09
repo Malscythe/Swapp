@@ -126,6 +126,7 @@ public class Messages extends AppCompatActivity {
                         dataSet = false;
 
                         String currentMobile = dataSnapshot.child("Phone").getValue(String.class);
+                        String currentId = dataSnapshot.getKey();
 
                         for (DataSnapshot dataSnapshot1 : snapshot.child("chat").getChildren()) {
 
@@ -196,7 +197,7 @@ public class Messages extends AppCompatActivity {
                                         }
                                     }
                                     if (!dataSet && oppositeNum.equals(mobile)) {
-                                        MessagesList messagesList = new MessagesList(getName, currentMobile, lastMessage, "", unseenMessages, chatKey, snapshot.child("users-status").child(getCurrentId).child("Status").getValue(String.class));
+                                        MessagesList messagesList = new MessagesList(getName, currentMobile, lastMessage, "", unseenMessages, chatKey, snapshot.child("users-status").child(getCurrentId).child("Status").getValue(String.class), currentId);
                                         messagesLists.add(messagesList);
                                         messagesAdapter.updateData(messagesLists);
                                         dataSet = true;

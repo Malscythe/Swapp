@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/remoteUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="USERNAME"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/primary"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/callState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Incoming call"
+            android:textAllCaps="true"
+            android:textColor="@color/primary_black"
+            android:fontFamily="@font/poppins"
+            android:textSize="26sp" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/bottomPanel"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="50dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/answerButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="60dp"
+            android:src="@drawable/answer_icon"
+            android:layout_alignParentStart="true"
+            android:scaleType="center"
+            android:background="@drawable/green_circle_button" />
+
+        <ImageView
+            android:id="@+id/declineButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/hangup_icon"
+            android:layout_marginEnd="60dp"
+            android:layout_alignParentEnd="true"
+            android:scaleType="center"
+            android:background="@drawable/red_circle_button" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -12,4 +12,7 @@
     <color name="primary3">#005B5E</color>
     <color name="primary">#01C2CA</color>
     <color name="primary_black">#2B2A2A</color>
+    <color name="sinch_purple">#ff63029d</color>
+    <color name="off_white">#fffafafa</color>
+    <color name="greyish">#fff2f1f2</color>
 </resources>

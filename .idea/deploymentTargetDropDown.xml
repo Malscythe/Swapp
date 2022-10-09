@@ -7,19 +7,20 @@
         <deviceKey>
           <Key>
             <type value="SERIAL_NUMBER" />
-            <value value="adb-da7b0c9f-soQCgf._adb-tls-connect._tcp" />
+            <value value="da7b0c9f" />
           </Key>
         </deviceKey>
       </Target>
     </runningDeviceTargetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2022-10-08T11:13:40.993140100Z" />
+    <timeTargetWasSelectedWithDropDown value="2022-10-09T14:58:01.954102700Z" />
+    <multipleDevicesSelectedInDropDown value="true" />
     <runningDeviceTargetsSelectedWithDialog>
       <Target>
         <type value="RUNNING_DEVICE_TARGET" />
         <deviceKey>
           <Key>
             <type value="SERIAL_NUMBER" />
-            <value value="adb-da7b0c9f-soQCgf._adb-tls-connect._tcp" />
+            <value value="da7b0c9f" />
           </Key>
         </deviceKey>
       </Target>

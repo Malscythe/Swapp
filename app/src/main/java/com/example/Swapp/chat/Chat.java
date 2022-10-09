@@ -1,7 +1,6 @@
 package com.example.Swapp.chat;
 
 import android.content.ContentResolver;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -15,24 +14,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.example.Swapp.JWT;
+import com.example.Swapp.call.CallScreenActivity;
 import com.example.Swapp.MemoryData;
 import com.example.Swapp.Messages;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.security.ProviderInstaller;
+import com.example.Swapp.call.BaseActivity;
+import com.example.Swapp.call.SinchService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -48,23 +43,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.kroegerama.imgpicker.BottomSheetImagePicker;
 import com.kroegerama.imgpicker.ButtonType;
-
-import com.sinch.android.rtc.AudioController;
-import com.sinch.android.rtc.ClientRegistration;
-import com.sinch.android.rtc.Internals;
-import com.sinch.android.rtc.NotificationResult;
-import com.sinch.android.rtc.Sinch;
-import com.sinch.android.rtc.SinchClient;
-import com.sinch.android.rtc.SinchClientListener;
-import com.sinch.android.rtc.SinchError;
 import com.sinch.android.rtc.calling.Call;
-import com.sinch.android.rtc.calling.CallClient;
-import com.sinch.android.rtc.calling.CallClientListener;
-import com.sinch.android.rtc.MissingPermissionException;
-import com.sinch.android.rtc.calling.CallListener;
 
 import java.io.ByteArrayOutputStream;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -72,13 +53,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import javax.net.ssl.SSLContext;
-
 import Swapp.R;
 import de.hdodenhof.circleimageview.CircleImageView;
 import maes.tech.intentanim.CustomIntent;
 
-public class Chat extends AppCompatActivity implements BottomSheetImagePicker.OnImagesSelectedListener {
+public class Chat extends BaseActivity implements BottomSheetImagePicker.OnImagesSelectedListener {
 
     private static final String TAG = "TAG";
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bugsbusters-de865-default-rtdb.asia-southeast1.firebasedatabase.app/");
@@ -94,13 +73,6 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
     Button sendImg;
     Uri imageUri;
 
-    private static final String APP_KEY = "ea982823-cc94-4f19-b063-8af4b03e2bfc";
-    private static final String APP_SECRET = "l2Xdo2leA0CliIGOklUAIw==";
-    private static final String ENVIRONMENT = "ocra.api.sinch.com";
-
-    private Call call;
-    private SinchClient sinchClient;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,69 +87,15 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
         final TextView userStatus = findViewById(R.id.userStatus);
         chattingRecyclerView = findViewById(R.id.chattingRecyclerView);
 
+//        callTimer = findViewById(R.id.callStatusEstablished);
+
         final String getName = getIntent().getStringExtra("name");
         chatKey = getIntent().getStringExtra("chat_key");
         final String getMobile = getIntent().getStringExtra("mobile");
         final String getStatus = getIntent().getStringExtra("userStatus");
+        final String getUID = getIntent().getStringExtra("userID");
 
         getUserMobile = MemoryData.getData(Chat.this);
-
-        sinchClient = Sinch.getSinchClientBuilder()
-                .context(this)
-                .applicationKey(APP_KEY)
-                .environmentHost(ENVIRONMENT)
-                .userId(getUserMobile)
-                .build();
-
-        sinchClient.setSupportManagedPush(true);
-        sinchClient.startListeningOnActiveConnection();
-
-        sinchClient.getCallClient().addCallClientListener(new SinchCallClientListener());
-
-        sinchClient.addSinchClientListener(new SinchClientListener() {
-            @Override
-            public void onClientStarted(SinchClient sinchClient) {
-
-            }
-
-            @Override
-            public void onClientFailed(SinchClient sinchClient, SinchError sinchError) {
-
-            }
-
-            @Override
-            public void onLogMessage(int i, String s, String s1) {
-
-            }
-
-            @Override
-            public void onPushTokenRegistered() {
-
-            }
-
-            @Override
-            public void onPushTokenRegistrationFailed(SinchError sinchError) {
-
-            }
-
-            @Override
-            public void onCredentialsRequired(ClientRegistration clientRegistration) {
-                String jwt = JWT.create(APP_KEY, APP_SECRET, getUserMobile);
-                clientRegistration.register(jwt);
-            }
-
-            @Override
-            public void onUserRegistered() {
-
-            }
-
-            @Override
-            public void onUserRegistrationFailed(SinchError sinchError) {
-
-            }
-        });
-
-        sinchClient.start();
 
         name.setText(getName);
         if (getStatus.equals("Online")) {
@@ -199,12 +117,13 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
         callBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (call == null) {
-                    call = sinchClient.getCallClient().callUser(getMobile);
-                    call.addCallListener(new SinchCallListener());
+                Call call = getSinchServiceInterface().callUser(getUID);
+                String callId = call.getCallId();
 
-                    openCallerDialog(call);
-                }
+                Intent callScreen = new Intent(Chat.this, CallScreenActivity.class);
+                callScreen.putExtra(SinchService.CALL_ID, callId);
+                callScreen.putExtra("userName", getName);
+                startActivity(callScreen);
             }
         });
 
@@ -350,66 +269,80 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
 
     }
 
-    private void openCallerDialog(Call call) {
-        AlertDialog alertDialog1 = new AlertDialog.Builder(Chat.this).create();
-        alertDialog1.setTitle("Alert");
-        alertDialog1.setMessage("Calling");
-        alertDialog1.setButton(AlertDialog.BUTTON_NEUTRAL, "Hang up", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-                call.hangup();
-            }
-        });
-
-        alertDialog1.show();
-    }
-
-    private class SinchCallListener implements CallListener {
-
-        @Override
-        public void onCallProgressing(Call call) {
-            Toast.makeText(getApplicationContext(), "Ringing...", Toast.LENGTH_LONG).show();
-        }
-
-        @Override
-        public void onCallEstablished(Call call) {
-            Toast.makeText(getApplicationContext(), "Call established", Toast.LENGTH_LONG).show();
-        }
-
-        @Override
-        public void onCallEnded(Call endedCall) {
-            Toast.makeText(getApplicationContext(), "Call ended", Toast.LENGTH_LONG).show();
-            call = null;
-            endedCall.hangup();
-        }
-    }
-
-    private class SinchCallClientListener implements CallClientListener {
-        @Override
-        public void onIncomingCall(CallClient callClient, Call incomingCall) {
-            AlertDialog alertDialog = new AlertDialog.Builder(Chat.this).create();
-            alertDialog.setTitle("CALLING");
-            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Reject", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-                    call.hangup();
-                }
-            });
-            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Answer", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    call = incomingCall;
-                    call.answer();
-                    call.addCallListener(new SinchCallListener());
-                    Toast.makeText(getApplicationContext(), "Call is started", Toast.LENGTH_LONG).show();
-                }
-            });
-
-            alertDialog.show();
-        }
-    }
+//    private class SinchCallListener implements CallListener {
+//
+//        @Override
+//        public void onCallProgressing(Call call) {
+//            LayoutInflater layoutInflater = getLayoutInflater();
+//            View alertLayout = layoutInflater.inflate(R.layout.call_layout, null);
+//            CardView callProgressLayout = alertLayout.findViewById(R.id.callProgress);
+//            CardView callEstablishedLayout = alertLayout.findViewById(R.id.callEstablished);
+//            CardView callEndedLayout = alertLayout.findViewById(R.id.callEnded);
+//
+//            ImageView hangup = alertLayout.findViewById(R.id.callProgressHangup);
+//            TextView caleeName = alertLayout.findViewById(R.id.calleeNameProgress);
+//            TextView callStatus = alertLayout.findViewById(R.id.callStatusProgress);
+//
+//            AlertDialog.Builder alertDialog = new AlertDialog.Builder(Chat.this);
+//
+//            alertDialog.setCancelable(false);
+//            alertDialog.setView(alertLayout);
+//            AlertDialog dialog = alertDialog.create();
+//
+//            callEndedLayout.setVisibility(View.GONE);
+//            callEstablishedLayout.setVisibility(View.GONE);
+//            callProgressLayout.setVisibility(View.VISIBLE);
+//
+//            caleeName.setText(getIntent().getStringExtra("name"));
+//            callStatus.setText("Calling...");
+//            hangup.setOnClickListener(new View.OnClickListener(){
+//                @Override
+//                public void onClick(View v) {
+//                    dialog.dismiss();
+//                    call.hangup();
+//                }
+//            });
+//            dialog.show();
+//        }
+//
+//        @Override
+//        public void onCallEstablished(Call call) {
+//            Toast.makeText(getApplicationContext(), "Call established", Toast.LENGTH_LONG).show();
+//        }
+//
+//        @Override
+//        public void onCallEnded(Call endedCall) {
+//            Toast.makeText(getApplicationContext(), "Call ended", Toast.LENGTH_LONG).show();
+//            call = null;
+//            endedCall.hangup();
+//        }
+//    }
+//
+//    private class SinchCallClientListener implements CallClientListener {
+//        @Override
+//        public void onIncomingCall(CallClient callClient, Call incomingCall) {
+//            AlertDialog alertDialog = new AlertDialog.Builder(Chat.this).create();
+//            alertDialog.setTitle("CALLING");
+//            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Reject", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialogInterface, int i) {
+//                    dialogInterface.dismiss();
+//                }
+//            });
+//            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Answer", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialogInterface, int i) {
+//                    call = incomingCall;
+//                    call.answer();
+//                    call.addCallListener(new SinchCallListener());
+//                    Toast.makeText(getApplicationContext(), "Call is started", Toast.LENGTH_LONG).show();
+//                }
+//            });
+//
+//            alertDialog.show();
+//        }
+//
+//    }
 
     @Override
     public void onBackPressed() {
@@ -423,7 +356,6 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
                 intent.putExtra("email", snapshot.child("Email").getValue(String.class));
                 intent.putExtra("name", name);
                 startActivity(intent);
-                ;
 
             }
 
@@ -537,5 +469,4 @@ public class Chat extends AppCompatActivity implements BottomSheetImagePicker.On
             }
         });
     }
-
 }

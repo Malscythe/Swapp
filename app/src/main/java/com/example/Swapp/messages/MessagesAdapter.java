@@ -70,6 +70,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
                 intent.putExtra("profile_pic", list2.getProfilePic());
                 intent.putExtra("chat_key", list2.getChatKey());
                 intent.putExtra("userStatus", list2.getStatus());
+                intent.putExtra("userID", list2.getCallUid());
                 context.startActivity(intent);
                 CustomIntent.customType(context, "left-to-right");
             }

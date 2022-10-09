@@ -33,6 +33,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.sinch.android.rtc.Sinch;
+import com.sinch.android.rtc.UserController;
 
 import Swapp.R;
 import maes.tech.intentanim.CustomIntent;
@@ -83,6 +85,7 @@ public class login extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String userEmail = email.getText().toString().trim();
                 String userPass = password.getText().toString().trim();
 
@@ -121,6 +124,8 @@ public class login extends AppCompatActivity {
                                                 startActivity(new Intent(login.this, AdminHomepage.class));
 
                                             } else if (snapshot.child("isAdmin").getValue(String.class).equals("0")){
+
+
 
                                                 MemoryData.saveData(snapshot.child("Phone").getValue().toString(), login.this);
                                                 MemoryData.saveFirstName(snapshot.child("First_Name").getValue(String.class), com.example.Swapp.login.this);
