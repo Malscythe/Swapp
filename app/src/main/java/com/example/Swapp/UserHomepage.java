@@ -10,6 +10,7 @@ import androidx.cardview.widget.CardView;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -83,7 +84,6 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.inbox:
-                        initializeSinch();
                         databaseReferenceUrl.child("users").child(uid).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -201,25 +201,31 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
 
     @Override
     protected void onResume() {
+
         super.onResume();
     }
 
     @Override
     protected void onServiceConnected() {
+
         if (getSinchServiceInterface().isStarted()) {
 
         } else {
+
             getSinchServiceInterface().setStartListener(this);
+            initializeSinch();
         }
     }
 
     @Override
     protected void onPause() {
+
         super.onPause();
     }
 
     private void startClientAndOpenPlaceCallActivity() {
         if (!getSinchServiceInterface().isStarted()) {
+
             getSinchServiceInterface().startClient();
         }
     }
@@ -272,11 +278,5 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
     @Override
     public void onCredentialsRequired(ClientRegistration clientRegistration) {
         clientRegistration.register(JWT.create(APP_KEY, APP_SECRET, mUserId));
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        getSinchServiceInterface().stopClient();
     }
 }

@@ -159,6 +159,7 @@ public class CallScreenActivity extends BaseActivity {
 
             AudioController audioController = getSinchServiceInterface().getAudioController();
 
+            audioController.disableSpeaker();
             muteButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {

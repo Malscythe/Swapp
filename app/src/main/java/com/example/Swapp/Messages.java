@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.Swapp.call.BaseActivity;
 import com.example.Swapp.messages.MessagesAdapter;
 import com.example.Swapp.messages.MessagesList;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -43,7 +44,7 @@ import Swapp.R;
 import maes.tech.intentanim.CustomIntent;
 import okhttp3.internal.Util;
 
-public class Messages extends AppCompatActivity {
+public class Messages extends BaseActivity {
 
     private final List<MessagesList> messagesLists = new ArrayList<>();
 
@@ -55,6 +56,7 @@ public class Messages extends AppCompatActivity {
     private String chatKey = "";
     private boolean dataSet = false;
     String oppositeNum = "";
+    FirebaseAuth firebaseAuth;
 
     MessagesAdapter messagesAdapter;
 

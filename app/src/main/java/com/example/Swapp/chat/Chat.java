@@ -100,13 +100,45 @@ public class Chat extends BaseActivity implements BottomSheetImagePicker.OnImage
         getUserMobile = MemoryData.getData(Chat.this);
 
         name.setText(getName);
-        if (getStatus.equals("Online")) {
-            userStatus.setText("Online");
-            userStatus.setTextColor(Color.parseColor("#00C853"));
-        } else if (getStatus.equals("Offline")) {
-            userStatus.setText("Offline");
-            userStatus.setTextColor(Color.parseColor("#818181"));
-        }
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        databaseReference.child("users-status").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String status = snapshot.child(getUID).child("Status").getValue(String.class);
+                userStatus.setText(status);
+
+                if (status.equals("Online")) {
+                    userStatus.setTextColor(Color.parseColor("#00C853"));
+                } else if (status.equals("Offline")) {
+                    userStatus.setTextColor(Color.parseColor("#818181"));
+                }
+
+                callBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (status.equals("Online")) {
+                            Call call = getSinchServiceInterface().callUser(getUID);
+                            String callId = call.getCallId();
+
+                            Intent callScreen = new Intent(Chat.this, CallScreenActivity.class);
+                            callScreen.putExtra(SinchService.CALL_ID, callId);
+                            callScreen.putExtra("userName", getName);
+                            startActivity(callScreen);
+                        } else {
+                            Toast.makeText(Chat.this, "User is offline!", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         chattingRecyclerView.setHasFixedSize(true);
         chattingRecyclerView.setLayoutManager(new LinearLayoutManager(Chat.this));
@@ -115,24 +147,6 @@ public class Chat extends BaseActivity implements BottomSheetImagePicker.OnImage
         chattingRecyclerView.setAdapter(chatAdapter);
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
-        callBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (getStatus.equals("Online")) {
-                    Call call = getSinchServiceInterface().callUser(getUID);
-                    String callId = call.getCallId();
-
-                    Intent callScreen = new Intent(Chat.this, CallScreenActivity.class);
-                    callScreen.putExtra(SinchService.CALL_ID, callId);
-                    callScreen.putExtra("userName", getName);
-                    startActivity(callScreen);
-                } else {
-                    Toast.makeText(Chat.this, "User is offline!", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -275,81 +289,6 @@ public class Chat extends BaseActivity implements BottomSheetImagePicker.OnImage
         });
 
     }
-
-//    private class SinchCallListener implements CallListener {
-//
-//        @Override
-//        public void onCallProgressing(Call call) {
-//            LayoutInflater layoutInflater = getLayoutInflater();
-//            View alertLayout = layoutInflater.inflate(R.layout.call_layout, null);
-//            CardView callProgressLayout = alertLayout.findViewById(R.id.callProgress);
-//            CardView callEstablishedLayout = alertLayout.findViewById(R.id.callEstablished);
-//            CardView callEndedLayout = alertLayout.findViewById(R.id.callEnded);
-//
-//            ImageView hangup = alertLayout.findViewById(R.id.callProgressHangup);
-//            TextView caleeName = alertLayout.findViewById(R.id.calleeNameProgress);
-//            TextView callStatus = alertLayout.findViewById(R.id.callStatusProgress);
-//
-//            AlertDialog.Builder alertDialog = new AlertDialog.Builder(Chat.this);
-//
-//            alertDialog.setCancelable(false);
-//            alertDialog.setView(alertLayout);
-//            AlertDialog dialog = alertDialog.create();
-//
-//            callEndedLayout.setVisibility(View.GONE);
-//            callEstablishedLayout.setVisibility(View.GONE);
-//            callProgressLayout.setVisibility(View.VISIBLE);
-//
-//            caleeName.setText(getIntent().getStringExtra("name"));
-//            callStatus.setText("Calling...");
-//            hangup.setOnClickListener(new View.OnClickListener(){
-//                @Override
-//                public void onClick(View v) {
-//                    dialog.dismiss();
-//                    call.hangup();
-//                }
-//            });
-//            dialog.show();
-//        }
-//
-//        @Override
-//        public void onCallEstablished(Call call) {
-//            Toast.makeText(getApplicationContext(), "Call established", Toast.LENGTH_LONG).show();
-//        }
-//
-//        @Override
-//        public void onCallEnded(Call endedCall) {
-//            Toast.makeText(getApplicationContext(), "Call ended", Toast.LENGTH_LONG).show();
-//            call = null;
-//            endedCall.hangup();
-//        }
-//    }
-//
-//    private class SinchCallClientListener implements CallClientListener {
-//        @Override
-//        public void onIncomingCall(CallClient callClient, Call incomingCall) {
-//            AlertDialog alertDialog = new AlertDialog.Builder(Chat.this).create();
-//            alertDialog.setTitle("CALLING");
-//            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Reject", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialogInterface, int i) {
-//                    dialogInterface.dismiss();
-//                }
-//            });
-//            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Answer", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialogInterface, int i) {
-//                    call = incomingCall;
-//                    call.answer();
-//                    call.addCallListener(new SinchCallListener());
-//                    Toast.makeText(getApplicationContext(), "Call is started", Toast.LENGTH_LONG).show();
-//                }
-//            });
-//
-//            alertDialog.show();
-//        }
-//
-//    }
 
     @Override
     public void onBackPressed() {
