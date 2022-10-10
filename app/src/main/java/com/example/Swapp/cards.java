@@ -1,11 +1,15 @@
 package com.example.Swapp;
 
+import java.util.Collections;
+import java.util.List;
+
 public class cards {
 
-    String Image_Url, Item_Category, Item_Description, Item_Location, Item_Name, Item_Preferred, Poster_Name, Poster_UID;
+    String Item_Category, Item_Description, Item_Location, Item_Name, Item_Preferred, Poster_Name, Poster_UID;
+    List<String> ImageUrls;
 
-    public cards(String image_Url, String item_Category, String item_Description, String item_Location, String item_Name, String item_Preferred, String poster_Name, String poster_Uid) {
-        Image_Url = image_Url;
+    public cards(List<String> image_Url, String item_Category, String item_Description, String item_Location, String item_Name, String item_Preferred, String poster_Name, String poster_Uid) {
+        ImageUrls = image_Url;
         Item_Category = item_Category;
         Item_Description = item_Description;
         Item_Location = item_Location;
@@ -16,12 +20,12 @@ public class cards {
 
     }
 
-    public String getImage_Url() {
-        return Image_Url;
+    public List<String> getImage_Url() {
+        return ImageUrls;
     }
 
     public void setImage_Name(String image_Url) {
-        Image_Url = image_Url;
+        ImageUrls = Collections.singletonList(image_Url);
     }
 
     public String getItem_Category() {

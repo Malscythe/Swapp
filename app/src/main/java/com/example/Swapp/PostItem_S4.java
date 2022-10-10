@@ -147,7 +147,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
 
                         for (int i = 0; i < imageList.size(); i++) {
 
-                            StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/items/" + "/" + category + "/" + getIntent().getStringExtra("item_name") + "/" + "Image-" + i);
+                            StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/items/MenApparel/" + getIntent().getStringExtra("item_name") + "/" + "Image-" + i);
 
                             UploadTask uploadTask = storageReference.putFile(imageList.get(i).getImage());
 
@@ -1079,7 +1079,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
 
                         for (int i = 0; i < imageList.size(); i++) {
 
-                            StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/items/" + "/" + category + "/" + getIntent().getStringExtra("item_name") + "/" + "Image-" + i);
+                            StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/items/WomenApparel/" + getIntent().getStringExtra("item_name") + "/" + "Image-" + i);
 
                             UploadTask uploadTask = storageReference.putFile(imageList.get(i).getImage());
 

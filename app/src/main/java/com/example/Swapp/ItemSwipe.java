@@ -154,16 +154,18 @@ public class ItemSwipe extends AppCompatActivity {
 
                     if (snapshot.exists() && snapshot.getKey().equals(keysList.get(i))) {
 
-                        cards item = new cards(snapshot.child("Image_Url").getValue().toString(),
-                                snapshot.child("Item_Category").getValue().toString(),
-                                snapshot.child("Item_Description").getValue().toString(),
-                                snapshot.child("Item_Location").getValue().toString(),
-                                snapshot.child("Item_Name").getValue().toString(),
-                                snapshot.child("Item_Preferred").getValue().toString(),
-                                snapshot.child("Poster_Name").getValue().toString(),
-                                snapshot.child("Poster_UID").getValue().toString());
-                        rowItems.add(item);
-                        arrayAdapter.notifyDataSetChanged();
+
+
+//                        cards item = new cards(
+//                                snapshot.child("Item_Category").getValue().toString(),
+//                                snapshot.child("Item_Description").getValue().toString(),
+//                                snapshot.child("Item_Location").getValue().toString(),
+//                                snapshot.child("Item_Name").getValue().toString(),
+//                                snapshot.child("Item_Preferred").getValue().toString(),
+//                                snapshot.child("Poster_Name").getValue().toString(),
+//                                snapshot.child("Poster_UID").getValue().toString());
+//                        rowItems.add(item);
+//                        arrayAdapter.notifyDataSetChanged();
                     }
                 }
             }

@@ -32,16 +32,16 @@ public class arrayAdapter extends ArrayAdapter<cards> {
         }
 
         ImageView item_Image = (ImageView) convertView.findViewById(R.id.itemImage);
-        TextView item_Name = (TextView) convertView.findViewById(R.id.itemName);
-        TextView item_Poster = (TextView) convertView.findViewById(R.id.posterName);
-        TextView item_Location = (TextView) convertView.findViewById(R.id.itemLocation);
-        TextView item_Pref = (TextView) convertView.findViewById(R.id.itemPref);
+//        TextView item_Name = (TextView) convertView.findViewById(R.id.itemName);
+//        TextView item_Poster = (TextView) convertView.findViewById(R.id.posterName);
+//        TextView item_Location = (TextView) convertView.findViewById(R.id.itemLocation);
+//        TextView item_Pref = (TextView) convertView.findViewById(R.id.itemPref);
 
         Glide.with(getContext()).load(card_item.getImage_Url()).into(item_Image);
-        item_Name.setText(card_item.getItem_Name());
-        item_Poster.setText(card_item.getPoster_Name());
-        item_Location.setText(card_item.getItem_Location());
-        item_Pref.setText(card_item.getItem_Preferred());
+//        item_Name.setText(card_item.getItem_Name());
+//        item_Poster.setText(card_item.getPoster_Name());
+//        item_Location.setText(card_item.getItem_Location());
+//        item_Pref.setText(card_item.getItem_Preferred());
 
         return convertView;
     }
