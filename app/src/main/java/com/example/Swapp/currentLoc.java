@@ -291,25 +291,41 @@ public class currentLoc extends AppCompatActivity {
                         break;
                 }
             } else {
-                databaseReference.child("items").orderByChild("Item_Category").equalTo(category).addListenerForSingleValueEvent(new ValueEventListener() {
+                databaseReference.child("items").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (!snapshot.hasChildren()) {
-                            Intent intent = new Intent(currentLoc.this, alert_dialog_noitem.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                            startActivity(intent);
-                            CustomIntent.customType(currentLoc.this, "fadein-to-fadeout");
-                        } else {
-                            FragmentManager fragmentManager = getSupportFragmentManager();
-                            final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                            final MapsFragment mapsFragment = new MapsFragment();
 
-                            Bundle b = new Bundle();
-                            b.putString("from", getIntent().getStringExtra("from"));
-                            b.putString("category", getIntent().getStringExtra("category"));
-                            mapsFragment.setArguments(b);
-                            fragmentTransaction.add(R.id.container, mapsFragment).commit();
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
+                                DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                databaseReference1.child("items").child(dataSnapshot.getKey()).child(dataSnapshot1.getKey()).orderByChild("Item_Category").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                                        if (!snapshot1.hasChildren()) {
+                                            Intent intent = new Intent(currentLoc.this, alert_dialog_noitem.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                            startActivity(intent);
+                                            CustomIntent.customType(currentLoc.this, "fadein-to-fadeout");
+                                        } else {
+                                            FragmentManager fragmentManager = getSupportFragmentManager();
+                                            final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                            final MapsFragment mapsFragment = new MapsFragment();
+
+                                            Bundle b = new Bundle();
+                                            b.putString("from", getIntent().getStringExtra("from"));
+                                            b.putString("category", getIntent().getStringExtra("category"));
+                                            mapsFragment.setArguments(b);
+                                            fragmentTransaction.add(R.id.container, mapsFragment).commit();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                            }
                         }
                     }
 
