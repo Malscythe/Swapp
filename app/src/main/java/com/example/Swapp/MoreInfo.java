@@ -70,7 +70,7 @@ public class MoreInfo extends AppCompatActivity {
                     offerBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent intent = new Intent(MoreInfo.this, offerItem.class);
+                            Intent intent = new Intent(MoreInfo.this, offerItem_S1.class);
                             intent.putExtra("itemid", snapshot.child("Item_Name").getValue().toString().concat("-" + snapshot.child("Poster_UID").getValue().toString()));
                             startActivity(intent);
                             CustomIntent.customType(MoreInfo.this, "left-to-right");

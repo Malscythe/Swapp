@@ -55,7 +55,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_item_s4);
 
-        Log.w(TAG, getIntent().getStringExtra("item_name"));
+        Log.w(TAG, "POst item s4");
 
         StateProgressBar stateProgressBar = findViewById(R.id.stateProgress);
         stateProgressBar.setStateDescriptionData(descriptionData);
@@ -205,6 +205,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Address").child("Country").setValue(mCountry);
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Address").child("Latitude").setValue(mLatitude);
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Address").child("Longitude").setValue(mLongitude);
+                                                        databaseReference.child("items").child(currentId).child(mItemName).child("is_Approve").setValue("0");
                                                     }
 
                                                     if (snapshot.child("items").child(currentId).child(mItemName).hasChild("Images")) {
@@ -290,6 +291,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(gadgetItemName).child("Address").child("Country").setValue(gadgetCountry);
                                                         databaseReference.child("items").child(currentId).child(gadgetItemName).child("Address").child("Latitude").setValue(gadgetLatitude);
                                                         databaseReference.child("items").child(currentId).child(gadgetItemName).child("Address").child("Longitude").setValue(gadgetLongitude);
+                                                        databaseReference.child("items").child(currentId).child(mItemName).child("is_Approve").setValue("0");
                                                     }
 
                                                     if (snapshot.child("items").child(currentId).child(gadgetItemName).hasChild("Images")) {
@@ -373,6 +375,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(gameItemName).child("Address").child("Country").setValue(gameCountry);
                                                         databaseReference.child("items").child(currentId).child(gameItemName).child("Address").child("Latitude").setValue(gameLatitude);
                                                         databaseReference.child("items").child(currentId).child(gameItemName).child("Address").child("Longitude").setValue(gameLongitude);
+                                                        databaseReference.child("items").child(currentId).child(mItemName).child("is_Approve").setValue("0");
                                                     }
 
                                                     if (snapshot.child("items").child(currentId).child(gameItemName).hasChild("Images")) {
@@ -459,6 +462,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(bagItemName).child("Address").child("Country").setValue(bagCountry);
                                                         databaseReference.child("items").child(currentId).child(bagItemName).child("Address").child("Latitude").setValue(bagLatitude);
                                                         databaseReference.child("items").child(currentId).child(bagItemName).child("Address").child("Longitude").setValue(bagLongitude);
+                                                        databaseReference.child("items").child(currentId).child(mItemName).child("is_Approve").setValue("0");
                                                     }
 
                                                     if (snapshot.child("items").child(currentId).child(bagItemName).hasChild("Images")) {
@@ -536,6 +540,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(groceryItemName).child("Address").child("Country").setValue(groceryCountry);
                                                         databaseReference.child("items").child(currentId).child(groceryItemName).child("Address").child("Latitude").setValue(groceryLatitude);
                                                         databaseReference.child("items").child(currentId).child(groceryItemName).child("Address").child("Longitude").setValue(groceryLongitude);
+                                                        databaseReference.child("items").child(currentId).child(mItemName).child("is_Approve").setValue("0");
                                                     }
 
                                                     if (snapshot.child("items").child(currentId).child(groceryItemName).hasChild("Images")) {
@@ -625,6 +630,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(furnitureItemName).child("Address").child("Country").setValue(furnitureCountry);
                                                         databaseReference.child("items").child(currentId).child(furnitureItemName).child("Address").child("Latitude").setValue(furnitureLatitude);
                                                         databaseReference.child("items").child(currentId).child(furnitureItemName).child("Address").child("Longitude").setValue(furnitureLongitude);
+                                                        databaseReference.child("items").child(currentId).child(mItemName).child("is_Approve").setValue("0");
                                                     }
 
                                                     if (snapshot.child("items").child(currentId).child(furnitureItemName).hasChild("Images")) {
@@ -710,6 +716,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(bnkItemName).child("Address").child("Country").setValue(bnkCountry);
                                                         databaseReference.child("items").child(currentId).child(bnkItemName).child("Address").child("Latitude").setValue(bnkLatitude);
                                                         databaseReference.child("items").child(currentId).child(bnkItemName).child("Address").child("Longitude").setValue(bnkLongitude);
+                                                        databaseReference.child("items").child(currentId).child(mItemName).child("is_Approve").setValue("0");
                                                     }
 
                                                     if (snapshot.child("items").child(currentId).child(bnkItemName).hasChild("Images")) {
@@ -795,6 +802,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(appliancesItemName).child("Address").child("Country").setValue(appliancesCountry);
                                                         databaseReference.child("items").child(currentId).child(appliancesItemName).child("Address").child("Latitude").setValue(appliancesLatitude);
                                                         databaseReference.child("items").child(currentId).child(appliancesItemName).child("Address").child("Longitude").setValue(appliancesLongitude);
+                                                        databaseReference.child("items").child(currentId).child(mItemName).child("is_Approve").setValue("0");
                                                     }
 
                                                     if (snapshot.child("items").child(currentId).child(appliancesItemName).hasChild("Images")) {
@@ -880,6 +888,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(motorItemName).child("Address").child("Country").setValue(motorCountry);
                                                         databaseReference.child("items").child(currentId).child(motorItemName).child("Address").child("Latitude").setValue(motorLatitude);
                                                         databaseReference.child("items").child(currentId).child(motorItemName).child("Address").child("Longitude").setValue(motorLongitude);
+                                                        databaseReference.child("items").child(currentId).child(mItemName).child("is_Approve").setValue("0");
                                                     }
 
                                                     if (snapshot.child("items").child(currentId).child(motorItemName).hasChild("Images")) {
@@ -963,6 +972,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(audioItemName).child("Address").child("Country").setValue(audioCountry);
                                                         databaseReference.child("items").child(currentId).child(audioItemName).child("Address").child("Latitude").setValue(audioLatitude);
                                                         databaseReference.child("items").child(currentId).child(audioItemName).child("Address").child("Longitude").setValue(audioLongitude);
+                                                        databaseReference.child("items").child(currentId).child(mItemName).child("is_Approve").setValue("0");
                                                     }
 
                                                     if (snapshot.child("items").child(currentId).child(audioItemName).hasChild("Images")) {
@@ -1048,6 +1058,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(schoolItemName).child("Address").child("Country").setValue(schoolCountry);
                                                         databaseReference.child("items").child(currentId).child(schoolItemName).child("Address").child("Latitude").setValue(schoolLatitude);
                                                         databaseReference.child("items").child(currentId).child(schoolItemName).child("Address").child("Longitude").setValue(schoolLongitude);
+                                                        databaseReference.child("items").child(currentId).child(mItemName).child("is_Approve").setValue("0");
                                                     }
 
                                                     if (snapshot.child("items").child(currentId).child(schoolItemName).hasChild("Images")) {
@@ -1137,6 +1148,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(wItemName).child("Address").child("Country").setValue(wCountry);
                                                         databaseReference.child("items").child(currentId).child(wItemName).child("Address").child("Latitude").setValue(wLatitude);
                                                         databaseReference.child("items").child(currentId).child(wItemName).child("Address").child("Longitude").setValue(wLongitude);
+                                                        databaseReference.child("items").child(currentId).child(mItemName).child("is_Approve").setValue("0");
                                                     }
 
                                                     if (snapshot.child("items").child(currentId).child(wItemName).hasChild("Images")) {

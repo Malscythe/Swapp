@@ -1,0 +1,1910 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    tools:context="com.example.Swapp.offerItem_S2">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.kofigyan.stateprogressbar.StateProgressBar
+                android:id="@+id/stateProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                app:spb_animateToCurrentProgressState="true"
+                app:spb_checkStateCompleted="true"
+                app:spb_currentStateDescriptionColor="@color/primary"
+                app:spb_currentStateNumber="two"
+                app:spb_maxStateNumber="four"
+                app:spb_stateBackgroundColor="@color/primary_black"
+                app:spb_stateDescriptionColor="@color/primary_black"
+                app:spb_stateForegroundColor="@color/primary"
+                app:spb_stateNumberBackgroundColor="#808080"
+                app:spb_stateNumberForegroundColor="@color/white" />
+
+            <TextView
+                android:id="@+id/stepTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/stateProgress"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="30dp"
+                android:fontFamily="@font/poppins"
+                android:text="ITEM DESCRIPTION"
+                android:textColor="@color/primary_black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_below="@id/stepTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!--Apparels Layout-->
+
+                <RelativeLayout
+                    android:id="@+id/apparelDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/requiredText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="Fields with an asterisk (*) are required."
+                        android:textColor="@android:color/holo_red_light"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+
+                    <LinearLayout
+                        android:id="@+id/apparelType"
+                        android:layout_width="match_parent"
+                        android:layout_below="@id/requiredText"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/clothingTypeWL"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="30dp"
+                            android:visibility="gone"
+                            android:layout_marginBottom="10dp"
+                            app:boxStrokeColor="@color/primary"
+                            app:boxStrokeWidth="2dp"
+                            app:helperText="E.g. Dress, Bottoms, Tops, etc.">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/clothingTypeW"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:fontFamily="@font/poppins_medium"
+                                android:hint="Type of clothing *"
+                                android:inputType="none"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/clothingTypeML"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="30dp"
+                            android:layout_marginBottom="10dp"
+                            android:visibility="visible"
+                            app:boxStrokeColor="@color/primary"
+                            app:boxStrokeWidth="2dp"
+                            app:helperText="E.g. Outerwear, Bottoms, Hoodie, etc.">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/clothingTypeM"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:fontFamily="@font/poppins_medium"
+                                android:hint="Type of clothing *"
+                                android:inputType="none"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/brandL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/apparelType"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="Clothing brand. Put N/A if not applicable.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/brand"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Brand *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/colorL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/brandL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The clothing's color">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/color"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Color *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/materialL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/colorL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The fabric used to make this item.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/material"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Material *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/usageL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/materialL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="Clothing usage e.g. Brand new or Days/Months/Year of usage.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/usage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Usage *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/sizesLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/usageL"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginBottom="20dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="10dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="5dp"
+                                    android:fontFamily="@font/poppins"
+                                    android:text="Size(s) * : "
+                                    android:textColor="@color/primary_black"
+                                    android:textSize="16sp" />
+
+                                <TextView
+                                    android:id="@+id/size_error"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="5dp"
+                                    android:fontFamily="@font/poppins"
+                                    android:text="No size selected!"
+                                    android:visibility="gone"
+                                    android:textColor="@android:color/holo_red_light"
+                                    android:textSize="16sp" />
+
+                            </RelativeLayout>
+
+                            <com.google.android.flexbox.FlexboxLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:alignContent="stretch"
+                                app:alignItems="stretch"
+                                app:flexWrap="wrap">
+
+                                <CheckBox
+                                    android:id="@+id/size_XS"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:fontFamily="@font/poppins"
+                                    android:text="XS"
+                                    android:textSize="12sp" />
+
+                                <CheckBox
+                                    android:id="@+id/size_S"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:fontFamily="@font/poppins"
+                                    android:text="S"
+                                    android:textSize="12sp" />
+
+                                <CheckBox
+                                    android:id="@+id/size_M"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:fontFamily="@font/poppins"
+                                    android:text="M"
+                                    android:textSize="12sp" />
+
+                                <CheckBox
+                                    android:id="@+id/size_L"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:fontFamily="@font/poppins"
+                                    android:text="L"
+                                    android:textSize="12sp" />
+
+                                <CheckBox
+                                    android:id="@+id/size_XL"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:fontFamily="@font/poppins"
+                                    android:text="XL"
+                                    android:textSize="12sp" />
+
+                                <CheckBox
+                                    android:id="@+id/size_2XL"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:fontFamily="@font/poppins"
+                                    android:text="2XL"
+                                    android:textSize="12sp" />
+
+                                <CheckBox
+                                    android:id="@+id/size_3XL"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:fontFamily="@font/poppins"
+                                    android:text="3XL"
+                                    android:textSize="12sp" />
+
+                            </com.google.android.flexbox.FlexboxLayout>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/descriptionL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/sizesLayout"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="Additional information regarding the item">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/description"
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="top|start"
+                            android:hint="Additional information *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </RelativeLayout>
+
+                <!--Gadgets Layout-->
+
+                <RelativeLayout
+                    android:id="@+id/gadgetsInterface"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/requiredTextGadget"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="Fields with an asterisk (*) are required."
+                        android:textColor="@android:color/holo_red_light"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/gadgetsTypeL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/requiredTextGadget"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="E.g., Smartphone, Camera, Headphone, etc.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/gadgetsType"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Type of gadget *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/gadgetsBrandL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/gadgetsTypeL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The brand of the gadget. Put N/A if not applicable.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/gadgetsBrand"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Brand *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/gadgetUsageL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/gadgetsBrandL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The usage of the item. Brand new or Days/Months/Year of usage.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/gadgetUsage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Usage *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/gadgetColorL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/gadgetUsageL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The color of the item.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/gadgetColor"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Color *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/gadgetDescriptionL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_below="@id/gadgetColorL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/gadgetDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="top|start"
+                            android:hint="Additional Information *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </RelativeLayout>
+
+                <!--Game Layout-->
+
+                <RelativeLayout
+                    android:id="@+id/gamesInterface"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/requiredTextGame"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="Fields with an asterisk (*) are required."
+                        android:textColor="@android:color/holo_red_light"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/gameTypeL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/requiredTextGame"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="E.g., Action, Adventure, Simulation, etc.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/gameType"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Type of game *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/gameBrandL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/gameTypeL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The brand of the game. Put N/A if not applicable.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/gameBrand"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Brand *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/gameUsageL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/gameBrandL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The usage of the item. Brand new or Days/Months/Year of usage.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/gametUsage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Usage *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/gameDescriptionL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_below="@id/gameUsageL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/gameDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="top|start"
+                            android:hint="Additional Information *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </RelativeLayout>
+
+                <!--Bags Layout-->
+
+                <RelativeLayout
+                    android:id="@+id/bagsInterface"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/requiredTextBag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="Fields with an asterisk (*) are required."
+                        android:textColor="@android:color/holo_red_light"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/bagTypeL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/requiredTextBag"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="E.g., Sling bag, Backpack, Handbag, etc.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/bagType"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Type of gadget *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/bagBrandL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/bagTypeL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The brand of the bag. Put N/A if not applicable.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/bagBrand"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Brand *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/bagUsageL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/bagBrandL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The usage of the item. Brand new or Days/Months/Year of usage.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/bagUsage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Usage *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/bagColorL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/bagUsageL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The color of the item.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/bagColor"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Color *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/bagDescriptionL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_below="@id/bagColorL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/bagDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="top|start"
+                            android:hint="Additional Information *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </RelativeLayout>
+
+                <!--Groceries Layout-->
+
+                <RelativeLayout
+                    android:id="@+id/groceriesInterface"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:fontFamily="@font/poppins"
+                            android:text="List the grocery items below"
+                            android:textStyle="bold"
+                            android:textColor="@color/primary_black"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins"
+                            android:text="Follow this format:"
+                            android:textStyle="bold"
+                            android:textColor="@color/primary_black"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins"
+                            android:text="Item Name \\ Quantity \\ Expiration Date."
+                            android:textColor="@color/primary_black"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins"
+                            android:layout_marginBottom="20dp"
+                            android:text="New line for next item."
+                            android:textColor="@color/primary_black"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins"
+                            android:text="Follow this format for expiration date:"
+                            android:textColor="@color/primary_black"
+                            android:textStyle="bold"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="20dp"
+                            android:fontFamily="@font/poppins"
+                            android:text="Month-Day-Year (E.g., 09-25-1999)"
+                            android:textColor="@color/primary_black"
+                            android:textSize="12sp" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/groceryListL"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/brandL"
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/white"
+                            app:boxStrokeColor="@color/primary"
+                            app:boxStrokeWidth="2dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/groceryList"
+                                android:layout_width="match_parent"
+                                android:layout_height="500dp"
+                                android:fontFamily="@font/poppins_medium"
+                                android:gravity="top|start"
+                                android:hint="Grocery list *"
+                                android:importantForAutofill="no"
+                                android:textColor="@color/black"
+                                android:textSize="16sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <!--Furniture Layout-->
+
+                <RelativeLayout
+                    android:id="@+id/furnitureInterface"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/requiredTextFurniture"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="Fields with an asterisk (*) are required."
+                        android:textColor="@android:color/holo_red_light"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/furnitureBrandL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/requiredTextFurniture"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The brand of the furniture. Put N/A if not applicable.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/furnitureBrand"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Brand *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/furnitureUsageL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/furnitureBrandL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The usage of the item. Brand new or Days/Months/Year of usage.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/furnitureUsage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Usage *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/furnitureColorL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/furnitureUsageL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The color of the item.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/furnitureColor"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Color *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/furnitureDimension"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/furnitureColorL"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginBottom="20dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/furnitureDimensionText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/poppins"
+                                android:text="Furniture dimension: "
+                                android:textColor="@color/primary_black"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:id="@+id/furnitureDimensionError"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginBottom="10dp"
+                                android:visibility="gone"
+                                android:fontFamily="@font/poppins"
+                                android:text="Error "
+                                android:textColor="@android:color/holo_red_light"
+                                android:textSize="12sp" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/furnitureSizeWidthL"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/furnitureDimensionText"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginRight="30dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="@color/white"
+                                app:boxStrokeColor="@color/primary"
+                                app:boxStrokeWidth="2dp"
+                                app:helperText="The width of the furniture.">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/furnitureSizeWidth"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:hint="Width *"
+                                    android:importantForAutofill="no"
+                                    android:textColor="@color/black" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/furnitureSizeLengthL"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/furnitureSizeWidthL"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginRight="30dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="@color/white"
+                                app:boxStrokeColor="@color/primary"
+                                app:boxStrokeWidth="2dp"
+                                app:helperText="The length of the furniture.">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/furnitureSizeLength"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:hint="Length *"
+                                    android:importantForAutofill="no"
+                                    android:textColor="@color/black" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/furnitureSizeHeightL"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/furnitureSizeLengthL"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginRight="30dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="@color/white"
+                                app:boxStrokeColor="@color/primary"
+                                app:boxStrokeWidth="2dp"
+                                app:helperText="The length of the furniture.">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/furnitureSizeHeight"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:hint="Length *"
+                                    android:importantForAutofill="no"
+                                    android:textColor="@color/black" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/furnitureDescriptionL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_below="@id/furnitureDimension"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/furnitureDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="top|start"
+                            android:hint="Additional Information *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </RelativeLayout>
+
+                <!--Babies & kids Layout-->
+
+                <RelativeLayout
+                    android:id="@+id/bnkInterface"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/requiredTextBNK"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="Fields with an asterisk (*) are required."
+                        android:textColor="@android:color/holo_red_light"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/bnkTypeL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/requiredTextBNK"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="E.g., Toys, Accessories, Apparel, etc.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/bnkType"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Type of item *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/bnkBrandL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/bnkTypeL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The brand of the item. Put N/A if not applicable.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/bnkBrand"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Brand *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/bnkUsageL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/bnkBrandL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The usage of the item. Brand new or Days/Months/Year of usage.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/bnkUsage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Usage *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/bnkAgeL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/bnkUsageL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="Age restriction for this item.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/bnkAge"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Age *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/bnkDescriptionL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_below="@id/bnkAgeL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/bnkDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="top|start"
+                            android:hint="Additional Information *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </RelativeLayout>
+
+                <!--Appliances Layout-->
+
+                <RelativeLayout
+                    android:id="@+id/appliancesInterface"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/requiredTextAppliances"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="Fields with an asterisk (*) are required."
+                        android:textColor="@android:color/holo_red_light"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/appliancesTypeL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/requiredTextAppliances"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="E.g., TV, Refrigerator, Air conditioner, etc.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/appliancesType"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Type of item *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/appliancesBrandL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/appliancesTypeL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The brand of the appliances. Put N/A if not applicable.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/appliancesBrand"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Brand *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/appliancesUsageL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/appliancesBrandL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The usage of the item. Brand new or Days/Months/Year of usage.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/appliancesUsage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Usage *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/appliancesColorL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/appliancesUsageL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The color of the appliances.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/appliancesColor"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Color *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/appliancesDescriptionL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_below="@id/appliancesColorL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/appliancesDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="top|start"
+                            android:hint="Additional Information *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </RelativeLayout>
+
+                <!--Motors Layout-->
+
+                <RelativeLayout
+                    android:id="@+id/motorInterface"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/requiredTextMotor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="Fields with an asterisk (*) are required."
+                        android:textColor="@android:color/holo_red_light"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/motorModelL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/requiredTextMotor"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The model of the vehicle.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/motorModel"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Motorcycle model *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/motorBrandL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/motorModelL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The brand of the game. Put N/A if not applicable.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/motorBrand"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Brand *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/motorUsageL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/motorBrandL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The usage of the item. Brand new or Days/Months/Year of usage.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/motorUsage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Usage *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/motorColorL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/motorUsageL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The color of the vehicle.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/motorColor"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Color *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/motorDescriptionL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_below="@id/motorColorL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/motorDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="top|start"
+                            android:hint="Additional Information *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </RelativeLayout>
+
+                <!--School Layout-->
+
+                <RelativeLayout
+                    android:id="@+id/schoolInterface"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/requiredTextSchool"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="Fields with an asterisk (*) are required."
+                        android:textColor="@android:color/holo_red_light"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/schoolTypeL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/requiredTextSchool"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="E.g., Notebook, Pen, Enveopes, etc.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/schoolType"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Type of item *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/schoolBrandL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/schoolTypeL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The brand of the item. Put N/A if not applicable.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/schoolBrand"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Brand *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/schoolUsageL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/schoolBrandL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The usage of the item. Brand new or Days/Months/Year of usage.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/schoolUsage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Usage *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/schoolColorL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/schoolUsageL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The color of the item.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/schoolColor"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Color *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/schoolDescriptionL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_below="@id/schoolColorL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/schoolDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="top|start"
+                            android:hint="Additional Information *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </RelativeLayout>
+
+                <!--Audio Layout-->
+
+                <RelativeLayout
+                    android:id="@+id/audioInterface"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/requiredTextAudio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="Fields with an asterisk (*) are required."
+                        android:textColor="@android:color/holo_red_light"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/audioArtistL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/requiredTextAudio"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="Artist of the album">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/audioArtist"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Artist *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/audioReleaseDateL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/audioArtistL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The release date of the album.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/audioReleaseDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Release date *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/audioUsageL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/audioReleaseDateL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="The usage of the item. Brand new or Days/Months/Year of usage.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/audioUsage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Usage *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/audioDescriptionL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_below="@id/audioUsageL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/audioDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="top|start"
+                            android:hint="Additional Information *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </RelativeLayout>
+
+                <!--Others Layout-->
+
+                <RelativeLayout
+                    android:id="@+id/otherInterface"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/requiredTextOther"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="5dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="Fields with an asterisk (*) are required."
+                        android:textColor="@android:color/holo_red_light"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/otherTypeL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/requiredTextOther"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp"
+                        app:helperText="E.g., Accessories, Unlisted items, Electronics, etc.">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/otherType"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:hint="Type of item *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/otherDescriptionL"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_below="@id/otherTypeL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/white"
+                        app:boxStrokeColor="@color/primary"
+                        app:boxStrokeWidth="2dp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/otherDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="top|start"
+                            android:hint="Additional Information *"
+                            android:importantForAutofill="no"
+                            android:textColor="@color/black" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <TextView
+                        android:id="@+id/noticeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/otherDescriptionL"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginRight="30dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="*Note: This item will be inspected by the administrator to ensure other traders safety."
+                        android:textColor="@android:color/holo_red_light"
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
+
+                </RelativeLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/nextBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/buttonborder"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Next"
+                    android:textColor="@color/white"
+                    android:textSize="24sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

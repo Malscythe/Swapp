@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -8,12 +9,11 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -23,99 +23,93 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Swapp"
         android:usesCleartextTraffic="true">
-
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
-
         <activity
-            android:name="com.example.Swapp.signup"
+            android:name=".pendingoffer"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity
+            android:name=".signup"
             android:exported="true" />
-
         <activity
-            android:name="com.example.Swapp.popup"
+            android:name=".popup"
             android:exported="true"
             android:theme="@style/piechart" />
-
         <activity
-            android:name="com.example.Swapp.MoreInfo"
+            android:name=".MoreInfo"
             android:exported="true" />
-
         <activity
-            android:name="com.example.Swapp.OfferSecondActivity"
+            android:name=".OfferSecondActivity"
             android:exported="true" />
-
         <activity
-            android:name="com.example.Swapp.offerItem"
+            android:name=".UserHomepage"
             android:exported="true" />
-
         <activity
-            android:name="com.example.Swapp.UserHomepage"
+            android:name=".OfferMainAcitvity"
             android:exported="true" />
-
         <activity
-            android:name="com.example.Swapp.OfferMainAcitvity"
+            android:name=".Categories"
             android:exported="true" />
-
         <activity
-            android:name="com.example.Swapp.Categories"
+            android:name=".chat.Chat"
             android:exported="true" />
-
         <activity
-            android:name="com.example.Swapp.chat.Chat"
+            android:name=".ItemSwipe"
             android:exported="true" />
-
         <activity
-            android:name="com.example.Swapp.ItemSwipe"
+            android:name=".forgotpassword"
             android:exported="true" />
-
         <activity
-            android:name="com.example.Swapp.forgotpassword"
+            android:name=".Messages"
             android:exported="true" />
-
         <activity
-            android:name="com.example.Swapp.Messages"
+            android:name=".postforgotpassword"
             android:exported="true" />
-
         <activity
-            android:name="com.example.Swapp.postforgotpassword"
+            android:name=".PostItem_S1"
             android:exported="true" />
-
         <activity
-            android:name="com.example.Swapp.PostItem_S1"
+            android:name=".PostItem_S2"
             android:exported="true" />
-
         <activity
-            android:name="com.example.Swapp.PostItem_S2"
+            android:name=".PostItem_S3"
             android:exported="true" />
-
         <activity
-            android:name="com.example.Swapp.PostItem_S3"
+            android:name=".PostItem_S4"
             android:exported="true" />
-
         <activity
-            android:name="com.example.Swapp.PostItem_S4"
+            android:name=".OfferMoreInfo"
             android:exported="true" />
-
         <activity
-            android:name="com.example.Swapp.OfferMoreInfo"
+            android:name=".offerItem_S1"
             android:exported="true" />
-
         <activity
-            android:name="com.example.Swapp.deliverytrack"
+            android:name=".offerItem_S2"
             android:exported="true" />
-
         <activity
-            android:name="com.example.Swapp.currentLoc"
+            android:name=".offerItem_S3"
+            android:exported="true" />
+        <activity
+            android:name=".offerItem_S4"
+            android:exported="true" />
+        <activity
+            android:name=".deliverytrack"
+            android:exported="true" />
+        <activity
+            android:name=".currentLoc"
             android:exported="true"
             android:noHistory="true" />
-
         <activity
-            android:name="com.example.Swapp.imageFullScreen"
+            android:name=".imageFullScreen"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.CustomTheme" />
-
         <activity
-            android:name="com.example.Swapp.FileMaintenance"
+            android:name=".FileMaintenance"
             android:exported="true" />
 
         <meta-data
@@ -123,26 +117,25 @@
             android:value="AIzaSyABuWu_G8rYXzT86rtvsc8s58ZGOB6DgTU" />
 
         <activity
-            android:name="com.example.Swapp.AdminHomepage"
+            android:name=".AdminHomepage"
             android:exported="true" />
-
         <activity
-            android:name="com.example.Swapp.alert_dialog_noitem"
+            android:name=".alert_dialog_noitem"
             android:exported="true" />
-
         <activity
-            android:name="com.example.Swapp.login"
+            android:name=".login"
             android:exported="true"
             android:label="Swapp">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
+
                 <data android:mimeType="image/*" />
             </intent-filter>
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -161,20 +154,23 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <service android:name="com.example.Swapp.call.SinchService"></service>
-
+        <service android:name=".call.SinchService" />
         <service
-            android:name="com.example.Swapp.call.fcm.FcmListenerService"
+            android:name=".call.fcm.FcmListenerService"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <activity android:name="com.example.Swapp.call.CallScreenActivity" android:screenOrientation="portrait"/>
-        <activity android:name="com.example.Swapp.call.IncomingCallScreenActivity" android:screenOrientation="portrait"
-            android:noHistory="true" android:autoRemoveFromRecents="true"/>
-
+        <activity
+            android:name=".call.CallScreenActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".call.IncomingCallScreenActivity"
+            android:autoRemoveFromRecents="true"
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

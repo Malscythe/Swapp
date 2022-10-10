@@ -28,11 +28,11 @@ import com.kofigyan.stateprogressbar.StateProgressBar;
 import java.util.ArrayList;
 
 import Swapp.R;
-import Swapp.databinding.ActivityPostItemS1Binding;
-import Swapp.databinding.ActivityPostItemS2Binding;
+import Swapp.databinding.ActivityOfferItemS1Binding;
+import Swapp.databinding.ActivityOfferItemS2Binding;
 import maes.tech.intentanim.CustomIntent;
 
-public class PostItem_S2 extends AppCompatActivity {
+public class offerItem_S2 extends AppCompatActivity {
 
     CheckBox sizeXS, sizeS, sizeM, sizeL, sizeXL, sizeXXL, sizeXXXL;
     RelativeLayout apparelL, gadgetsL, gameL, bagsL, groceriesL, furnitureL, bnkL, appliancesL, motorsL, audioL, schoolL, otherL;
@@ -41,12 +41,12 @@ public class PostItem_S2 extends AppCompatActivity {
     Button nextBtn;
     String[] descriptionData = {"Details", "Description", "Location", "Images"};
     String activeLayout;
-    ActivityPostItemS2Binding binding;
+    ActivityOfferItemS2Binding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityPostItemS2Binding.inflate(getLayoutInflater());
+        binding = ActivityOfferItemS2Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         String category = getIntent().getStringExtra("category");
@@ -220,8 +220,10 @@ public class PostItem_S2 extends AppCompatActivity {
                             sizesArr.remove("3XL");
                         }
 
-                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        Intent intent = new Intent(offerItem_S2.this, offerItem_S3.class);
                         intent.putExtra("mensClothingType", binding.clothingTypeM.getText().toString());
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("mensBrand", binding.brand.getText().toString());
                         intent.putExtra("mensColor", binding.color.getText().toString());
                         intent.putExtra("mensMaterial", binding.material.getText().toString());
@@ -235,7 +237,7 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("pref_item", preferred_item);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S2.this, "left-to-right");
                     }
                 });
 
@@ -302,8 +304,10 @@ public class PostItem_S2 extends AppCompatActivity {
                             binding.gadgetDescriptionL.setErrorIconDrawable(null);
                         }
 
-                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        Intent intent = new Intent(offerItem_S2.this, offerItem_S3.class);
                         intent.putExtra("gadgetType", binding.gadgetsType.getText().toString());
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("gadgetBrand", binding.gadgetsBrand.getText().toString());
                         intent.putExtra("gadgetColor", binding.gadgetColor.getText().toString());
                         intent.putExtra("gadgetUsage", binding.gadgetUsage.getText().toString());
@@ -315,7 +319,7 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("pref_item", preferred_item);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S2.this, "left-to-right");
                     }
                 });
                 break;
@@ -372,8 +376,10 @@ public class PostItem_S2 extends AppCompatActivity {
                             binding.gameDescriptionL.setErrorIconDrawable(null);
                         }
 
-                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        Intent intent = new Intent(offerItem_S2.this, offerItem_S3.class);
                         intent.putExtra("gameType", binding.gameType.getText().toString());
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("gameBrand", binding.gameBrand.getText().toString());
                         intent.putExtra("gameUsage", binding.gametUsage.getText().toString());
                         intent.putExtra("gameDescription", binding.gameDescription.getText().toString());
@@ -384,7 +390,7 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("pref_item", preferred_item);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S2.this, "left-to-right");
                     }
                 });
 
@@ -451,8 +457,10 @@ public class PostItem_S2 extends AppCompatActivity {
                             binding.bagDescriptionL.setErrorIconDrawable(null);
                         }
 
-                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        Intent intent = new Intent(offerItem_S2.this, offerItem_S3.class);
                         intent.putExtra("bagType", binding.bagType.getText().toString());
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("bagBrand", binding.bagBrand.getText().toString());
                         intent.putExtra("bagColor", binding.bagColor.getText().toString());
                         intent.putExtra("bagUsage", binding.bagUsage.getText().toString());
@@ -464,7 +472,7 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("pref_item", preferred_item);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S2.this, "left-to-right");
                     }
                 });
 
@@ -495,16 +503,18 @@ public class PostItem_S2 extends AppCompatActivity {
                             binding.groceryListL.setErrorIconDrawable(null);
                         }
 
-                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        Intent intent = new Intent(offerItem_S2.this, offerItem_S3.class);
                         intent.putExtra("groceryList", binding.groceryList.getText().toString());
                         intent.putExtra("item_name", item_name);
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("rft", reasonForTrading);
                         intent.putExtra("currentState", "preLocation");
                         intent.putExtra("category", category);
                         intent.putExtra("pref_item", preferred_item);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S2.this, "left-to-right");
                     }
                 });
 
@@ -571,9 +581,11 @@ public class PostItem_S2 extends AppCompatActivity {
                             binding.furnitureDescriptionL.setErrorIconDrawable(null);
                         }
 
-                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        Intent intent = new Intent(offerItem_S2.this, offerItem_S3.class);
                         intent.putExtra("furnitureBrand", binding.furnitureBrand.getText().toString());
                         intent.putExtra("furnitureColor", binding.furnitureColor.getText().toString());
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("furnitureUsage", binding.furnitureUsage.getText().toString());
                         intent.putExtra("furnitureHeight", binding.furnitureSizeHeight.getText().toString());
                         intent.putExtra("furnitureWidth", binding.furnitureSizeWidth.getText().toString());
@@ -586,7 +598,7 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("pref_item", preferred_item);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S2.this, "left-to-right");
                     }
                 });
 
@@ -653,8 +665,10 @@ public class PostItem_S2 extends AppCompatActivity {
                             binding.bnkDescriptionL.setErrorIconDrawable(null);
                         }
 
-                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        Intent intent = new Intent(offerItem_S2.this, offerItem_S3.class);
                         intent.putExtra("bnkAge", binding.bnkAge.getText().toString());
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("bnkBrand", binding.bnkBrand.getText().toString());
                         intent.putExtra("bnkType", binding.bnkType.getText().toString());
                         intent.putExtra("bnkUsage", binding.bnkUsage.getText().toString());
@@ -666,7 +680,7 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("pref_item", preferred_item);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S2.this, "left-to-right");
                     }
                 });
 
@@ -733,8 +747,10 @@ public class PostItem_S2 extends AppCompatActivity {
                             binding.appliancesDescriptionL.setErrorIconDrawable(null);
                         }
 
-                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        Intent intent = new Intent(offerItem_S2.this, offerItem_S3.class);
                         intent.putExtra("appliancesType", binding.appliancesType.getText().toString());
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("appliancesBrand", binding.appliancesBrand.getText().toString());
                         intent.putExtra("appliancesColor", binding.appliancesColor.getText().toString());
                         intent.putExtra("appliancesUsage", binding.appliancesUsage.getText().toString());
@@ -746,7 +762,7 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("pref_item", preferred_item);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S2.this, "left-to-right");
                     }
                 });
 
@@ -813,8 +829,10 @@ public class PostItem_S2 extends AppCompatActivity {
                             binding.motorDescriptionL.setErrorIconDrawable(null);
                         }
 
-                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        Intent intent = new Intent(offerItem_S2.this, offerItem_S3.class);
                         intent.putExtra("motorModel", binding.motorModel.getText().toString());
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("motorBrand", binding.motorBrand.getText().toString());
                         intent.putExtra("motorColor", binding.motorColor.getText().toString());
                         intent.putExtra("motorUsage", binding.motorUsage.getText().toString());
@@ -826,7 +844,7 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("pref_item", preferred_item);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S2.this, "left-to-right");
                     }
                 });
 
@@ -885,8 +903,10 @@ public class PostItem_S2 extends AppCompatActivity {
                             binding.audioDescriptionL.setErrorIconDrawable(null);
                         }
 
-                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        Intent intent = new Intent(offerItem_S2.this, offerItem_S3.class);
                         intent.putExtra("audioArtist", binding.audioArtist.getText().toString());
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("audioReleaseDate", binding.audioReleaseDate.getText().toString());
                         intent.putExtra("audioUsage", binding.audioUsage.getText().toString());
                         intent.putExtra("audioDescription", binding.audioDescription.getText().toString());
@@ -897,7 +917,7 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("pref_item", preferred_item);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S2.this, "left-to-right");
                     }
                 });
 
@@ -964,8 +984,10 @@ public class PostItem_S2 extends AppCompatActivity {
                             binding.schoolDescriptionL.setErrorIconDrawable(null);
                         }
 
-                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        Intent intent = new Intent(offerItem_S2.this, offerItem_S3.class);
                         intent.putExtra("schoolType", binding.schoolType.getText().toString());
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("schoolBrand", binding.schoolBrand.getText().toString());
                         intent.putExtra("schoolColor", binding.schoolColor.getText().toString());
                         intent.putExtra("schoolUsage", binding.schoolUsage.getText().toString());
@@ -977,7 +999,7 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("pref_item", preferred_item);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S2.this, "left-to-right");
                     }
                 });
 
@@ -1092,9 +1114,11 @@ public class PostItem_S2 extends AppCompatActivity {
                             sizesArr.add("3XL");
                         }
 
-                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        Intent intent = new Intent(offerItem_S2.this, offerItem_S3.class);
                         intent.putExtra("womensClothingType", binding.clothingTypeW.getText().toString());
                         intent.putExtra("womensBrand", binding.brand.getText().toString());
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("womensColor", binding.color.getText().toString());
                         intent.putExtra("womensMaterial", binding.material.getText().toString());
                         intent.putExtra("womensUsage", binding.usage.getText().toString());
@@ -1107,7 +1131,7 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("pref_item", preferred_item);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S2.this, "left-to-right");
                     }
                 });
 
@@ -1147,8 +1171,10 @@ public class PostItem_S2 extends AppCompatActivity {
                             binding.otherDescriptionL.setErrorIconDrawable(null);
                         }
 
-                        Intent intent = new Intent(PostItem_S2.this, PostItem_S3.class);
+                        Intent intent = new Intent(offerItem_S2.this, offerItem_S3.class);
                         intent.putExtra("otherType", binding.otherType.getText().toString());
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("otherDescription", binding.otherDescription.getText().toString());
                         intent.putExtra("currentState", "preLocation");
                         intent.putExtra("item_name", item_name);
@@ -1157,7 +1183,7 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("pref_item", preferred_item);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S2.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S2.this, "left-to-right");
                     }
                 });
 
@@ -1168,9 +1194,9 @@ public class PostItem_S2 extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(PostItem_S2.this, PostItem_S1.class);
+        Intent intent = new Intent(offerItem_S2.this, offerItem_S1.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
-        CustomIntent.customType(PostItem_S2.this, "right-to-left");
+        CustomIntent.customType(offerItem_S2.this, "right-to-left");
     }
 }

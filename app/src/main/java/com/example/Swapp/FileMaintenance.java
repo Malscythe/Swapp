@@ -56,7 +56,7 @@ public class FileMaintenance extends AppCompatActivity {
 
         FirebaseRecyclerOptions<FileMaintenanceModel> options =
                 new FirebaseRecyclerOptions.Builder<FileMaintenanceModel>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("users"), FileMaintenanceModel.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("users").orderByChild("isAdmin").startAt("0").endAt("0"), FileMaintenanceModel.class)
                         .build();
 
         myAdapter = new maintenanceAdapter(options);

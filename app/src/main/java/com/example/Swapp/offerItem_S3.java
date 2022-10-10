@@ -15,26 +15,26 @@ import com.kofigyan.stateprogressbar.StateProgressBar;
 import java.util.ArrayList;
 
 import Swapp.R;
-import Swapp.databinding.ActivityPostItemS2Binding;
-import Swapp.databinding.ActivityPostItemS3Binding;
+import Swapp.databinding.ActivityOfferItemS2Binding;
+import Swapp.databinding.ActivityOfferItemS3Binding;
 import maes.tech.intentanim.CustomIntent;
 
-public class PostItem_S3 extends AppCompatActivity {
+public class offerItem_S3 extends AppCompatActivity {
 
     private static final String TAG = "TAG";
     String[] descriptionData = {"Details", "Description", "Location", "Images"};
     Button nextBtn, getLocationBtn;
     String currentState, street, city, longitude, latitude, state, country, barangay, house_no;
     LinearLayout preLocation, postLocation;
-    ActivityPostItemS3Binding binding;
+    ActivityOfferItemS3Binding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityPostItemS3Binding.inflate(getLayoutInflater());
+        binding = ActivityOfferItemS3Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Log.w(TAG, "post item s3");
+        Log.w(TAG, getIntent().getStringExtra("item_name"));
 
         StateProgressBar stateProgressBar = findViewById(R.id.stateProgress);
         stateProgressBar.setStateDescriptionData(descriptionData);
@@ -77,7 +77,7 @@ public class PostItem_S3 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(PostItem_S3.this, PostItem_S4.class);
+                Intent intent = new Intent(offerItem_S3.this, offerItem_S4.class);
 
                 if (TextUtils.isEmpty(binding.street.getText().toString())) {
                     binding.streetL.setError("This cannot be empty.");
@@ -130,10 +130,11 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("mensClothingType", getIntent().getStringExtra("mensClothingType"));
                         intent.putExtra("mensBrand", getIntent().getStringExtra("mensBrand"));
                         intent.putExtra("mensColor", getIntent().getStringExtra("mensColor"));
-                        intent.putExtra("Offers", "false");
                         intent.putExtra("mensMaterial", getIntent().getStringExtra("mensMaterial"));
                         intent.putExtra("mensUsage", getIntent().getStringExtra("mensUsage"));
                         intent.putExtra("mensSizes", getIntent().getStringExtra("mensSizes"));
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("mensDescription", getIntent().getStringExtra("mensDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
@@ -148,7 +149,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                         break;
                     case "Gadgets":
@@ -156,8 +157,9 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("gadgetType", getIntent().getStringExtra("gadgetType"));
                         intent.putExtra("gadgetBrand", getIntent().getStringExtra("gadgetBrand"));
                         intent.putExtra("gadgetColor", getIntent().getStringExtra("gadgetColor"));
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("gadgetUsage", getIntent().getStringExtra("gadgetUsage"));
-                        intent.putExtra("Offers", "false");
                         intent.putExtra("gadgetDescription", getIntent().getStringExtra("gadgetDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
@@ -172,15 +174,16 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                         break;
                     case "Game":
 
                         intent.putExtra("gameType", getIntent().getStringExtra("gameType"));
                         intent.putExtra("gameBrand", getIntent().getStringExtra("gameBrand"));
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("gameUsage", getIntent().getStringExtra("gameUsage"));
-                        intent.putExtra("Offers", "false");
                         intent.putExtra("gameDescription", getIntent().getStringExtra("gameDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
@@ -195,7 +198,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                         break;
                     case "Bags":
@@ -203,8 +206,9 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("bagType", getIntent().getStringExtra("bagType"));
                         intent.putExtra("bagBrand", getIntent().getStringExtra("bagBrand"));
                         intent.putExtra("bagColor", getIntent().getStringExtra("bagColor"));
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("bagUsage", getIntent().getStringExtra("bagUsage"));
-                        intent.putExtra("Offers", "false");
                         intent.putExtra("bagDescription", getIntent().getStringExtra("bagDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
@@ -219,7 +223,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                         break;
                     case "Groceries":
@@ -227,7 +231,8 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("groceryList", getIntent().getStringExtra("groceryList"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
-                        intent.putExtra("Offers", "false");
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("category", getIntent().getStringExtra("category"));
                         intent.putExtra("pref_item", getIntent().getStringExtra("pref_item"));
                         intent.putExtra("street", binding.street.getText().toString());
@@ -239,16 +244,17 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                         break;
                     case "Furniture":
 
                         intent.putExtra("furnitureBrand", getIntent().getStringExtra("furnitureBrand"));
                         intent.putExtra("furnitureColor", getIntent().getStringExtra("furnitureColor"));
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("furnitureUsage", getIntent().getStringExtra("furnitureUsage"));
                         intent.putExtra("furnitureHeight", getIntent().getStringExtra("furnitureHeight"));
-                        intent.putExtra("Offers", "false");
                         intent.putExtra("furnitureWidth", getIntent().getStringExtra("furnitureWidth"));
                         intent.putExtra("furnitureLength", getIntent().getStringExtra("furnitureLength"));
                         intent.putExtra("furnitureDescription", getIntent().getStringExtra("furnitureDescription"));
@@ -265,7 +271,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                         break;
                     case "Babies & Kids":
@@ -273,8 +279,9 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("bnkAge", getIntent().getStringExtra("bnkAge"));
                         intent.putExtra("bnkBrand", getIntent().getStringExtra("bnkBrand"));
                         intent.putExtra("bnkType", getIntent().getStringExtra("bnkType"));
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("bnkUsage", getIntent().getStringExtra("bnkUsage"));
-                        intent.putExtra("Offers", "false");
                         intent.putExtra("bnkDescription", getIntent().getStringExtra("bnkDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
@@ -289,7 +296,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                         break;
                     case "Appliances":
@@ -297,8 +304,9 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("appliancesType", getIntent().getStringExtra("appliancesType"));
                         intent.putExtra("appliancesBrand", getIntent().getStringExtra("appliancesBrand"));
                         intent.putExtra("appliancesColor", getIntent().getStringExtra("appliancesColor"));
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("appliancesUsage", getIntent().getStringExtra("appliancesUsage"));
-                        intent.putExtra("Offers", "false");
                         intent.putExtra("appliancesDescription", getIntent().getStringExtra("appliancesDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
@@ -313,7 +321,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                         break;
                     case "Motors":
@@ -321,7 +329,8 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("motorModel", getIntent().getStringExtra("motorModel"));
                         intent.putExtra("motorBrand", getIntent().getStringExtra("motorBrand"));
                         intent.putExtra("motorColor", getIntent().getStringExtra("motorColor"));
-                        intent.putExtra("Offers", "false");
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("motorUsage", getIntent().getStringExtra("motorUsage"));
                         intent.putExtra("motorDescription", getIntent().getStringExtra("motorDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
@@ -337,7 +346,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                         break;
                     case "Audio":
@@ -345,7 +354,8 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("audioArtist", getIntent().getStringExtra("audioArtist"));
                         intent.putExtra("audioReleaseDate", getIntent().getStringExtra("audioReleaseDate"));
                         intent.putExtra("audioUsage", getIntent().getStringExtra("audioUsage"));
-                        intent.putExtra("Offers", "false");
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("audioDescription", getIntent().getStringExtra("audioDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
@@ -360,7 +370,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                         break;
                     case "School":
@@ -368,8 +378,9 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("schoolType", getIntent().getStringExtra("schoolType"));
                         intent.putExtra("schoolBrand", getIntent().getStringExtra("schoolBrand"));
                         intent.putExtra("schoolColor", getIntent().getStringExtra("schoolColor"));
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("schoolUsage", getIntent().getStringExtra("schoolUsage"));
-                        intent.putExtra("Offers", "false");
                         intent.putExtra("schoolDescription", getIntent().getStringExtra("schoolDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
@@ -384,7 +395,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                         break;
                     case "Women's Apparel":
@@ -392,7 +403,8 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("womensClothingType", getIntent().getStringExtra("womensClothingType"));
                         intent.putExtra("womensBrand", getIntent().getStringExtra("womensBrand"));
                         intent.putExtra("womensColor", getIntent().getStringExtra("womensColor"));
-                        intent.putExtra("Offers", "false");
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("womensMaterial", getIntent().getStringExtra("womensMaterial"));
                         intent.putExtra("womensUsage", getIntent().getStringExtra("womensUsage"));
                         intent.putExtra("womensSizes", getIntent().getStringExtra("womensSizes"));
@@ -410,7 +422,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                         break;
                     case "Others":
@@ -418,8 +430,9 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("otherType", getIntent().getStringExtra("otherType"));
                         intent.putExtra("otherDescription", getIntent().getStringExtra("otherDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
-                        intent.putExtra("Offers", "false");
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("category", getIntent().getStringExtra("category"));
                         intent.putExtra("pref_item", getIntent().getStringExtra("pref_item"));
                         intent.putExtra("street", binding.street.getText().toString());
@@ -431,7 +444,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                         break;
                 }
@@ -442,17 +455,20 @@ public class PostItem_S3 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(PostItem_S3.this, currentLoc.class);
+                Intent intent = new Intent(offerItem_S3.this, currentLoc.class);
 
                 switch (category) {
                     case "Men's Apparel":
 
+
                         intent.putExtra("mensClothingType", getIntent().getStringExtra("mensClothingType"));
                         intent.putExtra("mensBrand", getIntent().getStringExtra("mensBrand"));
+                        intent.putExtra("Offers", "true");
                         intent.putExtra("mensColor", getIntent().getStringExtra("mensColor"));
-                        intent.putExtra("Offers", "false");
                         intent.putExtra("mensMaterial", getIntent().getStringExtra("mensMaterial"));
                         intent.putExtra("mensUsage", getIntent().getStringExtra("mensUsage"));
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("mensSizes", getIntent().getStringExtra("mensSizes"));
                         intent.putExtra("mensDescription", getIntent().getStringExtra("mensDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
@@ -463,7 +479,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("pref_item", getIntent().getStringExtra("pref_item"));
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                         break;
                     case "Gadgets":
@@ -471,8 +487,10 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("gadgetType", getIntent().getStringExtra("gadgetType"));
                         intent.putExtra("gadgetBrand", getIntent().getStringExtra("gadgetBrand"));
                         intent.putExtra("gadgetColor", getIntent().getStringExtra("gadgetColor"));
-                        intent.putExtra("Offers", "false");
                         intent.putExtra("gadgetUsage", getIntent().getStringExtra("gadgetUsage"));
+                        intent.putExtra("Offers", "true");
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("gadgetDescription", getIntent().getStringExtra("gadgetDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
@@ -482,15 +500,17 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("pref_item", getIntent().getStringExtra("pref_item"));
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                         break;
                     case "Game":
 
                         intent.putExtra("gameType", getIntent().getStringExtra("gameType"));
                         intent.putExtra("gameBrand", getIntent().getStringExtra("gameBrand"));
-                        intent.putExtra("Offers", "false");
                         intent.putExtra("gameUsage", getIntent().getStringExtra("gameUsage"));
+                        intent.putExtra("Offers", "true");
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("gameDescription", getIntent().getStringExtra("gameDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
@@ -500,7 +520,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("pref_item", getIntent().getStringExtra("pref_item"));
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                         break;
                     case "Bags":
@@ -508,7 +528,9 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("bagType", getIntent().getStringExtra("bagType"));
                         intent.putExtra("bagBrand", getIntent().getStringExtra("bagBrand"));
                         intent.putExtra("bagColor", getIntent().getStringExtra("bagColor"));
-                        intent.putExtra("Offers", "false");
+                        intent.putExtra("Offers", "true");
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("bagUsage", getIntent().getStringExtra("bagUsage"));
                         intent.putExtra("bagDescription", getIntent().getStringExtra("bagDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
@@ -519,30 +541,34 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("pref_item", getIntent().getStringExtra("pref_item"));
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                         break;
                     case "Groceries":
 
                         intent.putExtra("groceryList", getIntent().getStringExtra("groceryList"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
+                        intent.putExtra("Offers", "true");
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("from", "postitem");
-                        intent.putExtra("Offers", "false");
                         intent.putExtra("category", "postitem");
                         intent.putExtra("category1", category);
                         intent.putExtra("pref_item", getIntent().getStringExtra("pref_item"));
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                         break;
                     case "Furniture":
 
                         intent.putExtra("furnitureBrand", getIntent().getStringExtra("furnitureBrand"));
                         intent.putExtra("furnitureColor", getIntent().getStringExtra("furnitureColor"));
-                        intent.putExtra("Offers", "false");
                         intent.putExtra("furnitureUsage", getIntent().getStringExtra("furnitureUsage"));
+                        intent.putExtra("Offers", "true");
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("furnitureHeight", getIntent().getStringExtra("furnitureHeight"));
                         intent.putExtra("furnitureWidth", getIntent().getStringExtra("furnitureWidth"));
                         intent.putExtra("furnitureLength", getIntent().getStringExtra("furnitureLength"));
@@ -555,7 +581,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("pref_item", getIntent().getStringExtra("pref_item"));
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                         break;
                     case "Babies & Kids":
@@ -563,8 +589,10 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("bnkAge", getIntent().getStringExtra("bnkAge"));
                         intent.putExtra("bnkBrand", getIntent().getStringExtra("bnkBrand"));
                         intent.putExtra("bnkType", getIntent().getStringExtra("bnkType"));
+                        intent.putExtra("Offers", "true");
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("bnkUsage", getIntent().getStringExtra("bnkUsage"));
-                        intent.putExtra("Offers", "false");
                         intent.putExtra("bnkDescription", getIntent().getStringExtra("bnkDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
@@ -574,7 +602,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("pref_item", getIntent().getStringExtra("pref_item"));
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                         break;
                     case "Appliances":
@@ -582,8 +610,10 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("appliancesType", getIntent().getStringExtra("appliancesType"));
                         intent.putExtra("appliancesBrand", getIntent().getStringExtra("appliancesBrand"));
                         intent.putExtra("appliancesColor", getIntent().getStringExtra("appliancesColor"));
-                        intent.putExtra("Offers", "false");
                         intent.putExtra("appliancesUsage", getIntent().getStringExtra("appliancesUsage"));
+                        intent.putExtra("Offers", "true");
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("appliancesDescription", getIntent().getStringExtra("appliancesDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
@@ -593,7 +623,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("pref_item", getIntent().getStringExtra("pref_item"));
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                         break;
                     case "Motors":
@@ -601,8 +631,10 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("motorModel", getIntent().getStringExtra("motorModel"));
                         intent.putExtra("motorBrand", getIntent().getStringExtra("motorBrand"));
                         intent.putExtra("motorColor", getIntent().getStringExtra("motorColor"));
-                        intent.putExtra("Offers", "false");
                         intent.putExtra("motorUsage", getIntent().getStringExtra("motorUsage"));
+                        intent.putExtra("Offers", "true");
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("motorDescription", getIntent().getStringExtra("motorDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
@@ -612,7 +644,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("pref_item", getIntent().getStringExtra("pref_item"));
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                         break;
                     case "Audio":
@@ -620,7 +652,9 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("audioArtist", getIntent().getStringExtra("audioArtist"));
                         intent.putExtra("audioReleaseDate", getIntent().getStringExtra("audioReleaseDate"));
                         intent.putExtra("audioUsage", getIntent().getStringExtra("audioUsage"));
-                        intent.putExtra("Offers", "false");
+                        intent.putExtra("Offers", "true");
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("audioDescription", getIntent().getStringExtra("audioDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
@@ -630,16 +664,18 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("pref_item", getIntent().getStringExtra("pref_item"));
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                         break;
                     case "School":
 
                         intent.putExtra("schoolType", getIntent().getStringExtra("schoolType"));
                         intent.putExtra("schoolBrand", getIntent().getStringExtra("schoolBrand"));
-                        intent.putExtra("Offers", "false");
                         intent.putExtra("schoolColor", getIntent().getStringExtra("schoolColor"));
                         intent.putExtra("schoolUsage", getIntent().getStringExtra("schoolUsage"));
+                        intent.putExtra("Offers", "true");
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("schoolDescription", getIntent().getStringExtra("schoolDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
@@ -649,7 +685,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("pref_item", getIntent().getStringExtra("pref_item"));
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                         break;
                     case "Women's Apparel":
@@ -657,7 +693,9 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("womensClothingType", getIntent().getStringExtra("womensClothingType"));
                         intent.putExtra("womensBrand", getIntent().getStringExtra("womensBrand"));
                         intent.putExtra("womensColor", getIntent().getStringExtra("womensColor"));
-                        intent.putExtra("Offers", "false");
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("Offers", "true");
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("womensMaterial", getIntent().getStringExtra("womensMaterial"));
                         intent.putExtra("womensUsage", getIntent().getStringExtra("womensUsage"));
                         intent.putExtra("womensSizes", getIntent().getStringExtra("womensSizes"));
@@ -670,7 +708,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("pref_item", getIntent().getStringExtra("pref_item"));
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                         break;
                     case "Others":
@@ -678,15 +716,17 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("otherType", getIntent().getStringExtra("otherType"));
                         intent.putExtra("otherDescription", getIntent().getStringExtra("otherDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
+                        intent.putExtra("Offers", "true");
+                        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+                        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
-                        intent.putExtra("Offers", "false");
                         intent.putExtra("from", "postitem");
                         intent.putExtra("category", "postitem");
                         intent.putExtra("category1", category);
                         intent.putExtra("pref_item", getIntent().getStringExtra("pref_item"));
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
-                        CustomIntent.customType(PostItem_S3.this, "left-to-right");
+                        CustomIntent.customType(offerItem_S3.this, "left-to-right");
 
                 }
             }
@@ -697,13 +737,15 @@ public class PostItem_S3 extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(PostItem_S3.this, PostItem_S2.class);
+        Intent intent = new Intent(offerItem_S3.this, offerItem_S2.class);
         intent.putExtra("category", getIntent().getStringExtra("category"));
+        intent.putExtra("uid", getIntent().getStringExtra("uid"));
+        intent.putExtra("itemname", getIntent().getStringExtra("itemname"));
         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
         intent.putExtra("rft", getIntent().getStringExtra("rft"));
         intent.putExtra("pref_item", getIntent().getStringExtra("pref_item"));
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
-        CustomIntent.customType(PostItem_S3.this, "right-to-left");
+        CustomIntent.customType(offerItem_S3.this, "right-to-left");
     }
 }
