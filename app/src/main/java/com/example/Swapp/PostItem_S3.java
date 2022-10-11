@@ -34,7 +34,7 @@ public class PostItem_S3 extends AppCompatActivity {
         binding = ActivityPostItemS3Binding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Log.w(TAG, getIntent().getStringExtra("item_name"));
+        Log.w(TAG, "post item s3");
 
         StateProgressBar stateProgressBar = findViewById(R.id.stateProgress);
         stateProgressBar.setStateDescriptionData(descriptionData);
@@ -130,6 +130,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("mensClothingType", getIntent().getStringExtra("mensClothingType"));
                         intent.putExtra("mensBrand", getIntent().getStringExtra("mensBrand"));
                         intent.putExtra("mensColor", getIntent().getStringExtra("mensColor"));
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("mensMaterial", getIntent().getStringExtra("mensMaterial"));
                         intent.putExtra("mensUsage", getIntent().getStringExtra("mensUsage"));
                         intent.putExtra("mensSizes", getIntent().getStringExtra("mensSizes"));
@@ -156,6 +157,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("gadgetBrand", getIntent().getStringExtra("gadgetBrand"));
                         intent.putExtra("gadgetColor", getIntent().getStringExtra("gadgetColor"));
                         intent.putExtra("gadgetUsage", getIntent().getStringExtra("gadgetUsage"));
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("gadgetDescription", getIntent().getStringExtra("gadgetDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
@@ -178,6 +180,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("gameType", getIntent().getStringExtra("gameType"));
                         intent.putExtra("gameBrand", getIntent().getStringExtra("gameBrand"));
                         intent.putExtra("gameUsage", getIntent().getStringExtra("gameUsage"));
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("gameDescription", getIntent().getStringExtra("gameDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
@@ -201,6 +204,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("bagBrand", getIntent().getStringExtra("bagBrand"));
                         intent.putExtra("bagColor", getIntent().getStringExtra("bagColor"));
                         intent.putExtra("bagUsage", getIntent().getStringExtra("bagUsage"));
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("bagDescription", getIntent().getStringExtra("bagDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
@@ -223,6 +227,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("groceryList", getIntent().getStringExtra("groceryList"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("category", getIntent().getStringExtra("category"));
                         intent.putExtra("pref_item", getIntent().getStringExtra("pref_item"));
                         intent.putExtra("street", binding.street.getText().toString());
@@ -243,6 +248,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("furnitureColor", getIntent().getStringExtra("furnitureColor"));
                         intent.putExtra("furnitureUsage", getIntent().getStringExtra("furnitureUsage"));
                         intent.putExtra("furnitureHeight", getIntent().getStringExtra("furnitureHeight"));
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("furnitureWidth", getIntent().getStringExtra("furnitureWidth"));
                         intent.putExtra("furnitureLength", getIntent().getStringExtra("furnitureLength"));
                         intent.putExtra("furnitureDescription", getIntent().getStringExtra("furnitureDescription"));
@@ -268,6 +274,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("bnkBrand", getIntent().getStringExtra("bnkBrand"));
                         intent.putExtra("bnkType", getIntent().getStringExtra("bnkType"));
                         intent.putExtra("bnkUsage", getIntent().getStringExtra("bnkUsage"));
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("bnkDescription", getIntent().getStringExtra("bnkDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
@@ -291,6 +298,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("appliancesBrand", getIntent().getStringExtra("appliancesBrand"));
                         intent.putExtra("appliancesColor", getIntent().getStringExtra("appliancesColor"));
                         intent.putExtra("appliancesUsage", getIntent().getStringExtra("appliancesUsage"));
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("appliancesDescription", getIntent().getStringExtra("appliancesDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
@@ -313,6 +321,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("motorModel", getIntent().getStringExtra("motorModel"));
                         intent.putExtra("motorBrand", getIntent().getStringExtra("motorBrand"));
                         intent.putExtra("motorColor", getIntent().getStringExtra("motorColor"));
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("motorUsage", getIntent().getStringExtra("motorUsage"));
                         intent.putExtra("motorDescription", getIntent().getStringExtra("motorDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
@@ -336,6 +345,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("audioArtist", getIntent().getStringExtra("audioArtist"));
                         intent.putExtra("audioReleaseDate", getIntent().getStringExtra("audioReleaseDate"));
                         intent.putExtra("audioUsage", getIntent().getStringExtra("audioUsage"));
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("audioDescription", getIntent().getStringExtra("audioDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
@@ -359,6 +369,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("schoolBrand", getIntent().getStringExtra("schoolBrand"));
                         intent.putExtra("schoolColor", getIntent().getStringExtra("schoolColor"));
                         intent.putExtra("schoolUsage", getIntent().getStringExtra("schoolUsage"));
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("schoolDescription", getIntent().getStringExtra("schoolDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
@@ -381,6 +392,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("womensClothingType", getIntent().getStringExtra("womensClothingType"));
                         intent.putExtra("womensBrand", getIntent().getStringExtra("womensBrand"));
                         intent.putExtra("womensColor", getIntent().getStringExtra("womensColor"));
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("womensMaterial", getIntent().getStringExtra("womensMaterial"));
                         intent.putExtra("womensUsage", getIntent().getStringExtra("womensUsage"));
                         intent.putExtra("womensSizes", getIntent().getStringExtra("womensSizes"));
@@ -406,6 +418,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("otherType", getIntent().getStringExtra("otherType"));
                         intent.putExtra("otherDescription", getIntent().getStringExtra("otherDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
                         intent.putExtra("category", getIntent().getStringExtra("category"));
                         intent.putExtra("pref_item", getIntent().getStringExtra("pref_item"));
@@ -437,6 +450,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("mensClothingType", getIntent().getStringExtra("mensClothingType"));
                         intent.putExtra("mensBrand", getIntent().getStringExtra("mensBrand"));
                         intent.putExtra("mensColor", getIntent().getStringExtra("mensColor"));
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("mensMaterial", getIntent().getStringExtra("mensMaterial"));
                         intent.putExtra("mensUsage", getIntent().getStringExtra("mensUsage"));
                         intent.putExtra("mensSizes", getIntent().getStringExtra("mensSizes"));
@@ -457,6 +471,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("gadgetType", getIntent().getStringExtra("gadgetType"));
                         intent.putExtra("gadgetBrand", getIntent().getStringExtra("gadgetBrand"));
                         intent.putExtra("gadgetColor", getIntent().getStringExtra("gadgetColor"));
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("gadgetUsage", getIntent().getStringExtra("gadgetUsage"));
                         intent.putExtra("gadgetDescription", getIntent().getStringExtra("gadgetDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
@@ -474,6 +489,7 @@ public class PostItem_S3 extends AppCompatActivity {
 
                         intent.putExtra("gameType", getIntent().getStringExtra("gameType"));
                         intent.putExtra("gameBrand", getIntent().getStringExtra("gameBrand"));
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("gameUsage", getIntent().getStringExtra("gameUsage"));
                         intent.putExtra("gameDescription", getIntent().getStringExtra("gameDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
@@ -492,6 +508,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("bagType", getIntent().getStringExtra("bagType"));
                         intent.putExtra("bagBrand", getIntent().getStringExtra("bagBrand"));
                         intent.putExtra("bagColor", getIntent().getStringExtra("bagColor"));
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("bagUsage", getIntent().getStringExtra("bagUsage"));
                         intent.putExtra("bagDescription", getIntent().getStringExtra("bagDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
@@ -511,6 +528,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
                         intent.putExtra("from", "postitem");
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("category", "postitem");
                         intent.putExtra("category1", category);
                         intent.putExtra("pref_item", getIntent().getStringExtra("pref_item"));
@@ -523,6 +541,7 @@ public class PostItem_S3 extends AppCompatActivity {
 
                         intent.putExtra("furnitureBrand", getIntent().getStringExtra("furnitureBrand"));
                         intent.putExtra("furnitureColor", getIntent().getStringExtra("furnitureColor"));
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("furnitureUsage", getIntent().getStringExtra("furnitureUsage"));
                         intent.putExtra("furnitureHeight", getIntent().getStringExtra("furnitureHeight"));
                         intent.putExtra("furnitureWidth", getIntent().getStringExtra("furnitureWidth"));
@@ -545,6 +564,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("bnkBrand", getIntent().getStringExtra("bnkBrand"));
                         intent.putExtra("bnkType", getIntent().getStringExtra("bnkType"));
                         intent.putExtra("bnkUsage", getIntent().getStringExtra("bnkUsage"));
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("bnkDescription", getIntent().getStringExtra("bnkDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
@@ -562,6 +582,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("appliancesType", getIntent().getStringExtra("appliancesType"));
                         intent.putExtra("appliancesBrand", getIntent().getStringExtra("appliancesBrand"));
                         intent.putExtra("appliancesColor", getIntent().getStringExtra("appliancesColor"));
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("appliancesUsage", getIntent().getStringExtra("appliancesUsage"));
                         intent.putExtra("appliancesDescription", getIntent().getStringExtra("appliancesDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
@@ -580,6 +601,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("motorModel", getIntent().getStringExtra("motorModel"));
                         intent.putExtra("motorBrand", getIntent().getStringExtra("motorBrand"));
                         intent.putExtra("motorColor", getIntent().getStringExtra("motorColor"));
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("motorUsage", getIntent().getStringExtra("motorUsage"));
                         intent.putExtra("motorDescription", getIntent().getStringExtra("motorDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
@@ -598,6 +620,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("audioArtist", getIntent().getStringExtra("audioArtist"));
                         intent.putExtra("audioReleaseDate", getIntent().getStringExtra("audioReleaseDate"));
                         intent.putExtra("audioUsage", getIntent().getStringExtra("audioUsage"));
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("audioDescription", getIntent().getStringExtra("audioDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
@@ -614,6 +637,7 @@ public class PostItem_S3 extends AppCompatActivity {
 
                         intent.putExtra("schoolType", getIntent().getStringExtra("schoolType"));
                         intent.putExtra("schoolBrand", getIntent().getStringExtra("schoolBrand"));
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("schoolColor", getIntent().getStringExtra("schoolColor"));
                         intent.putExtra("schoolUsage", getIntent().getStringExtra("schoolUsage"));
                         intent.putExtra("schoolDescription", getIntent().getStringExtra("schoolDescription"));
@@ -633,6 +657,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("womensClothingType", getIntent().getStringExtra("womensClothingType"));
                         intent.putExtra("womensBrand", getIntent().getStringExtra("womensBrand"));
                         intent.putExtra("womensColor", getIntent().getStringExtra("womensColor"));
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("womensMaterial", getIntent().getStringExtra("womensMaterial"));
                         intent.putExtra("womensUsage", getIntent().getStringExtra("womensUsage"));
                         intent.putExtra("womensSizes", getIntent().getStringExtra("womensSizes"));
@@ -654,6 +679,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("otherDescription", getIntent().getStringExtra("otherDescription"));
                         intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
                         intent.putExtra("rft", getIntent().getStringExtra("rft"));
+                        intent.putExtra("Offers", "false");
                         intent.putExtra("from", "postitem");
                         intent.putExtra("category", "postitem");
                         intent.putExtra("category1", category);
