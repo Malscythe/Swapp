@@ -7,6 +7,7 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.tv.TvContract;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +20,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
@@ -31,6 +35,7 @@ import com.google.firebase.database.core.Tag;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import Swapp.R;
 import maes.tech.intentanim.CustomIntent;
@@ -100,22 +105,16 @@ public class ItemSwipe extends AppCompatActivity {
 
             @Override
             public void onRightCardExit(Object dataObject) {
-                DatabaseReference infoToPass;
 
-                infoToPass = FirebaseDatabase.getInstance().getReference("items");
-                infoToPass.child(parent).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        DataSnapshot dataSnapshot = task.getResult();
-                        Intent intent = new Intent(ItemSwipe.this, MoreInfo.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        intent.putExtra("url", dataSnapshot.child("Image_Url").getValue().toString());
-                        intent.putExtra("keys", keysList);
-                        startActivity(intent);
-                        CustomIntent.customType(ItemSwipe.this, "right-to-left");
-                        finish();
-                    }
-                });
+                Intent intent = new Intent(ItemSwipe.this, MoreInfo.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intent.putExtra("poster_uid", poster_uid);
+                intent.putExtra("item_name", currentItem);
+                intent.putExtra("keys", keysList);
+                startActivity(intent);
+                CustomIntent.customType(ItemSwipe.this, "right-to-left");
+                finish();
+
             }
 
             @Override
@@ -146,43 +145,32 @@ public class ItemSwipe extends AppCompatActivity {
         }
 
         DatabaseReference items = FirebaseDatabase.getInstance().getReference().child("items");
-        items.addChildEventListener(new ChildEventListener() {
+        items.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (int i = 0; i < keysList.size(); i++) {
 
-                    if (snapshot.exists() && snapshot.getKey().equals(keysList.get(i))) {
+                    String concatinated = keysList.get(i);
+                    String uid = concatinated.substring(0, concatinated.indexOf('-'));
+                    String itemName = concatinated.substring((concatinated.indexOf("-") + 1), concatinated.length());
 
+                    if ((snapshot.child(uid).getKey().equals(uid)) && (snapshot.child(uid).child(itemName).getKey().equals(itemName))) {
 
-
-//                        cards item = new cards(
-//                                snapshot.child("Item_Category").getValue().toString(),
-//                                snapshot.child("Item_Description").getValue().toString(),
-//                                snapshot.child("Item_Location").getValue().toString(),
-//                                snapshot.child("Item_Name").getValue().toString(),
-//                                snapshot.child("Item_Preferred").getValue().toString(),
-//                                snapshot.child("Poster_Name").getValue().toString(),
-//                                snapshot.child("Poster_UID").getValue().toString());
-//                        rowItems.add(item);
-//                        arrayAdapter.notifyDataSetChanged();
+                        cards item = new cards(snapshot.child(uid).child(itemName).child("Images").child("1").getValue(String.class),
+                                snapshot.child(uid).child(itemName).child("Item_RFT").getValue(String.class),
+                                snapshot.child(uid).child(itemName).child("Item_Category").getValue(String.class),
+                                snapshot.child(uid).child(itemName).child("Item_Description").getValue(String.class),
+                                snapshot.child(uid).child(itemName).child("Address").child("City").getValue(String.class),
+                                snapshot.child(uid).child(itemName).child("Address").child("State").getValue(String.class),
+                                snapshot.child(uid).child(itemName).child("Item_Name").getValue(String.class),
+                                snapshot.child(uid).child(itemName).child("Item_PrefItem").getValue(String.class),
+                                snapshot.child(uid).child(itemName).child("Poster_Name").getValue(String.class),
+                                snapshot.child(uid).child(itemName).child("Poster_UID").getValue(String.class)
+                        );
+                        rowItems.add(item);
+                        arrayAdapter.notifyDataSetChanged();
                     }
                 }
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
             }
 
             @Override

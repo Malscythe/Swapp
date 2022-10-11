@@ -6,11 +6,198 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <com.denzcoskun.imageslider.ImageSlider
-        android:id="@+id/image_slider"
+
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        app:iss_auto_cycle="true"
-        app:iss_period="1000"
-        app:iss_delay="0"/>
+        android:layout_height="350dp"
+        android:id="@+id/itemImage"
+        android:scaleType="centerCrop"
+        android:src="@drawable/black"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/itemImage">
+
+        <RelativeLayout
+            android:elevation="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bottom_sheet_black">
+
+            <TextView
+                android:id="@+id/itemName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name of the item"
+                android:textColor="@color/primary_black"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:textStyle="bold"
+                android:textSize="26sp"
+                android:fontFamily="@font/poppins_medium"/>
+
+            <TextView
+                android:id="@+id/itemLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Taguig, Metro Manila"
+                android:layout_below="@id/itemName"
+                android:textColor="@color/primary_black"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="-5dp"
+                android:layout_marginEnd="15dp"
+                android:textSize="16sp"
+                android:fontFamily="@font/poppins"/>
+
+            <TextView
+                android:id="@+id/posterName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Terence Malsi"
+                android:textStyle="bold"
+                android:layout_below="@id/itemLocation"
+                android:textColor="@color/primary_black"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="20dp"
+                android:textSize="18sp"
+                android:fontFamily="@font/poppins"/>
+
+            <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:layout_toEndOf="@id/posterName"
+                android:layout_below="@id/itemLocation"
+                android:layout_marginTop="25dp"/>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:dividerColor="#80424141"
+                android:layout_marginTop="10dp"
+                app:dividerInsetStart="15dp"
+                android:layout_below="@id/posterName"
+                app:dividerInsetEnd="15dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/description"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_below="@id/divider1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/itemDescriptionHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Item information:"
+                    android:textColor="#7A7A7A"
+                    android:layout_marginTop="10dp"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/poppins"/>
+
+                <TextView
+                    android:id="@+id/itemDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi venenatis  us diam magna"
+                    android:textColor="@color/primary_black"
+                    android:layout_marginEnd="15dp"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_medium"/>
+
+                <TextView
+                    android:id="@+id/seeMore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="More info..."
+                    android:textColor="@color/primary"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/poppins_medium"/>
+
+            </LinearLayout>
+
+            <com.google.android.material.divider.MaterialDivider
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:dividerColor="#80424141"
+                android:layout_marginTop="10dp"
+                app:dividerInsetStart="15dp"
+                android:layout_below="@id/description"
+                app:dividerInsetEnd="15dp"/>
+
+            <LinearLayout
+                android:id="@+id/RFTLF"
+                android:layout_below="@id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/itemPrefHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Looking for:"
+                    android:layout_below="@id/description"
+                    android:textColor="#7A7A7A"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="15dp"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/poppins"/>
+
+                <TextView
+                    android:id="@+id/itemPref"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nike shoes"
+                    android:layout_below="@id/itemPrefHeader"
+                    android:textColor="@color/primary_black"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginStart="15dp"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_medium"/>
+
+                <TextView
+                    android:id="@+id/itemRFTHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reason for trading:"
+                    android:layout_below="@id/itemPref"
+                    android:textColor="#7A7A7A"
+                    android:layout_marginEnd="80dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/poppins"/>
+
+                <TextView
+                    android:id="@+id/itemRFT"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Not using anymore"
+                    android:layout_below="@id/itemRFTHeader"
+                    android:textColor="@color/primary_black"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/poppins_medium"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
 </RelativeLayout>

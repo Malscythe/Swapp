@@ -1,31 +1,34 @@
 package com.example.Swapp;
 
+import com.denzcoskun.imageslider.models.SlideModel;
+
 import java.util.Collections;
 import java.util.List;
 
 public class cards {
 
-    String Item_Category, Item_Description, Item_Location, Item_Name, Item_Preferred, Poster_Name, Poster_UID;
-    List<String> ImageUrls;
+    String Item_Category, Item_Description, Item_City, Item_State, Item_Name, Item_Preferred, Poster_Name, Poster_UID, ImageUrls, Item_RFT;
 
-    public cards(List<String> image_Url, String item_Category, String item_Description, String item_Location, String item_Name, String item_Preferred, String poster_Name, String poster_Uid) {
+    public cards(String image_Url, String item_RFT, String item_Category, String item_Description, String item_City, String item_State, String item_Name, String item_Preferred, String poster_Name, String poster_Uid) {
         ImageUrls = image_Url;
         Item_Category = item_Category;
         Item_Description = item_Description;
-        Item_Location = item_Location;
+        Item_City = item_City;
+        Item_State = item_State;
         Item_Name = item_Name;
+        Item_RFT = item_RFT;
         Item_Preferred = item_Preferred;
         Poster_Name = poster_Name;
         Poster_UID = poster_Uid;
 
     }
 
-    public List<String> getImage_Url() {
-        return ImageUrls;
+    public String getItem_RFT() {
+        return Item_RFT;
     }
 
-    public void setImage_Name(String image_Url) {
-        ImageUrls = Collections.singletonList(image_Url);
+    public void setItem_RFT(String item_RFT) {
+        Item_RFT = item_RFT;
     }
 
     public String getItem_Category() {
@@ -44,12 +47,28 @@ public class cards {
         Item_Description = item_Description;
     }
 
-    public String getItem_Location() {
-        return Item_Location;
+    public String getItem_City() {
+        return Item_City;
     }
 
-    public void setItem_Location(String item_Location) {
-        Item_Location = item_Location;
+    public void setItem_City(String item_City) {
+        Item_City = item_City;
+    }
+
+    public String getItem_State() {
+        return Item_State;
+    }
+
+    public void setItem_State(String item_State) {
+        Item_State = item_State;
+    }
+
+    public String getImageUrls() {
+        return ImageUrls;
+    }
+
+    public void setImageUrls(String imageUrls) {
+        ImageUrls = imageUrls;
     }
 
     public String getItem_Name() {

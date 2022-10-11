@@ -104,10 +104,10 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
                         return true;
                     case R.id.home:
                         return true;
-                    case  R.id.offers:
+                    case R.id.offers:
                         Intent intent = new Intent(UserHomepage.this, OfferMainAcitvity.class);
                         startActivity(intent);
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(0, 0);
                         return true;
                 }
                 return true;
@@ -122,8 +122,9 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                   pendingTrades = pendingTrades + dataSnapshot.child("Offers").getChildrenCount();
-                   pendingCounts.setText(pendingTrades.toString());
+                    Log.d(TAG,"HERE");
+                    pendingTrades = pendingTrades + dataSnapshot.child("Offers").getChildrenCount();
+                    pendingCounts.setText(pendingTrades.toString());
                 }
             }
 

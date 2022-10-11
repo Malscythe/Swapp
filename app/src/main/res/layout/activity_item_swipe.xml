@@ -7,51 +7,13 @@
     android:layout_height="match_parent"
     tools:context="com.example.Swapp.ItemSwipe">
 
-  <LinearLayout
-      android:id="@+id/header"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:background="@drawable/bottom_border"
-      android:orientation="horizontal">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-      <ImageView
-          android:layout_width="35dp"
-          android:layout_height="35dp"
-          android:layout_marginTop="10dp"
-          android:layout_marginBottom="10dp"
-          android:layout_marginEnd="10dp"
-          android:layout_marginStart="20dp"
-          android:src="@drawable/ic_arraw_back__1_"
-          android:layout_gravity="center_vertical"
-          app:tint="@color/primary_black" />
-
-      <ImageView
-          android:layout_width="35dp"
-          android:layout_alignParentEnd="true"
-          android:layout_height="35dp"
-          android:layout_marginTop="10dp"
-          android:layout_marginBottom="10dp"
-          android:layout_marginEnd="20dp"
-          android:layout_marginStart="10dp"
-          android:src="@drawable/ic_filter"
-          app:tint="@color/primary_black" />
-
-    </RelativeLayout>
-
-  </LinearLayout>
-
   <com.lorentzos.flingswipe.SwipeFlingAdapterView
       android:id="@+id/frame"
       android:background="@color/white"
       android:layout_width="match_parent"
-      android:layout_below="@id/header"
       android:layout_height="match_parent"
       app:rotation_degrees="0"
-      app:max_visible="2"/>
+      app:max_visible="4"/>
 
     <RelativeLayout
         android:id="@+id/noMoreItemBanner"
