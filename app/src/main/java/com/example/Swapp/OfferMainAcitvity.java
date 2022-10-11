@@ -89,14 +89,20 @@ public class OfferMainAcitvity extends AppCompatActivity {
             }
         });
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("items/");
-        databaseReference.orderByChild("Poster_UID").equalTo(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference = FirebaseDatabase.getInstance().getReference("items/" + uid);
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds: snapshot.getChildren())
                 {
-                    OfferFetch offerFetch = ds.getValue(OfferFetch.class);
-                    offerFetch.setOfferCount(snapshot.child("Offers").getChildrenCount());
+                    String address = ds.child("Address").child("City").getValue(String.class).concat(", " + ds.child("Address").child("State").getValue(String.class));
+
+                    OfferFetch offerFetch = new OfferFetch();
+                    offerFetch.setItem_Name(ds.child("Item_Name").getValue(String.class));
+                    offerFetch.setItem_Location(address);
+                    offerFetch.setPoster_UID("Poster_UID");
+                    offerFetch.setOfferCount(ds.child("Offers").getChildrenCount());
+                    offerFetch.setImage_Url(ds.child("Images").child(String.valueOf(1)).getValue(String.class));
                     offerFetchList.add(offerFetch);
                 }
 

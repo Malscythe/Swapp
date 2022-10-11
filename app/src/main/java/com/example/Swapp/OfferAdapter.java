@@ -46,7 +46,8 @@ public class OfferAdapter extends RecyclerView.Adapter {
         viewHolderClass.offerCount.setText(offerFetch.getOfferCount().toString());
         viewHolderClass.textView.setText(offerFetch.getItem_Name());
         viewHolderClass.itemlocation.setText(offerFetch.getItem_Location());
-        String itemID = offerFetch.getItem_Name().concat("-" + offerFetch.getPoster_UID());
+        String itemName = offerFetch.getItem_Name();
+        String itemID = offerFetch.getPoster_UID();
         Glide.with(viewHolderClass.img.getContext())
                 .load(offerFetch.getImage_Url())
                 .placeholder(com.firebase.ui.database.R.drawable.common_google_signin_btn_icon_dark)
@@ -58,6 +59,7 @@ public class OfferAdapter extends RecyclerView.Adapter {
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), OfferSecondActivity.class);
                 intent.putExtra("itemid", itemID);
+                intent.putExtra("itemname", itemName);
                 view.getContext().startActivity(intent);
                 CustomIntent.customType(view.getContext(), "left-to-right");
             }

@@ -324,6 +324,7 @@ public class currentLoc extends AppCompatActivity {
                 switch (category1) {
                     case "Men's Apparel":
 
+                        b.putString("Offers", "true");
                         b.putString("mensClothingType", getIntent().getStringExtra("mensClothingType"));
                         b.putString("mensBrand", getIntent().getStringExtra("mensBrand"));
                         b.putString("mensColor", getIntent().getStringExtra("mensColor"));
@@ -335,13 +336,15 @@ public class currentLoc extends AppCompatActivity {
                         b.putString("from", getIntent().getStringExtra("from"));
                         b.putString("category", getIntent().getStringExtra("category"));
                         b.putString("category1", getIntent().getStringExtra("category1"));
-
+                        b.putString("rft", getIntent().getStringExtra("rft"));
+                        b.putString("pref_item", getIntent().getStringExtra("pref_item"));
                         mapsFragment.setArguments(b);
                         fragmentTransaction.add(R.id.container, mapsFragment).commit();
 
                         break;
                     case "Gadgets":
 
+                        b.putString("Offers", "true");
                         b.putString("gadgetType", getIntent().getStringExtra("gadgetType"));
                         b.putString("gadgetBrand", getIntent().getStringExtra("gadgetBrand"));
                         b.putString("gadgetColor", getIntent().getStringExtra("gadgetColor"));
@@ -351,13 +354,14 @@ public class currentLoc extends AppCompatActivity {
                         b.putString("from", getIntent().getStringExtra("from"));
                         b.putString("category", getIntent().getStringExtra("category"));
                         b.putString("category1", getIntent().getStringExtra("category1"));
-
+                        b.putString("rft", getIntent().getStringExtra("rft"));
+                        b.putString("pref_item", getIntent().getStringExtra("pref_item"));
                         mapsFragment.setArguments(b);
                         fragmentTransaction.add(R.id.container, mapsFragment).commit();
 
                         break;
                     case "Game":
-
+                        b.putString("Offers", "true");
                         b.putString("gameType", getIntent().getStringExtra("gameType"));
                         b.putString("gameBrand", getIntent().getStringExtra("gameBrand"));
                         b.putString("gameUsage", getIntent().getStringExtra("gameUsage"));
@@ -366,13 +370,14 @@ public class currentLoc extends AppCompatActivity {
                         b.putString("from", getIntent().getStringExtra("from"));
                         b.putString("category", getIntent().getStringExtra("category"));
                         b.putString("category1", getIntent().getStringExtra("category1"));
-
+                        b.putString("rft", getIntent().getStringExtra("rft"));
+                        b.putString("pref_item", getIntent().getStringExtra("pref_item"));
                         mapsFragment.setArguments(b);
                         fragmentTransaction.add(R.id.container, mapsFragment).commit();
 
                         break;
                     case "Bags":
-
+                        b.putString("Offers", "true");
                         b.putString("bagType", getIntent().getStringExtra("bagType"));
                         b.putString("bagBrand", getIntent().getStringExtra("bagBrand"));
                         b.putString("bagColor", getIntent().getStringExtra("bagColor"));
@@ -382,25 +387,27 @@ public class currentLoc extends AppCompatActivity {
                         b.putString("from", getIntent().getStringExtra("from"));
                         b.putString("category", getIntent().getStringExtra("category"));
                         b.putString("category1", getIntent().getStringExtra("category1"));
-
+                        b.putString("rft", getIntent().getStringExtra("rft"));
+                        b.putString("pref_item", getIntent().getStringExtra("pref_item"));
                         mapsFragment.setArguments(b);
                         fragmentTransaction.add(R.id.container, mapsFragment).commit();
 
                         break;
                     case "Groceries":
-
+                        b.putString("Offers", "true");
                         b.putString("groceryList", getIntent().getStringExtra("groceryList"));
                         b.putString("item_name", getIntent().getStringExtra("item_name"));
                         b.putString("from", getIntent().getStringExtra("from"));
                         b.putString("category", getIntent().getStringExtra("category"));
                         b.putString("category1", getIntent().getStringExtra("category1"));
-
+                        b.putString("rft", getIntent().getStringExtra("rft"));
+                        b.putString("pref_item", getIntent().getStringExtra("pref_item"));
                         mapsFragment.setArguments(b);
                         fragmentTransaction.add(R.id.container, mapsFragment).commit();
 
                         break;
                     case "Furniture":
-
+                        b.putString("Offers", "true");
                         b.putString("furnitureBrand", getIntent().getStringExtra("furnitureBrand"));
                         b.putString("furnitureColor", getIntent().getStringExtra("furnitureColor"));
                         b.putString("furnitureUsage", getIntent().getStringExtra("furnitureUsage"));
@@ -412,13 +419,14 @@ public class currentLoc extends AppCompatActivity {
                         b.putString("from", getIntent().getStringExtra("from"));
                         b.putString("category", getIntent().getStringExtra("category"));
                         b.putString("category1", getIntent().getStringExtra("category1"));
-
+                        b.putString("rft", getIntent().getStringExtra("rft"));
+                        b.putString("pref_item", getIntent().getStringExtra("pref_item"));
                         mapsFragment.setArguments(b);
                         fragmentTransaction.add(R.id.container, mapsFragment).commit();
 
                         break;
                     case "Babies & Kids":
-
+                        b.putString("Offers", "true");
                         b.putString("bnkAge", getIntent().getStringExtra("bnkAge"));
                         b.putString("bnkBrand", getIntent().getStringExtra("bnkBrand"));
                         b.putString("bnkType", getIntent().getStringExtra("bnkType"));
@@ -428,13 +436,14 @@ public class currentLoc extends AppCompatActivity {
                         b.putString("from", getIntent().getStringExtra("from"));
                         b.putString("category", getIntent().getStringExtra("category"));
                         b.putString("category1", getIntent().getStringExtra("category1"));
-
+                        b.putString("rft", getIntent().getStringExtra("rft"));
+                        b.putString("pref_item", getIntent().getStringExtra("pref_item"));
                         mapsFragment.setArguments(b);
                         fragmentTransaction.add(R.id.container, mapsFragment).commit();
 
                         break;
                     case "Appliances":
-
+                        b.putString("Offers", "true");
                         b.putString("appliancesType", getIntent().getStringExtra("appliancesType"));
                         b.putString("appliancesBrand", getIntent().getStringExtra("appliancesBrand"));
                         b.putString("appliancesColor", getIntent().getStringExtra("appliancesColor"));
@@ -444,7 +453,8 @@ public class currentLoc extends AppCompatActivity {
                         b.putString("from", getIntent().getStringExtra("from"));
                         b.putString("category", getIntent().getStringExtra("category"));
                         b.putString("category1", getIntent().getStringExtra("category1"));
-
+                        b.putString("rft", getIntent().getStringExtra("rft"));
+                        b.putString("pref_item", getIntent().getStringExtra("pref_item"));
                         mapsFragment.setArguments(b);
                         fragmentTransaction.add(R.id.container, mapsFragment).commit();
 
@@ -452,7 +462,7 @@ public class currentLoc extends AppCompatActivity {
                     case "Motors":
 
                         b.putString("motorModel", getIntent().getStringExtra("motorModel"));
-
+                        b.putString("Offers", "true");
                         b.putString("motorBrand", getIntent().getStringExtra("motorBrand"));
                         b.putString("motorColor", getIntent().getStringExtra("motorColor"));
                         b.putString("motorUsage", getIntent().getStringExtra("motorUsage"));
@@ -461,13 +471,14 @@ public class currentLoc extends AppCompatActivity {
                         b.putString("from", getIntent().getStringExtra("from"));
                         b.putString("category", getIntent().getStringExtra("category"));
                         b.putString("category1", getIntent().getStringExtra("category1"));
-
+                        b.putString("rft", getIntent().getStringExtra("rft"));
+                        b.putString("pref_item", getIntent().getStringExtra("pref_item"));
                         mapsFragment.setArguments(b);
                         fragmentTransaction.add(R.id.container, mapsFragment).commit();
 
                         break;
                     case "Audio":
-
+                        b.putString("Offers", "true");
                         b.putString("audioArtist", getIntent().getStringExtra("audioArtist"));
                         b.putString("audioReleaseDate", getIntent().getStringExtra("audioReleaseDate"));
                         b.putString("audioUsage", getIntent().getStringExtra("audioUsage"));
@@ -476,13 +487,14 @@ public class currentLoc extends AppCompatActivity {
                         b.putString("from", getIntent().getStringExtra("from"));
                         b.putString("category", getIntent().getStringExtra("category"));
                         b.putString("category1", getIntent().getStringExtra("category1"));
-
+                        b.putString("rft", getIntent().getStringExtra("rft"));
+                        b.putString("pref_item", getIntent().getStringExtra("pref_item"));
                         mapsFragment.setArguments(b);
                         fragmentTransaction.add(R.id.container, mapsFragment).commit();
 
                         break;
                     case "School":
-
+                        b.putString("Offers", "true");
                         b.putString("schoolType", getIntent().getStringExtra("schoolType"));
                         b.putString("schoolBrand", getIntent().getStringExtra("schoolBrand"));
                         b.putString("schoolColor", getIntent().getStringExtra("schoolColor"));
@@ -492,13 +504,14 @@ public class currentLoc extends AppCompatActivity {
                         b.putString("from", getIntent().getStringExtra("from"));
                         b.putString("category", getIntent().getStringExtra("category"));
                         b.putString("category1", getIntent().getStringExtra("category1"));
-
+                        b.putString("rft", getIntent().getStringExtra("rft"));
+                        b.putString("pref_item", getIntent().getStringExtra("pref_item"));
                         mapsFragment.setArguments(b);
                         fragmentTransaction.add(R.id.container, mapsFragment).commit();
 
                         break;
                     case "Women's Apparel":
-
+                        b.putString("Offers", "true");
                         b.putString("womensClothingType", getIntent().getStringExtra("womensClothingType"));
                         b.putString("womensBrand", getIntent().getStringExtra("womensBrand"));
                         b.putString("womensColor", getIntent().getStringExtra("womensColor"));
@@ -510,20 +523,22 @@ public class currentLoc extends AppCompatActivity {
                         b.putString("from", getIntent().getStringExtra("from"));
                         b.putString("category", getIntent().getStringExtra("category"));
                         b.putString("category1", getIntent().getStringExtra("category1"));
-
+                        b.putString("rft", getIntent().getStringExtra("rft"));
+                        b.putString("pref_item", getIntent().getStringExtra("pref_item"));
                         mapsFragment.setArguments(b);
                         fragmentTransaction.add(R.id.container, mapsFragment).commit();
 
                         break;
                     case "Others":
-
+                        b.putString("Offers", "true");
                         b.putString("otherType", getIntent().getStringExtra("otherType"));
                         b.putString("otherDescription", getIntent().getStringExtra("otherDescription"));
-                        b.putString("itemname", getIntent().getStringExtra("itemname"));
+                        b.putString("item_name", getIntent().getStringExtra("item_name"));
                         b.putString("from", getIntent().getStringExtra("from"));
                         b.putString("category", getIntent().getStringExtra("category"));
                         b.putString("category1", getIntent().getStringExtra("category1"));
-
+                        b.putString("rft", getIntent().getStringExtra("rft"));
+                        b.putString("pref_item", getIntent().getStringExtra("pref_item"));
                         mapsFragment.setArguments(b);
                         fragmentTransaction.add(R.id.container, mapsFragment).commit();
 

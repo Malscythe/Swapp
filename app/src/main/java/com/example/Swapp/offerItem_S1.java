@@ -66,8 +66,8 @@ public class offerItem_S1 extends AppCompatActivity {
         }
 
         String concatinated = getIntent().getStringExtra("itemid");
-        String uid = concatinated.substring(0, concatinated.indexOf("-"));
-        String itemname = concatinated.substring((concatinated.indexOf("-")+1), concatinated.length());
+        String itemname = concatinated.substring(0, concatinated.indexOf("-"));
+        String uid = concatinated.substring((concatinated.indexOf("-") + 1 ), concatinated.length());
 
         Intent intent = new Intent(offerItem_S1.this, offerItem_S2.class);
         intent.putExtra("category", binding.itemCategory.getText().toString());

@@ -477,9 +477,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                             String latitude = String.valueOf(markerPosition.latitude);
                             String longitude = String.valueOf(markerPosition.longitude);
 
-                            Boolean isOffer = bundle.getBoolean("Offers");
-                            Log.d("TAG", isOffer + "");
-                            if (isOffer) {
+                            String isOffer = bundle.getString("Offers");
+
+                            if (isOffer.equals("true")) {
                                 Intent intent = new Intent(getContext(), offerItem_S3.class);
 
 
@@ -858,7 +858,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                         intent.putExtra("latitude", latitude);
                                         intent.putExtra("longitude", longitude);
                                         intent.putExtra("item_name", bundle.getString("item_name"));
-
+                                        intent.putExtra("rft", bundle.getString("rft"));
+                                        intent.putExtra("pref_item", bundle.getString("pref_item"));
 
                                         intent.putExtra("category", bundle.getString("category1"));
                                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -884,7 +885,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                         intent.putExtra("latitude", latitude);
                                         intent.putExtra("longitude", longitude);
                                         intent.putExtra("item_name", bundle.getString("item_name"));
-
+                                        intent.putExtra("rft", bundle.getString("rft"));
+                                        intent.putExtra("pref_item", bundle.getString("pref_item"));
 
                                         intent.putExtra("category", bundle.getString("category1"));
                                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -909,7 +911,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                         intent.putExtra("latitude", latitude);
                                         intent.putExtra("longitude", longitude);
                                         intent.putExtra("item_name", bundle.getString("item_name"));
-
+                                        intent.putExtra("rft", bundle.getString("rft"));
+                                        intent.putExtra("pref_item", bundle.getString("pref_item"));
 
                                         intent.putExtra("category", bundle.getString("category1"));
                                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -935,7 +938,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                         intent.putExtra("latitude", latitude);
                                         intent.putExtra("longitude", longitude);
                                         intent.putExtra("item_name", bundle.getString("item_name"));
-
+                                        intent.putExtra("rft", bundle.getString("rft"));
+                                        intent.putExtra("pref_item", bundle.getString("pref_item"));
 
                                         intent.putExtra("category", bundle.getString("category1"));
                                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -958,7 +962,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                         intent.putExtra("longitude", longitude);
                                         intent.putExtra("item_name", bundle.getString("item_name"));
 
-
+                                        intent.putExtra("rft", bundle.getString("rft"));
+                                        intent.putExtra("pref_item", bundle.getString("pref_item"));
                                         intent.putExtra("category", bundle.getString("category1"));
                                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                         startActivity(intent);
@@ -985,7 +990,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                         intent.putExtra("latitude", latitude);
                                         intent.putExtra("longitude", longitude);
                                         intent.putExtra("item_name", bundle.getString("item_name"));
-
+                                        intent.putExtra("rft", bundle.getString("rft"));
+                                        intent.putExtra("pref_item", bundle.getString("pref_item"));
 
                                         intent.putExtra("category", bundle.getString("category1"));
                                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -1011,7 +1017,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                         intent.putExtra("latitude", latitude);
                                         intent.putExtra("longitude", longitude);
                                         intent.putExtra("item_name", bundle.getString("item_name"));
-
+                                        intent.putExtra("rft", bundle.getString("rft"));
+                                        intent.putExtra("pref_item", bundle.getString("pref_item"));
 
                                         intent.putExtra("category", bundle.getString("category1"));
                                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -1037,7 +1044,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                         intent.putExtra("latitude", latitude);
                                         intent.putExtra("longitude", longitude);
                                         intent.putExtra("item_name", bundle.getString("item_name"));
-
+                                        intent.putExtra("rft", bundle.getString("rft"));
+                                        intent.putExtra("pref_item", bundle.getString("pref_item"));
 
                                         intent.putExtra("category", bundle.getString("category1"));
                                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -1063,7 +1071,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                         intent.putExtra("latitude", latitude);
                                         intent.putExtra("longitude", longitude);
                                         intent.putExtra("item_name", bundle.getString("item_name"));
-
+                                        intent.putExtra("rft", bundle.getString("rft"));
+                                        intent.putExtra("pref_item", bundle.getString("pref_item"));
 
                                         intent.putExtra("category", bundle.getString("category1"));
                                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -1089,7 +1098,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                         intent.putExtra("longitude", longitude);
                                         intent.putExtra("item_name", bundle.getString("item_name"));
 
-
+                                        intent.putExtra("rft", bundle.getString("rft"));
+                                        intent.putExtra("pref_item", bundle.getString("pref_item"));
                                         intent.putExtra("category", bundle.getString("category1"));
                                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                         startActivity(intent);
@@ -1114,7 +1124,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                         intent.putExtra("latitude", latitude);
                                         intent.putExtra("longitude", longitude);
                                         intent.putExtra("item_name", bundle.getString("item_name"));
-
+                                        intent.putExtra("rft", bundle.getString("rft"));
+                                        intent.putExtra("pref_item", bundle.getString("pref_item"));
 
                                         intent.putExtra("category", bundle.getString("category1"));
                                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -1142,7 +1153,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                         intent.putExtra("latitude", latitude);
                                         intent.putExtra("longitude", longitude);
                                         intent.putExtra("item_name", bundle.getString("item_name"));
-
+                                        intent.putExtra("rft", bundle.getString("rft"));
+                                        intent.putExtra("pref_item", bundle.getString("pref_item"));
 
                                         intent.putExtra("category", bundle.getString("category1"));
                                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -1165,7 +1177,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                         intent.putExtra("latitude", latitude);
                                         intent.putExtra("longitude", longitude);
                                         intent.putExtra("item_name", bundle.getString("item_name"));
-
+                                        intent.putExtra("rft", bundle.getString("rft"));
+                                        intent.putExtra("pref_item", bundle.getString("pref_item"));
 
                                         intent.putExtra("category", bundle.getString("category1"));
                                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

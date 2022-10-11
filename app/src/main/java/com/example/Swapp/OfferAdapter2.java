@@ -65,9 +65,9 @@ public class OfferAdapter2 extends RecyclerView.Adapter {
             public void onClick(View view) {
 
                 Intent intent = new Intent(view.getContext(), OfferMoreInfo.class);
-                intent.putExtra("url", offerFetch.getImage_Url());
-                intent.putExtra("parentKey", offerFetch.getParentKey());
+                intent.putExtra("itemName", offerFetch.getItem_Name());
                 intent.putExtra("userID", offerFetch.getPoster_UID());
+                intent.putExtra("poster_itemName", offerFetch.getParentKey());
                 view.getContext().startActivity(intent);
                 CustomIntent.customType(view.getContext(), "left-to-right");
             }

@@ -165,7 +165,8 @@ public class ItemSwipe extends AppCompatActivity {
                                 snapshot.child(uid).child(itemName).child("Item_Name").getValue(String.class),
                                 snapshot.child(uid).child(itemName).child("Item_PrefItem").getValue(String.class),
                                 snapshot.child(uid).child(itemName).child("Poster_Name").getValue(String.class),
-                                snapshot.child(uid).child(itemName).child("Poster_UID").getValue(String.class)
+                                snapshot.child(uid).child(itemName).child("Poster_UID").getValue(String.class),
+                                keysList
                         );
                         rowItems.add(item);
                         arrayAdapter.notifyDataSetChanged();

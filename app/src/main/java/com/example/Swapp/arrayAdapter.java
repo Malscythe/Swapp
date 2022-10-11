@@ -19,6 +19,7 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 import Swapp.R;
+import maes.tech.intentanim.CustomIntent;
 
 public class arrayAdapter extends ArrayAdapter<cards> {
 
@@ -50,6 +51,19 @@ public class arrayAdapter extends ArrayAdapter<cards> {
         item_Location.setText(card_item.getItem_City().concat(", " + card_item.getItem_State()));
         item_Pref.setText(card_item.getItem_Preferred());
         posterName.setText(card_item.getPoster_Name());
+
+        seeMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, MoreInfo.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intent.putExtra("poster_uid", card_item.getPoster_UID());
+                intent.putExtra("item_name", card_item.getItem_Name());
+                intent.putExtra("keys", card_item.getKeyList());
+                context.startActivity(intent);
+                CustomIntent.customType(context, "right-to-left");
+            }
+        });
 
         if (card_item.getItem_Category().equals("Groceries")) {
             item_Description.setVisibility(View.GONE);

@@ -43,16 +43,24 @@ public class OfferSecondActivity extends AppCompatActivity {
         offerRV2.setLayoutManager(new LinearLayoutManager(this));
         offerFetchList = new ArrayList<>();
         firebaseAuth = FirebaseAuth.getInstance();
-        String uid = firebaseAuth.getCurrentUser().getUid();
         String itemid = getIntent().getStringExtra("itemid");
-        databaseReference = FirebaseDatabase.getInstance().getReference("items/" + itemid + "/Offers");
+        String itemname = getIntent().getStringExtra("itemname");
+        databaseReference = FirebaseDatabase.getInstance().getReference("items/" + itemid + "/" + itemname +"/Offers");
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds: snapshot.getChildren())
                 {
-                    OfferFetch offerFetch = ds.getValue(OfferFetch.class);
+                    String address = ds.child("Address").child("City").getValue(String.class).concat(", " + ds.child("Address").child("State").getValue(String.class));
+
+                    OfferFetch offerFetch = new OfferFetch();
+                    offerFetch.setItem_Name(ds.child("Item_Name").getValue(String.class));
+                    offerFetch.setItem_Location(address);
+                    offerFetch.setPoster_UID(ds.child("Poster_UID").getValue(String.class));
+                    offerFetch.setParentKey(itemname);
+                    offerFetch.setOfferCount(ds.child("Offers").getChildrenCount());
+                    offerFetch.setImage_Url(ds.child("Images").child(String.valueOf(1)).getValue(String.class));
                     offerFetchList.add(offerFetch);
                 }
 
