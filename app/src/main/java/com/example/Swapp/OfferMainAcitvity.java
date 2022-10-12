@@ -90,7 +90,7 @@ public class OfferMainAcitvity extends AppCompatActivity {
         });
 
         databaseReference = FirebaseDatabase.getInstance().getReference("items/" + uid);
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds: snapshot.getChildren())
@@ -100,7 +100,7 @@ public class OfferMainAcitvity extends AppCompatActivity {
                     OfferFetch offerFetch = new OfferFetch();
                     offerFetch.setItem_Name(ds.child("Item_Name").getValue(String.class));
                     offerFetch.setItem_Location(address);
-                    offerFetch.setPoster_UID("Poster_UID");
+                    offerFetch.setPoster_UID(ds.child("Poster_UID").getValue(String.class));
                     offerFetch.setOfferCount(ds.child("Offers").getChildrenCount());
                     offerFetch.setImage_Url(ds.child("Images").child(String.valueOf(1)).getValue(String.class));
                     offerFetchList.add(offerFetch);

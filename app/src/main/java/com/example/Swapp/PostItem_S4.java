@@ -221,15 +221,17 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                             });
                                         }
                                     });
+                                    postingItemDialog.DismissDialog();
 
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                    intent.putExtra("Origin", "PostItem");
+                                    startActivity(intent);
+                                    CustomIntent.customType(PostItem_S4.this, "left-to-right");
                                 }
                             });
                         }
 
-                        postingItemDialog.DismissDialog();
-                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        startActivity(intent);
-                        CustomIntent.customType(PostItem_S4.this, "left-to-right");
+
 
                         break;
                     case "Gadgets":

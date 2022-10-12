@@ -205,7 +205,6 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     databaseReference.child("items").child(muid).child(mitemname).child("Offers").child(currentId).child("Address").child("Latitude").setValue(mLatitude);
                                                     databaseReference.child("items").child(muid).child(mitemname).child("Offers").child(currentId).child("Address").child("Longitude").setValue(mLongitude);
 
-
                                                     if (snapshot.child("items").child(muid).child(mitemname).child("Offers").child(currentId).hasChild("Images")) {
                                                         databaseReference.child("items").child(muid).child(mitemname).child("Offers").child(currentId).child("Images").child(String.valueOf(snapshot.child("items").child(muid).child(mitemname).child("Offers").child(currentId).child("Images").getChildrenCount() + 1)).setValue(task.getResult().toString());
                                                     } else {

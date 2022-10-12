@@ -64,6 +64,8 @@ public class OfferAdapter2 extends RecyclerView.Adapter {
             @Override
             public void onClick(View view) {
 
+                Log.d(TAG, offerFetch.getParentKey());
+
                 Intent intent = new Intent(view.getContext(), OfferMoreInfo.class);
                 intent.putExtra("itemName", offerFetch.getItem_Name());
                 intent.putExtra("userID", offerFetch.getPoster_UID());

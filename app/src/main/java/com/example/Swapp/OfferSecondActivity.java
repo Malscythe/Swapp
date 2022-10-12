@@ -45,6 +45,8 @@ public class OfferSecondActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         String itemid = getIntent().getStringExtra("itemid");
         String itemname = getIntent().getStringExtra("itemname");
+
+        Log.d(TAG, "items/" + itemid + "/" + itemname +"/Offers");
         databaseReference = FirebaseDatabase.getInstance().getReference("items/" + itemid + "/" + itemname +"/Offers");
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -52,6 +54,8 @@ public class OfferSecondActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds: snapshot.getChildren())
                 {
+                    Log.d(TAG, ds.toString());
+
                     String address = ds.child("Address").child("City").getValue(String.class).concat(", " + ds.child("Address").child("State").getValue(String.class));
 
                     OfferFetch offerFetch = new OfferFetch();

@@ -140,9 +140,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
+            android:layout_marginBottom="30dp"
             android:layout_marginTop="20dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp">
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp">
 
           <LinearLayout
               android:layout_width="match_parent"
@@ -183,7 +184,7 @@
                   android:layout_marginEnd="15dp"
                   android:textSize="12dp"
                   android:text="Brand"
-                  app:layout_flexBasisPercent="30%"
+                  app:layout_flexBasisPercent="40%"
                   android:fontFamily="@font/poppins_medium"
                   android:textColor="#66000000" />
 
@@ -192,6 +193,8 @@
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_marginTop="5dp"
+                  app:layout_flexBasisPercent="60%"
+                  android:layout_marginEnd="15dp"
                   android:textSize="12dp"
                   android:text="Brand Name"
                   android:layout_centerHorizontal="true"
@@ -215,7 +218,7 @@
                   android:layout_marginStart="15dp"
                   android:textSize="12dp"
                   android:text="Category"
-                  app:layout_flexBasisPercent="30%"
+                  app:layout_flexBasisPercent="40%"
                   android:layout_marginEnd="15dp"
                   android:fontFamily="@font/poppins_medium"
                   android:textColor="#66000000" />
@@ -225,6 +228,8 @@
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_marginTop="5dp"
+                  app:layout_flexBasisPercent="60%"
+                  android:layout_marginEnd="15dp"
                   android:textSize="12dp"
                   android:layout_centerHorizontal="true"
                   android:text="Category Name"
@@ -248,7 +253,7 @@
                   android:layout_marginStart="15dp"
                   android:textSize="12dp"
                   android:text="Color"
-                  app:layout_flexBasisPercent="30%"
+                  app:layout_flexBasisPercent="40%"
                   android:layout_marginEnd="15dp"
                   android:fontFamily="@font/poppins_medium"
                   android:textColor="#66000000" />
@@ -258,6 +263,8 @@
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_marginTop="5dp"
+                  app:layout_flexBasisPercent="60%"
+                  android:layout_marginEnd="15dp"
                   android:textSize="12dp"
                   android:layout_centerHorizontal="true"
                   android:text="Color name"
@@ -281,7 +288,7 @@
                   android:layout_marginStart="15dp"
                   android:textSize="12dp"
                   android:text="Material"
-                  app:layout_flexBasisPercent="30%"
+                  app:layout_flexBasisPercent="40%"
                   android:layout_marginEnd="15dp"
                   android:fontFamily="@font/poppins_medium"
                   android:textColor="#66000000" />
@@ -291,6 +298,8 @@
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_marginTop="5dp"
+                  app:layout_flexBasisPercent="60%"
+                  android:layout_marginEnd="15dp"
                   android:textSize="12dp"
                   android:layout_centerHorizontal="true"
                   android:text="Material name"
@@ -314,7 +323,7 @@
                   android:layout_marginStart="15dp"
                   android:textSize="12dp"
                   android:text="Sizes"
-                  app:layout_flexBasisPercent="30%"
+                  app:layout_flexBasisPercent="40%"
                   android:layout_marginEnd="15dp"
                   android:fontFamily="@font/poppins_medium"
                   android:textColor="#66000000" />
@@ -325,6 +334,8 @@
                   android:layout_height="wrap_content"
                   android:layout_marginTop="5dp"
                   android:textSize="12dp"
+                  app:layout_flexBasisPercent="60%"
+                  android:layout_marginEnd="15dp"
                   android:layout_centerHorizontal="true"
                   android:text="Size list"
                   android:fontFamily="@font/poppins_medium"
@@ -347,7 +358,7 @@
                   android:layout_marginStart="15dp"
                   android:textSize="12dp"
                   android:text="Type"
-                  app:layout_flexBasisPercent="30%"
+                  app:layout_flexBasisPercent="40%"
                   android:layout_marginEnd="15dp"
                   android:fontFamily="@font/poppins_medium"
                   android:textColor="#66000000" />
@@ -357,6 +368,8 @@
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_marginTop="5dp"
+                  app:layout_flexBasisPercent="60%"
+                  android:layout_marginEnd="15dp"
                   android:textSize="12dp"
                   android:layout_centerHorizontal="true"
                   android:text="Type name"
@@ -380,7 +393,7 @@
                   android:layout_marginStart="15dp"
                   android:textSize="12dp"
                   android:text="Usage"
-                  app:layout_flexBasisPercent="30%"
+                  app:layout_flexBasisPercent="40%"
                   android:layout_marginEnd="15dp"
                   android:fontFamily="@font/poppins_medium"
                   android:textColor="#66000000" />
@@ -391,7 +404,9 @@
                   android:layout_height="wrap_content"
                   android:layout_marginTop="5dp"
                   android:textSize="12dp"
+                  app:layout_flexBasisPercent="60%"
                   android:layout_centerHorizontal="true"
+                  android:layout_marginEnd="15dp"
                   android:text="Usage"
                   android:fontFamily="@font/poppins_medium"
                   android:textColor="@color/primary_black" />
@@ -415,7 +430,7 @@
                   android:layout_marginStart="15dp"
                   android:textSize="12dp"
                   android:text="Additional Details"
-                  app:layout_flexBasisPercent="30%"
+                  app:layout_flexBasisPercent="40%"
                   android:layout_marginEnd="15dp"
                   android:fontFamily="@font/poppins_medium"
                   android:textColor="#66000000" />
@@ -425,107 +440,11 @@
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:layout_marginTop="5dp"
+                  app:layout_flexBasisPercent="60%"
                   android:textSize="12dp"
+                  android:layout_marginEnd="15dp"
                   android:layout_centerHorizontal="true"
                   android:text="Item description"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-          </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="30dp"
-            app:cardCornerRadius="10dp">
-
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                android:layout_marginTop="10dp"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginBottom="10dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Trader is looking for"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000" />
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Reason for trading"
-                  android:layout_marginEnd="10dp"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:dividerInsetStart="15dp"
-                app:dividerInsetEnd="15dp" />
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:id="@+id/lfM"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Item Preferred"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black" />
-
-              <TextView
-                  android:id="@+id/rftM"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  android:layout_marginEnd="10dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Item RFT"
                   android:fontFamily="@font/poppins_medium"
                   android:textColor="@color/primary_black"/>
 

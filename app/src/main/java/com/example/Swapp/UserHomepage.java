@@ -10,6 +10,7 @@ import androidx.cardview.widget.CardView;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.L;
 import com.example.Swapp.call.BaseActivity;
 import com.example.Swapp.call.SinchService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -118,14 +120,25 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
 
         MemoryData.saveUid(uid, UserHomepage.this);
 
+        if (getIntent().hasExtra("Origin")) {
+            if (getIntent().getStringExtra("Origin").equals("PostItem")) {
+                startActivity(getIntent());
+            }
+        }
+
         databaseReferenceUrl.child("items").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Log.d(TAG,"HERE");
                     pendingTrades = pendingTrades + dataSnapshot.child("Offers").getChildrenCount();
                     pendingCounts.setText(pendingTrades.toString());
+
+                    currentTrades = currentTrades + dataSnapshot.child("Accepted_Offers").getChildrenCount();
+                    currentCounts.setText(currentTrades.toString());
                 }
+                pendingTrades = 0L;
+                currentTrades = 0L;
+
             }
 
             @Override

@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.L;
 import com.bumptech.glide.Glide;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
@@ -54,13 +55,6 @@ public class OfferMoreInfo extends AppCompatActivity {
     private static final String TAG = "Debug";
     private DatabaseReference mDatabase;
 
-    Uri imageUri;
-    Context context;
-
-    TextView itemName, offererName, itemLocation, itemDesc;
-    ImageView itemImage;
-    Button acceptBtn, declineBtn;
-    StorageReference storageReference;
     FirebaseAuth firebaseAuth;
 
     @Override
@@ -100,11 +94,9 @@ public class OfferMoreInfo extends AppCompatActivity {
                         TextView mSizes = findViewById(R.id.sizesM);
                         TextView mUsage = findViewById(R.id.usageM);
                         TextView mLocation = findViewById(R.id.Item_LocationM);
-                        TextView mPref = findViewById(R.id.lfM);
-                        TextView mRFT = findViewById(R.id.rftM);
                         TextView mDescription = findViewById(R.id.adM);
-                        Button acceptBtn = findViewById(R.id.acceptBtn);
-                        Button declineBtn = findViewById(R.id.declineBtn);
+                        Button mAcceptBtn = findViewById(R.id.acceptBtn);
+                        Button mDeclineBtn = findViewById(R.id.declineBtn);
 
                         mLayout.setVisibility(View.VISIBLE);
 
@@ -125,16 +117,14 @@ public class OfferMoreInfo extends AppCompatActivity {
                         mSizes.setText(snapshot.child("Item_Sizes").getValue(String.class));
                         mUsage.setText(snapshot.child("Item_Usage").getValue(String.class));
                         mLocation.setText(mAddress);
-                        mPref.setText(snapshot.child("Item_PrefItem").getValue(String.class));
-                        mRFT.setText(snapshot.child("Item_RFT").getValue(String.class));
                         mDescription.setText(snapshot.child("Item_Description").getValue(String.class));
 
-                        acceptBtn.setOnClickListener(new View.OnClickListener() {
+                        mAcceptBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 mLayout.setVisibility(View.GONE);
-                                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                                databaseReference.child(currentId).child(item_Name).addListenerForSingleValueEvent(new ValueEventListener() {
+                                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
+                                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -157,16 +147,195 @@ public class OfferMoreInfo extends AppCompatActivity {
                                         databaseReference.child("Accepted_Offers").child(uid).child("Address").child("Latitude").setValue(snapshot.child("Offers").child(uid).child("Address").child("Latitude").getValue(String.class));
                                         databaseReference.child("Accepted_Offers").child(uid).child("Address").child("Longitude").setValue(snapshot.child("Offers").child(uid).child("Address").child("Longitude").getValue(String.class));
 
-                                        for (int i = 1; i <= snapshot.child("Accepted_Offers").child(uid).child("Images").getChildrenCount(); i++) {
-                                            if (snapshot.child("Accepted_Offers").child(uid).hasChild("Images")) {
-                                                databaseReference.child("Accepted_Offers").child(uid).child("Images").child(String.valueOf(snapshot.child("Accepted_Offers").child(uid).child("Images").getChildrenCount() + 1)).setValue(snapshot.child("Accepted_Offers").child(uid).child("Images").child(String.valueOf(i)).getValue(String.class));
-                                            } else {
-                                                databaseReference.child("Accepted_Offers").child(uid).child("Images").child("1").setValue(snapshot.child("Accepted_Offers").child(uid).child("Images").child(String.valueOf(i)).getValue(String.class));
-                                            }
+                                        for (int i = 1; i <= snapshot.child("Offers").child(uid).child("Images").getChildrenCount(); i++) {
+                                            databaseReference.child("Accepted_Offers").child(uid).child("Images").child(String.valueOf(i)).setValue(snapshot.child("Offers").child(uid).child("Images").child(String.valueOf(i)).getValue(String.class));
                                         }
 
+                                        snapshot.child("Offers").child(uid).getRef().removeValue();
+
+                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
+                                                String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
+
+                                                Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                intent.putExtra("mobile", mobile);
+                                                intent.putExtra("name", userName);
+                                                intent.putExtra("chat_key", "");
+                                                intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                startActivity(intent);
+                                                CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
 
                                     }
+                                });
+                            }
+                        });
+
+                        mDeclineBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                            public void onClick(View view) {
+                                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
+                                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                        snapshot.child("Offers").child(uid).getRef().removeValue();
+                                        Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
+                                        intent.putExtra("itemid", currentId);
+                                        intent.putExtra("itemname", poster_itemName);
+                                        startActivity(intent);
+                                        CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                            }
+                        });
+
+                        break;
+                    case "Women's Apparel":
+                        List<SlideModel> wSlideModels = new ArrayList<>();
+
+                        RelativeLayout wLayout = findViewById(R.id.womensLayout);
+                        TextView wItemName = findViewById(R.id.Item_NameW);
+                        ImageSlider wItemImage = findViewById(R.id.image_sliderW);
+                        TextView wPosterName = findViewById(R.id.Item_Poster);
+                        TextView wMaterial = findViewById(R.id.materialW);
+                        TextView wBrand = findViewById(R.id.brandW);
+                        TextView wColor = findViewById(R.id.colorW);
+                        TextView wType = findViewById(R.id.typeW);
+                        TextView wCategory = findViewById(R.id.categoryW);
+                        TextView wSizes = findViewById(R.id.sizesW);
+                        TextView wUsage = findViewById(R.id.usageW);
+                        TextView wLocation = findViewById(R.id.Item_LocationW);
+                        TextView wPref = findViewById(R.id.lfW);
+                        TextView wRFT = findViewById(R.id.rftW);
+                        TextView wDescription = findViewById(R.id.adW);
+                        Button wAcceptBtn = findViewById(R.id.acceptBtn);
+                        Button wDeclineBtn = findViewById(R.id.declineBtn);
+
+                        wLayout.setVisibility(View.VISIBLE);
+
+                        for (int i = 1; i <= snapshot.child("Images").getChildrenCount(); i++) {
+                            wSlideModels.add(new SlideModel(snapshot.child("Images").child(String.valueOf(i)).getValue(String.class), null));
+                        }
+
+                        String wAddress = snapshot.child("Address").child("City").getValue(String.class).concat(", " + snapshot.child("Address").child("State").getValue(String.class));
+
+                        wItemImage.setImageList(wSlideModels, null);
+                        wItemName.setText(snapshot.child("Item_Name").getValue(String.class));
+                        wPosterName.setText(snapshot.child("Poster_Name").getValue(String.class));
+                        wMaterial.setText(snapshot.child("Item_Material").getValue(String.class));
+                        wBrand.setText(snapshot.child("Item_Brand").getValue(String.class));
+                        wColor.setText(snapshot.child("Item_Color").getValue(String.class));
+                        wType.setText(snapshot.child("Item_Type").getValue(String.class));
+                        wCategory.setText(snapshot.child("Item_Category").getValue(String.class));
+                        wSizes.setText(snapshot.child("Item_Sizes").getValue(String.class));
+                        wUsage.setText(snapshot.child("Item_Usage").getValue(String.class));
+                        wLocation.setText(wAddress);
+                        wPref.setText(snapshot.child("Item_PrefItem").getValue(String.class));
+                        wRFT.setText(snapshot.child("Item_RFT").getValue(String.class));
+                        wDescription.setText(snapshot.child("Item_Description").getValue(String.class));
+
+                        wAcceptBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                wLayout.setVisibility(View.GONE);
+                                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
+                                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                        databaseReference.child("Accepted_Offers").child(uid).child("Poster_Name").setValue(snapshot.child("Offers").child(uid).child("Poster_Name").getValue(String.class));
+                                        databaseReference.child("Accepted_Offers").child(uid).child("Poster_UID").setValue(uid);
+                                        databaseReference.child("Accepted_Offers").child(uid).child("Item_Type").setValue(snapshot.child("Offers").child(uid).child("Item_Type").getValue(String.class));
+                                        databaseReference.child("Accepted_Offers").child(uid).child("Item_Brand").setValue(snapshot.child("Offers").child(uid).child("Item_Brand").getValue(String.class));
+                                        databaseReference.child("Accepted_Offers").child(uid).child("Item_Color").setValue(snapshot.child("Offers").child(uid).child("Item_Color").getValue(String.class));
+                                        databaseReference.child("Accepted_Offers").child(uid).child("Item_Material").setValue(snapshot.child("Offers").child(uid).child("Item_Material").getValue(String.class));
+                                        databaseReference.child("Accepted_Offers").child(uid).child("Item_Usage").setValue(snapshot.child("Offers").child(uid).child("Item_Usage").getValue(String.class));
+                                        databaseReference.child("Accepted_Offers").child(uid).child("Item_Sizes").setValue(snapshot.child("Offers").child(uid).child("Item_Sizes").getValue(String.class));
+                                        databaseReference.child("Accepted_Offers").child(uid).child("Item_Description").setValue(snapshot.child("Offers").child(uid).child("Item_Description").getValue(String.class));
+                                        databaseReference.child("Accepted_Offers").child(uid).child("Item_Name").setValue(snapshot.child("Offers").child(uid).child("Item_Name").getValue(String.class));
+                                        databaseReference.child("Accepted_Offers").child(uid).child("Item_Category").setValue(snapshot.child("Offers").child(uid).child("Item_Category").getValue(String.class));
+                                        databaseReference.child("Accepted_Offers").child(uid).child("Address").child("Street").setValue(snapshot.child("Offers").child(uid).child("Address").child("Street").getValue(String.class));
+                                        databaseReference.child("Accepted_Offers").child(uid).child("Address").child("Barangay").setValue(snapshot.child("Offers").child(uid).child("Address").child("Barangay").getValue(String.class));
+                                        databaseReference.child("Accepted_Offers").child(uid).child("Address").child("City").setValue(snapshot.child("Offers").child(uid).child("Address").child("City").getValue(String.class));
+                                        databaseReference.child("Accepted_Offers").child(uid).child("Address").child("State").setValue(snapshot.child("Offers").child(uid).child("Address").child("State").getValue(String.class));
+                                        databaseReference.child("Accepted_Offers").child(uid).child("Address").child("Country").setValue(snapshot.child("Offers").child(uid).child("Address").child("Country").getValue(String.class));
+                                        databaseReference.child("Accepted_Offers").child(uid).child("Address").child("Latitude").setValue(snapshot.child("Offers").child(uid).child("Address").child("Latitude").getValue(String.class));
+                                        databaseReference.child("Accepted_Offers").child(uid).child("Address").child("Longitude").setValue(snapshot.child("Offers").child(uid).child("Address").child("Longitude").getValue(String.class));
+
+                                        for (int i = 1; i <= snapshot.child("Offers").child(uid).child("Images").getChildrenCount(); i++) {
+                                            databaseReference.child("Accepted_Offers").child(uid).child("Images").child(String.valueOf(i)).setValue(snapshot.child("Offers").child(uid).child("Images").child(String.valueOf(i)).getValue(String.class));
+                                        }
+
+                                        snapshot.child("Offers").child(uid).getRef().removeValue();
+
+                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
+                                                String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
+
+                                                Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                intent.putExtra("mobile", mobile);
+                                                intent.putExtra("name", userName);
+                                                intent.putExtra("chat_key", "");
+                                                intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                startActivity(intent);
+                                                CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                            }
+                        });
+
+                        wDeclineBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                            public void onClick(View view) {
+                                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
+                                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                        snapshot.child("Offers").child(uid).getRef().removeValue();
+                                        Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
+                                        intent.putExtra("itemid", currentId);
+                                        intent.putExtra("itemname", poster_itemName);
+                                        startActivity(intent);
+                                        CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                    }
+
                                     @Override
                                     public void onCancelled(@NonNull DatabaseError error) {
 
@@ -175,60 +344,6 @@ public class OfferMoreInfo extends AppCompatActivity {
                             }
                         });
                         break;
-//                    case "Women's Apparel":
-//                        List<SlideModel> wSlideModels = new ArrayList<>();
-//
-//                        RelativeLayout wLayout = findViewById(R.id.womensLayout);
-//                        TextView wItemName = findViewById(R.id.Item_NameW);
-//                        ImageSlider wItemImage = findViewById(R.id.image_sliderW);
-//                        TextView wPosterName = findViewById(R.id.Item_Poster);
-//                        TextView wMaterial = findViewById(R.id.materialW);
-//                        TextView wBrand = findViewById(R.id.brandW);
-//                        TextView wColor = findViewById(R.id.colorW);
-//                        TextView wType = findViewById(R.id.typeW);
-//                        TextView wCategory = findViewById(R.id.categoryW);
-//                        TextView wSizes = findViewById(R.id.sizesW);
-//                        TextView wUsage = findViewById(R.id.usageW);
-//                        TextView wLocation = findViewById(R.id.Item_LocationW);
-//                        TextView wPref = findViewById(R.id.lfW);
-//                        TextView wRFT = findViewById(R.id.rftW);
-//                        TextView wDescription = findViewById(R.id.adW);
-//                        Button wOfferBtn = findViewById(R.id.offerbtn);
-//
-//                        wLayout.setVisibility(View.VISIBLE);
-//
-//                        for (int i = 1; i <= snapshot.child("Images").getChildrenCount(); i++) {
-//                            wSlideModels.add(new SlideModel(snapshot.child("Images").child(String.valueOf(i)).getValue(String.class), null));
-//                        }
-//
-//                        String wAddress = snapshot.child("Address").child("City").getValue(String.class).concat(", " + snapshot.child("Address").child("State").getValue(String.class));
-//
-//                        wItemImage.setImageList(wSlideModels, null);
-//                        wItemName.setText(snapshot.child("Item_Name").getValue(String.class));
-//                        wPosterName.setText(snapshot.child("Poster_Name").getValue(String.class));
-//                        wMaterial.setText(snapshot.child("Item_Material").getValue(String.class));
-//                        wBrand.setText(snapshot.child("Item_Brand").getValue(String.class));
-//                        wColor.setText(snapshot.child("Item_Color").getValue(String.class));
-//                        wType.setText(snapshot.child("Item_Type").getValue(String.class));
-//                        wCategory.setText(snapshot.child("Item_Category").getValue(String.class));
-//                        wSizes.setText(snapshot.child("Item_Sizes").getValue(String.class));
-//                        wUsage.setText(snapshot.child("Item_Usage").getValue(String.class));
-//                        wLocation.setText(wAddress);
-//                        wPref.setText(snapshot.child("Item_PrefItem").getValue(String.class));
-//                        wRFT.setText(snapshot.child("Item_RFT").getValue(String.class));
-//                        wDescription.setText(snapshot.child("Item_Description").getValue(String.class));
-//
-//                        wOfferBtn.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View view) {
-//                                wLayout.setVisibility(View.GONE);
-//                                Intent intent = new Intent(MoreInfo.this, offerItem_S1.class);
-//                                intent.putExtra("itemid", snapshot.child("Item_Name").getValue().toString().concat("-" + snapshot.child("Poster_UID").getValue().toString()));
-//                                startActivity(intent);
-//                                CustomIntent.customType(MoreInfo.this, "left-to-right");
-//                            }
-//                        });
-//                        break;
 //                    case "Gadgets":
 //                        List<SlideModel> gadgetsSlideModels = new ArrayList<>();
 //
@@ -766,14 +881,14 @@ public class OfferMoreInfo extends AppCompatActivity {
 //                        });
 //                        break;
 
+                        }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled (@NonNull DatabaseError error){
 
-            }
-        });
+                }
+            });
 
 //        if (imageUri == null){
 //            Uri noimageUri = (new Uri.Builder())
@@ -864,5 +979,5 @@ public class OfferMoreInfo extends AppCompatActivity {
 //                });
 //            }
 //        });
+        }
     }
-}

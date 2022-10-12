@@ -479,6 +479,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                             String isOffer = bundle.getString("Offers");
 
+                            Log.d("TAG", isOffer);
                             if (isOffer.equals("true")) {
                                 Intent intent = new Intent(getContext(), offerItem_S3.class);
 
