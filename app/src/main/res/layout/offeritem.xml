@@ -57,78 +57,74 @@
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
-            </LinearLayout>
-
-        </RelativeLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rootLayout"
-        android:background="@drawable/bottom_border"
-        android:orientation="horizontal">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/postedOfferCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="11dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="10dp"
-                android:textStyle="bold"
-                android:fontFamily="@font/poppins"
-                android:text="0"
-                android:textColor="@color/primary"
-                android:textSize="18sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:textStyle="bold"
-                android:layout_toEndOf="@id/postedOfferCount"
-                android:fontFamily="@font/poppins"
-                android:text="Pending offers"
-                android:textColor="@color/primary_black"
-                android:textSize="18sp" />
-
-
-            <LinearLayout
-                android:id="@+id/gotoOffers"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:layout_alignParentEnd="true"
-                android:layout_width="wrap_content"
-                android:orientation="horizontal"
-                android:layout_centerVertical="true"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="OFFERS"
-                    android:textSize="18sp"
-                    android:paddingTop="3dp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:textColor="@color/primary"/>
+                    android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_baseline_arrow_forward_24"
-                    android:layout_gravity="center_vertical"
-                    app:tint="@color/primary" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/postedOfferCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="11dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="10dp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/poppins"
+                            android:text="0"
+                            android:textColor="@color/primary"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_toEndOf="@id/postedOfferCount"
+                            android:fontFamily="@font/poppins"
+                            android:text="Pending offers"
+                            android:textColor="@color/primary_black"
+                            android:textSize="18sp" />
+
+
+                        <LinearLayout
+                            android:id="@+id/gotoOffers"
+                            android:layout_marginTop="10dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_width="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_centerVertical="true"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="OFFERS"
+                                android:textSize="18sp"
+                                android:paddingTop="3dp"
+                                android:fontFamily="@font/poppins_semibold"
+                                android:textColor="@color/primary"/>
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/ic_baseline_arrow_forward_24"
+                                android:layout_gravity="center_vertical"
+                                app:tint="@color/primary" />
+
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
 
             </LinearLayout>
+
         </RelativeLayout>
 
     </LinearLayout>

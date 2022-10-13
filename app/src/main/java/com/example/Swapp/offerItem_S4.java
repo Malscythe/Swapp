@@ -47,7 +47,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
     private ImageAdapter adapter;
     private Handler sliderHandler = new Handler();
     String[] descriptionData = {"Details", "Description", "Location", "Images"};
-    PostingItemDialog postingItemDialog = new PostingItemDialog(offerItem_S4.this);
+    OfferingItemDialog offeringItemDialog = new OfferingItemDialog(offerItem_S4.this);
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -139,7 +139,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                 imageList.clear();
                 imageList.addAll(set);
 
-                postingItemDialog.startLoadingDialog();
+                offeringItemDialog.startLoadingDialog();
                 Intent intent = new Intent(offerItem_S4.this, UserHomepage.class );
                 Log.d("TAG", category);
                 switch (category) {
@@ -224,7 +224,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                             });
                         }
 
-                        postingItemDialog.DismissDialog();
+                        offeringItemDialog.DismissDialog();
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
                         CustomIntent.customType(offerItem_S4.this, "left-to-right");
@@ -307,7 +307,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                             });
                         }
 
-                        postingItemDialog.DismissDialog();
+                        offeringItemDialog.DismissDialog();
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
                         CustomIntent.customType(offerItem_S4.this, "left-to-right");
@@ -388,7 +388,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                             });
                         }
 
-                        postingItemDialog.DismissDialog();
+                        offeringItemDialog.DismissDialog();
 
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
@@ -473,7 +473,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                             });
                         }
 
-                        postingItemDialog.DismissDialog();
+                        offeringItemDialog.DismissDialog();
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
                         CustomIntent.customType(offerItem_S4.this, "left-to-right");
@@ -548,7 +548,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                             });
                         }
 
-                        postingItemDialog.DismissDialog();
+                        offeringItemDialog.DismissDialog();
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
                         CustomIntent.customType(offerItem_S4.this, "left-to-right");
@@ -635,7 +635,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                             });
                         }
 
-                        postingItemDialog.DismissDialog();
+                        offeringItemDialog.DismissDialog();
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
                         CustomIntent.customType(offerItem_S4.this, "left-to-right");
@@ -718,7 +718,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                             });
                         }
 
-                        postingItemDialog.DismissDialog();
+                        offeringItemDialog.DismissDialog();
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
                         CustomIntent.customType(offerItem_S4.this, "left-to-right");
@@ -801,7 +801,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                             });
                         }
 
-                        postingItemDialog.DismissDialog();
+                        offeringItemDialog.DismissDialog();
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
                         CustomIntent.customType(offerItem_S4.this, "left-to-right");
@@ -884,7 +884,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                             });
                         }
 
-                        postingItemDialog.DismissDialog();
+                        offeringItemDialog.DismissDialog();
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
                         CustomIntent.customType(offerItem_S4.this, "left-to-right");
@@ -965,7 +965,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                             });
                         }
 
-                        postingItemDialog.DismissDialog();
+                        offeringItemDialog.DismissDialog();
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
                         CustomIntent.customType(offerItem_S4.this, "left-to-right");
@@ -1048,7 +1048,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                             });
                         }
 
-                        postingItemDialog.DismissDialog();
+                        offeringItemDialog.DismissDialog();
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
                         CustomIntent.customType(offerItem_S4.this, "left-to-right");
@@ -1135,7 +1135,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                             });
                         }
 
-                        postingItemDialog.DismissDialog();
+                        offeringItemDialog.DismissDialog();
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
                         CustomIntent.customType(offerItem_S4.this, "left-to-right");
@@ -1211,7 +1211,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                             });
                         }
 
-                        postingItemDialog.DismissDialog();
+                        offeringItemDialog.DismissDialog();
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
                         CustomIntent.customType(offerItem_S4.this, "left-to-right");

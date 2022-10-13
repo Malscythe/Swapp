@@ -83,7 +83,7 @@
 
   <RelativeLayout
       android:id="@+id/mensLayout"
-      android:visibility="visible"
+      android:visibility="gone"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_above="@id/footer"
@@ -519,6 +519,7 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp">
 
@@ -750,104 +751,6 @@
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="30dp"
-            app:cardCornerRadius="10dp">
-
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                android:layout_marginTop="10dp"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginBottom="10dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Trader is looking for"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000" />
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Reason for trading"
-                  android:layout_marginEnd="10dp"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:dividerInsetStart="15dp"
-                app:dividerInsetEnd="15dp" />
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:id="@+id/lfGadget"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Item Preferred"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black" />
-
-              <TextView
-                  android:id="@+id/rftGadget"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  android:layout_marginEnd="10dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Item RFT"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-          </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
       </LinearLayout>
     </ScrollView>
   </RelativeLayout>
@@ -911,6 +814,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
+            android:layout_marginBottom="30dp"
             android:layout_marginTop="20dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp">
@@ -1110,104 +1014,6 @@
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="30dp"
-            app:cardCornerRadius="10dp">
-
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                android:layout_marginTop="10dp"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginBottom="5dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Trader is looking for"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000" />
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Reason for trading"
-                  android:layout_marginEnd="10dp"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:dividerInsetStart="15dp"
-                app:dividerInsetEnd="15dp" />
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:id="@+id/lfGame"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Item Preferred"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black" />
-
-              <TextView
-                  android:id="@+id/rftGame"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  android:layout_marginEnd="10dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Item RFT"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-          </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
       </LinearLayout>
     </ScrollView>
   </RelativeLayout>
@@ -1272,6 +1078,7 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp">
 
@@ -1503,104 +1310,6 @@
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="30dp"
-            app:cardCornerRadius="10dp">
-
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                android:layout_marginTop="10dp"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginBottom="10dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Trader is looking for"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000" />
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Reason for trading"
-                  android:layout_marginEnd="10dp"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:dividerInsetStart="15dp"
-                app:dividerInsetEnd="15dp" />
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:id="@+id/lfBag"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Item Preferred"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black" />
-
-              <TextView
-                  android:id="@+id/rftBag"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  android:layout_marginEnd="10dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Item RFT"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-          </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
       </LinearLayout>
     </ScrollView>
   </RelativeLayout>
@@ -1665,6 +1374,7 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp">
 
@@ -1765,104 +1475,6 @@
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="30dp"
-            app:cardCornerRadius="10dp">
-
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                android:layout_marginTop="10dp"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginBottom="10dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Trader is looking for"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000" />
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Reason for trading"
-                  android:layout_marginEnd="10dp"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:dividerInsetStart="15dp"
-                app:dividerInsetEnd="15dp" />
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:id="@+id/lfGrocery"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Item Preferred"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black" />
-
-              <TextView
-                  android:id="@+id/rftGrocery"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  android:layout_marginEnd="10dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Item RFT"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-          </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
       </LinearLayout>
     </ScrollView>
   </RelativeLayout>
@@ -1926,6 +1538,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
+            android:layout_marginBottom="30dp"
             android:layout_marginTop="20dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp">
@@ -2258,103 +1871,6 @@
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="30dp"
-            app:cardCornerRadius="10dp">
-
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                android:layout_marginTop="10dp"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginBottom="10dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Trader is looking for"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000" />
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Reason for trading"
-                  android:layout_marginEnd="10dp"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:dividerInsetStart="15dp"
-                app:dividerInsetEnd="15dp" />
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:id="@+id/lfFurniture"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Item Preferred"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black" />
-
-              <TextView
-                  android:id="@+id/rftFurniture"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  android:layout_marginEnd="10dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Item RFT"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-          </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
       </LinearLayout>
     </ScrollView>
   </RelativeLayout>
@@ -2418,6 +1934,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
+            android:layout_marginBottom="30dp"
             android:layout_marginTop="20dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp">
@@ -2650,104 +2167,6 @@
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="30dp"
-            app:cardCornerRadius="10dp">
-
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                android:layout_marginTop="10dp"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginBottom="10dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Trader is looking for"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000" />
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Reason for trading"
-                  android:layout_marginEnd="10dp"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:dividerInsetStart="15dp"
-                app:dividerInsetEnd="15dp" />
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:id="@+id/lfBnk"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Item Preferred"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black" />
-
-              <TextView
-                  android:id="@+id/rftBnk"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  android:layout_marginEnd="10dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Item RFT"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-          </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
       </LinearLayout>
     </ScrollView>
   </RelativeLayout>
@@ -2812,6 +2231,7 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp">
 
@@ -3043,104 +2463,6 @@
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="30dp"
-            app:cardCornerRadius="10dp">
-
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                android:layout_marginTop="10dp"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginBottom="10dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Trader is looking for"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000" />
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Reason for trading"
-                  android:layout_marginEnd="10dp"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:dividerInsetStart="15dp"
-                app:dividerInsetEnd="15dp" />
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:id="@+id/lfAppliances"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Item Preferred"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black" />
-
-              <TextView
-                  android:id="@+id/rftAppliances"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  android:layout_marginEnd="10dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Item RFT"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-          </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
       </LinearLayout>
     </ScrollView>
   </RelativeLayout>
@@ -3203,6 +2525,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
             app:cardCornerRadius="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginStart="10dp"
@@ -3436,104 +2759,6 @@
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="30dp"
-            app:cardCornerRadius="10dp">
-
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                android:layout_marginTop="10dp"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginBottom="10dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Trader is looking for"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000" />
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Reason for trading"
-                  android:layout_marginEnd="10dp"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:dividerInsetStart="15dp"
-                app:dividerInsetEnd="15dp" />
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:id="@+id/lfMotor"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Item Preferred"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black" />
-
-              <TextView
-                  android:id="@+id/rftMotor"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  android:layout_marginEnd="10dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Item RFT"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-          </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
       </LinearLayout>
     </ScrollView>
   </RelativeLayout>
@@ -3597,6 +2822,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
+            android:layout_marginBottom="30dp"
             android:layout_marginTop="20dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp">
@@ -3796,104 +3022,6 @@
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="30dp"
-            app:cardCornerRadius="10dp">
-
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                android:layout_marginTop="10dp"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginBottom="10dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Trader is looking for"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000" />
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Reason for trading"
-                  android:layout_marginEnd="10dp"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:dividerInsetStart="15dp"
-                app:dividerInsetEnd="15dp" />
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:id="@+id/lfAudio"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Item Preferred"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black" />
-
-              <TextView
-                  android:id="@+id/rftAudio"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  android:layout_marginEnd="10dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Item RFT"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-          </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
       </LinearLayout>
     </ScrollView>
   </RelativeLayout>
@@ -3957,6 +3085,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
+            android:layout_marginBottom="30dp"
             android:layout_marginTop="20dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp">
@@ -4189,104 +3318,6 @@
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="30dp"
-            app:cardCornerRadius="10dp">
-
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                android:layout_marginTop="10dp"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginBottom="10dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Trader is looking for"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000" />
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Reason for trading"
-                  android:layout_marginEnd="10dp"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:dividerInsetStart="15dp"
-                app:dividerInsetEnd="15dp" />
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:id="@+id/lfSchool"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Item Preferred"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black" />
-
-              <TextView
-                  android:id="@+id/rftSchool"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  android:layout_marginEnd="10dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Item RFT"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-          </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
       </LinearLayout>
     </ScrollView>
   </RelativeLayout>
@@ -4351,6 +3382,7 @@
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp">
 
@@ -4648,104 +3680,6 @@
 
         </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="30dp"
-            app:cardCornerRadius="10dp">
-
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                android:layout_marginTop="10dp"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginBottom="10dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Trader is looking for"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000" />
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Reason for trading"
-                  android:layout_marginEnd="10dp"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:dividerInsetStart="15dp"
-                app:dividerInsetEnd="15dp" />
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:id="@+id/lfW"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Item Preferred"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black" />
-
-              <TextView
-                  android:id="@+id/rftW"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  android:layout_marginEnd="10dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Item RFT"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-          </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
       </LinearLayout>
     </ScrollView>
   </RelativeLayout>
@@ -4809,6 +3743,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
+            android:layout_marginBottom="30dp"
             android:layout_marginTop="20dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp">
@@ -4931,104 +3866,6 @@
                   android:textSize="12dp"
                   android:layout_centerHorizontal="true"
                   android:text="Item description"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-          </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="30dp"
-            app:cardCornerRadius="10dp">
-
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                android:layout_marginTop="10dp"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginBottom="10dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Trader is looking for"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000" />
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Reason for trading"
-                  android:layout_marginEnd="10dp"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="#66000000"/>
-
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-            <com.google.android.material.divider.MaterialDivider
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:dividerInsetStart="15dp"
-                app:dividerInsetEnd="15dp" />
-
-            <com.google.android.flexbox.FlexboxLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:flexDirection="row"
-                app:alignItems="stretch"
-                app:alignContent="stretch"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                app:flexWrap="nowrap">
-
-              <TextView
-                  android:id="@+id/lfOther"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:layout_marginStart="15dp"
-                  android:textSize="12dp"
-                  android:text="Item Preferred"
-                  app:layout_flexBasisPercent="50%"
-                  android:fontFamily="@font/poppins_medium"
-                  android:textColor="@color/primary_black" />
-
-              <TextView
-                  android:id="@+id/rftOther"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="5dp"
-                  android:textSize="12dp"
-                  android:layout_marginEnd="10dp"
-                  app:layout_flexBasisPercent="50%"
-                  android:layout_centerHorizontal="true"
-                  android:text="Item RFT"
                   android:fontFamily="@font/poppins_medium"
                   android:textColor="@color/primary_black"/>
 

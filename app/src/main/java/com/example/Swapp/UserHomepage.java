@@ -6,14 +6,19 @@ import static com.example.Swapp.call.SinchService.ENVIRONMENT;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.view.WindowCompat;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,6 +67,8 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_homepage);
+
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         bottomNavigationView = findViewById(R.id.bottom_nav);
         viewChart = findViewById(R.id.viewBtn);
