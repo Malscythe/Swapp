@@ -680,7 +680,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:fontFamily="@font/poppins_medium"
-                            android:hint="Type of gadget *"
+                            android:hint="Type of bag *"
                             android:importantForAutofill="no"
                             android:textColor="@color/black" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -1069,14 +1069,14 @@
                                 android:background="@color/white"
                                 app:boxStrokeColor="@color/primary"
                                 app:boxStrokeWidth="2dp"
-                                app:helperText="The length of the furniture.">
+                                app:helperText="The height of the furniture.">
 
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/furnitureSizeHeight"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:fontFamily="@font/poppins_medium"
-                                    android:hint="Length *"
+                                    android:hint="Height *"
                                     android:importantForAutofill="no"
                                     android:textColor="@color/black" />
                             </com.google.android.material.textfield.TextInputLayout>

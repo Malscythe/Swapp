@@ -646,7 +646,7 @@
                     android:id="@+id/bagsInterface"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <TextView
                         android:id="@+id/requiredTextBag"
@@ -680,7 +680,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:fontFamily="@font/poppins_medium"
-                            android:hint="Type of gadget *"
+                            android:hint="Type of bag *"
                             android:importantForAutofill="no"
                             android:textColor="@color/black" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -885,7 +885,7 @@
                     android:id="@+id/furnitureInterface"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/requiredTextFurniture"
