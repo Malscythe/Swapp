@@ -133,16 +133,40 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
             }
         }
 
-        databaseReferenceUrl.child("items").child(uid).addValueEventListener(new ValueEventListener() {
+        databaseReferenceUrl.child("items").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    pendingTrades = pendingTrades + dataSnapshot.child("Offers").getChildrenCount();
-                    pendingCounts.setText(pendingTrades.toString());
 
-                    currentTrades = currentTrades + dataSnapshot.child("Accepted_Offers").getChildrenCount();
-                    currentCounts.setText(currentTrades.toString());
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+
+                        if (dataSnapshot1.hasChild("Poster_UID")) {
+                            if (dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                pendingTrades = pendingTrades + dataSnapshot1.child("Offers").getChildrenCount();
+                                pendingCounts.setText(pendingTrades.toString());
+
+                                currentTrades = currentTrades + dataSnapshot1.child("Accepted_Offers").getChildrenCount();
+                                currentCounts.setText(currentTrades.toString());
+                            }
+                        }
+
+                        if (dataSnapshot1.hasChild("Accepted_Offers")) {
+                            if (dataSnapshot1.child("Accepted_Offers").hasChild(uid)){
+                                currentTrades = currentTrades + 1;
+                                currentCounts.setText(currentTrades.toString());
+                            }
+                        }
+
+                        if (dataSnapshot1.hasChild("Offers")) {
+                            if (dataSnapshot1.child("Offers").hasChild(uid)){
+                                pendingTrades = pendingTrades + 1;
+                                pendingCounts.setText(pendingTrades.toString());
+                            }
+                        }
+
+                    }
                 }
+
                 pendingTrades = 0L;
                 currentTrades = 0L;
 

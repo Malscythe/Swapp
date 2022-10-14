@@ -39,6 +39,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.slider.Slider;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -70,6 +71,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     private Marker marker;
     private MarkerOptions markerOptions;
     private Circle circle;
+    FirebaseAuth firebaseAuth;
 
     @Nullable
     @Override
@@ -104,6 +106,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         binding.confirmBtn.setVisibility(View.GONE);
 
         Bundle bundle = getArguments();
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        String uid = firebaseAuth.getCurrentUser().getUid();
 
         String category = bundle.getString("category");
         String from = bundle.getString("from");
@@ -217,7 +222,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                                                                     String oldKey = dataSnapshot.getKey() + "-" + dataSnapshot1.getKey();
 
-                                                                    if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey)) {
+                                                                    if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
                                                                         markerOptions = new MarkerOptions();
                                                                         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                                                                         markerOptions.position(latLng1);
@@ -231,7 +236,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                                                         keys.clear();
                                                                         keys.addAll(set);
 
-                                                                    } else if (hashMapMarker.containsKey(oldKey) && distance[0] > circle.getRadius()) {
+                                                                    } else if (hashMapMarker.containsKey(oldKey) && distance[0] > circle.getRadius() && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
                                                                         marker = hashMapMarker.get(oldKey);
                                                                         marker.remove();
                                                                         hashMapMarker.remove(oldKey);
@@ -239,7 +244,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                                                     }
 
 
-                                                                    if (newRadius == 0f) {
+                                                                    if (newRadius == 0f && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
                                                                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16f));
                                                                         mMap.clear();
                                                                         circle.remove();
@@ -304,7 +309,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                                                                         String oldKey = dataSnapshot.getKey() + "-" + dataSnapshot1.getKey();
 
-                                                                        if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey)) {
+                                                                        if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
                                                                             markerOptions = new MarkerOptions();
                                                                             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                                                                             markerOptions.position(latLng1);
@@ -318,14 +323,14 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                                                             keys.clear();
                                                                             keys.addAll(set);
 
-                                                                        } else if (hashMapMarker.containsKey(oldKey) && distance[0] > circle.getRadius()) {
+                                                                        } else if (hashMapMarker.containsKey(oldKey) && distance[0] > circle.getRadius() && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
                                                                             marker = hashMapMarker.get(oldKey);
                                                                             marker.remove();
                                                                             hashMapMarker.remove(oldKey);
                                                                             keys.remove(oldKey);
                                                                         }
 
-                                                                        if (newRadius == 0f) {
+                                                                        if (newRadius == 0f && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
                                                                             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16f));
                                                                             mMap.clear();
                                                                             circle.remove();

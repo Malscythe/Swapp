@@ -139,7 +139,6 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                 imageList.clear();
                 imageList.addAll(set);
 
-                postingItemDialog.startLoadingDialog();
                 Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
 
                 switch (category) {
@@ -154,6 +153,8 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                                    postingItemDialog.startLoadingDialog();
 
                                     taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                                         @Override

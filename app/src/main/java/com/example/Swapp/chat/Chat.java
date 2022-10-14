@@ -274,8 +274,24 @@ public class Chat extends BaseActivity implements BottomSheetImagePicker.OnImage
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
-                CustomIntent.customType(Chat.this, "right-to-left");
+                databaseReference.child("users").child(uid).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String name = snapshot.child("First_Name").getValue(String.class).concat(" " + snapshot.child("Last_Name").getValue(String.class));
+                        Intent intent = new Intent(Chat.this, Messages.class);
+                        intent.putExtra("mobile", snapshot.child("Phone").getValue(String.class));
+                        intent.putExtra("email", snapshot.child("Email").getValue(String.class));
+                        intent.putExtra("name", name);
+                        startActivity(intent);
+                        CustomIntent.customType(Chat.this, "right-to-left");
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
 
