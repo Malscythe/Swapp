@@ -59,7 +59,7 @@
                     android:id="@+id/apparelDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <TextView
                         android:id="@+id/requiredText"
@@ -274,10 +274,59 @@
 
                             </RelativeLayout>
 
+                            <RadioGroup
+                                android:id="@+id/rdoGroup"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <RadioButton
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/letterSize"
+                                    android:checked="true"
+                                    android:text="Use letters"
+                                    android:fontFamily="@font/poppins"
+                                    android:layout_marginEnd="10dp"/>
+
+                                <RadioButton
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/numberSize"
+                                    android:checked="false"
+                                    android:fontFamily="@font/poppins"
+                                    android:text="Use numeric"/>
+
+                            </RadioGroup>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/sizeNumericLayout"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:background="@color/white"
+                                android:visibility="gone"
+                                app:boxStrokeColor="@color/primary"
+                                app:boxStrokeWidth="2dp">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/sizeNumeric"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:fontFamily="@font/poppins_medium"
+                                    android:hint="Input numeric size *"
+                                    android:inputType="numberDecimal"
+                                    android:importantForAutofill="no"
+                                    android:textColor="@color/black" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
                             <com.google.android.flexbox.FlexboxLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 app:alignContent="stretch"
+                                android:id="@+id/sizeLetters"
                                 app:alignItems="stretch"
                                 app:flexWrap="wrap">
 
@@ -350,12 +399,103 @@
 
                     </androidx.cardview.widget.CardView>
 
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/sizeChart"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/sizesLayout"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginBottom="20dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Provide size chart (Optional):"
+                                android:textSize="16sp"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginEnd="15dp"
+                                android:fontFamily="@font/poppins"
+                                android:textColor="@color/primary_black"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins"
+                                android:textSize="14sp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginEnd="15dp"
+                                android:text="With this information, traders can measure themselves at home if they are not sure about which size to choose."/>
+
+                            <ImageView
+                                android:id="@+id/sizeChartImage"
+                                android:layout_width="match_parent"
+                                android:layout_height="200dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginEnd="15dp"
+                                android:visibility="gone"
+                                android:src="@drawable/black"/>
+
+                            <androidx.appcompat.widget.AppCompatButton
+                                android:id="@+id/uploadSizeChartBtn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginEnd="15dp"
+                                android:paddingTop="10dp"
+                                android:paddingStart="15dp"
+                                android:paddingEnd="15dp"
+                                android:layout_gravity="center"
+                                android:paddingBottom="10dp"
+                                android:textColor="@color/white"
+                                android:fontFamily="@font/poppins"
+                                android:textStyle="bold"
+                                android:layout_marginBottom="10dp"
+                                android:background="@drawable/buttonborder"
+                                android:text="Upload size chart"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins"
+                                android:textSize="14sp"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginStart="15dp"
+                                android:textColor="@color/primary_black"
+                                android:layout_marginEnd="15dp"
+                                android:text="Don't have image for size chart?"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins"
+                                android:textSize="14sp"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginEnd="15dp"
+                                android:layout_marginBottom="20dp"
+                                android:textColor="@color/primary"
+                                android:text="You can use the Additional Information field below to manually input item size fit."/>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/descriptionL"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/sizesLayout"
+                        android:layout_below="@id/sizeChart"
                         android:layout_marginLeft="30dp"
                         android:layout_marginRight="30dp"
                         android:layout_marginBottom="10dp"
@@ -646,7 +786,7 @@
                     android:id="@+id/bagsInterface"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/requiredTextBag"

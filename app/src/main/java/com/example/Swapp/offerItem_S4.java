@@ -183,6 +183,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     String mLongitude = getIntent().getStringExtra("longitude");
                                                     String muid = getIntent().getStringExtra("uid");
                                                     String mitemname = getIntent().getStringExtra("itemname");
+                                                    String mSizeChart = getIntent().getStringExtra("mensSizeChart");
 
                                                     Log.d("TAG", muid + " " + mitemname);
 
@@ -210,6 +211,24 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     } else {
                                                         databaseReference.child("items").child(muid).child(mitemname).child("Offers").child(currentId).child("Images").child("1").setValue(task.getResult().toString());
                                                     }
+
+                                                    StorageReference storageReference1 = FirebaseStorage.getInstance().getReference("images/items/MenApparel/" + getIntent().getStringExtra("item_name") + "/SizeChart");
+
+                                                    Uri uri = Uri.parse(mSizeChart);
+
+                                                    UploadTask uploadTask = storageReference1.putFile(uri);
+
+                                                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                        @Override
+                                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                            taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Uri> task) {
+                                                                    databaseReference.child("items").child(muid).child(mitemname).child("Offers").child(currentId).child("Images").child("Item_SizeChart").setValue(task.getResult().toString());
+                                                                }
+                                                            });
+                                                        }
+                                                    });
                                                 }
 
                                                 @Override
@@ -1094,6 +1113,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     String wLongitude = getIntent().getStringExtra("longitude");
                                                     String muid = getIntent().getStringExtra("uid");
                                                     String waitemname = getIntent().getStringExtra("itemname");
+                                                    String wSizeChart = getIntent().getStringExtra("womensSizeChart");
 
 
                                                     databaseReference.child("items").child(muid).child(waitemname).child("Offers").child(currentId).child("Poster_Name").setValue(MemoryData.getName(offerItem_S4.this));
@@ -1121,6 +1141,25 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     } else {
                                                         databaseReference.child("items").child(muid).child(waitemname).child("Offers").child(currentId).child("Images").child("1").setValue(task.getResult().toString());
                                                     }
+
+                                                    StorageReference storageReference1 = FirebaseStorage.getInstance().getReference("images/items/WomenApparel/" + getIntent().getStringExtra("item_name") + "/SizeChart");
+
+                                                    Uri uri = Uri.parse(wSizeChart);
+
+                                                    UploadTask uploadTask = storageReference1.putFile(uri);
+
+                                                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                        @Override
+                                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                            taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Uri> task) {
+                                                                    databaseReference.child("items").child(muid).child(waitemname).child("Offers").child(currentId).child("Images").child("Item_SizeChart").setValue(task.getResult().toString());
+                                                                }
+                                                            });
+                                                        }
+                                                    });
+
                                                 }
 
                                                 @Override

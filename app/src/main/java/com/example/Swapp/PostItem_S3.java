@@ -39,6 +39,8 @@ public class PostItem_S3 extends AppCompatActivity {
         StateProgressBar stateProgressBar = findViewById(R.id.stateProgress);
         stateProgressBar.setStateDescriptionData(descriptionData);
 
+        MemoryData.saveUri("", PostItem_S3.this);
+
         currentState = getIntent().getStringExtra("currentState");
         street = getIntent().getStringExtra("street");
         city = getIntent().getStringExtra("city");
@@ -127,6 +129,7 @@ public class PostItem_S3 extends AppCompatActivity {
                 switch (category) {
                     case "Men's Apparel":
 
+                        intent.putExtra("mensSizeChart", getIntent().getStringExtra("mensSizeChart"));
                         intent.putExtra("mensClothingType", getIntent().getStringExtra("mensClothingType"));
                         intent.putExtra("mensBrand", getIntent().getStringExtra("mensBrand"));
                         intent.putExtra("mensColor", getIntent().getStringExtra("mensColor"));
@@ -389,6 +392,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         break;
                     case "Women's Apparel":
 
+                        intent.putExtra("womensSizeChart", getIntent().getStringExtra("womensSizeChart"));
                         intent.putExtra("womensClothingType", getIntent().getStringExtra("womensClothingType"));
                         intent.putExtra("womensBrand", getIntent().getStringExtra("womensBrand"));
                         intent.putExtra("womensColor", getIntent().getStringExtra("womensColor"));
@@ -451,6 +455,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         intent.putExtra("mensBrand", getIntent().getStringExtra("mensBrand"));
                         intent.putExtra("mensColor", getIntent().getStringExtra("mensColor"));
                         intent.putExtra("Offers", "false");
+                        intent.putExtra("mensSizeChart", getIntent().getStringExtra("mensSizeChart"));
                         intent.putExtra("mensMaterial", getIntent().getStringExtra("mensMaterial"));
                         intent.putExtra("mensUsage", getIntent().getStringExtra("mensUsage"));
                         intent.putExtra("mensSizes", getIntent().getStringExtra("mensSizes"));
@@ -654,6 +659,7 @@ public class PostItem_S3 extends AppCompatActivity {
                         break;
                     case "Women's Apparel":
 
+                        intent.putExtra("womensSizeChart", getIntent().getStringExtra("mensSizeChart"));
                         intent.putExtra("womensClothingType", getIntent().getStringExtra("womensClothingType"));
                         intent.putExtra("womensBrand", getIntent().getStringExtra("womensBrand"));
                         intent.putExtra("womensColor", getIntent().getStringExtra("womensColor"));

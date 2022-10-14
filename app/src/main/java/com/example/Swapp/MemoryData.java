@@ -1,6 +1,7 @@
 package com.example.Swapp;
 
 import android.content.Context;
+import android.net.Uri;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -10,6 +11,17 @@ import java.io.InputStreamReader;
 import java.sql.Timestamp;
 
 public final class MemoryData {
+
+    public static void saveUri(String data, Context context) {
+        try {
+            FileOutputStream fileOutputStream = context.openFileOutput("uri.txt", Context.MODE_PRIVATE);
+            fileOutputStream.write(data.getBytes());
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void saveData(String data, Context context) {
         try {
             FileOutputStream fileOutputStream = context.openFileOutput("datata.txt", Context.MODE_PRIVATE);
@@ -106,6 +118,25 @@ public final class MemoryData {
             e.printStackTrace();
         }
          return data;
+    }
+
+    public static String getUri(Context context) {
+        String data = "";
+        try {
+            FileInputStream fis = context.openFileInput("uri.txt");
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line);
+            }
+            data = sb.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return data;
     }
 
     public static String getName(Context context) {

@@ -3,7 +3,11 @@ package com.example.Swapp;
 import static com.github.mikephil.charting.animation.Easing.Linear;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,23 +20,30 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.badge.BadgeUtils;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.annotations.NotNull;
 import com.kofigyan.stateprogressbar.StateProgressBar;
+import com.kroegerama.imgpicker.BottomSheetImagePicker;
+import com.kroegerama.imgpicker.ButtonType;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import Swapp.R;
 import Swapp.databinding.ActivityPostItemS1Binding;
 import Swapp.databinding.ActivityPostItemS2Binding;
 import maes.tech.intentanim.CustomIntent;
 
-public class PostItem_S2 extends AppCompatActivity {
+public class PostItem_S2 extends AppCompatActivity implements BottomSheetImagePicker.OnImagesSelectedListener {
 
     CheckBox sizeXS, sizeS, sizeM, sizeL, sizeXL, sizeXXL, sizeXXXL;
     RelativeLayout apparelL, gadgetsL, gameL, bagsL, groceriesL, furnitureL, bnkL, appliancesL, motorsL, audioL, schoolL, otherL;
@@ -111,9 +122,45 @@ public class PostItem_S2 extends AppCompatActivity {
                 otherL.setVisibility(View.GONE);
                 schoolL.setVisibility(View.GONE);
 
+                binding.rdoGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        if (binding.letterSize.isChecked()) {
+                            binding.sizeNumericLayout.setVisibility(View.GONE);
+                            binding.sizeLetters.setVisibility(View.VISIBLE);
+                        } else {
+                            binding.sizeLetters.setVisibility(View.GONE);
+                            binding.sizeNumericLayout.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
+
+                binding.uploadSizeChartBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new BottomSheetImagePicker.Builder(getString(R.string.file_provider))
+                                .cameraButton(ButtonType.Button)
+                                .galleryButton(ButtonType.Button)
+                                .singleSelectTitle(R.string.pick_single)
+                                .peekHeight(R.dimen.peekHeight)
+                                .columnSize(R.dimen.columnSize)
+                                .requestTag("single")
+                                .show(getSupportFragmentManager(), null);
+                    }
+                });
+
                 nextBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
+                        if (binding.numberSize.isChecked() && TextUtils.isEmpty(binding.sizeNumeric.getText().toString())) {
+                            binding.sizeNumericLayout.setError("This cannot be empty");
+                            binding.sizeNumericLayout.setErrorIconDrawable(null);
+                            return;
+                        } else if (binding.numberSize.isChecked() && !TextUtils.isEmpty(binding.sizeNumeric.getText().toString())) {
+                            binding.sizeNumericLayout.setError(null);
+                            binding.sizeNumericLayout.setErrorIconDrawable(null);
+                        }
 
                         if (TextUtils.isEmpty(binding.clothingTypeM.getText().toString())) {
                             binding.clothingTypeML.setError("This cannot be empty.");
@@ -160,7 +207,7 @@ public class PostItem_S2 extends AppCompatActivity {
                             binding.usageL.setErrorIconDrawable(null);
                         }
 
-                        if (!sizeXS.isChecked() && !sizeS.isChecked() && !sizeM.isChecked() && !sizeL.isChecked() && !sizeXL.isChecked() && !sizeXXL.isChecked() && !sizeXXXL.isChecked()) {
+                        if (!sizeXS.isChecked() && !sizeS.isChecked() && !sizeM.isChecked() && !sizeL.isChecked() && !sizeXL.isChecked() && !sizeXXL.isChecked() && !sizeXXXL.isChecked() && binding.letterSize.isChecked()) {
                             binding.sizeError.setVisibility(View.VISIBLE);
                             return;
                         } else {
@@ -226,7 +273,14 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("mensColor", binding.color.getText().toString());
                         intent.putExtra("mensMaterial", binding.material.getText().toString());
                         intent.putExtra("mensUsage", binding.usage.getText().toString());
-                        intent.putExtra("mensSizes", sizesArr.toString());
+
+                        if (binding.letterSize.isChecked()) {
+                            intent.putExtra("mensSizes", sizesArr.toString());
+                        } else {
+                            intent.putExtra("mensSizes", binding.sizeNumeric.getText().toString());
+                        }
+
+                        intent.putExtra("mensSizeChart", MemoryData.getUri(PostItem_S2.this));
                         intent.putExtra("mensDescription", binding.description.getText().toString());
                         intent.putExtra("currentState", "preLocation");
                         intent.putExtra("item_name", item_name);
@@ -998,9 +1052,45 @@ public class PostItem_S2 extends AppCompatActivity {
                 otherL.setVisibility(View.GONE);
                 schoolL.setVisibility(View.GONE);
 
+                binding.rdoGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        if (binding.letterSize.isChecked()) {
+                            binding.sizeNumericLayout.setVisibility(View.GONE);
+                            binding.sizeLetters.setVisibility(View.VISIBLE);
+                        } else {
+                            binding.sizeLetters.setVisibility(View.GONE);
+                            binding.sizeNumericLayout.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
+
+                binding.uploadSizeChartBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new BottomSheetImagePicker.Builder(getString(R.string.file_provider))
+                                .cameraButton(ButtonType.Button)
+                                .galleryButton(ButtonType.Button)
+                                .singleSelectTitle(R.string.pick_single)
+                                .peekHeight(R.dimen.peekHeight)
+                                .columnSize(R.dimen.columnSize)
+                                .requestTag("single")
+                                .show(getSupportFragmentManager(), null);
+                    }
+                });
+
                 nextBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        if (binding.numberSize.isChecked() && TextUtils.isEmpty(binding.sizeNumeric.getText().toString())) {
+                            binding.sizeNumericLayout.setError("This cannot be empty");
+                            binding.sizeNumericLayout.setErrorIconDrawable(null);
+                            return;
+                        } else if (binding.numberSize.isChecked() && !TextUtils.isEmpty(binding.sizeNumeric.getText().toString())) {
+                            binding.sizeNumericLayout.setError(null);
+                            binding.sizeNumericLayout.setErrorIconDrawable(null);
+                        }
+
                         if (TextUtils.isEmpty(binding.clothingTypeW.getText().toString())) {
                             binding.clothingTypeWL.setError("This cannot be empty.");
                             binding.clothingTypeWL.setErrorIconDrawable(null);
@@ -1046,7 +1136,7 @@ public class PostItem_S2 extends AppCompatActivity {
                             binding.usageL.setErrorIconDrawable(null);
                         }
 
-                        if (!sizeXS.isChecked() && !sizeS.isChecked() && !sizeM.isChecked() && !sizeL.isChecked() && !sizeXL.isChecked() && !sizeXXL.isChecked() && !sizeXXXL.isChecked()) {
+                        if (!sizeXS.isChecked() && !sizeS.isChecked() && !sizeM.isChecked() && !sizeL.isChecked() && !sizeXL.isChecked() && !sizeXXL.isChecked() && !sizeXXXL.isChecked() && binding.letterSize.isChecked()) {
                             binding.sizeError.setVisibility(View.VISIBLE);
                             return;
                         } else {
@@ -1098,7 +1188,14 @@ public class PostItem_S2 extends AppCompatActivity {
                         intent.putExtra("womensColor", binding.color.getText().toString());
                         intent.putExtra("womensMaterial", binding.material.getText().toString());
                         intent.putExtra("womensUsage", binding.usage.getText().toString());
-                        intent.putExtra("womensSizes", sizesArr.toString());
+
+                        if (binding.letterSize.isChecked()) {
+                            intent.putExtra("womensSizes", sizesArr.toString());
+                        } else {
+                            intent.putExtra("womensSizes", binding.sizeNumeric.getText().toString());
+                        }
+
+                        intent.putExtra("womensSizeChart", MemoryData.getUri(PostItem_S2.this));
                         intent.putExtra("womensDescription", binding.description.getText().toString());
                         intent.putExtra("currentState", "preLocation");
                         intent.putExtra("item_name", item_name);
@@ -1172,5 +1269,16 @@ public class PostItem_S2 extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
         CustomIntent.customType(PostItem_S2.this, "right-to-left");
+    }
+
+    @Override
+    public void onImagesSelected(@NotNull List<? extends Uri> uris, @Nullable String tag) {
+        for (Uri uri : uris) {
+            Log.d("TAG", "Uri " + uri);
+            binding.sizeChartImage.setVisibility(View.VISIBLE);
+            Glide.with(this).load(uri).into(binding.sizeChartImage);
+
+            MemoryData.saveUri(uri.toString(), PostItem_S2.this);
+        }
     }
 }

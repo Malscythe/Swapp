@@ -1,9 +1,12 @@
 package com.example.Swapp;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +33,7 @@ import com.google.firebase.storage.UploadTask;
 import com.kofigyan.stateprogressbar.StateProgressBar;
 import com.kroegerama.imgpicker.BottomSheetImagePicker;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -55,7 +59,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_item_s4);
 
-        Log.w(TAG, "POst item s4");
+        Log.w(TAG, "POST 4 " + "POst item s4");
 
         StateProgressBar stateProgressBar = findViewById(R.id.stateProgress);
         stateProgressBar.setStateDescriptionData(descriptionData);
@@ -184,6 +188,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     String mCountry = getIntent().getStringExtra("country");
                                                     String mLatitude = getIntent().getStringExtra("latitude");
                                                     String mLongitude = getIntent().getStringExtra("longitude");
+                                                    String mSizeChart = getIntent().getStringExtra("mensSizeChart");
 
                                                     if (!snapshot.child("items").child(currentId).hasChild(mItemName)) {
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Poster_Name").setValue(MemoryData.getName(PostItem_S4.this));
@@ -213,6 +218,24 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     } else {
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Images").child("1").setValue(task.getResult().toString());
                                                     }
+
+                                                    StorageReference storageReference1 = FirebaseStorage.getInstance().getReference("images/items/MenApparel/" + getIntent().getStringExtra("item_name") + "/SizeChart");
+
+                                                    Uri uri = Uri.parse(mSizeChart);
+
+                                                    UploadTask uploadTask = storageReference1.putFile(uri);
+
+                                                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                        @Override
+                                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                            taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Uri> task) {
+                                                                    databaseReference.child("items").child(currentId).child(mItemName).child("Images").child("Item_SizeChart").setValue(task.getResult().toString());
+                                                                }
+                                                            });
+                                                        }
+                                                    });
                                                 }
 
                                                 @Override
@@ -1127,6 +1150,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     String wCountry = getIntent().getStringExtra("country");
                                                     String wLatitude = getIntent().getStringExtra("latitude");
                                                     String wLongitude = getIntent().getStringExtra("longitude");
+                                                    String wSizeChart = getIntent().getStringExtra("womensSizeChart");
 
                                                     if (!snapshot.child("items").child(currentId).hasChild(wItemName)) {
                                                         databaseReference.child("items").child(currentId).child(wItemName).child("Poster_Name").setValue(MemoryData.getName(PostItem_S4.this));
@@ -1157,6 +1181,24 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     } else {
                                                         databaseReference.child("items").child(currentId).child(wItemName).child("Images").child("1").setValue(task.getResult().toString());
                                                     }
+
+                                                    StorageReference storageReference1 = FirebaseStorage.getInstance().getReference("images/items/WomenApparel/" + getIntent().getStringExtra("item_name") + "/SizeChart");
+
+                                                    Uri uri = Uri.parse(wSizeChart);
+
+                                                    UploadTask uploadTask = storageReference1.putFile(uri);
+
+                                                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                        @Override
+                                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                            taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                                                @Override
+                                                                public void onComplete(@NonNull Task<Uri> task) {
+                                                                    databaseReference.child("items").child(currentId).child(wItemName).child("Images").child("Item_SizeChart").setValue(task.getResult().toString());
+                                                                }
+                                                            });
+                                                        }
+                                                    });
                                                 }
 
                                                 @Override

@@ -141,7 +141,7 @@ public class Messages extends BaseActivity {
 
                             while (isNull) {
                                 Log.d(TAG, "WAITING");
-                                isNull = (!dataSnapshot1.child("user_2").getValue(String.class).equals(null) && !dataSnapshot1.child("user_2").exists());
+                                isNull = (!dataSnapshot1.child("user_2").exists());
                             }
 
                             if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {

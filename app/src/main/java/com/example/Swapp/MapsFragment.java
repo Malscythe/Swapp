@@ -492,6 +492,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                 switch (category1) {
                                     case "Men's Apparel":
 
+                                        intent.putExtra("mensSizeChart", bundle.getString("mensSizeChart"));
                                         intent.putExtra("mensClothingType", bundle.getString("mensClothingType"));
                                         intent.putExtra("mensBrand", bundle.getString("mensBrand"));
                                         intent.putExtra("mensColor", bundle.getString("mensColor"));
@@ -787,6 +788,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                         break;
                                     case "Women's Apparel":
 
+                                        intent.putExtra("womensSizeChart", bundle.getString("womensSizeChart"));
                                         intent.putExtra("womensClothingType", bundle.getString("womensClothingType"));
                                         intent.putExtra("womensBrand", bundle.getString("womensBrand"));
                                         intent.putExtra("womensColor", bundle.getString("womensColor"));
@@ -849,7 +851,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                         intent.putExtra("mensClothingType", bundle.getString("mensClothingType"));
                                         intent.putExtra("mensBrand", bundle.getString("mensBrand"));
                                         intent.putExtra("mensColor", bundle.getString("mensColor"));
-
+                                        intent.putExtra("mensSizeChart", bundle.getString("mensSizeChart"));
                                         intent.putExtra("mensMaterial", bundle.getString("mensMaterial"));
                                         intent.putExtra("mensUsage", bundle.getString("mensUsage"));
                                         intent.putExtra("mensSizes", bundle.getString("mensSizes"));
@@ -1144,7 +1146,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                         intent.putExtra("womensClothingType", bundle.getString("womensClothingType"));
                                         intent.putExtra("womensBrand", bundle.getString("womensBrand"));
                                         intent.putExtra("womensColor", bundle.getString("womensColor"));
-
+                                        intent.putExtra("womensSizeChart", bundle.getString("womensSizeChart"));
                                         intent.putExtra("womensMaterial", bundle.getString("womensMaterial"));
                                         intent.putExtra("womensUsage", bundle.getString("womensUsage"));
                                         intent.putExtra("womensSizes", bundle.getString("womensSizes"));

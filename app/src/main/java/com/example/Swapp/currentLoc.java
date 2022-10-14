@@ -75,6 +75,7 @@ public class currentLoc extends AppCompatActivity {
                 switch (category1) {
                     case "Men's Apparel":
 
+                        b.putString("mensSizeChart", getIntent().getStringExtra("mensSizeChart"));
                         b.putString("mensClothingType", getIntent().getStringExtra("mensClothingType"));
                         b.putString("mensBrand", getIntent().getStringExtra("mensBrand"));
                         b.putString("mensColor", getIntent().getStringExtra("mensColor"));
@@ -280,6 +281,7 @@ public class currentLoc extends AppCompatActivity {
                         break;
                     case "Women's Apparel":
 
+                        b.putString("womensSizeChart", getIntent().getStringExtra("womensSizeChart"));
                         b.putString("womensClothingType", getIntent().getStringExtra("womensClothingType"));
                         b.putString("womensBrand", getIntent().getStringExtra("womensBrand"));
                         b.putString("womensColor", getIntent().getStringExtra("womensColor"));
@@ -322,6 +324,7 @@ public class currentLoc extends AppCompatActivity {
                     case "Men's Apparel":
 
                         b.putString("Offers", isOffer);
+                        b.putString("mensSizeChart", getIntent().getStringExtra("mensSizeChart"));
                         b.putString("mensClothingType", getIntent().getStringExtra("mensClothingType"));
                         b.putString("mensBrand", getIntent().getStringExtra("mensBrand"));
                         b.putString("mensColor", getIntent().getStringExtra("mensColor"));
@@ -509,6 +512,7 @@ public class currentLoc extends AppCompatActivity {
                         break;
                     case "Women's Apparel":
                         b.putString("Offers", isOffer);
+                        b.putString("womensSizeChart", getIntent().getStringExtra("womensSizeChart"));
                         b.putString("womensClothingType", getIntent().getStringExtra("womensClothingType"));
                         b.putString("womensBrand", getIntent().getStringExtra("womensBrand"));
                         b.putString("womensColor", getIntent().getStringExtra("womensColor"));
