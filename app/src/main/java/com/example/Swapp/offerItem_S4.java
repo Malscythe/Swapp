@@ -184,8 +184,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     String muid = getIntent().getStringExtra("uid");
                                                     String mitemname = getIntent().getStringExtra("itemname");
                                                     String mSizeChart = getIntent().getStringExtra("mensSizeChart");
-
-                                                    Log.d("TAG", muid + " " + mitemname);
+                                                    String mLandmark = getIntent().getStringExtra("landmark");
 
                                                     databaseReference.child("items").child(muid).child(mitemname).child("Offers").child(currentId).child("Poster_Name").setValue(MemoryData.getName(offerItem_S4.this));
                                                     databaseReference.child("items").child(muid).child(mitemname).child("Offers").child(currentId).child("Poster_UID").setValue(currentId);
@@ -203,6 +202,11 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     databaseReference.child("items").child(muid).child(mitemname).child("Offers").child(currentId).child("Address").child("City").setValue(mCity);
                                                     databaseReference.child("items").child(muid).child(mitemname).child("Offers").child(currentId).child("Address").child("State").setValue(mState);
                                                     databaseReference.child("items").child(muid).child(mitemname).child("Offers").child(currentId).child("Address").child("Country").setValue(mCountry);
+
+                                                    if (!mLandmark.equals("")) {
+                                                        databaseReference.child("items").child(muid).child(mitemname).child("Offers").child(currentId).child("Address").child("Landmark").setValue(mLandmark);
+                                                    }
+
                                                     databaseReference.child("items").child(muid).child(mitemname).child("Offers").child(currentId).child("Address").child("Latitude").setValue(mLatitude);
                                                     databaseReference.child("items").child(muid).child(mitemname).child("Offers").child(currentId).child("Address").child("Longitude").setValue(mLongitude);
 
@@ -287,6 +291,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     String gadgetLongitude = getIntent().getStringExtra("longitude");
                                                     String muid = getIntent().getStringExtra("uid");
                                                     String gadgetitemname = getIntent().getStringExtra("itemname");
+                                                    String gadgetLandmark = getIntent().getStringExtra("landmark");
 
 
                                                     databaseReference.child("items").child(muid).child(gadgetitemname).child("Offers").child(currentId).child("Poster_Name").setValue(MemoryData.getName(offerItem_S4.this));
@@ -303,6 +308,11 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     databaseReference.child("items").child(muid).child(gadgetitemname).child("Offers").child(currentId).child("Address").child("City").setValue(gadgetCity);
                                                     databaseReference.child("items").child(muid).child(gadgetitemname).child("Offers").child(currentId).child("Address").child("State").setValue(gadgetState);
                                                     databaseReference.child("items").child(muid).child(gadgetitemname).child("Offers").child(currentId).child("Address").child("Country").setValue(gadgetCountry);
+
+                                                    if (!gadgetLandmark.equals("")) {
+                                                        databaseReference.child("items").child(muid).child(gadgetitemname).child("Offers").child(currentId).child("Address").child("Landmark").setValue(gadgetLandmark);
+                                                    }
+
                                                     databaseReference.child("items").child(muid).child(gadgetitemname).child("Offers").child(currentId).child("Address").child("Latitude").setValue(gadgetLatitude);
                                                     databaseReference.child("items").child(muid).child(gadgetitemname).child("Offers").child(currentId).child("Address").child("Longitude").setValue(gadgetLongitude);
 
@@ -369,6 +379,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     String gameLongitude = getIntent().getStringExtra("longitude");
                                                     String muid = getIntent().getStringExtra("uid");
                                                     String gameitemname = getIntent().getStringExtra("itemname");
+                                                    String gameLandmark = getIntent().getStringExtra("landmark");
 
 
                                                     databaseReference.child("items").child(muid).child(gameitemname).child("Offers").child(currentId).child("Poster_Name").setValue(MemoryData.getName(offerItem_S4.this));
@@ -384,6 +395,11 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     databaseReference.child("items").child(muid).child(gameitemname).child("Offers").child(currentId).child("Address").child("City").setValue(gameCity);
                                                     databaseReference.child("items").child(muid).child(gameitemname).child("Offers").child(currentId).child("Address").child("State").setValue(gameState);
                                                     databaseReference.child("items").child(muid).child(gameitemname).child("Offers").child(currentId).child("Address").child("Country").setValue(gameCountry);
+
+                                                    if (!gameLandmark.equals("")) {
+                                                        databaseReference.child("items").child(muid).child(gameitemname).child("Offers").child(currentId).child("Address").child("Landmark").setValue(gameLandmark);
+                                                    }
+
                                                     databaseReference.child("items").child(muid).child(gameitemname).child("Offers").child(currentId).child("Address").child("Latitude").setValue(gameLatitude);
                                                     databaseReference.child("items").child(muid).child(gameitemname).child("Offers").child(currentId).child("Address").child("Longitude").setValue(gameLongitude);
 
@@ -452,6 +468,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     String bagLongitude = getIntent().getStringExtra("longitude");
                                                     String muid = getIntent().getStringExtra("uid");
                                                     String bagitemname = getIntent().getStringExtra("itemname");
+                                                    String bagLandmark = getIntent().getStringExtra("landmark");
 
 
 
@@ -469,6 +486,11 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     databaseReference.child("items").child(muid).child(bagitemname).child("Offers").child(currentId).child("Address").child("City").setValue(bagCity);
                                                     databaseReference.child("items").child(muid).child(bagitemname).child("Offers").child(currentId).child("Address").child("State").setValue(bagState);
                                                     databaseReference.child("items").child(muid).child(bagitemname).child("Offers").child(currentId).child("Address").child("Country").setValue(bagCountry);
+
+                                                    if (!bagLandmark.equals("")) {
+                                                        databaseReference.child("items").child(muid).child(bagitemname).child("Offers").child(currentId).child("Address").child("Landmark").setValue(bagLandmark);
+                                                    }
+
                                                     databaseReference.child("items").child(muid).child(bagitemname).child("Offers").child(currentId).child("Address").child("Latitude").setValue(bagLatitude);
                                                     databaseReference.child("items").child(muid).child(bagitemname).child("Offers").child(currentId).child("Address").child("Longitude").setValue(bagLongitude);
 
@@ -532,6 +554,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     String groceryLongitude = getIntent().getStringExtra("longitude");
                                                     String muid = getIntent().getStringExtra("uid");
                                                     String gitemname = getIntent().getStringExtra("itemname");
+                                                    String groceryLandmark = getIntent().getStringExtra("landmark");
 
 
                                                     databaseReference.child("items").child(muid).child(gitemname).child("Offers").child(currentId).child("Poster_Name").setValue(MemoryData.getName(offerItem_S4.this));
@@ -544,6 +567,11 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     databaseReference.child("items").child(muid).child(gitemname).child("Offers").child(currentId).child("Address").child("City").setValue(groceryCity);
                                                     databaseReference.child("items").child(muid).child(gitemname).child("Offers").child(currentId).child("Address").child("State").setValue(groceryState);
                                                     databaseReference.child("items").child(muid).child(gitemname).child("Offers").child(currentId).child("Address").child("Country").setValue(groceryCountry);
+
+                                                    if (!groceryLandmark.equals("")) {
+                                                        databaseReference.child("items").child(muid).child(gitemname).child("Offers").child(currentId).child("Address").child("Landmark").setValue(groceryLandmark);
+                                                    }
+
                                                     databaseReference.child("items").child(muid).child(gitemname).child("Offers").child(currentId).child("Address").child("Latitude").setValue(groceryLatitude);
                                                     databaseReference.child("items").child(muid).child(gitemname).child("Offers").child(currentId).child("Address").child("Longitude").setValue(groceryLongitude);
 
@@ -613,6 +641,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     String furnitureLongitude = getIntent().getStringExtra("longitude");
                                                     String muid = getIntent().getStringExtra("uid");
                                                     String furniitemname = getIntent().getStringExtra("itemname");
+                                                    String furnitureLandmark = getIntent().getStringExtra("landmark");
 
 
                                                     databaseReference.child("items").child(muid).child(furniitemname).child("Offers").child(currentId).child("Poster_Name").setValue(MemoryData.getName(offerItem_S4.this));
@@ -631,6 +660,11 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     databaseReference.child("items").child(muid).child(furniitemname).child("Offers").child(currentId).child("Address").child("City").setValue(furnitureCity);
                                                     databaseReference.child("items").child(muid).child(furniitemname).child("Offers").child(currentId).child("Address").child("State").setValue(furnitureState);
                                                     databaseReference.child("items").child(muid).child(furniitemname).child("Offers").child(currentId).child("Address").child("Country").setValue(furnitureCountry);
+
+                                                    if (!furnitureLandmark.equals("")) {
+                                                        databaseReference.child("items").child(muid).child(furniitemname).child("Offers").child(currentId).child("Address").child("Landmark").setValue(furnitureLandmark);
+                                                    }
+
                                                     databaseReference.child("items").child(muid).child(furniitemname).child("Offers").child(currentId).child("Address").child("Latitude").setValue(furnitureLatitude);
                                                     databaseReference.child("items").child(muid).child(furniitemname).child("Offers").child(currentId).child("Address").child("Longitude").setValue(furnitureLongitude);
 
@@ -698,6 +732,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     String bnkLongitude = getIntent().getStringExtra("longitude");
                                                     String muid = getIntent().getStringExtra("uid");
                                                     String bnkitemname = getIntent().getStringExtra("itemname");
+                                                    String bnkLandmark = getIntent().getStringExtra("landmark");
 
 
                                                     databaseReference.child("items").child(muid).child(bnkitemname).child("Offers").child(currentId).child("Poster_Name").setValue(MemoryData.getName(offerItem_S4.this));
@@ -714,6 +749,11 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     databaseReference.child("items").child(muid).child(bnkitemname).child("Offers").child(currentId).child("Address").child("City").setValue(bnkCity);
                                                     databaseReference.child("items").child(muid).child(bnkitemname).child("Offers").child(currentId).child("Address").child("State").setValue(bnkState);
                                                     databaseReference.child("items").child(muid).child(bnkitemname).child("Offers").child(currentId).child("Address").child("Country").setValue(bnkCountry);
+
+                                                    if (!bnkLandmark.equals("")) {
+                                                        databaseReference.child("items").child(muid).child(bnkitemname).child("Offers").child(currentId).child("Address").child("Landmark").setValue(furnitureLandmark);
+                                                    }
+
                                                     databaseReference.child("items").child(muid).child(bnkitemname).child("Offers").child(currentId).child("Address").child("Latitude").setValue(bnkLatitude);
                                                     databaseReference.child("items").child(muid).child(bnkitemname).child("Offers").child(currentId).child("Address").child("Longitude").setValue(bnkLongitude);
 
@@ -781,6 +821,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     String appliancesLongitude = getIntent().getStringExtra("longitude");
                                                     String muid = getIntent().getStringExtra("uid");
                                                     String appliitemname = getIntent().getStringExtra("itemname");
+                                                    String appliancesLandmark = getIntent().getStringExtra("landmark");
 
 
                                                     databaseReference.child("items").child(muid).child(appliitemname).child("Offers").child(currentId).child("Poster_Name").setValue(MemoryData.getName(offerItem_S4.this));
@@ -797,6 +838,11 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     databaseReference.child("items").child(muid).child(appliitemname).child("Offers").child(currentId).child("Address").child("City").setValue(appliancesCity);
                                                     databaseReference.child("items").child(muid).child(appliitemname).child("Offers").child(currentId).child("Address").child("State").setValue(appliancesState);
                                                     databaseReference.child("items").child(muid).child(appliitemname).child("Offers").child(currentId).child("Address").child("Country").setValue(appliancesCountry);
+
+                                                    if (!appliancesLandmark.equals("")) {
+                                                        databaseReference.child("items").child(muid).child(appliitemname).child("Offers").child(currentId).child("Address").child("Landmark").setValue(appliancesLandmark);
+                                                    }
+
                                                     databaseReference.child("items").child(muid).child(appliitemname).child("Offers").child(currentId).child("Address").child("Latitude").setValue(appliancesLatitude);
                                                     databaseReference.child("items").child(muid).child(appliitemname).child("Offers").child(currentId).child("Address").child("Longitude").setValue(appliancesLongitude);
 
@@ -864,6 +910,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     String motorLongitude = getIntent().getStringExtra("longitude");
                                                     String muid = getIntent().getStringExtra("uid");
                                                     String motoritemname = getIntent().getStringExtra("itemname");
+                                                    String motorLandmark = getIntent().getStringExtra("landmark");
 
 
                                                     databaseReference.child("items").child(muid).child(motoritemname).child("Offers").child(currentId).child("Poster_Name").setValue(MemoryData.getName(offerItem_S4.this));
@@ -880,6 +927,11 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     databaseReference.child("items").child(muid).child(motoritemname).child("Offers").child(currentId).child("Address").child("City").setValue(motorCity);
                                                     databaseReference.child("items").child(muid).child(motoritemname).child("Offers").child(currentId).child("Address").child("State").setValue(motorState);
                                                     databaseReference.child("items").child(muid).child(motoritemname).child("Offers").child(currentId).child("Address").child("Country").setValue(motorCountry);
+
+                                                    if (!motorLandmark.equals("")) {
+                                                        databaseReference.child("items").child(muid).child(motoritemname).child("Offers").child(currentId).child("Address").child("Landmark").setValue(motorLandmark);
+                                                    }
+
                                                     databaseReference.child("items").child(muid).child(motoritemname).child("Offers").child(currentId).child("Address").child("Latitude").setValue(motorLatitude);
                                                     databaseReference.child("items").child(muid).child(motoritemname).child("Offers").child(currentId).child("Address").child("Longitude").setValue(motorLongitude);
 
@@ -946,6 +998,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     String audioLongitude = getIntent().getStringExtra("longitude");
                                                     String muid = getIntent().getStringExtra("uid");
                                                     String audioitemname = getIntent().getStringExtra("itemname");
+                                                    String audioLandmark = getIntent().getStringExtra("landmark");
 
 
                                                     databaseReference.child("items").child(muid).child(audioitemname).child("Offers").child(currentId).child("Poster_Name").setValue(MemoryData.getName(offerItem_S4.this));
@@ -961,6 +1014,11 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     databaseReference.child("items").child(muid).child(audioitemname).child("Offers").child(currentId).child("Address").child("City").setValue(audioCity);
                                                     databaseReference.child("items").child(muid).child(audioitemname).child("Offers").child(currentId).child("Address").child("State").setValue(audioState);
                                                     databaseReference.child("items").child(muid).child(audioitemname).child("Offers").child(currentId).child("Address").child("Country").setValue(audioCountry);
+
+                                                    if (!audioLandmark.equals("")) {
+                                                        databaseReference.child("items").child(muid).child(audioitemname).child("Offers").child(currentId).child("Address").child("Landmark").setValue(audioLandmark);
+                                                    }
+
                                                     databaseReference.child("items").child(muid).child(audioitemname).child("Offers").child(currentId).child("Address").child("Latitude").setValue(audioLatitude);
                                                     databaseReference.child("items").child(muid).child(audioitemname).child("Offers").child(currentId).child("Address").child("Longitude").setValue(audioLongitude);
 
@@ -1028,6 +1086,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     String schoolLongitude = getIntent().getStringExtra("longitude");
                                                     String muid = getIntent().getStringExtra("uid");
                                                     String schoolitemname = getIntent().getStringExtra("itemname");
+                                                    String schoolLandmark = getIntent().getStringExtra("landmark");
 
 
                                                     databaseReference.child("items").child(muid).child(schoolitemname).child("Offers").child(currentId).child("Poster_Name").setValue(MemoryData.getName(offerItem_S4.this));
@@ -1044,6 +1103,11 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     databaseReference.child("items").child(muid).child(schoolitemname).child("Offers").child(currentId).child("Address").child("City").setValue(schoolCity);
                                                     databaseReference.child("items").child(muid).child(schoolitemname).child("Offers").child(currentId).child("Address").child("State").setValue(schoolState);
                                                     databaseReference.child("items").child(muid).child(schoolitemname).child("Offers").child(currentId).child("Address").child("Country").setValue(schoolCountry);
+
+                                                    if (!schoolLandmark.equals("")) {
+                                                        databaseReference.child("items").child(muid).child(schoolitemname).child("Offers").child(currentId).child("Address").child("Landmark").setValue(schoolLandmark);
+                                                    }
+
                                                     databaseReference.child("items").child(muid).child(schoolitemname).child("Offers").child(currentId).child("Address").child("Latitude").setValue(schoolLatitude);
                                                     databaseReference.child("items").child(muid).child(schoolitemname).child("Offers").child(currentId).child("Address").child("Longitude").setValue(schoolLongitude);
 
@@ -1114,6 +1178,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     String muid = getIntent().getStringExtra("uid");
                                                     String waitemname = getIntent().getStringExtra("itemname");
                                                     String wSizeChart = getIntent().getStringExtra("womensSizeChart");
+                                                    String wLandmark = getIntent().getStringExtra("landmark");
 
 
                                                     databaseReference.child("items").child(muid).child(waitemname).child("Offers").child(currentId).child("Poster_Name").setValue(MemoryData.getName(offerItem_S4.this));
@@ -1132,6 +1197,11 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     databaseReference.child("items").child(muid).child(waitemname).child("Offers").child(currentId).child("Address").child("City").setValue(wCity);
                                                     databaseReference.child("items").child(muid).child(waitemname).child("Offers").child(currentId).child("Address").child("State").setValue(wState);
                                                     databaseReference.child("items").child(muid).child(waitemname).child("Offers").child(currentId).child("Address").child("Country").setValue(wCountry);
+
+                                                    if (!wLandmark.equals("")) {
+                                                        databaseReference.child("items").child(muid).child(waitemname).child("Offers").child(currentId).child("Address").child("Landmark").setValue(wLandmark);
+                                                    }
+
                                                     databaseReference.child("items").child(muid).child(waitemname).child("Offers").child(currentId).child("Address").child("Latitude").setValue(wLatitude);
                                                     databaseReference.child("items").child(muid).child(waitemname).child("Offers").child(currentId).child("Address").child("Longitude").setValue(wLongitude);
 
@@ -1215,6 +1285,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     String otherLongitude = getIntent().getStringExtra("longitude");
                                                     String muid = getIntent().getStringExtra("uid");
                                                     String otheritemname = getIntent().getStringExtra("itemname");
+                                                    String otherLandmark = getIntent().getStringExtra("landmark");
 
 
                                                     databaseReference.child("items").child(muid).child(otheritemname).child("Offers").child(currentId).child("Poster_Name").setValue(MemoryData.getName(offerItem_S4.this));
@@ -1228,6 +1299,11 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                     databaseReference.child("items").child(muid).child(otheritemname).child("Offers").child(currentId).child("Address").child("City").setValue(otherCity);
                                                     databaseReference.child("items").child(muid).child(otheritemname).child("Offers").child(currentId).child("Address").child("State").setValue(otherState);
                                                     databaseReference.child("items").child(muid).child(otheritemname).child("Offers").child(currentId).child("Address").child("Country").setValue(otherCountry);
+
+                                                    if (!otherLandmark.equals("")) {
+                                                        databaseReference.child("items").child(muid).child(otheritemname).child("Offers").child(currentId).child("Address").child("Landmark").setValue(otherLandmark);
+                                                    }
+
                                                     databaseReference.child("items").child(muid).child(otheritemname).child("Offers").child(currentId).child("Address").child("Latitude").setValue(otherLatitude);
                                                     databaseReference.child("items").child(muid).child(otheritemname).child("Offers").child(currentId).child("Address").child("Longitude").setValue(otherLongitude);
 

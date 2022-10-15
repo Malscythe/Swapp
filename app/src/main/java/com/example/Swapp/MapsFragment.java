@@ -11,21 +11,27 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.Editable;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -56,6 +62,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import Swapp.R;
@@ -92,10 +99,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
     private void mapInitialize() {
         LocationRequest locationRequest = new LocationRequest();
-        locationRequest.setInterval(5000);
+        locationRequest.setInterval(3000);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setSmallestDisplacement(16);
-        locationRequest.setFastestInterval(3000);
+        locationRequest.setFastestInterval(2000);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
     }
@@ -363,6 +370,55 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                     } else if (hideSearch.equals("postitem")) {
                                         binding.getRadius.setVisibility(View.GONE);
                                         binding.currentAddressLayout.setVisibility(View.VISIBLE);
+                                        binding.searchLocation.setVisibility(View.VISIBLE);
+
+                                        binding.searchLocation.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                                            @Override
+                                            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                                                if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE || event.getAction() == KeyEvent.ACTION_DOWN || event.getAction() == KeyEvent.KEYCODE_ENTER) {
+                                                    goToSearchLocation();
+                                                }
+
+                                                return false;
+                                            }
+                                        });
+
+                                        mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
+                                            @Override
+                                            public boolean onMyLocationButtonClick() {
+                                                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                                                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 19f));
+
+                                                if (marker != null) {
+
+                                                    marker.remove();
+
+                                                }
+
+                                                markerOptions = new MarkerOptions();
+                                                markerOptions.draggable(true);
+                                                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                                                markerOptions.position(new LatLng(location.getLatitude(), location.getLongitude()));
+                                                marker = mMap.addMarker(markerOptions);
+
+                                                LatLng markerPosition = marker.getPosition();
+                                                try {
+                                                    Geocoder geo = new Geocoder(getContext(), Locale.getDefault());
+                                                    List<Address> addresses = geo.getFromLocation(markerPosition.latitude, markerPosition.longitude, 1);
+                                                    if (addresses.isEmpty()) {
+                                                        binding.currentAddress.setText("Waiting for Location");
+                                                    } else {
+                                                        if (addresses.size() > 0) {
+                                                            binding.currentAddress.setText(addresses.get(0).getAddressLine(0));
+                                                        }
+                                                    }
+                                                } catch (Exception e) {
+                                                    e.printStackTrace();
+                                                }
+
+                                                return false;
+                                            }
+                                        });
 
                                         try {
                                             Geocoder geo = new Geocoder(getContext());
@@ -393,19 +449,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                         markerOptions.position(new LatLng(location.getLatitude(), location.getLongitude()));
                                         marker = mMap.addMarker(markerOptions);
                                     }
-
-                                    binding.confirmBtn.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-
-                                            Intent intent = new Intent(getContext(), ItemSwipe.class);
-                                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                            intent.putExtra("keys", keys);
-                                            startActivity(intent);
-                                            CustomIntent.customType(getContext(), "left-to-right");
-
-                                        }
-                                    });
                                 }
                             });
                         }
@@ -1205,6 +1248,62 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                 });
             }
         }
+    }
+
+    private void goToSearchLocation() {
+
+        String searchLocation = binding.searchLocation.getText().toString();
+
+        Geocoder geocoder = new Geocoder(getContext());
+        List<Address> list = new ArrayList<>();
+
+        try {
+            list = geocoder.getFromLocationName(searchLocation, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        if (list.size() > 0) {
+            Address address = list.get(0);
+            String location = address.getAdminArea();
+            double latitude = address.getLatitude();
+            double longitude = address.getLongitude();
+            gotoLatLng(latitude, longitude, 17f);
+
+            if (marker != null) {
+                marker.remove();
+            }
+
+            markerOptions = new MarkerOptions();
+            markerOptions.title(location);
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+            markerOptions.position(new LatLng(latitude, longitude));
+            marker = mMap.addMarker(markerOptions);
+        }
+
+        LatLng markerPosition = marker.getPosition();
+
+        try {
+            Geocoder geo = new Geocoder(getContext(), Locale.getDefault());
+            List<Address> addresses = geo.getFromLocation(markerPosition.latitude, markerPosition.longitude, 1);
+            if (addresses.isEmpty()) {
+                binding.currentAddress.setText("Waiting for Location");
+            } else {
+                if (addresses.size() > 0) {
+                    binding.currentAddress.setText(addresses.get(0).getAddressLine(0));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void gotoLatLng(double latitude, double longitude, float v) {
+
+        LatLng latLng = new LatLng(latitude, longitude);
+        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latLng, v);
+        mMap.animateCamera(update);
     }
 
 

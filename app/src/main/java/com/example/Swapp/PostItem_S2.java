@@ -375,8 +375,8 @@ public class PostItem_S2 extends AppCompatActivity implements BottomSheetImagePi
                 break;
             case "Game":
                 apparelL.setVisibility(View.GONE);
-                gadgetsL.setVisibility(View.VISIBLE);
-                gameL.setVisibility(View.GONE);
+                gadgetsL.setVisibility(View.GONE);
+                gameL.setVisibility(View.VISIBLE);
                 bagsL.setVisibility(View.GONE);
                 groceriesL.setVisibility(View.GONE);
                 furnitureL.setVisibility(View.GONE);

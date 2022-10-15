@@ -144,6 +144,7 @@ public class offerItem_S3 extends AppCompatActivity {
                         intent.putExtra("city", binding.city.getText().toString());
                         intent.putExtra("state", binding.state.getText().toString());
                         intent.putExtra("country", binding.country.getText().toString());
+                        intent.putExtra("landmark", binding.landmark.getText().toString());
                         intent.putExtra("latitude", latitude);
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -167,6 +168,7 @@ public class offerItem_S3 extends AppCompatActivity {
                         intent.putExtra("city", binding.city.getText().toString());
                         intent.putExtra("state", binding.state.getText().toString());
                         intent.putExtra("country", binding.country.getText().toString());
+                        intent.putExtra("landmark", binding.landmark.getText().toString());
                         intent.putExtra("latitude", latitude);
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -189,6 +191,7 @@ public class offerItem_S3 extends AppCompatActivity {
                         intent.putExtra("city", binding.city.getText().toString());
                         intent.putExtra("state", binding.state.getText().toString());
                         intent.putExtra("country", binding.country.getText().toString());
+                        intent.putExtra("landmark", binding.landmark.getText().toString());
                         intent.putExtra("latitude", latitude);
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -212,6 +215,7 @@ public class offerItem_S3 extends AppCompatActivity {
                         intent.putExtra("city", binding.city.getText().toString());
                         intent.putExtra("state", binding.state.getText().toString());
                         intent.putExtra("country", binding.country.getText().toString());
+                        intent.putExtra("landmark", binding.landmark.getText().toString());
                         intent.putExtra("latitude", latitude);
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -231,6 +235,7 @@ public class offerItem_S3 extends AppCompatActivity {
                         intent.putExtra("city", binding.city.getText().toString());
                         intent.putExtra("state", binding.state.getText().toString());
                         intent.putExtra("country", binding.country.getText().toString());
+                        intent.putExtra("landmark", binding.landmark.getText().toString());
                         intent.putExtra("latitude", latitude);
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -256,6 +261,7 @@ public class offerItem_S3 extends AppCompatActivity {
                         intent.putExtra("city", binding.city.getText().toString());
                         intent.putExtra("state", binding.state.getText().toString());
                         intent.putExtra("country", binding.country.getText().toString());
+                        intent.putExtra("landmark", binding.landmark.getText().toString());
                         intent.putExtra("latitude", latitude);
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -279,6 +285,7 @@ public class offerItem_S3 extends AppCompatActivity {
                         intent.putExtra("city", binding.city.getText().toString());
                         intent.putExtra("state", binding.state.getText().toString());
                         intent.putExtra("country", binding.country.getText().toString());
+                        intent.putExtra("landmark", binding.landmark.getText().toString());
                         intent.putExtra("latitude", latitude);
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -302,6 +309,7 @@ public class offerItem_S3 extends AppCompatActivity {
                         intent.putExtra("city", binding.city.getText().toString());
                         intent.putExtra("state", binding.state.getText().toString());
                         intent.putExtra("country", binding.country.getText().toString());
+                        intent.putExtra("landmark", binding.landmark.getText().toString());
                         intent.putExtra("latitude", latitude);
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -325,6 +333,7 @@ public class offerItem_S3 extends AppCompatActivity {
                         intent.putExtra("city", binding.city.getText().toString());
                         intent.putExtra("state", binding.state.getText().toString());
                         intent.putExtra("country", binding.country.getText().toString());
+                        intent.putExtra("landmark", binding.landmark.getText().toString());
                         intent.putExtra("latitude", latitude);
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -347,6 +356,7 @@ public class offerItem_S3 extends AppCompatActivity {
                         intent.putExtra("city", binding.city.getText().toString());
                         intent.putExtra("state", binding.state.getText().toString());
                         intent.putExtra("country", binding.country.getText().toString());
+                        intent.putExtra("landmark", binding.landmark.getText().toString());
                         intent.putExtra("latitude", latitude);
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -370,6 +380,7 @@ public class offerItem_S3 extends AppCompatActivity {
                         intent.putExtra("city", binding.city.getText().toString());
                         intent.putExtra("state", binding.state.getText().toString());
                         intent.putExtra("country", binding.country.getText().toString());
+                        intent.putExtra("landmark", binding.landmark.getText().toString());
                         intent.putExtra("latitude", latitude);
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -396,6 +407,7 @@ public class offerItem_S3 extends AppCompatActivity {
                         intent.putExtra("city", binding.city.getText().toString());
                         intent.putExtra("state", binding.state.getText().toString());
                         intent.putExtra("country", binding.country.getText().toString());
+                        intent.putExtra("landmark", binding.landmark.getText().toString());
                         intent.putExtra("latitude", latitude);
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -416,6 +428,7 @@ public class offerItem_S3 extends AppCompatActivity {
                         intent.putExtra("city", binding.city.getText().toString());
                         intent.putExtra("state", binding.state.getText().toString());
                         intent.putExtra("country", binding.country.getText().toString());
+                        intent.putExtra("landmark", binding.landmark.getText().toString());
                         intent.putExtra("latitude", latitude);
                         intent.putExtra("longitude", longitude);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -644,7 +657,7 @@ public class offerItem_S3 extends AppCompatActivity {
                         break;
                     case "Women's Apparel":
 
-                        intent.putExtra("womensSizeChart", getIntent().getStringExtra("mensSizeChart"));
+                        intent.putExtra("womensSizeChart", getIntent().getStringExtra("womensSizeChart"));
                         intent.putExtra("womensClothingType", getIntent().getStringExtra("womensClothingType"));
                         intent.putExtra("womensBrand", getIntent().getStringExtra("womensBrand"));
                         intent.putExtra("womensColor", getIntent().getStringExtra("womensColor"));

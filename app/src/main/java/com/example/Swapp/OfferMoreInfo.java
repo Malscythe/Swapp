@@ -99,6 +99,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                         TextView mDescription = findViewById(R.id.adM);
                         Button mAcceptBtn = findViewById(R.id.acceptBtn);
                         Button mDeclineBtn = findViewById(R.id.declineBtn);
+                        ImageView mSizeChart = findViewById(R.id.sizeChartImageM);
 
                         mLayout.setVisibility(View.VISIBLE);
 
@@ -120,6 +121,15 @@ public class OfferMoreInfo extends AppCompatActivity {
                         mUsage.setText(snapshot.child("Item_Usage").getValue(String.class));
                         mLocation.setText(mAddress);
                         mDescription.setText(snapshot.child("Item_Description").getValue(String.class));
+
+                        if (snapshot.child("Images").hasChild("Item_SizeChart")) {
+                            mSizeChart.setVisibility(View.VISIBLE);
+
+                            Glide.with(OfferMoreInfo.this).load(snapshot.child("Images").child("Item_SizeChart").getValue(String.class)).into(mSizeChart);
+                        } else {
+
+                            mSizeChart.setVisibility(View.GONE);
+                        }
 
                         mAcceptBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -243,6 +253,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                         TextView wDescription = findViewById(R.id.adW);
                         Button wAcceptBtn = findViewById(R.id.acceptBtn);
                         Button wDeclineBtn = findViewById(R.id.declineBtn);
+                        ImageView wSizeChart = findViewById(R.id.sizeChartImageW);
 
                         wLayout.setVisibility(View.VISIBLE);
 
@@ -264,6 +275,15 @@ public class OfferMoreInfo extends AppCompatActivity {
                         wUsage.setText(snapshot.child("Item_Usage").getValue(String.class));
                         wLocation.setText(wAddress);
                         wDescription.setText(snapshot.child("Item_Description").getValue(String.class));
+
+                        if (snapshot.child("Images").hasChild("Item_SizeChart")) {
+                            wSizeChart.setVisibility(View.VISIBLE);
+
+                            Glide.with(OfferMoreInfo.this).load(snapshot.child("Images").child("Item_SizeChart").getValue(String.class)).into(wSizeChart);
+                        } else {
+
+                            wSizeChart.setVisibility(View.GONE);
+                        }
 
                         wAcceptBtn.setOnClickListener(new View.OnClickListener() {
                             @Override

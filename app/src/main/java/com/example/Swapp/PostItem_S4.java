@@ -143,6 +143,8 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                 imageList.clear();
                 imageList.addAll(set);
 
+                postingItemDialog.startLoadingDialog();
+
                 Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
 
                 switch (category) {
@@ -157,8 +159,6 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                                    postingItemDialog.startLoadingDialog();
 
                                     taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                                         @Override
@@ -189,6 +189,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     String mLatitude = getIntent().getStringExtra("latitude");
                                                     String mLongitude = getIntent().getStringExtra("longitude");
                                                     String mSizeChart = getIntent().getStringExtra("mensSizeChart");
+                                                    String mLandmark = getIntent().getStringExtra("landmark");
 
                                                     if (!snapshot.child("items").child(currentId).hasChild(mItemName)) {
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Poster_Name").setValue(MemoryData.getName(PostItem_S4.this));
@@ -209,6 +210,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Address").child("City").setValue(mCity);
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Address").child("State").setValue(mState);
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Address").child("Country").setValue(mCountry);
+
+                                                        if (!mLandmark.equals("")) {
+                                                            databaseReference.child("items").child(currentId).child(mItemName).child("Address").child("Landmark").setValue(mLandmark);
+                                                        }
+
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Address").child("Latitude").setValue(mLatitude);
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Address").child("Longitude").setValue(mLongitude);
                                                     }
@@ -245,17 +251,16 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                             });
                                         }
                                     });
-                                    postingItemDialog.DismissDialog();
-
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                                    intent.putExtra("Origin", "PostItem");
-                                    startActivity(intent);
-                                    CustomIntent.customType(PostItem_S4.this, "left-to-right");
                                 }
                             });
                         }
 
+                        postingItemDialog.DismissDialog();
 
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        intent.putExtra("Origin", "PostItem");
+                        startActivity(intent);
+                        CustomIntent.customType(PostItem_S4.this, "left-to-right");
 
                         break;
                     case "Gadgets":
@@ -296,6 +301,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     String gadgetCountry = getIntent().getStringExtra("country");
                                                     String gadgetLatitude = getIntent().getStringExtra("latitude");
                                                     String gadgetLongitude = getIntent().getStringExtra("longitude");
+                                                    String gadgetLandmark = getIntent().getStringExtra("landmark");
 
                                                     if (!snapshot.child("items").child(currentId).hasChild(gadgetItemName)) {
                                                         databaseReference.child("items").child(currentId).child(gadgetItemName).child("Poster_Name").setValue(MemoryData.getName(PostItem_S4.this));
@@ -314,6 +320,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(gadgetItemName).child("Address").child("City").setValue(gadgetCity);
                                                         databaseReference.child("items").child(currentId).child(gadgetItemName).child("Address").child("State").setValue(gadgetState);
                                                         databaseReference.child("items").child(currentId).child(gadgetItemName).child("Address").child("Country").setValue(gadgetCountry);
+
+                                                        if (!gadgetLandmark.equals("")) {
+                                                            databaseReference.child("items").child(currentId).child(gadgetItemName).child("Address").child("Landmark").setValue(gadgetLandmark);
+                                                        }
+
                                                         databaseReference.child("items").child(currentId).child(gadgetItemName).child("Address").child("Latitude").setValue(gadgetLatitude);
                                                         databaseReference.child("items").child(currentId).child(gadgetItemName).child("Address").child("Longitude").setValue(gadgetLongitude);
                                                     }
@@ -380,6 +391,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     String gameCountry = getIntent().getStringExtra("country");
                                                     String gameLatitude = getIntent().getStringExtra("latitude");
                                                     String gameLongitude = getIntent().getStringExtra("longitude");
+                                                    String gameLandmark = getIntent().getStringExtra("landmark");
 
                                                     if (!snapshot.child("items").child(currentId).hasChild(gameItemName)) {
                                                         databaseReference.child("items").child(currentId).child(gameItemName).child("Poster_Name").setValue(MemoryData.getName(PostItem_S4.this));
@@ -397,6 +409,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(gameItemName).child("Address").child("City").setValue(gameCity);
                                                         databaseReference.child("items").child(currentId).child(gameItemName).child("Address").child("State").setValue(gameState);
                                                         databaseReference.child("items").child(currentId).child(gameItemName).child("Address").child("Country").setValue(gameCountry);
+
+                                                        if (!gameLandmark.equals("")) {
+                                                            databaseReference.child("items").child(currentId).child(gameItemName).child("Address").child("Landmark").setValue(gameLandmark);
+                                                        }
+
                                                         databaseReference.child("items").child(currentId).child(gameItemName).child("Address").child("Latitude").setValue(gameLatitude);
                                                         databaseReference.child("items").child(currentId).child(gameItemName).child("Address").child("Longitude").setValue(gameLongitude);
                                                               
@@ -466,6 +483,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     String bagCountry = getIntent().getStringExtra("country");
                                                     String bagLatitude = getIntent().getStringExtra("latitude");
                                                     String bagLongitude = getIntent().getStringExtra("longitude");
+                                                    String bagLandmark = getIntent().getStringExtra("landmark");
 
                                                     if (!snapshot.child("items").child(currentId).hasChild(bagItemName)) {
                                                         databaseReference.child("items").child(currentId).child(bagItemName).child("Poster_Name").setValue(MemoryData.getName(PostItem_S4.this));
@@ -484,6 +502,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(bagItemName).child("Address").child("City").setValue(bagCity);
                                                         databaseReference.child("items").child(currentId).child(bagItemName).child("Address").child("State").setValue(bagState);
                                                         databaseReference.child("items").child(currentId).child(bagItemName).child("Address").child("Country").setValue(bagCountry);
+
+                                                        if (!bagLandmark.equals("")) {
+                                                            databaseReference.child("items").child(currentId).child(bagItemName).child("Address").child("Landmark").setValue(bagLandmark);
+                                                        }
+
                                                         databaseReference.child("items").child(currentId).child(bagItemName).child("Address").child("Latitude").setValue(bagLatitude);
                                                         databaseReference.child("items").child(currentId).child(bagItemName).child("Address").child("Longitude").setValue(bagLongitude);
                                                               
@@ -548,6 +571,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     String groceryCountry = getIntent().getStringExtra("country");
                                                     String groceryLatitude = getIntent().getStringExtra("latitude");
                                                     String groceryLongitude = getIntent().getStringExtra("longitude");
+                                                    String groceryLandmark = getIntent().getStringExtra("landmark");
 
                                                     if (!snapshot.child("items").child(currentId).hasChild(groceryItemName)) {
                                                         databaseReference.child("items").child(currentId).child(groceryItemName).child("Poster_Name").setValue(MemoryData.getName(PostItem_S4.this));
@@ -562,6 +586,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(groceryItemName).child("Address").child("City").setValue(groceryCity);
                                                         databaseReference.child("items").child(currentId).child(groceryItemName).child("Address").child("State").setValue(groceryState);
                                                         databaseReference.child("items").child(currentId).child(groceryItemName).child("Address").child("Country").setValue(groceryCountry);
+
+                                                        if (!groceryLandmark.equals("")) {
+                                                            databaseReference.child("items").child(currentId).child(groceryItemName).child("Address").child("Landmark").setValue(groceryLandmark);
+                                                        }
+
                                                         databaseReference.child("items").child(currentId).child(groceryItemName).child("Address").child("Latitude").setValue(groceryLatitude);
                                                         databaseReference.child("items").child(currentId).child(groceryItemName).child("Address").child("Longitude").setValue(groceryLongitude);
                                                               
@@ -632,6 +661,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     String furnitureCountry = getIntent().getStringExtra("country");
                                                     String furnitureLatitude = getIntent().getStringExtra("latitude");
                                                     String furnitureLongitude = getIntent().getStringExtra("longitude");
+                                                    String furnitureLandmark = getIntent().getStringExtra("landmark");
 
                                                     if (!snapshot.child("items").child(currentId).hasChild(furnitureItemName)) {
                                                         databaseReference.child("items").child(currentId).child(furnitureItemName).child("Poster_Name").setValue(MemoryData.getName(PostItem_S4.this));
@@ -652,6 +682,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(furnitureItemName).child("Address").child("City").setValue(furnitureCity);
                                                         databaseReference.child("items").child(currentId).child(furnitureItemName).child("Address").child("State").setValue(furnitureState);
                                                         databaseReference.child("items").child(currentId).child(furnitureItemName).child("Address").child("Country").setValue(furnitureCountry);
+
+                                                        if (!furnitureLandmark.equals("")) {
+                                                            databaseReference.child("items").child(currentId).child(furnitureItemName).child("Address").child("Landmark").setValue(furnitureLandmark);
+                                                        }
+
                                                         databaseReference.child("items").child(currentId).child(furnitureItemName).child("Address").child("Latitude").setValue(furnitureLatitude);
                                                         databaseReference.child("items").child(currentId).child(furnitureItemName).child("Address").child("Longitude").setValue(furnitureLongitude);
                                                               
@@ -720,6 +755,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     String bnkCountry = getIntent().getStringExtra("country");
                                                     String bnkLatitude = getIntent().getStringExtra("latitude");
                                                     String bnkLongitude = getIntent().getStringExtra("longitude");
+                                                    String bnkLandmark = getIntent().getStringExtra("landmark");
 
                                                     if (!snapshot.child("items").child(currentId).hasChild(bnkItemName)) {
                                                         databaseReference.child("items").child(currentId).child(bnkItemName).child("Poster_Name").setValue(MemoryData.getName(PostItem_S4.this));
@@ -738,6 +774,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(bnkItemName).child("Address").child("City").setValue(bnkCity);
                                                         databaseReference.child("items").child(currentId).child(bnkItemName).child("Address").child("State").setValue(bnkState);
                                                         databaseReference.child("items").child(currentId).child(bnkItemName).child("Address").child("Country").setValue(bnkCountry);
+
+                                                        if (!bnkLandmark.equals("")) {
+                                                            databaseReference.child("items").child(currentId).child(bnkItemName).child("Address").child("Landmark").setValue(bnkLandmark);
+                                                        }
+
                                                         databaseReference.child("items").child(currentId).child(bnkItemName).child("Address").child("Latitude").setValue(bnkLatitude);
                                                         databaseReference.child("items").child(currentId).child(bnkItemName).child("Address").child("Longitude").setValue(bnkLongitude);
                                                               
@@ -806,6 +847,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     String appliancesCountry = getIntent().getStringExtra("country");
                                                     String appliancesLatitude = getIntent().getStringExtra("latitude");
                                                     String appliancesLongitude = getIntent().getStringExtra("longitude");
+                                                    String appliancesLandmark = getIntent().getStringExtra("landmark");
 
                                                     if (!snapshot.child("items").child(currentId).hasChild(appliancesItemName)) {
                                                         databaseReference.child("items").child(currentId).child(appliancesItemName).child("Poster_Name").setValue(MemoryData.getName(PostItem_S4.this));
@@ -824,6 +866,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(appliancesItemName).child("Address").child("City").setValue(appliancesCity);
                                                         databaseReference.child("items").child(currentId).child(appliancesItemName).child("Address").child("State").setValue(appliancesState);
                                                         databaseReference.child("items").child(currentId).child(appliancesItemName).child("Address").child("Country").setValue(appliancesCountry);
+
+                                                        if (!appliancesLandmark.equals("")) {
+                                                            databaseReference.child("items").child(currentId).child(appliancesItemName).child("Address").child("Landmark").setValue(appliancesLandmark);
+                                                        }
+
                                                         databaseReference.child("items").child(currentId).child(appliancesItemName).child("Address").child("Latitude").setValue(appliancesLatitude);
                                                         databaseReference.child("items").child(currentId).child(appliancesItemName).child("Address").child("Longitude").setValue(appliancesLongitude);
                                                               
@@ -892,6 +939,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     String motorCountry = getIntent().getStringExtra("country");
                                                     String motorLatitude = getIntent().getStringExtra("latitude");
                                                     String motorLongitude = getIntent().getStringExtra("longitude");
+                                                    String motorLandmark = getIntent().getStringExtra("landmark");
 
                                                     if (!snapshot.child("items").child(currentId).hasChild(motorItemName)) {
                                                         databaseReference.child("items").child(currentId).child(motorItemName).child("Poster_Name").setValue(MemoryData.getName(PostItem_S4.this));
@@ -910,6 +958,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(motorItemName).child("Address").child("City").setValue(motorCity);
                                                         databaseReference.child("items").child(currentId).child(motorItemName).child("Address").child("State").setValue(motorState);
                                                         databaseReference.child("items").child(currentId).child(motorItemName).child("Address").child("Country").setValue(motorCountry);
+
+                                                        if (!motorLandmark.equals("")) {
+                                                            databaseReference.child("items").child(currentId).child(motorItemName).child("Address").child("Landmark").setValue(motorLandmark);
+                                                        }
+
                                                         databaseReference.child("items").child(currentId).child(motorItemName).child("Address").child("Latitude").setValue(motorLatitude);
                                                         databaseReference.child("items").child(currentId).child(motorItemName).child("Address").child("Longitude").setValue(motorLongitude);
                                                               
@@ -977,6 +1030,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     String audioCountry = getIntent().getStringExtra("country");
                                                     String audioLatitude = getIntent().getStringExtra("latitude");
                                                     String audioLongitude = getIntent().getStringExtra("longitude");
+                                                    String audioLandmark = getIntent().getStringExtra("landmark");
 
                                                     if (!snapshot.child("items").child(currentId).hasChild(audioItemName)) {
                                                         databaseReference.child("items").child(currentId).child(audioItemName).child("Poster_Name").setValue(MemoryData.getName(PostItem_S4.this));
@@ -994,6 +1048,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(audioItemName).child("Address").child("City").setValue(audioCity);
                                                         databaseReference.child("items").child(currentId).child(audioItemName).child("Address").child("State").setValue(audioState);
                                                         databaseReference.child("items").child(currentId).child(audioItemName).child("Address").child("Country").setValue(audioCountry);
+
+                                                        if (!audioLandmark.equals("")) {
+                                                            databaseReference.child("items").child(currentId).child(audioItemName).child("Address").child("Landmark").setValue(audioLandmark);
+                                                        }
+
                                                         databaseReference.child("items").child(currentId).child(audioItemName).child("Address").child("Latitude").setValue(audioLatitude);
                                                         databaseReference.child("items").child(currentId).child(audioItemName).child("Address").child("Longitude").setValue(audioLongitude);
                                                               
@@ -1062,6 +1121,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     String schoolCountry = getIntent().getStringExtra("country");
                                                     String schoolLatitude = getIntent().getStringExtra("latitude");
                                                     String schoolLongitude = getIntent().getStringExtra("longitude");
+                                                    String schoolLandmark = getIntent().getStringExtra("landmark");
 
                                                     if (!snapshot.child("items").child(currentId).hasChild(schoolItemName)) {
                                                         databaseReference.child("items").child(currentId).child(schoolItemName).child("Poster_Name").setValue(MemoryData.getName(PostItem_S4.this));
@@ -1080,6 +1140,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(schoolItemName).child("Address").child("City").setValue(schoolCity);
                                                         databaseReference.child("items").child(currentId).child(schoolItemName).child("Address").child("State").setValue(schoolState);
                                                         databaseReference.child("items").child(currentId).child(schoolItemName).child("Address").child("Country").setValue(schoolCountry);
+
+                                                        if (!schoolLandmark.equals("")) {
+                                                            databaseReference.child("items").child(currentId).child(schoolItemName).child("Address").child("Landmark").setValue(schoolLandmark);
+                                                        }
+
                                                         databaseReference.child("items").child(currentId).child(schoolItemName).child("Address").child("Latitude").setValue(schoolLatitude);
                                                         databaseReference.child("items").child(currentId).child(schoolItemName).child("Address").child("Longitude").setValue(schoolLongitude);
                                                               
@@ -1151,6 +1216,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     String wLatitude = getIntent().getStringExtra("latitude");
                                                     String wLongitude = getIntent().getStringExtra("longitude");
                                                     String wSizeChart = getIntent().getStringExtra("womensSizeChart");
+                                                    String wLandmark = getIntent().getStringExtra("landmark");
 
                                                     if (!snapshot.child("items").child(currentId).hasChild(wItemName)) {
                                                         databaseReference.child("items").child(currentId).child(wItemName).child("Poster_Name").setValue(MemoryData.getName(PostItem_S4.this));
@@ -1171,6 +1237,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(wItemName).child("Address").child("City").setValue(wCity);
                                                         databaseReference.child("items").child(currentId).child(wItemName).child("Address").child("State").setValue(wState);
                                                         databaseReference.child("items").child(currentId).child(wItemName).child("Address").child("Country").setValue(wCountry);
+
+                                                        if (!wLandmark.equals("")) {
+                                                            databaseReference.child("items").child(currentId).child(wItemName).child("Address").child("Landmark").setValue(wLandmark);
+                                                        }
+
                                                         databaseReference.child("items").child(currentId).child(wItemName).child("Address").child("Latitude").setValue(wLatitude);
                                                         databaseReference.child("items").child(currentId).child(wItemName).child("Address").child("Longitude").setValue(wLongitude);
                                                               
@@ -1254,6 +1325,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     String otherCountry = getIntent().getStringExtra("country");
                                                     String otherLatitude = getIntent().getStringExtra("latitude");
                                                     String otherLongitude = getIntent().getStringExtra("longitude");
+                                                    String otherLandmark = getIntent().getStringExtra("landmark");
 
                                                     if (!snapshot.child("items").child(currentId).hasChild(otherItemName)) {
                                                         databaseReference.child("items").child(currentId).child(otherItemName).child("Poster_Name").setValue(MemoryData.getName(PostItem_S4.this));
@@ -1269,6 +1341,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(otherItemName).child("Address").child("City").setValue(otherCity);
                                                         databaseReference.child("items").child(currentId).child(otherItemName).child("Address").child("State").setValue(otherState);
                                                         databaseReference.child("items").child(currentId).child(otherItemName).child("Address").child("Country").setValue(otherCountry);
+
+                                                        if (!otherLandmark.equals("")) {
+                                                            databaseReference.child("items").child(currentId).child(otherItemName).child("Address").child("Landmark").setValue(otherLandmark);
+                                                        }
+
                                                         databaseReference.child("items").child(currentId).child(otherItemName).child("Address").child("Latitude").setValue(otherLatitude);
                                                         databaseReference.child("items").child(currentId).child(otherItemName).child("Address").child("Longitude").setValue(otherLongitude);
                                                     }
