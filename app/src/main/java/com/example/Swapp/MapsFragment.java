@@ -449,6 +449,17 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                         markerOptions.position(new LatLng(location.getLatitude(), location.getLongitude()));
                                         marker = mMap.addMarker(markerOptions);
                                     }
+
+                                    binding.confirmBtn.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Intent intent = new Intent(getContext(), ItemSwipe.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                            intent.putExtra("keys", keys);
+                                            startActivity(intent);
+                                            CustomIntent.customType(getContext(), "left-to-right");
+                                        }
+                                    });
                                 }
                             });
                         }
@@ -555,8 +566,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                         intent.putExtra("latitude", latitude);
                                         intent.putExtra("longitude", longitude);
                                         intent.putExtra("item_name", bundle.getString("item_name"));
-
-
                                         intent.putExtra("category", bundle.getString("category1"));
                                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                         startActivity(intent);

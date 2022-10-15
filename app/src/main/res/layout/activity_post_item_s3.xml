@@ -80,162 +80,168 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/postLocation"
-        android:layout_below="@id/stepTitle"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:visibility="visible"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:layout_below="@id/stepTitle"
+        android:layout_marginBottom="30dp">
 
-        <TextView
-            android:id="@+id/requiredText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/stepTitle"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="5dp"
-            android:fontFamily="@font/poppins"
-            android:text="Fields with an asterisk (*) are required."
-            android:textColor="@android:color/holo_red_light"
-            android:textSize="12sp"
-            android:textStyle="italic" />
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/streetL"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <LinearLayout
+            android:id="@+id/postLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@color/white"
-            app:boxStrokeColor="@color/primary"
-            app:boxStrokeWidth="2dp">
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:visibility="visible"
+            android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/street"
+            <TextView
+                android:id="@+id/requiredText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/poppins"
+                android:text="Fields with an asterisk (*) are required."
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="12sp"
+                android:textStyle="italic" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/streetL"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/poppins_medium"
-                android:hint="House number &amp; Street *"
-                android:importantForAutofill="no"
-                android:textColor="@color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@color/white"
+                app:boxStrokeColor="@color/primary"
+                app:boxStrokeWidth="2dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/barangayL"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@color/white"
-            app:boxStrokeColor="@color/primary"
-            app:boxStrokeWidth="2dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/street"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="House number &amp; Street *"
+                    android:importantForAutofill="no"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/barangay"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/barangayL"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/poppins_medium"
-                android:hint="Barangay *"
-                android:importantForAutofill="no"
-                android:textColor="@color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@color/white"
+                app:boxStrokeColor="@color/primary"
+                app:boxStrokeWidth="2dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/cityL"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@color/white"
-            app:boxStrokeColor="@color/primary"
-            app:boxStrokeWidth="2dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/barangay"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="Barangay *"
+                    android:importantForAutofill="no"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/city"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/cityL"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/poppins_medium"
-                android:hint="City *"
-                android:importantForAutofill="no"
-                android:textColor="@color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@color/white"
+                app:boxStrokeColor="@color/primary"
+                app:boxStrokeWidth="2dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/stateL"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@color/white"
-            app:boxStrokeColor="@color/primary"
-            app:boxStrokeWidth="2dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/city"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="City *"
+                    android:importantForAutofill="no"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/state"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/stateL"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/poppins_medium"
-                android:hint="State *"
-                android:importantForAutofill="no"
-                android:textColor="@color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@color/white"
+                app:boxStrokeColor="@color/primary"
+                app:boxStrokeWidth="2dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/countryL"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@color/white"
-            app:boxStrokeColor="@color/primary"
-            app:boxStrokeWidth="2dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/state"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="State *"
+                    android:importantForAutofill="no"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/country"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/countryL"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/poppins_medium"
-                android:hint="Country *"
-                android:importantForAutofill="no"
-                android:textColor="@color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@color/white"
+                app:boxStrokeColor="@color/primary"
+                app:boxStrokeWidth="2dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/landmarkL"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@color/white"
-            app:boxStrokeColor="@color/primary"
-            app:boxStrokeWidth="2dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/country"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="Country *"
+                    android:importantForAutofill="no"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/landmark"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/landmarkL"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/poppins_medium"
-                android:hint="Nearest Landmark"
-                android:importantForAutofill="no"
-                android:textColor="@color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@color/white"
+                app:boxStrokeColor="@color/primary"
+                app:boxStrokeWidth="2dp">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/nextBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="NEXT"
-            android:background="@drawable/buttonborder"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:fontFamily="@font/poppins"
-            android:textSize="16sp"/>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/landmark"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_medium"
+                    android:hint="Nearest Landmark"
+                    android:importantForAutofill="no"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/nextBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="NEXT"
+                android:background="@drawable/buttonborder"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:fontFamily="@font/poppins"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>
