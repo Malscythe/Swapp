@@ -237,7 +237,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                             taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                                                                 @Override
                                                                 public void onComplete(@NonNull Task<Uri> task) {
-                                                                    databaseReference.child("items").child(currentId).child(mItemName).child("Images").child("Item_SizeChart").setValue(task.getResult().toString());
+                                                                    databaseReference.child("items").child(currentId).child(mItemName).child("Item_SizeChart").setValue(task.getResult().toString());
                                                                 }
                                                             });
                                                         }
@@ -1265,7 +1265,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                             taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                                                                 @Override
                                                                 public void onComplete(@NonNull Task<Uri> task) {
-                                                                    databaseReference.child("items").child(currentId).child(wItemName).child("Images").child("Item_SizeChart").setValue(task.getResult().toString());
+                                                                    databaseReference.child("items").child(currentId).child(wItemName).child("Item_SizeChart").setValue(task.getResult().toString());
                                                                 }
                                                             });
                                                         }

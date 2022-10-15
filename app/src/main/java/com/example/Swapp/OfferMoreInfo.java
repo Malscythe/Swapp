@@ -3,6 +3,7 @@ package com.example.Swapp;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -100,6 +101,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                         Button mAcceptBtn = findViewById(R.id.acceptBtn);
                         Button mDeclineBtn = findViewById(R.id.declineBtn);
                         ImageView mSizeChart = findViewById(R.id.sizeChartImageM);
+                        CardView mSizeChartLayout = findViewById(R.id.sizeChartM);
 
                         mLayout.setVisibility(View.VISIBLE);
 
@@ -122,13 +124,13 @@ public class OfferMoreInfo extends AppCompatActivity {
                         mLocation.setText(mAddress);
                         mDescription.setText(snapshot.child("Item_Description").getValue(String.class));
 
-                        if (snapshot.child("Images").hasChild("Item_SizeChart")) {
-                            mSizeChart.setVisibility(View.VISIBLE);
+                        if (snapshot.hasChild("Item_SizeChart")) {
+                            mSizeChartLayout.setVisibility(View.VISIBLE);
 
-                            Glide.with(OfferMoreInfo.this).load(snapshot.child("Images").child("Item_SizeChart").getValue(String.class)).into(mSizeChart);
+                            Glide.with(OfferMoreInfo.this).load(snapshot.child("Item_SizeChart").getValue(String.class)).into(mSizeChart);
                         } else {
 
-                            mSizeChart.setVisibility(View.GONE);
+                            mSizeChartLayout.setVisibility(View.GONE);
                         }
 
                         mAcceptBtn.setOnClickListener(new View.OnClickListener() {
@@ -254,6 +256,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                         Button wAcceptBtn = findViewById(R.id.acceptBtn);
                         Button wDeclineBtn = findViewById(R.id.declineBtn);
                         ImageView wSizeChart = findViewById(R.id.sizeChartImageW);
+                        CardView wSizeChartLayout = findViewById(R.id.sizeChartW);
 
                         wLayout.setVisibility(View.VISIBLE);
 
@@ -276,13 +279,13 @@ public class OfferMoreInfo extends AppCompatActivity {
                         wLocation.setText(wAddress);
                         wDescription.setText(snapshot.child("Item_Description").getValue(String.class));
 
-                        if (snapshot.child("Images").hasChild("Item_SizeChart")) {
-                            wSizeChart.setVisibility(View.VISIBLE);
+                        if (snapshot.hasChild("Item_SizeChart")) {
+                            wSizeChartLayout.setVisibility(View.VISIBLE);
 
-                            Glide.with(OfferMoreInfo.this).load(snapshot.child("Images").child("Item_SizeChart").getValue(String.class)).into(wSizeChart);
+                            Glide.with(OfferMoreInfo.this).load(snapshot.child("Item_SizeChart").getValue(String.class)).into(wSizeChart);
                         } else {
 
-                            wSizeChart.setVisibility(View.GONE);
+                            wSizeChartLayout.setVisibility(View.GONE);
                         }
 
                         wAcceptBtn.setOnClickListener(new View.OnClickListener() {

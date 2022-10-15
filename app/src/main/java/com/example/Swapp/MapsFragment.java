@@ -186,6 +186,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                                         binding.getRadius.setVisibility(View.VISIBLE);
                                         binding.currentAddressLayout.setVisibility(View.GONE);
+                                        binding.searchLocation.setVisibility(View.GONE);
 
                                         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 

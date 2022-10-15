@@ -3,6 +3,7 @@ package com.example.Swapp;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -72,6 +73,7 @@ public class MoreInfo extends AppCompatActivity {
                         TextView mDescription = findViewById(R.id.adM);
                         Button mOfferBtn = findViewById(R.id.offerbtn);
                         ImageView mSizeChart = findViewById(R.id.sizeChartImageM);
+                        CardView mSizeChartLayout = findViewById(R.id.sizeChartM);
 
                         mLayout.setVisibility(View.VISIBLE);
 
@@ -96,13 +98,13 @@ public class MoreInfo extends AppCompatActivity {
                         mRFT.setText(snapshot.child("Item_RFT").getValue(String.class));
                         mDescription.setText(snapshot.child("Item_Description").getValue(String.class));
 
-                        if (snapshot.child("Images").hasChild("Item_SizeChart")) {
-                            mSizeChart.setVisibility(View.VISIBLE);
+                        if (snapshot.hasChild("Item_SizeChart")) {
+                            mSizeChartLayout.setVisibility(View.VISIBLE);
 
-                            Glide.with(MoreInfo.this).load(snapshot.child("Images").child("Item_SizeChart").getValue(String.class)).into(mSizeChart);
+                            Glide.with(MoreInfo.this).load(snapshot.child("Item_SizeChart").getValue(String.class)).into(mSizeChart);
                         } else {
 
-                            mSizeChart.setVisibility(View.GONE);
+                            mSizeChartLayout.setVisibility(View.GONE);
                         }
 
                         mOfferBtn.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +138,7 @@ public class MoreInfo extends AppCompatActivity {
                         TextView wDescription = findViewById(R.id.adW);
                         Button wOfferBtn = findViewById(R.id.offerbtn);
                         ImageView wSizeChart = findViewById(R.id.sizeChartImageW);
+                        CardView wSizeChartLayout = findViewById(R.id.sizeChartW);
 
                         wLayout.setVisibility(View.VISIBLE);
 
@@ -160,13 +163,13 @@ public class MoreInfo extends AppCompatActivity {
                         wRFT.setText(snapshot.child("Item_RFT").getValue(String.class));
                         wDescription.setText(snapshot.child("Item_Description").getValue(String.class));
 
-                        if (snapshot.child("Images").hasChild("Item_SizeChart")) {
-                            wSizeChart.setVisibility(View.VISIBLE);
+                        if (snapshot.hasChild("Item_SizeChart")) {
+                            wSizeChartLayout.setVisibility(View.VISIBLE);
 
-                            Glide.with(MoreInfo.this).load(snapshot.child("Images").child("Item_SizeChart").getValue(String.class)).into(wSizeChart);
+                            Glide.with(MoreInfo.this).load(snapshot.child("Item_SizeChart").getValue(String.class)).into(wSizeChart);
                         } else {
 
-                            wSizeChart.setVisibility(View.GONE);
+                            wSizeChartLayout.setVisibility(View.GONE);
                         }
 
                         wOfferBtn.setOnClickListener(new View.OnClickListener() {

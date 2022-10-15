@@ -228,7 +228,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                             taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                                                                 @Override
                                                                 public void onComplete(@NonNull Task<Uri> task) {
-                                                                    databaseReference.child("items").child(muid).child(mitemname).child("Offers").child(currentId).child("Images").child("Item_SizeChart").setValue(task.getResult().toString());
+                                                                    databaseReference.child("items").child(muid).child(mitemname).child("Offers").child(currentId).child("Item_SizeChart").setValue(task.getResult().toString());
                                                                 }
                                                             });
                                                         }
@@ -1224,7 +1224,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                                             taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                                                                 @Override
                                                                 public void onComplete(@NonNull Task<Uri> task) {
-                                                                    databaseReference.child("items").child(muid).child(waitemname).child("Offers").child(currentId).child("Images").child("Item_SizeChart").setValue(task.getResult().toString());
+                                                                    databaseReference.child("items").child(muid).child(waitemname).child("Offers").child(currentId).child("Item_SizeChart").setValue(task.getResult().toString());
                                                                 }
                                                             });
                                                         }
