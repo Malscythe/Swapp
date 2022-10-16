@@ -114,6 +114,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
         Bundle bundle = getArguments();
 
+
+
         firebaseAuth = FirebaseAuth.getInstance();
         String uid = firebaseAuth.getCurrentUser().getUid();
 

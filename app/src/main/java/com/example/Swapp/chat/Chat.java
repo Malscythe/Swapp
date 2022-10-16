@@ -243,8 +243,11 @@ public class Chat extends BaseActivity implements BottomSheetImagePicker.OnImage
                                     list.add(dataSnapshot.getKey());
                                 }
 
-                                databaseReference.child("chat").child(chatKey).child("user_1").setValue(getUserMobile);
-                                databaseReference.child("chat").child(chatKey).child("user_2").setValue(getMobile);
+                                if (snapshot.getChildrenCount() <= 1) {
+                                    databaseReference.child("chat").child(chatKey).child("user_1").setValue(getUserMobile);
+                                    databaseReference.child("chat").child(chatKey).child("user_2").setValue(getMobile);
+                                }
+
                                 databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("msg").setValue(getTxtMessage);
                                 databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("mobile").setValue(getUserMobile);
                             }
@@ -404,8 +407,12 @@ public class Chat extends BaseActivity implements BottomSheetImagePicker.OnImage
                                                 }
 
                                                 MemoryData.saveLastMsgTS(list.get(list.size() - 1), chatKey, Chat.this, numToSave);
-                                                databaseReference.child("chat").child(chatKey).child("user_1").setValue(getUserMobile);
-                                                databaseReference.child("chat").child(chatKey).child("user_2").setValue(getMobile);
+
+                                                if (snapshot.getChildrenCount() <= 1) {
+                                                    databaseReference.child("chat").child(chatKey).child("user_1").setValue(getUserMobile);
+                                                    databaseReference.child("chat").child(chatKey).child("user_2").setValue(getMobile);
+                                                }
+
                                                 databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("msg").setValue(task.getResult().toString());
                                                 databaseReference.child("chat").child(chatKey).child("messages").child(simpleDateFormat.format(timestamp)).child("mobile").setValue(getUserMobile);
 

@@ -135,12 +135,9 @@ public class Messages extends BaseActivity {
                             String user1 = dataSnapshot1.child("user_1").getValue(String.class);
                             String user2 = dataSnapshot1.child("user_2").getValue(String.class);
 
-                            Log.d(TAG, "User 1: " + user1 + " User 2: " + user2 + " currentMobile: " + currentMobile + " mobile: " + mobile);
-
                             boolean isNull = true;
 
                             while (isNull) {
-                                Log.d(TAG, "WAITING");
                                 isNull = (!dataSnapshot1.child("user_2").exists());
                             }
 

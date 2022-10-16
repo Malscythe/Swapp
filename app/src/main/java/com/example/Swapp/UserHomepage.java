@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.airbnb.lottie.L;
 import com.example.Swapp.call.BaseActivity;
 import com.example.Swapp.call.SinchService;
+import com.github.mikephil.charting.formatter.IFillFormatter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -152,6 +153,11 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
 
                         if (dataSnapshot1.hasChild("Accepted_Offers")) {
                             if (dataSnapshot1.child("Accepted_Offers").hasChild(uid)){
+                                if (!pendingCounts.getText().toString().equals("0")) {
+                                    pendingTrades = pendingTrades - 1;
+                                    pendingCounts.setText(pendingTrades.toString());
+                                }
+
                                 currentTrades = currentTrades + 1;
                                 currentCounts.setText(currentTrades.toString());
                             }
