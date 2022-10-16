@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.kofigyan.stateprogressbar.StateProgressBar;
 
@@ -25,7 +26,8 @@ public class offerItem_S3 extends AppCompatActivity {
     String[] descriptionData = {"Details", "Description", "Location", "Images"};
     Button nextBtn, getLocationBtn;
     String currentState, street, city, longitude, latitude, state, country, barangay, house_no;
-    LinearLayout preLocation, postLocation;
+    LinearLayout preLocation;
+    ScrollView postLocation;
     ActivityOfferItemS3Binding binding;
 
     @Override

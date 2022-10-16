@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.kofigyan.stateprogressbar.StateProgressBar;
 
@@ -25,7 +26,8 @@ public class PostItem_S3 extends AppCompatActivity {
     String[] descriptionData = {"Details", "Description", "Location", "Images"};
     Button nextBtn, getLocationBtn;
     String currentState, street, city, longitude, latitude, state, country, barangay, house_no;
-    LinearLayout preLocation, postLocation;
+    LinearLayout preLocation;
+    ScrollView postLocation;
     ActivityPostItemS3Binding binding;
 
     @Override
@@ -463,6 +465,8 @@ public class PostItem_S3 extends AppCompatActivity {
 
                 switch (category) {
                     case "Men's Apparel":
+
+                        Log.w("TAG", "CLICKED");
 
                         intent.putExtra("mensClothingType", getIntent().getStringExtra("mensClothingType"));
                         intent.putExtra("mensBrand", getIntent().getStringExtra("mensBrand"));
