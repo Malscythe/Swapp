@@ -106,7 +106,7 @@ public class SinchService extends Service {
     private Messenger messenger;
 
     public static final String CALL_ID = "CALL_ID";
-    static final String TAG = SinchService.class.getSimpleName();
+    static final String TAG = "Sinch Error";
 
     private PersistedSettings mSettings;
     private SinchServiceInterface mSinchServiceInterface = new SinchServiceInterface();

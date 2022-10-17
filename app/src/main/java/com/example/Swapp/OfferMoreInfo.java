@@ -174,36 +174,54 @@ public class OfferMoreInfo extends AppCompatActivity {
                                         databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                                                 String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
                                                 String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
                                                 String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-                                                loadingDialog.DismissDialog();
 
-                                                for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
-                                                    String user1 = dataSnapshot.child("user_1").getValue(String.class);
-                                                    String user2 = dataSnapshot.child("user_2").getValue(String.class);
+                                                if (snapshot.child("chat").exists()) {
+                                                    for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
+                                                        String user1 = dataSnapshot.child("user_1").getValue(String.class);
+                                                        String user2 = dataSnapshot.child("user_2").getValue(String.class);
 
-                                                    if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", dataSnapshot.getKey());
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+                                                        if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
+                                                            loadingDialog.DismissDialog();
 
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                    } else {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", "");
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                            intent.putExtra("mobile", mobile);
+                                                            intent.putExtra("name", userName);
+                                                            intent.putExtra("chat_key", dataSnapshot.getKey());
+                                                            intent.putExtra("userID", uid);
+                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
 
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                            startActivity(intent);
+                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                        } else {
+                                                            loadingDialog.DismissDialog();
+
+                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                            intent.putExtra("mobile", mobile);
+                                                            intent.putExtra("name", userName);
+                                                            intent.putExtra("chat_key", "");
+                                                            intent.putExtra("userID", uid);
+                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                            startActivity(intent);
+                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                        }
                                                     }
+                                                } else {
+                                                    loadingDialog.DismissDialog();
+
+                                                    Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                    intent.putExtra("mobile", mobile);
+                                                    intent.putExtra("name", userName);
+                                                    intent.putExtra("chat_key", "");
+                                                    intent.putExtra("userID", uid);
+                                                    intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                    startActivity(intent);
+                                                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                                                 }
                                             }
 
@@ -349,33 +367,50 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                 String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
                                                 String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
                                                 String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-                                                loadingDialog.DismissDialog();
 
-                                                for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
-                                                    String user1 = dataSnapshot.child("user_1").getValue(String.class);
-                                                    String user2 = dataSnapshot.child("user_2").getValue(String.class);
+                                                if (snapshot.child("chat").exists()) {
+                                                    for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
+                                                        String user1 = dataSnapshot.child("user_1").getValue(String.class);
+                                                        String user2 = dataSnapshot.child("user_2").getValue(String.class);
 
-                                                    if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", dataSnapshot.getKey());
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+                                                        if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
+                                                            loadingDialog.DismissDialog();
 
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                    } else {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", "");
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                            intent.putExtra("mobile", mobile);
+                                                            intent.putExtra("name", userName);
+                                                            intent.putExtra("chat_key", dataSnapshot.getKey());
+                                                            intent.putExtra("userID", uid);
+                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
 
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                            startActivity(intent);
+                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                        } else {
+                                                            loadingDialog.DismissDialog();
+
+                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                            intent.putExtra("mobile", mobile);
+                                                            intent.putExtra("name", userName);
+                                                            intent.putExtra("chat_key", "");
+                                                            intent.putExtra("userID", uid);
+                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                            startActivity(intent);
+                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                        }
                                                     }
+                                                } else {
+                                                    loadingDialog.DismissDialog();
+
+                                                    Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                    intent.putExtra("mobile", mobile);
+                                                    intent.putExtra("name", userName);
+                                                    intent.putExtra("chat_key", "");
+                                                    intent.putExtra("userID", uid);
+                                                    intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                    startActivity(intent);
+                                                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                                                 }
                                             }
 
@@ -502,33 +537,50 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                 String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
                                                 String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
                                                 String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-                                                loadingDialog.DismissDialog();
 
-                                                for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
-                                                    String user1 = dataSnapshot.child("user_1").getValue(String.class);
-                                                    String user2 = dataSnapshot.child("user_2").getValue(String.class);
+                                                if (snapshot.child("chat").exists()) {
+                                                    for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
+                                                        String user1 = dataSnapshot.child("user_1").getValue(String.class);
+                                                        String user2 = dataSnapshot.child("user_2").getValue(String.class);
 
-                                                    if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", dataSnapshot.getKey());
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+                                                        if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
+                                                            loadingDialog.DismissDialog();
 
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                    } else {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", "");
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                            intent.putExtra("mobile", mobile);
+                                                            intent.putExtra("name", userName);
+                                                            intent.putExtra("chat_key", dataSnapshot.getKey());
+                                                            intent.putExtra("userID", uid);
+                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
 
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                            startActivity(intent);
+                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                        } else {
+                                                            loadingDialog.DismissDialog();
+
+                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                            intent.putExtra("mobile", mobile);
+                                                            intent.putExtra("name", userName);
+                                                            intent.putExtra("chat_key", "");
+                                                            intent.putExtra("userID", uid);
+                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                            startActivity(intent);
+                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                        }
                                                     }
+                                                } else {
+                                                    loadingDialog.DismissDialog();
+
+                                                    Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                    intent.putExtra("mobile", mobile);
+                                                    intent.putExtra("name", userName);
+                                                    intent.putExtra("chat_key", "");
+                                                    intent.putExtra("userID", uid);
+                                                    intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                    startActivity(intent);
+                                                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                                                 }
                                             }
 
@@ -652,33 +704,50 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                 String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
                                                 String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
                                                 String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-                                                loadingDialog.DismissDialog();
 
-                                                for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
-                                                    String user1 = dataSnapshot.child("user_1").getValue(String.class);
-                                                    String user2 = dataSnapshot.child("user_2").getValue(String.class);
+                                                if (snapshot.child("chat").exists()) {
+                                                    for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
+                                                        String user1 = dataSnapshot.child("user_1").getValue(String.class);
+                                                        String user2 = dataSnapshot.child("user_2").getValue(String.class);
 
-                                                    if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", dataSnapshot.getKey());
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+                                                        if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
+                                                            loadingDialog.DismissDialog();
 
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                    } else {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", "");
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                            intent.putExtra("mobile", mobile);
+                                                            intent.putExtra("name", userName);
+                                                            intent.putExtra("chat_key", dataSnapshot.getKey());
+                                                            intent.putExtra("userID", uid);
+                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
 
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                            startActivity(intent);
+                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                        } else {
+                                                            loadingDialog.DismissDialog();
+
+                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                            intent.putExtra("mobile", mobile);
+                                                            intent.putExtra("name", userName);
+                                                            intent.putExtra("chat_key", "");
+                                                            intent.putExtra("userID", uid);
+                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                            startActivity(intent);
+                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                        }
                                                     }
+                                                } else {
+                                                    loadingDialog.DismissDialog();
+
+                                                    Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                    intent.putExtra("mobile", mobile);
+                                                    intent.putExtra("name", userName);
+                                                    intent.putExtra("chat_key", "");
+                                                    intent.putExtra("userID", uid);
+                                                    intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                    startActivity(intent);
+                                                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                                                 }
                                             }
 
@@ -946,33 +1015,50 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                 String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
                                                 String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
                                                 String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-                                                loadingDialog.DismissDialog();
 
-                                                for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
-                                                    String user1 = dataSnapshot.child("user_1").getValue(String.class);
-                                                    String user2 = dataSnapshot.child("user_2").getValue(String.class);
+                                                if (snapshot.child("chat").exists()) {
+                                                    for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
+                                                        String user1 = dataSnapshot.child("user_1").getValue(String.class);
+                                                        String user2 = dataSnapshot.child("user_2").getValue(String.class);
 
-                                                    if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", dataSnapshot.getKey());
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+                                                        if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
+                                                            loadingDialog.DismissDialog();
 
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                    } else {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", "");
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                            intent.putExtra("mobile", mobile);
+                                                            intent.putExtra("name", userName);
+                                                            intent.putExtra("chat_key", dataSnapshot.getKey());
+                                                            intent.putExtra("userID", uid);
+                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
 
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                            startActivity(intent);
+                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                        } else {
+                                                            loadingDialog.DismissDialog();
+
+                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                            intent.putExtra("mobile", mobile);
+                                                            intent.putExtra("name", userName);
+                                                            intent.putExtra("chat_key", "");
+                                                            intent.putExtra("userID", uid);
+                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                            startActivity(intent);
+                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                        }
                                                     }
+                                                } else {
+                                                    loadingDialog.DismissDialog();
+
+                                                    Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                    intent.putExtra("mobile", mobile);
+                                                    intent.putExtra("name", userName);
+                                                    intent.putExtra("chat_key", "");
+                                                    intent.putExtra("userID", uid);
+                                                    intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                    startActivity(intent);
+                                                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                                                 }
                                             }
 
@@ -1105,33 +1191,50 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                 String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
                                                 String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
                                                 String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-                                                loadingDialog.DismissDialog();
 
-                                                for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
-                                                    String user1 = dataSnapshot.child("user_1").getValue(String.class);
-                                                    String user2 = dataSnapshot.child("user_2").getValue(String.class);
+                                                if (snapshot.child("chat").exists()) {
+                                                    for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
+                                                        String user1 = dataSnapshot.child("user_1").getValue(String.class);
+                                                        String user2 = dataSnapshot.child("user_2").getValue(String.class);
 
-                                                    if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", dataSnapshot.getKey());
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+                                                        if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
+                                                            loadingDialog.DismissDialog();
 
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                    } else {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", "");
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                            intent.putExtra("mobile", mobile);
+                                                            intent.putExtra("name", userName);
+                                                            intent.putExtra("chat_key", dataSnapshot.getKey());
+                                                            intent.putExtra("userID", uid);
+                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
 
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                            startActivity(intent);
+                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                        } else {
+                                                            loadingDialog.DismissDialog();
+
+                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                            intent.putExtra("mobile", mobile);
+                                                            intent.putExtra("name", userName);
+                                                            intent.putExtra("chat_key", "");
+                                                            intent.putExtra("userID", uid);
+                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                            startActivity(intent);
+                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                        }
                                                     }
+                                                } else {
+                                                    loadingDialog.DismissDialog();
+
+                                                    Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                    intent.putExtra("mobile", mobile);
+                                                    intent.putExtra("name", userName);
+                                                    intent.putExtra("chat_key", "");
+                                                    intent.putExtra("userID", uid);
+                                                    intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                    startActivity(intent);
+                                                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                                                 }
                                             }
 
@@ -1258,33 +1361,50 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                 String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
                                                 String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
                                                 String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-                                                loadingDialog.DismissDialog();
 
-                                                for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
-                                                    String user1 = dataSnapshot.child("user_1").getValue(String.class);
-                                                    String user2 = dataSnapshot.child("user_2").getValue(String.class);
+                                                if (snapshot.child("chat").exists()) {
+                                                    for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
+                                                        String user1 = dataSnapshot.child("user_1").getValue(String.class);
+                                                        String user2 = dataSnapshot.child("user_2").getValue(String.class);
 
-                                                    if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", dataSnapshot.getKey());
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+                                                        if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
+                                                            loadingDialog.DismissDialog();
 
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                    } else {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", "");
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                            intent.putExtra("mobile", mobile);
+                                                            intent.putExtra("name", userName);
+                                                            intent.putExtra("chat_key", dataSnapshot.getKey());
+                                                            intent.putExtra("userID", uid);
+                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
 
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                            startActivity(intent);
+                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                        } else {
+                                                            loadingDialog.DismissDialog();
+
+                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                            intent.putExtra("mobile", mobile);
+                                                            intent.putExtra("name", userName);
+                                                            intent.putExtra("chat_key", "");
+                                                            intent.putExtra("userID", uid);
+                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                            startActivity(intent);
+                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                        }
                                                     }
+                                                } else {
+                                                    loadingDialog.DismissDialog();
+
+                                                    Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                    intent.putExtra("mobile", mobile);
+                                                    intent.putExtra("name", userName);
+                                                    intent.putExtra("chat_key", "");
+                                                    intent.putExtra("userID", uid);
+                                                    intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                    startActivity(intent);
+                                                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                                                 }
                                             }
 
@@ -1411,33 +1531,50 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                 String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
                                                 String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
                                                 String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-                                                loadingDialog.DismissDialog();
 
-                                                for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
-                                                    String user1 = dataSnapshot.child("user_1").getValue(String.class);
-                                                    String user2 = dataSnapshot.child("user_2").getValue(String.class);
+                                                if (snapshot.child("chat").exists()) {
+                                                    for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
+                                                        String user1 = dataSnapshot.child("user_1").getValue(String.class);
+                                                        String user2 = dataSnapshot.child("user_2").getValue(String.class);
 
-                                                    if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", dataSnapshot.getKey());
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+                                                        if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
+                                                            loadingDialog.DismissDialog();
 
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                    } else {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", "");
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                            intent.putExtra("mobile", mobile);
+                                                            intent.putExtra("name", userName);
+                                                            intent.putExtra("chat_key", dataSnapshot.getKey());
+                                                            intent.putExtra("userID", uid);
+                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
 
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                            startActivity(intent);
+                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                        } else {
+                                                            loadingDialog.DismissDialog();
+
+                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                            intent.putExtra("mobile", mobile);
+                                                            intent.putExtra("name", userName);
+                                                            intent.putExtra("chat_key", "");
+                                                            intent.putExtra("userID", uid);
+                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                            startActivity(intent);
+                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                        }
                                                     }
+                                                } else {
+                                                    loadingDialog.DismissDialog();
+
+                                                    Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                    intent.putExtra("mobile", mobile);
+                                                    intent.putExtra("name", userName);
+                                                    intent.putExtra("chat_key", "");
+                                                    intent.putExtra("userID", uid);
+                                                    intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                    startActivity(intent);
+                                                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                                                 }
                                             }
 
@@ -1564,33 +1701,50 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                 String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
                                                 String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
                                                 String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-                                                loadingDialog.DismissDialog();
 
-                                                for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
-                                                    String user1 = dataSnapshot.child("user_1").getValue(String.class);
-                                                    String user2 = dataSnapshot.child("user_2").getValue(String.class);
+                                                if (snapshot.child("chat").exists()) {
+                                                    for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
+                                                        String user1 = dataSnapshot.child("user_1").getValue(String.class);
+                                                        String user2 = dataSnapshot.child("user_2").getValue(String.class);
 
-                                                    if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", dataSnapshot.getKey());
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+                                                        if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
+                                                            loadingDialog.DismissDialog();
 
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                    } else {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", "");
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                            intent.putExtra("mobile", mobile);
+                                                            intent.putExtra("name", userName);
+                                                            intent.putExtra("chat_key", dataSnapshot.getKey());
+                                                            intent.putExtra("userID", uid);
+                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
 
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                            startActivity(intent);
+                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                        } else {
+                                                            loadingDialog.DismissDialog();
+
+                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                            intent.putExtra("mobile", mobile);
+                                                            intent.putExtra("name", userName);
+                                                            intent.putExtra("chat_key", "");
+                                                            intent.putExtra("userID", uid);
+                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                            startActivity(intent);
+                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                        }
                                                     }
+                                                } else {
+                                                    loadingDialog.DismissDialog();
+
+                                                    Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                    intent.putExtra("mobile", mobile);
+                                                    intent.putExtra("name", userName);
+                                                    intent.putExtra("chat_key", "");
+                                                    intent.putExtra("userID", uid);
+                                                    intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                    startActivity(intent);
+                                                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                                                 }
                                             }
 
@@ -1714,33 +1868,50 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                 String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
                                                 String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
                                                 String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-                                                loadingDialog.DismissDialog();
 
-                                                for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
-                                                    String user1 = dataSnapshot.child("user_1").getValue(String.class);
-                                                    String user2 = dataSnapshot.child("user_2").getValue(String.class);
+                                                if (snapshot.child("chat").exists()) {
+                                                    for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
+                                                        String user1 = dataSnapshot.child("user_1").getValue(String.class);
+                                                        String user2 = dataSnapshot.child("user_2").getValue(String.class);
 
-                                                    if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", dataSnapshot.getKey());
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+                                                        if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
+                                                            loadingDialog.DismissDialog();
 
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                    } else {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", "");
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                            intent.putExtra("mobile", mobile);
+                                                            intent.putExtra("name", userName);
+                                                            intent.putExtra("chat_key", dataSnapshot.getKey());
+                                                            intent.putExtra("userID", uid);
+                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
 
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                            startActivity(intent);
+                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                        } else {
+                                                            loadingDialog.DismissDialog();
+
+                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                            intent.putExtra("mobile", mobile);
+                                                            intent.putExtra("name", userName);
+                                                            intent.putExtra("chat_key", "");
+                                                            intent.putExtra("userID", uid);
+                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                            startActivity(intent);
+                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                        }
                                                     }
+                                                } else {
+                                                    loadingDialog.DismissDialog();
+
+                                                    Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                    intent.putExtra("mobile", mobile);
+                                                    intent.putExtra("name", userName);
+                                                    intent.putExtra("chat_key", "");
+                                                    intent.putExtra("userID", uid);
+                                                    intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                    startActivity(intent);
+                                                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                                                 }
                                             }
 
@@ -1867,33 +2038,50 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                 String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
                                                 String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
                                                 String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-                                                loadingDialog.DismissDialog();
 
-                                                for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
-                                                    String user1 = dataSnapshot.child("user_1").getValue(String.class);
-                                                    String user2 = dataSnapshot.child("user_2").getValue(String.class);
+                                                if (snapshot.child("chat").exists()) {
+                                                    for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
+                                                        String user1 = dataSnapshot.child("user_1").getValue(String.class);
+                                                        String user2 = dataSnapshot.child("user_2").getValue(String.class);
 
-                                                    if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", dataSnapshot.getKey());
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+                                                        if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
+                                                            loadingDialog.DismissDialog();
 
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                    } else {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", "");
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                            intent.putExtra("mobile", mobile);
+                                                            intent.putExtra("name", userName);
+                                                            intent.putExtra("chat_key", dataSnapshot.getKey());
+                                                            intent.putExtra("userID", uid);
+                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
 
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                            startActivity(intent);
+                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                        } else {
+                                                            loadingDialog.DismissDialog();
+
+                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                            intent.putExtra("mobile", mobile);
+                                                            intent.putExtra("name", userName);
+                                                            intent.putExtra("chat_key", "");
+                                                            intent.putExtra("userID", uid);
+                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                            startActivity(intent);
+                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                        }
                                                     }
+                                                } else {
+                                                    loadingDialog.DismissDialog();
+
+                                                    Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                    intent.putExtra("mobile", mobile);
+                                                    intent.putExtra("name", userName);
+                                                    intent.putExtra("chat_key", "");
+                                                    intent.putExtra("userID", uid);
+                                                    intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                    startActivity(intent);
+                                                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                                                 }
                                             }
 
@@ -2011,33 +2199,50 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                 String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
                                                 String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
                                                 String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-                                                loadingDialog.DismissDialog();
 
-                                                for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
-                                                    String user1 = dataSnapshot.child("user_1").getValue(String.class);
-                                                    String user2 = dataSnapshot.child("user_2").getValue(String.class);
+                                                if (snapshot.child("chat").exists()) {
+                                                    for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
+                                                        String user1 = dataSnapshot.child("user_1").getValue(String.class);
+                                                        String user2 = dataSnapshot.child("user_2").getValue(String.class);
 
-                                                    if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", dataSnapshot.getKey());
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+                                                        if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
+                                                            loadingDialog.DismissDialog();
 
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                    } else {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", "");
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                            intent.putExtra("mobile", mobile);
+                                                            intent.putExtra("name", userName);
+                                                            intent.putExtra("chat_key", dataSnapshot.getKey());
+                                                            intent.putExtra("userID", uid);
+                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
 
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                            startActivity(intent);
+                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                        } else {
+                                                            loadingDialog.DismissDialog();
+
+                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                            intent.putExtra("mobile", mobile);
+                                                            intent.putExtra("name", userName);
+                                                            intent.putExtra("chat_key", "");
+                                                            intent.putExtra("userID", uid);
+                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                            startActivity(intent);
+                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+                                                        }
                                                     }
+                                                } else {
+                                                    loadingDialog.DismissDialog();
+
+                                                    Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                                                    intent.putExtra("mobile", mobile);
+                                                    intent.putExtra("name", userName);
+                                                    intent.putExtra("chat_key", "");
+                                                    intent.putExtra("userID", uid);
+                                                    intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                                    startActivity(intent);
+                                                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                                                 }
                                             }
 

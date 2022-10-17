@@ -16,9 +16,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="USERNAME"
+            android:textAlignment="center"
             android:fontFamily="@font/poppins"
             android:textColor="@color/primary"
-            android:textSize="40sp" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/callState"
@@ -29,7 +30,7 @@
             android:textAllCaps="true"
             android:textColor="@color/primary_black"
             android:fontFamily="@font/poppins"
-            android:textSize="26sp" />
+            android:textSize="20sp" />
 
     </LinearLayout>
 

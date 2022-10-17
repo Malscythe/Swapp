@@ -308,6 +308,7 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
     @Override
     public void onUserRegistrationFailed(SinchError sinchError) {
         Toast.makeText(this, "Registration failed!", Toast.LENGTH_LONG).show();
+        Log.w("Sinch error", sinchError.getMessage());
     }
 
     @Override
@@ -324,10 +325,12 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
     @Override
     public void onPushTokenRegistrationFailed(SinchError sinchError) {
         Toast.makeText(this, "Push token registration failed - incoming calls can't be received!", Toast.LENGTH_LONG).show();
+        Log.w("Sinch error", sinchError.getMessage());
     }
 
     @Override
     public void onCredentialsRequired(ClientRegistration clientRegistration) {
         clientRegistration.register(JWT.create(APP_KEY, APP_SECRET, mUserId));
+
     }
 }

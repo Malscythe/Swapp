@@ -1,32 +1,31 @@
 package com.example.Swapp;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.text.Editable;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
@@ -44,6 +43,9 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.slider.Slider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -58,6 +60,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -75,10 +78,11 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     SupportMapFragment mapFragment;
     private GoogleMap mMap;
     private FusedLocationProviderClient fusedLocationProviderClient;
-    private Marker marker;
+    private Marker marker, marker1;
     private MarkerOptions markerOptions;
     private Circle circle;
     FirebaseAuth firebaseAuth;
+    Bundle bundle;
 
     @Nullable
     @Override
@@ -90,7 +94,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
         mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapfrag);
         mapFragment.getMapAsync(this);
-
 
         mapInitialize();
 
@@ -112,12 +115,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
         binding.confirmBtn.setVisibility(View.GONE);
 
-        Bundle bundle = getArguments();
-
-
-
         firebaseAuth = FirebaseAuth.getInstance();
         String uid = firebaseAuth.getCurrentUser().getUid();
+
+        bundle = getArguments();
 
         String category = bundle.getString("category");
         String from = bundle.getString("from");
@@ -168,6 +169,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                             }
 
                             mMap.setMyLocationEnabled(true);
+                            mMap.getUiSettings().setMyLocationButtonEnabled(false);
                             fusedLocationProviderClient.getLastLocation().addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
@@ -180,6 +182,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                     ArrayList<String> keys = new ArrayList<>();
                                     HashMap<String, Marker> hashMapMarker = new HashMap<>();
 
+                                    HashMap<String, Marker> hashMapMarker1 = new HashMap<>();
+
                                     String hideSearch = bundle.getString("from");
 
                                     if (hideSearch.equals("categories")) {
@@ -189,6 +193,17 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                         binding.getRadius.setVisibility(View.VISIBLE);
                                         binding.currentAddressLayout.setVisibility(View.GONE);
                                         binding.searchLocation.setVisibility(View.GONE);
+                                        binding.searchNearByLocation.setVisibility(View.VISIBLE);
+
+                                        binding.searchNearByLocation.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                                            @Override
+                                            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                                                if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE || event.getAction() == KeyEvent.ACTION_DOWN || event.getAction() == KeyEvent.KEYCODE_ENTER) {
+                                                    goToNearbyLocation(mMap, location.getLatitude(), location.getLongitude());
+                                                }
+                                                return false;
+                                            }
+                                        });
 
                                         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -202,71 +217,187 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                                                         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
-                                                            binding.sliderRadius.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
+                                                            binding.confirmBtn.setVisibility(View.VISIBLE);
+
+                                                            LatLng latLng1 = new LatLng(Double.parseDouble(dataSnapshot1.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot1.child("Address").child("Longitude").getValue(String.class)));
+
+                                                            String oldKey = dataSnapshot.getKey() + "-" + dataSnapshot1.getKey();
+
+                                                            if (!hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                markerOptions = new MarkerOptions();
+                                                                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                                                                markerOptions.position(latLng1);
+
+                                                                marker = mMap.addMarker(markerOptions);
+                                                                hashMapMarker.put(oldKey, marker);
+
+                                                                keys.add(oldKey);
+
+                                                                Set<String> set = new HashSet<>(keys);
+                                                                keys.clear();
+                                                                keys.addAll(set);
+
+                                                            } else if (hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                marker = hashMapMarker.get(oldKey);
+                                                                marker.remove();
+                                                                hashMapMarker.remove(oldKey);
+                                                                keys.remove(oldKey);
+                                                            }
+
+                                                            binding.goToMyLocation.setOnClickListener(new View.OnClickListener() {
                                                                 @Override
-                                                                public void onStartTrackingTouch(@NonNull Slider slider) {
-
-                                                                    binding.confirmBtn.setVisibility(View.VISIBLE);
-
+                                                                public void onClick(View v) {
+                                                                    gotoLatLng(location.getLatitude(), location.getLongitude(), 12.5f);
                                                                 }
+                                                            });
 
+                                                            binding.chipGroup.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
                                                                 @Override
-                                                                public void onStopTrackingTouch(@NonNull Slider slider) {
+                                                                public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
 
+                                                                    if (checkedIds.size() > 0) {
+                                                                        Chip selectedChip = group.findViewById(checkedIds.get(0));
 
-                                                                    float[] distance = new float[2];
-
-                                                                    if (circle != null) {
-                                                                        circle.remove();
-                                                                    }
-
-                                                                    float newRadius = slider.getValue();
-
-                                                                    CircleOptions circleOptions = new CircleOptions().center(latLng).radius(newRadius).fillColor(0x4406E8F1).strokeColor(0xFF06E8F1).strokeWidth(8);
-                                                                    circle = googleMap.addCircle(circleOptions);
-
-                                                                    LatLng latLng1 = new LatLng(Double.parseDouble(dataSnapshot1.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot1.child("Address").child("Longitude").getValue(String.class)));
-
-                                                                    Location.distanceBetween(Double.parseDouble(dataSnapshot1.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot1.child("Address").child("Longitude").getValue(String.class)),
-                                                                            circle.getCenter().latitude, circle.getCenter().longitude, distance);
-
-                                                                    String oldKey = dataSnapshot.getKey() + "-" + dataSnapshot1.getKey();
-
-                                                                    if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
-                                                                        markerOptions = new MarkerOptions();
-                                                                        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                                                                        markerOptions.position(latLng1);
-
-                                                                        marker = mMap.addMarker(markerOptions);
-                                                                        hashMapMarker.put(oldKey, marker);
-
-                                                                        keys.add(oldKey);
-
-                                                                        Set<String> set = new HashSet<>(keys);
-                                                                        keys.clear();
-                                                                        keys.addAll(set);
-
-                                                                    } else if (hashMapMarker.containsKey(oldKey) && distance[0] > circle.getRadius() && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
-                                                                        marker = hashMapMarker.get(oldKey);
-                                                                        marker.remove();
-                                                                        hashMapMarker.remove(oldKey);
-                                                                        keys.remove(oldKey);
-                                                                    }
-
-
-                                                                    if (newRadius == 0f && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
-                                                                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16f));
+                                                                        hashMapMarker.clear();
                                                                         mMap.clear();
-                                                                        circle.remove();
-
-                                                                        keys.add(oldKey);
-
-                                                                        Set<String> set = new HashSet<>(keys);
                                                                         keys.clear();
-                                                                        keys.addAll(set);
+
+                                                                        float[] distance = new float[2];
+
+                                                                        databaseReference.child("items").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                                                float newRadius = 0f;
+                                                                                float newZoom = 0f;
+
+                                                                                for (DataSnapshot dataSnapshot2 : snapshot.getChildren()) {
+                                                                                    for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
+
+                                                                                        if (circle != null) {
+                                                                                            circle.remove();
+                                                                                        }
+
+                                                                                        switch (selectedChip.getText().toString()) {
+                                                                                            case "5 km":
+                                                                                                newRadius = 5000f;
+                                                                                                newZoom = 12.5f;
+                                                                                                break;
+                                                                                            case "10 km":
+                                                                                                newRadius = 10000f;
+                                                                                                newZoom = 11.5f;
+                                                                                                break;
+                                                                                            case "15 km":
+                                                                                                newRadius = 15000f;
+                                                                                                newZoom = 10.8f;
+                                                                                                break;
+                                                                                            case "20 km":
+                                                                                                newRadius = 20000f;
+                                                                                                newZoom = 10.4f;
+                                                                                                break;
+                                                                                            case "25 km":
+                                                                                                newRadius = 25000f;
+                                                                                                newZoom = 10f;
+                                                                                                break;
+                                                                                            case "30 km":
+                                                                                                newRadius = 30000f;
+                                                                                                newZoom = 9.8f;
+                                                                                                break;
+                                                                                        }
+
+                                                                                        CircleOptions circleOptions = new CircleOptions().center(latLng).radius(newRadius).fillColor(0x4406E8F1).strokeColor(0xFF06E8F1).strokeWidth(8);
+                                                                                        circle = googleMap.addCircle(circleOptions);
+
+                                                                                        LatLng latLng1 = new LatLng(Double.parseDouble(dataSnapshot3.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot3.child("Address").child("Longitude").getValue(String.class)));
+
+                                                                                        Location.distanceBetween(Double.parseDouble(dataSnapshot3.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot3.child("Address").child("Longitude").getValue(String.class)),
+                                                                                                circle.getCenter().latitude, circle.getCenter().longitude, distance);
+
+                                                                                        String oldKey = dataSnapshot2.getKey() + "-" + dataSnapshot3.getKey();
+
+                                                                                        if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot3.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                                            markerOptions = new MarkerOptions();
+                                                                                            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                                                                                            markerOptions.position(latLng1);
+
+                                                                                            marker = mMap.addMarker(markerOptions);
+                                                                                            hashMapMarker.put(oldKey, marker);
+
+                                                                                            keys.add(oldKey);
+
+                                                                                            Set<String> set = new HashSet<>(keys);
+                                                                                            keys.clear();
+                                                                                            keys.addAll(set);
+
+                                                                                        } else if (distance[0] > circle.getRadius() && hashMapMarker.containsKey(oldKey) && !dataSnapshot3.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                                            marker = hashMapMarker.get(oldKey);
+                                                                                            marker.remove();
+                                                                                            hashMapMarker.remove(oldKey);
+                                                                                            keys.remove(oldKey);
+                                                                                        }
+                                                                                    }
+                                                                                }
+
+                                                                                gotoLatLng(location.getLatitude(), location.getLongitude(), newZoom);
+                                                                            }
+
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                                                            }
+                                                                        });
+
                                                                     } else {
 
-                                                                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(circle.getCenter(), getZoomLevel(circle)));
+                                                                        circle.remove();
+
+                                                                        hashMapMarker.clear();
+                                                                        mMap.clear();
+
+                                                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                                                        databaseReference1.child("items").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                for (DataSnapshot dataSnapshot4 : snapshot.getChildren()) {
+                                                                                    for (DataSnapshot dataSnapshot5 : dataSnapshot4.getChildren()) {
+
+                                                                                        binding.confirmBtn.setVisibility(View.VISIBLE);
+
+                                                                                        LatLng latLng1 = new LatLng(Double.parseDouble(dataSnapshot5.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot5.child("Address").child("Longitude").getValue(String.class)));
+
+                                                                                        String oldKey = dataSnapshot4.getKey() + "-" + dataSnapshot5.getKey();
+
+                                                                                        if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                                            markerOptions = new MarkerOptions();
+                                                                                            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                                                                                            markerOptions.position(latLng1);
+
+                                                                                            marker = mMap.addMarker(markerOptions);
+                                                                                            hashMapMarker.put(oldKey, marker);
+
+                                                                                            keys.add(oldKey);
+
+                                                                                            Set<String> set = new HashSet<>(keys);
+                                                                                            keys.clear();
+                                                                                            keys.addAll(set);
+
+                                                                                        } else if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                                            marker = hashMapMarker.get(oldKey);
+                                                                                            marker.remove();
+                                                                                            hashMapMarker.remove(oldKey);
+                                                                                            keys.remove(oldKey);
+                                                                                        }
+                                                                                    }
+                                                                                }
+
+                                                                                gotoLatLng(location.getLatitude(), location.getLongitude(), 9.7f);
+                                                                            }
+
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                                                            }
+                                                                        });
                                                                     }
                                                                 }
                                                             });
@@ -290,73 +421,196 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                                         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
                                                             if (dataSnapshot1.child("Item_Category").getValue(String.class).equals(category)) {
-                                                                binding.sliderRadius.addOnSliderTouchListener(new Slider.OnSliderTouchListener() {
-                                                                    @Override
-                                                                    public void onStartTrackingTouch(@NonNull Slider slider) {
 
-                                                                        binding.confirmBtn.setVisibility(View.VISIBLE);
+                                                                binding.confirmBtn.setVisibility(View.VISIBLE);
 
-                                                                    }
+                                                                LatLng latLng1 = new LatLng(Double.parseDouble(dataSnapshot1.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot1.child("Address").child("Longitude").getValue(String.class)));
 
-                                                                    @Override
-                                                                    public void onStopTrackingTouch(@NonNull Slider slider) {
+                                                                String oldKey = dataSnapshot.getKey() + "-" + dataSnapshot1.getKey();
+
+                                                                if (!hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                    markerOptions = new MarkerOptions();
+                                                                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                                                                    markerOptions.position(latLng1);
+
+                                                                    marker = mMap.addMarker(markerOptions);
+                                                                    hashMapMarker.put(oldKey, marker);
+
+                                                                    keys.add(oldKey);
+
+                                                                    Set<String> set = new HashSet<>(keys);
+                                                                    keys.clear();
+                                                                    keys.addAll(set);
+
+                                                                } else if (hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                    marker = hashMapMarker.get(oldKey);
+                                                                    marker.remove();
+                                                                    hashMapMarker.remove(oldKey);
+                                                                    keys.remove(oldKey);
+                                                                }
+                                                            }
+
+                                                            binding.goToMyLocation.setOnClickListener(new View.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(View v) {
+                                                                    gotoLatLng(location.getLatitude(), location.getLongitude(), 12.5f);
+                                                                }
+                                                            });
+
+                                                            binding.chipGroup.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
+                                                                @Override
+                                                                public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
+
+                                                                    if (checkedIds.size() > 0) {
+                                                                        Chip selectedChip = group.findViewById(checkedIds.get(0));
+
+                                                                        hashMapMarker.clear();
+                                                                        mMap.clear();
+                                                                        keys.clear();
 
                                                                         float[] distance = new float[2];
 
-                                                                        if (circle != null) {
-                                                                            circle.remove();
-                                                                        }
+                                                                        databaseReference.child("items").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                                                        float newRadius = slider.getValue();
+                                                                                float newRadius = 0f;
+                                                                                float newZoom = 0f;
 
-                                                                        CircleOptions circleOptions = new CircleOptions().center(latLng).radius(newRadius).fillColor(0x4406E8F1).strokeColor(0xFF06E8F1).strokeWidth(8);
-                                                                        circle = googleMap.addCircle(circleOptions);
+                                                                                for (DataSnapshot dataSnapshot2 : snapshot.getChildren()) {
+                                                                                    for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
+                                                                                        if (dataSnapshot3.child("Item_Category").getValue(String.class).equals(category)) {
 
-                                                                        LatLng latLng1 = new LatLng(Double.parseDouble(dataSnapshot1.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot1.child("Address").child("Longitude").getValue(String.class)));
+                                                                                            if (circle != null) {
+                                                                                                circle.remove();
+                                                                                            }
 
-                                                                        Location.distanceBetween(Double.parseDouble(dataSnapshot1.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot1.child("Address").child("Longitude").getValue(String.class)),
-                                                                                circle.getCenter().latitude, circle.getCenter().longitude, distance);
+                                                                                            switch (selectedChip.getText().toString()) {
+                                                                                                case "5 km":
+                                                                                                    newRadius = 5000f;
+                                                                                                    newZoom = 12.5f;
+                                                                                                    break;
+                                                                                                case "10 km":
+                                                                                                    newRadius = 10000f;
+                                                                                                    newZoom = 11.5f;
+                                                                                                    break;
+                                                                                                case "15 km":
+                                                                                                    newRadius = 15000f;
+                                                                                                    newZoom = 10.8f;
+                                                                                                    break;
+                                                                                                case "20 km":
+                                                                                                    newRadius = 20000f;
+                                                                                                    newZoom = 10.4f;
+                                                                                                    break;
+                                                                                                case "25 km":
+                                                                                                    newRadius = 25000f;
+                                                                                                    newZoom = 10f;
+                                                                                                    break;
+                                                                                                case "30 km":
+                                                                                                    newRadius = 30000f;
+                                                                                                    newZoom = 9.8f;
+                                                                                                    break;
+                                                                                            }
 
-                                                                        String oldKey = dataSnapshot.getKey() + "-" + dataSnapshot1.getKey();
+                                                                                            CircleOptions circleOptions = new CircleOptions().center(latLng).radius(newRadius).fillColor(0x4406E8F1).strokeColor(0xFF06E8F1).strokeWidth(8);
+                                                                                            circle = googleMap.addCircle(circleOptions);
 
-                                                                        if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
-                                                                            markerOptions = new MarkerOptions();
-                                                                            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                                                                            markerOptions.position(latLng1);
+                                                                                            LatLng latLng1 = new LatLng(Double.parseDouble(dataSnapshot3.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot3.child("Address").child("Longitude").getValue(String.class)));
 
-                                                                            marker = mMap.addMarker(markerOptions);
-                                                                            hashMapMarker.put(oldKey, marker);
+                                                                                            Location.distanceBetween(Double.parseDouble(dataSnapshot3.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot3.child("Address").child("Longitude").getValue(String.class)),
+                                                                                                    circle.getCenter().latitude, circle.getCenter().longitude, distance);
 
-                                                                            keys.add(oldKey);
+                                                                                            String oldKey = dataSnapshot2.getKey() + "-" + dataSnapshot3.getKey();
 
-                                                                            Set<String> set = new HashSet<>(keys);
-                                                                            keys.clear();
-                                                                            keys.addAll(set);
+                                                                                            if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot3.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                                                markerOptions = new MarkerOptions();
+                                                                                                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                                                                                                markerOptions.position(latLng1);
 
-                                                                        } else if (hashMapMarker.containsKey(oldKey) && distance[0] > circle.getRadius() && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
-                                                                            marker = hashMapMarker.get(oldKey);
-                                                                            marker.remove();
-                                                                            hashMapMarker.remove(oldKey);
-                                                                            keys.remove(oldKey);
-                                                                        }
+                                                                                                marker = mMap.addMarker(markerOptions);
+                                                                                                hashMapMarker.put(oldKey, marker);
 
-                                                                        if (newRadius == 0f && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
-                                                                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16f));
-                                                                            mMap.clear();
-                                                                            circle.remove();
+                                                                                                keys.add(oldKey);
 
-                                                                            keys.add(oldKey);
+                                                                                                Set<String> set = new HashSet<>(keys);
+                                                                                                keys.clear();
+                                                                                                keys.addAll(set);
 
-                                                                            Set<String> set = new HashSet<>(keys);
-                                                                            keys.clear();
-                                                                            keys.addAll(set);
-                                                                        } else {
+                                                                                            } else if (distance[0] > circle.getRadius() && hashMapMarker.containsKey(oldKey) && !dataSnapshot3.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                                                marker = hashMapMarker.get(oldKey);
+                                                                                                marker.remove();
+                                                                                                hashMapMarker.remove(oldKey);
+                                                                                                keys.remove(oldKey);
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                }
 
-                                                                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(circle.getCenter(), getZoomLevel(circle)));
-                                                                        }
+                                                                                gotoLatLng(location.getLatitude(), location.getLongitude(), newZoom);
+                                                                            }
+
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                                                            }
+                                                                        });
+
+                                                                    } else {
+
+                                                                        circle.remove();
+
+                                                                        hashMapMarker.clear();
+                                                                        mMap.clear();
+
+                                                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                                                        databaseReference1.child("items").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                for (DataSnapshot dataSnapshot4 : snapshot.getChildren()) {
+                                                                                    for (DataSnapshot dataSnapshot5 : dataSnapshot4.getChildren()) {
+                                                                                        if (dataSnapshot5.child("Item_Category").getValue(String.class).equals(category)) {
+
+                                                                                            binding.confirmBtn.setVisibility(View.VISIBLE);
+
+                                                                                            LatLng latLng1 = new LatLng(Double.parseDouble(dataSnapshot5.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot5.child("Address").child("Longitude").getValue(String.class)));
+
+                                                                                            String oldKey = dataSnapshot4.getKey() + "-" + dataSnapshot5.getKey();
+
+                                                                                            if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                                                markerOptions = new MarkerOptions();
+                                                                                                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                                                                                                markerOptions.position(latLng1);
+
+                                                                                                marker = mMap.addMarker(markerOptions);
+                                                                                                hashMapMarker.put(oldKey, marker);
+
+                                                                                                keys.add(oldKey);
+
+                                                                                                Set<String> set = new HashSet<>(keys);
+                                                                                                keys.clear();
+                                                                                                keys.addAll(set);
+
+                                                                                            } else if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                                                marker = hashMapMarker.get(oldKey);
+                                                                                                marker.remove();
+                                                                                                hashMapMarker.remove(oldKey);
+                                                                                                keys.remove(oldKey);
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                }
+
+                                                                                gotoLatLng(location.getLatitude(), location.getLongitude(), 9.7f);
+                                                                            }
+
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                                                            }
+                                                                        });
                                                                     }
-                                                                });
-                                                            }
+                                                                }
+                                                            });
                                                         }
                                                     }
                                                 }
@@ -374,49 +628,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                         binding.getRadius.setVisibility(View.GONE);
                                         binding.currentAddressLayout.setVisibility(View.VISIBLE);
                                         binding.searchLocation.setVisibility(View.VISIBLE);
+                                        binding.searchNearByLocation.setVisibility(View.GONE);
 
                                         binding.searchLocation.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                                             @Override
                                             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                                                 if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE || event.getAction() == KeyEvent.ACTION_DOWN || event.getAction() == KeyEvent.KEYCODE_ENTER) {
                                                     goToSearchLocation();
-                                                }
-
-                                                return false;
-                                            }
-                                        });
-
-                                        mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
-                                            @Override
-                                            public boolean onMyLocationButtonClick() {
-                                                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                                                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 19f));
-
-                                                if (marker != null) {
-
-                                                    marker.remove();
-
-                                                }
-
-                                                markerOptions = new MarkerOptions();
-                                                markerOptions.draggable(true);
-                                                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                                                markerOptions.position(new LatLng(location.getLatitude(), location.getLongitude()));
-                                                marker = mMap.addMarker(markerOptions);
-
-                                                LatLng markerPosition = marker.getPosition();
-                                                try {
-                                                    Geocoder geo = new Geocoder(getContext(), Locale.getDefault());
-                                                    List<Address> addresses = geo.getFromLocation(markerPosition.latitude, markerPosition.longitude, 1);
-                                                    if (addresses.isEmpty()) {
-                                                        binding.currentAddress.setText("Waiting for Location");
-                                                    } else {
-                                                        if (addresses.size() > 0) {
-                                                            binding.currentAddress.setText(addresses.get(0).getAddressLine(0));
-                                                        }
-                                                    }
-                                                } catch (Exception e) {
-                                                    e.printStackTrace();
                                                 }
 
                                                 return false;
@@ -1311,6 +1529,883 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+    private void goToNearbyLocation(GoogleMap googleMap, Double myLatitude, Double myLongitude) {
+
+        mMap.clear();
+        String searchLocation = binding.searchNearByLocation.getText().toString();
+
+        Geocoder geocoder = new Geocoder(getContext());
+        List<Address> list = new ArrayList<>();
+        String uid = firebaseAuth.getCurrentUser().getUid();
+
+        ArrayList<String> keys = new ArrayList<>();
+        HashMap<String, Marker> hashMapMarker = new HashMap<>();
+
+        float[] distance = new float[2];
+
+        bundle = getArguments();
+
+        binding.chipGroup.clearCheck();
+
+        String category = bundle.getString("category");
+
+        try {
+            list = geocoder.getFromLocationName(searchLocation, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (list.size() > 0) {
+            Address address = list.get(0);
+            double latitude = address.getLatitude();
+            double longitude = address.getLongitude();
+            gotoLatLng(latitude, longitude, 12.5f);
+
+            LatLng latLng = new LatLng(latitude, longitude);
+
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+            if (category.equals("all")) {
+
+                databaseReference.child("items").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+
+                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+
+                                binding.confirmBtn.setVisibility(View.VISIBLE);
+
+                                if (circle != null) {
+                                    circle.remove();
+                                }
+
+                                CircleOptions circleOptions = new CircleOptions().center(latLng).radius(5000f).fillColor(0x4406E8F1).strokeColor(0xFF06E8F1).strokeWidth(8);
+                                circle = googleMap.addCircle(circleOptions);
+
+                                LatLng latLng1 = new LatLng(Double.parseDouble(dataSnapshot1.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot1.child("Address").child("Longitude").getValue(String.class)));
+
+                                Location.distanceBetween(Double.parseDouble(dataSnapshot1.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot1.child("Address").child("Longitude").getValue(String.class)),
+                                        circle.getCenter().latitude, circle.getCenter().longitude, distance);
+
+                                String oldKey = dataSnapshot.getKey() + "-" + dataSnapshot1.getKey();
+
+                                if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                    markerOptions = new MarkerOptions();
+                                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                                    markerOptions.position(latLng1);
+
+                                    marker = mMap.addMarker(markerOptions);
+                                    hashMapMarker.put(oldKey, marker);
+
+                                    keys.add(oldKey);
+
+                                    Set<String> set = new HashSet<>(keys);
+                                    keys.clear();
+                                    keys.addAll(set);
+
+                                } else if (distance[0] > circle.getRadius() && hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                    marker = hashMapMarker.get(oldKey);
+                                    marker.remove();
+                                    hashMapMarker.remove(oldKey);
+                                    keys.remove(oldKey);
+                                }
+
+                                binding.goToMyLocation.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+                                        mMap.clear();
+                                        keys.clear();
+                                        hashMapMarker.clear();
+
+                                        LatLng myLatLng = new LatLng(myLatitude, myLongitude);
+
+                                        float[] distance = new float[2];
+
+                                        if (circle != null) {
+                                            circle.remove();
+                                        }
+
+                                        CircleOptions circleOptions = new CircleOptions().center(myLatLng).radius(5000f).fillColor(0x4406E8F1).strokeColor(0xFF06E8F1).strokeWidth(8);
+                                        circle = googleMap.addCircle(circleOptions);
+
+                                        LatLng latLng1 = new LatLng(Double.parseDouble(dataSnapshot1.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot1.child("Address").child("Longitude").getValue(String.class)));
+
+                                        Location.distanceBetween(Double.parseDouble(dataSnapshot1.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot1.child("Address").child("Longitude").getValue(String.class)),
+                                                circle.getCenter().latitude, circle.getCenter().longitude, distance);
+
+                                        String oldKey = dataSnapshot.getKey() + "-" + dataSnapshot1.getKey();
+
+                                        if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                            markerOptions = new MarkerOptions();
+                                            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                                            markerOptions.position(latLng1);
+
+                                            marker = mMap.addMarker(markerOptions);
+                                            hashMapMarker.put(oldKey, marker);
+
+                                            keys.add(oldKey);
+
+                                            Set<String> set = new HashSet<>(keys);
+                                            keys.clear();
+                                            keys.addAll(set);
+
+                                        } else if (distance[0] > circle.getRadius() && hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                            marker = hashMapMarker.get(oldKey);
+                                            marker.remove();
+                                            hashMapMarker.remove(oldKey);
+                                            keys.remove(oldKey);
+                                        }
+
+                                        binding.chipGroup.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
+                                            @Override
+                                            public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
+
+                                                if (checkedIds.size() > 0) {
+                                                    Chip selectedChip = group.findViewById(checkedIds.get(0));
+
+                                                    hashMapMarker.clear();
+                                                    mMap.clear();
+                                                    keys.clear();
+
+                                                    float[] distance = new float[2];
+
+                                                    databaseReference.child("items").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                            float newRadius = 0f;
+                                                            float newZoom = 0f;
+
+                                                            for (DataSnapshot dataSnapshot2 : snapshot.getChildren()) {
+                                                                for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
+
+                                                                    if (circle != null) {
+                                                                        circle.remove();
+                                                                    }
+
+                                                                    switch (selectedChip.getText().toString()) {
+                                                                        case "5 km":
+                                                                            newRadius = 5000f;
+                                                                            newZoom = 12.5f;
+                                                                            break;
+                                                                        case "10 km":
+                                                                            newRadius = 10000f;
+                                                                            newZoom = 11.5f;
+                                                                            break;
+                                                                        case "15 km":
+                                                                            newRadius = 15000f;
+                                                                            newZoom = 10.8f;
+                                                                            break;
+                                                                        case "20 km":
+                                                                            newRadius = 20000f;
+                                                                            newZoom = 10.4f;
+                                                                            break;
+                                                                        case "25 km":
+                                                                            newRadius = 25000f;
+                                                                            newZoom = 10f;
+                                                                            break;
+                                                                        case "30 km":
+                                                                            newRadius = 30000f;
+                                                                            newZoom = 9.8f;
+                                                                            break;
+                                                                    }
+
+                                                                    CircleOptions circleOptions = new CircleOptions().center(myLatLng).radius(newRadius).fillColor(0x4406E8F1).strokeColor(0xFF06E8F1).strokeWidth(8);
+                                                                    circle = googleMap.addCircle(circleOptions);
+
+                                                                    LatLng latLng1 = new LatLng(Double.parseDouble(dataSnapshot3.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot3.child("Address").child("Longitude").getValue(String.class)));
+
+                                                                    Location.distanceBetween(Double.parseDouble(dataSnapshot3.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot3.child("Address").child("Longitude").getValue(String.class)),
+                                                                            circle.getCenter().latitude, circle.getCenter().longitude, distance);
+
+                                                                    String oldKey = dataSnapshot2.getKey() + "-" + dataSnapshot3.getKey();
+
+                                                                    if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot3.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                        markerOptions = new MarkerOptions();
+                                                                        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                                                                        markerOptions.position(latLng1);
+
+                                                                        marker = mMap.addMarker(markerOptions);
+                                                                        hashMapMarker.put(oldKey, marker);
+
+                                                                        keys.add(oldKey);
+
+                                                                        Set<String> set = new HashSet<>(keys);
+                                                                        keys.clear();
+                                                                        keys.addAll(set);
+
+                                                                    } else if (distance[0] > circle.getRadius() && hashMapMarker.containsKey(oldKey) && !dataSnapshot3.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                        marker = hashMapMarker.get(oldKey);
+                                                                        marker.remove();
+                                                                        hashMapMarker.remove(oldKey);
+                                                                        keys.remove(oldKey);
+                                                                    }
+                                                                }
+                                                            }
+
+                                                            gotoLatLng(myLatitude, myLongitude, newZoom);
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                                        }
+                                                    });
+
+                                                } else {
+
+                                                    circle.remove();
+
+                                                    hashMapMarker.clear();
+                                                    mMap.clear();
+
+                                                    DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                                    databaseReference1.child("items").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                            for (DataSnapshot dataSnapshot4 : snapshot.getChildren()) {
+                                                                for (DataSnapshot dataSnapshot5 : dataSnapshot4.getChildren()) {
+
+                                                                    binding.confirmBtn.setVisibility(View.VISIBLE);
+
+                                                                    LatLng latLng1 = new LatLng(Double.parseDouble(dataSnapshot5.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot5.child("Address").child("Longitude").getValue(String.class)));
+
+                                                                    String oldKey = dataSnapshot4.getKey() + "-" + dataSnapshot5.getKey();
+
+                                                                    if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                        markerOptions = new MarkerOptions();
+                                                                        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                                                                        markerOptions.position(latLng1);
+
+                                                                        marker = mMap.addMarker(markerOptions);
+                                                                        hashMapMarker.put(oldKey, marker);
+
+                                                                        keys.add(oldKey);
+
+                                                                        Set<String> set = new HashSet<>(keys);
+                                                                        keys.clear();
+                                                                        keys.addAll(set);
+
+                                                                    } else if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                        marker = hashMapMarker.get(oldKey);
+                                                                        marker.remove();
+                                                                        hashMapMarker.remove(oldKey);
+                                                                        keys.remove(oldKey);
+                                                                    }
+                                                                }
+                                                            }
+
+                                                            gotoLatLng(myLatitude, myLongitude, 9.7f);
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        });
+
+                                        gotoLatLng(myLatitude, myLongitude, 12.5f);
+                                    }
+                                });
+
+                                binding.chipGroup.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
+                                    @Override
+                                    public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
+
+                                        if (checkedIds.size() > 0) {
+                                            Chip selectedChip = group.findViewById(checkedIds.get(0));
+
+                                            hashMapMarker.clear();
+                                            mMap.clear();
+                                            keys.clear();
+
+                                            float[] distance = new float[2];
+
+                                            databaseReference.child("items").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                    float newRadius = 0f;
+                                                    float newZoom = 0f;
+
+                                                    for (DataSnapshot dataSnapshot2 : snapshot.getChildren()) {
+                                                        for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
+
+                                                            if (circle != null) {
+                                                                circle.remove();
+                                                            }
+
+                                                            switch (selectedChip.getText().toString()) {
+                                                                case "5 km":
+                                                                    newRadius = 5000f;
+                                                                    newZoom = 12.5f;
+                                                                    break;
+                                                                case "10 km":
+                                                                    newRadius = 10000f;
+                                                                    newZoom = 11.5f;
+                                                                    break;
+                                                                case "15 km":
+                                                                    newRadius = 15000f;
+                                                                    newZoom = 10.8f;
+                                                                    break;
+                                                                case "20 km":
+                                                                    newRadius = 20000f;
+                                                                    newZoom = 10.4f;
+                                                                    break;
+                                                                case "25 km":
+                                                                    newRadius = 25000f;
+                                                                    newZoom = 10f;
+                                                                    break;
+                                                                case "30 km":
+                                                                    newRadius = 30000f;
+                                                                    newZoom = 9.8f;
+                                                                    break;
+                                                            }
+
+                                                            CircleOptions circleOptions = new CircleOptions().center(latLng).radius(newRadius).fillColor(0x4406E8F1).strokeColor(0xFF06E8F1).strokeWidth(8);
+                                                            circle = googleMap.addCircle(circleOptions);
+
+                                                            LatLng latLng1 = new LatLng(Double.parseDouble(dataSnapshot3.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot3.child("Address").child("Longitude").getValue(String.class)));
+
+                                                            Location.distanceBetween(Double.parseDouble(dataSnapshot3.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot3.child("Address").child("Longitude").getValue(String.class)),
+                                                                    circle.getCenter().latitude, circle.getCenter().longitude, distance);
+
+                                                            String oldKey = dataSnapshot2.getKey() + "-" + dataSnapshot3.getKey();
+
+                                                            if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot3.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                markerOptions = new MarkerOptions();
+                                                                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                                                                markerOptions.position(latLng1);
+
+                                                                marker = mMap.addMarker(markerOptions);
+                                                                hashMapMarker.put(oldKey, marker);
+
+                                                                keys.add(oldKey);
+
+                                                                Set<String> set = new HashSet<>(keys);
+                                                                keys.clear();
+                                                                keys.addAll(set);
+
+                                                            } else if (distance[0] > circle.getRadius() && hashMapMarker.containsKey(oldKey) && !dataSnapshot3.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                marker = hashMapMarker.get(oldKey);
+                                                                marker.remove();
+                                                                hashMapMarker.remove(oldKey);
+                                                                keys.remove(oldKey);
+                                                            }
+                                                        }
+                                                    }
+
+                                                    gotoLatLng(latitude, longitude, newZoom);
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
+
+                                        } else {
+
+                                            circle.remove();
+
+                                            hashMapMarker.clear();
+                                            mMap.clear();
+
+                                            DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                            databaseReference1.child("items").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    for (DataSnapshot dataSnapshot4 : snapshot.getChildren()) {
+                                                        for (DataSnapshot dataSnapshot5 : dataSnapshot4.getChildren()) {
+
+                                                            binding.confirmBtn.setVisibility(View.VISIBLE);
+
+                                                            LatLng latLng1 = new LatLng(Double.parseDouble(dataSnapshot5.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot5.child("Address").child("Longitude").getValue(String.class)));
+
+                                                            String oldKey = dataSnapshot4.getKey() + "-" + dataSnapshot5.getKey();
+
+                                                            if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                markerOptions = new MarkerOptions();
+                                                                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                                                                markerOptions.position(latLng1);
+
+                                                                marker = mMap.addMarker(markerOptions);
+                                                                hashMapMarker.put(oldKey, marker);
+
+                                                                keys.add(oldKey);
+
+                                                                Set<String> set = new HashSet<>(keys);
+                                                                keys.clear();
+                                                                keys.addAll(set);
+
+                                                            } else if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                marker = hashMapMarker.get(oldKey);
+                                                                marker.remove();
+                                                                hashMapMarker.remove(oldKey);
+                                                                keys.remove(oldKey);
+                                                            }
+                                                        }
+                                                    }
+
+                                                    gotoLatLng(latitude, longitude, 9.7f);
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            } else {
+
+                databaseReference.child("items").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+
+                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+
+                                if (dataSnapshot1.child("Item_Category").getValue(String.class).equals(category)) {
+
+                                    binding.confirmBtn.setVisibility(View.VISIBLE);
+
+                                    if (circle != null) {
+                                        circle.remove();
+                                    }
+
+                                    CircleOptions circleOptions = new CircleOptions().center(latLng).radius(5000f).fillColor(0x4406E8F1).strokeColor(0xFF06E8F1).strokeWidth(8);
+                                    circle = googleMap.addCircle(circleOptions);
+
+                                    LatLng latLng1 = new LatLng(Double.parseDouble(dataSnapshot1.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot1.child("Address").child("Longitude").getValue(String.class)));
+
+                                    Location.distanceBetween(Double.parseDouble(dataSnapshot1.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot1.child("Address").child("Longitude").getValue(String.class)),
+                                            circle.getCenter().latitude, circle.getCenter().longitude, distance);
+
+                                    String oldKey = dataSnapshot.getKey() + "-" + dataSnapshot1.getKey();
+
+                                    if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                        markerOptions = new MarkerOptions();
+                                        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                                        markerOptions.position(latLng1);
+
+                                        marker = mMap.addMarker(markerOptions);
+                                        hashMapMarker.put(oldKey, marker);
+
+                                        keys.add(oldKey);
+
+                                        Set<String> set = new HashSet<>(keys);
+                                        keys.clear();
+                                        keys.addAll(set);
+
+                                    } else if (distance[0] > circle.getRadius() && hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                        marker = hashMapMarker.get(oldKey);
+                                        marker.remove();
+                                        hashMapMarker.remove(oldKey);
+                                        keys.remove(oldKey);
+                                    }
+
+                                    binding.goToMyLocation.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+
+                                            mMap.clear();
+                                            keys.clear();
+                                            hashMapMarker.clear();
+
+                                            LatLng myLatLng = new LatLng(myLatitude, myLongitude);
+
+                                            float[] distance = new float[2];
+
+                                            if (circle != null) {
+                                                circle.remove();
+                                            }
+
+                                            CircleOptions circleOptions = new CircleOptions().center(myLatLng).radius(5000f).fillColor(0x4406E8F1).strokeColor(0xFF06E8F1).strokeWidth(8);
+                                            circle = googleMap.addCircle(circleOptions);
+
+                                            LatLng latLng1 = new LatLng(Double.parseDouble(dataSnapshot1.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot1.child("Address").child("Longitude").getValue(String.class)));
+
+                                            Location.distanceBetween(Double.parseDouble(dataSnapshot1.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot1.child("Address").child("Longitude").getValue(String.class)),
+                                                    circle.getCenter().latitude, circle.getCenter().longitude, distance);
+
+                                            String oldKey = dataSnapshot.getKey() + "-" + dataSnapshot1.getKey();
+
+                                            if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                markerOptions = new MarkerOptions();
+                                                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                                                markerOptions.position(latLng1);
+
+                                                marker = mMap.addMarker(markerOptions);
+                                                hashMapMarker.put(oldKey, marker);
+
+                                                keys.add(oldKey);
+
+                                                Set<String> set = new HashSet<>(keys);
+                                                keys.clear();
+                                                keys.addAll(set);
+
+                                            } else if (distance[0] > circle.getRadius() && hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                marker = hashMapMarker.get(oldKey);
+                                                marker.remove();
+                                                hashMapMarker.remove(oldKey);
+                                                keys.remove(oldKey);
+                                            }
+
+                                            binding.chipGroup.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
+                                                @Override
+                                                public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
+
+                                                    if (checkedIds.size() > 0) {
+                                                        Chip selectedChip = group.findViewById(checkedIds.get(0));
+
+                                                        hashMapMarker.clear();
+                                                        mMap.clear();
+                                                        keys.clear();
+
+                                                        databaseReference.child("items").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                                float newRadius = 0f;
+                                                                float newZoom = 0f;
+
+                                                                for (DataSnapshot dataSnapshot2 : snapshot.getChildren()) {
+                                                                    for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
+                                                                        if (dataSnapshot3.child("Item_Category").getValue(String.class).equals(category)) {
+
+                                                                            if (circle != null) {
+                                                                                circle.remove();
+                                                                            }
+
+                                                                            switch (selectedChip.getText().toString()) {
+                                                                                case "5 km":
+                                                                                    newRadius = 5000f;
+                                                                                    newZoom = 12.5f;
+                                                                                    break;
+                                                                                case "10 km":
+                                                                                    newRadius = 10000f;
+                                                                                    newZoom = 11.5f;
+                                                                                    break;
+                                                                                case "15 km":
+                                                                                    newRadius = 15000f;
+                                                                                    newZoom = 10.8f;
+                                                                                    break;
+                                                                                case "20 km":
+                                                                                    newRadius = 20000f;
+                                                                                    newZoom = 10.4f;
+                                                                                    break;
+                                                                                case "25 km":
+                                                                                    newRadius = 25000f;
+                                                                                    newZoom = 10f;
+                                                                                    break;
+                                                                                case "30 km":
+                                                                                    newRadius = 30000f;
+                                                                                    newZoom = 9.8f;
+                                                                                    break;
+                                                                            }
+
+                                                                            CircleOptions circleOptions = new CircleOptions().center(myLatLng).radius(newRadius).fillColor(0x4406E8F1).strokeColor(0xFF06E8F1).strokeWidth(8);
+                                                                            circle = googleMap.addCircle(circleOptions);
+
+                                                                            LatLng latLng1 = new LatLng(Double.parseDouble(dataSnapshot3.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot3.child("Address").child("Longitude").getValue(String.class)));
+
+                                                                            Location.distanceBetween(Double.parseDouble(dataSnapshot3.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot3.child("Address").child("Longitude").getValue(String.class)),
+                                                                                    circle.getCenter().latitude, circle.getCenter().longitude, distance);
+
+                                                                            String oldKey = dataSnapshot2.getKey() + "-" + dataSnapshot3.getKey();
+
+                                                                            if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot3.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                                markerOptions = new MarkerOptions();
+                                                                                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                                                                                markerOptions.position(latLng1);
+
+                                                                                marker = mMap.addMarker(markerOptions);
+                                                                                hashMapMarker.put(oldKey, marker);
+
+                                                                                keys.add(oldKey);
+
+                                                                                Set<String> set = new HashSet<>(keys);
+                                                                                keys.clear();
+                                                                                keys.addAll(set);
+
+                                                                            } else if (distance[0] > circle.getRadius() && hashMapMarker.containsKey(oldKey) && !dataSnapshot3.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                                marker = hashMapMarker.get(oldKey);
+                                                                                marker.remove();
+                                                                                hashMapMarker.remove(oldKey);
+                                                                                keys.remove(oldKey);
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+
+                                                                gotoLatLng(myLatitude, myLongitude, newZoom);
+                                                            }
+
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                                            }
+                                                        });
+
+                                                    } else {
+
+                                                        circle.remove();
+
+                                                        hashMapMarker.clear();
+                                                        mMap.clear();
+
+                                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                                        databaseReference1.child("items").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                for (DataSnapshot dataSnapshot4 : snapshot.getChildren()) {
+                                                                    for (DataSnapshot dataSnapshot5 : dataSnapshot4.getChildren()) {
+                                                                        if (dataSnapshot5.child("Item_Category").getValue(String.class).equals(category)) {
+
+                                                                            binding.confirmBtn.setVisibility(View.VISIBLE);
+
+                                                                            LatLng latLng1 = new LatLng(Double.parseDouble(dataSnapshot5.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot5.child("Address").child("Longitude").getValue(String.class)));
+
+                                                                            String oldKey = dataSnapshot4.getKey() + "-" + dataSnapshot5.getKey();
+
+                                                                            if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                                markerOptions = new MarkerOptions();
+                                                                                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                                                                                markerOptions.position(latLng1);
+
+                                                                                marker = mMap.addMarker(markerOptions);
+                                                                                hashMapMarker.put(oldKey, marker);
+
+                                                                                keys.add(oldKey);
+
+                                                                                Set<String> set = new HashSet<>(keys);
+                                                                                keys.clear();
+                                                                                keys.addAll(set);
+
+                                                                            } else if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                                marker = hashMapMarker.get(oldKey);
+                                                                                marker.remove();
+                                                                                hashMapMarker.remove(oldKey);
+                                                                                keys.remove(oldKey);
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+
+                                                                gotoLatLng(myLatitude, myLongitude, 9.7f);
+                                                            }
+
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                                            }
+                                                        });
+                                                    }
+                                                }
+                                            });
+
+                                            gotoLatLng(myLatitude, myLongitude, 12.5f);
+                                        }
+                                    });
+
+                                }
+
+                                binding.chipGroup.setOnCheckedStateChangeListener(new ChipGroup.OnCheckedStateChangeListener() {
+                                    @Override
+                                    public void onCheckedChanged(@NonNull ChipGroup group, @NonNull List<Integer> checkedIds) {
+
+                                        if (checkedIds.size() > 0) {
+                                            Chip selectedChip = group.findViewById(checkedIds.get(0));
+
+                                            hashMapMarker.clear();
+                                            mMap.clear();
+                                            keys.clear();
+
+                                            databaseReference.child("items").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                    float newRadius = 0f;
+                                                    float newZoom = 0f;
+
+                                                    for (DataSnapshot dataSnapshot2 : snapshot.getChildren()) {
+                                                        for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
+                                                            if (dataSnapshot3.child("Item_Category").getValue(String.class).equals(category)) {
+
+                                                                if (circle != null) {
+                                                                    circle.remove();
+                                                                }
+
+                                                                switch (selectedChip.getText().toString()) {
+                                                                    case "5 km":
+                                                                        newRadius = 5000f;
+                                                                        newZoom = 12.5f;
+                                                                        break;
+                                                                    case "10 km":
+                                                                        newRadius = 10000f;
+                                                                        newZoom = 11.5f;
+                                                                        break;
+                                                                    case "15 km":
+                                                                        newRadius = 15000f;
+                                                                        newZoom = 10.8f;
+                                                                        break;
+                                                                    case "20 km":
+                                                                        newRadius = 20000f;
+                                                                        newZoom = 10.4f;
+                                                                        break;
+                                                                    case "25 km":
+                                                                        newRadius = 25000f;
+                                                                        newZoom = 10f;
+                                                                        break;
+                                                                    case "30 km":
+                                                                        newRadius = 30000f;
+                                                                        newZoom = 9.8f;
+                                                                        break;
+                                                                }
+
+                                                                CircleOptions circleOptions = new CircleOptions().center(latLng).radius(newRadius).fillColor(0x4406E8F1).strokeColor(0xFF06E8F1).strokeWidth(8);
+                                                                circle = googleMap.addCircle(circleOptions);
+
+                                                                LatLng latLng1 = new LatLng(Double.parseDouble(dataSnapshot3.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot3.child("Address").child("Longitude").getValue(String.class)));
+
+                                                                Location.distanceBetween(Double.parseDouble(dataSnapshot3.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot3.child("Address").child("Longitude").getValue(String.class)),
+                                                                        circle.getCenter().latitude, circle.getCenter().longitude, distance);
+
+                                                                String oldKey = dataSnapshot2.getKey() + "-" + dataSnapshot3.getKey();
+
+                                                                if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot3.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                    markerOptions = new MarkerOptions();
+                                                                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                                                                    markerOptions.position(latLng1);
+
+                                                                    marker = mMap.addMarker(markerOptions);
+                                                                    hashMapMarker.put(oldKey, marker);
+
+                                                                    keys.add(oldKey);
+
+                                                                    Set<String> set = new HashSet<>(keys);
+                                                                    keys.clear();
+                                                                    keys.addAll(set);
+
+                                                                } else if (distance[0] > circle.getRadius() && hashMapMarker.containsKey(oldKey) && !dataSnapshot3.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                    marker = hashMapMarker.get(oldKey);
+                                                                    marker.remove();
+                                                                    hashMapMarker.remove(oldKey);
+                                                                    keys.remove(oldKey);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+
+                                                    gotoLatLng(latitude, longitude, newZoom);
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
+
+                                        } else {
+
+                                            circle.remove();
+
+                                            hashMapMarker.clear();
+                                            mMap.clear();
+
+                                            DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                            databaseReference1.child("items").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    for (DataSnapshot dataSnapshot4 : snapshot.getChildren()) {
+                                                        for (DataSnapshot dataSnapshot5 : dataSnapshot4.getChildren()) {
+                                                            if (dataSnapshot5.child("Item_Category").getValue(String.class).equals(category)) {
+
+                                                                binding.confirmBtn.setVisibility(View.VISIBLE);
+
+                                                                LatLng latLng1 = new LatLng(Double.parseDouble(dataSnapshot5.child("Address").child("Latitude").getValue(String.class)), Double.parseDouble(dataSnapshot5.child("Address").child("Longitude").getValue(String.class)));
+
+                                                                String oldKey = dataSnapshot4.getKey() + "-" + dataSnapshot5.getKey();
+
+                                                                if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                    markerOptions = new MarkerOptions();
+                                                                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                                                                    markerOptions.position(latLng1);
+
+                                                                    marker = mMap.addMarker(markerOptions);
+                                                                    hashMapMarker.put(oldKey, marker);
+
+                                                                    keys.add(oldKey);
+
+                                                                    Set<String> set = new HashSet<>(keys);
+                                                                    keys.clear();
+                                                                    keys.addAll(set);
+
+                                                                } else if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                    marker = hashMapMarker.get(oldKey);
+                                                                    marker.remove();
+                                                                    hashMapMarker.remove(oldKey);
+                                                                    keys.remove(oldKey);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+
+                                                    gotoLatLng(latitude, longitude, 9.7f);
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+            }
+
+        }
+
+        binding.confirmBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ItemSwipe.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intent.putExtra("keys", keys);
+                startActivity(intent);
+                CustomIntent.customType(getContext(), "left-to-right");
+            }
+        });
+    }
+
     private void gotoLatLng(double latitude, double longitude, float v) {
 
         LatLng latLng = new LatLng(latitude, longitude);
@@ -1324,8 +2419,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         if (circle != null) {
             double radius = circle.getRadius() + circle.getRadius() / 2;
             double scale = radius / 940;
-            zoomLevel = (int) (16 - Math.log(scale) / Math.log(2));
+            zoomLevel = (int) (18 - Math.log(scale) / Math.log(2));
         }
+
         return zoomLevel;
     }
 }

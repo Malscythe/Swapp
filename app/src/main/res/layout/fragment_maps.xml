@@ -9,7 +9,9 @@
         android:id="@+id/mapfrag"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_above="@id/getRadius"
+        android:layout_marginBottom="-20dp"
+        android:layout_height="match_parent" />
 
     <EditText
         android:id="@+id/searchLocation"
@@ -32,26 +34,62 @@
         android:singleLine="true"
         android:textColor="@color/primary_black"
         android:textSize="16sp"
+        android:visibility="gone"
         tools:ignore="TouchTargetSizeCheck" />
 
+    <EditText
+        android:id="@+id/searchNearByLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="60dp"
+        android:background="@drawable/search_border"
+        android:drawableStart="@drawable/ic_baseline_search_24"
+        android:drawablePadding="5dp"
+        android:drawableTint="@color/primary_black"
+        android:fontFamily="@font/poppins"
+        android:hint="Search location"
+        android:imeOptions="actionSearch"
+        android:paddingStart="10dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="5dp"
+        android:singleLine="true"
+        android:textColor="@color/primary_black"
+        android:textSize="16sp"
+        android:visibility="visible"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <ImageView
+        android:id="@+id/goToMyLocation"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10.5dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/white_circle_button"
+        android:padding="8dp"
+        android:src="@drawable/ic_baseline_my_location_24"
+        app:tint="#2B2A2A" />
 
     <LinearLayout
         android:id="@+id/currentAddressLayout"
-        android:visibility="gone"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="vertical"
         android:background="@drawable/rounded_bottom_border_white"
-        android:layout_height="wrap_content">
+        android:orientation="vertical"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp">
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="30dp"
@@ -65,92 +103,127 @@
                 android:id="@+id/currentAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
                 android:layout_gravity="center_vertical"
                 android:fontFamily="@font/poppins_semibold"
+                android:text="Current address"
                 android:textColor="@color/primary_black"
-                android:text="Current address"/>
+                android:textSize="18sp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
             android:layout_marginStart="30dp"
-            android:gravity="center_horizontal"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="30dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/confirmLocationBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Confirm Location"
                 android:background="@drawable/buttonborder"
-                android:textColor="@color/white"
                 android:fontFamily="@font/poppins_semibold"
-                android:textSize="16sp"/>
+                android:text="Confirm Location"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
 
     </LinearLayout>
-
+    
     <LinearLayout
         android:id="@+id/getRadius"
-        android:visibility="gone"
-        android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:background="@drawable/rounded_bottom_border_white">
 
-        <LinearLayout
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Distance"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/primary_black"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="15dp"/>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/current_loc_address"
-            android:orientation="vertical"
-            android:padding="15dp">
+            app:singleSelection="true"
+            android:layout_below="@id/searchNearByLocation"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="20dp"
+            app:chipSpacingHorizontal="5dp"
+            android:layout_marginEnd="20dp">
 
-            <TextView
+            <com.google.android.material.chip.Chip
+                android:id="@+id/fiveKM"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_medium"
-                android:textSize="18sp"
-                android:layout_marginLeft="5dp"
-                android:text="Adjust Radius:"/>
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:text="5 km"/>
 
-            <com.google.android.material.slider.Slider
-                android:id="@+id/sliderRadius"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:valueFrom="0.0"
-                android:value="15000.0"
-                android:stepSize="1000.0"
-                android:valueTo="30000.0"/>
-
-            <TextView
-                android:layout_marginLeft="5dp"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tenKM"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins"
-                android:text="Set to 0 if you want to discard the radius."/>
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:text="10 km"/>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/confirmBtn"
-                android:layout_width="match_parent"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/fifteenKM"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/buttonborder"
-                android:textColor="@color/white"
-                android:layout_marginTop="10dp"
-                android:textSize="16sp"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="Confirm"/>
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:text="15 km"/>
 
+            <com.google.android.material.chip.Chip
+                android:id="@+id/twentyKM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:text="20 km"/>
 
-        </LinearLayout>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/twentyfiveKM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:text="25 km"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/thirtyKM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:text="30 km"/>
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/confirmBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/buttonborder"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Confirm"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
