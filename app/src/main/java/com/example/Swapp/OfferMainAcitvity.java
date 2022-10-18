@@ -84,6 +84,11 @@ public class OfferMainAcitvity extends AppCompatActivity {
                         return true;
                     case  R.id.offers:
                         return true;
+                    case R.id.transactions:
+                        Intent intent2 = new Intent(OfferMainAcitvity.this, CurrentTransactions.class);
+                        startActivity(intent2);
+                        overridePendingTransition(0, 0);
+                        return true;
                 }
                 return true;
             }

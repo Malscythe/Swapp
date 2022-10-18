@@ -119,6 +119,11 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
                         startActivity(intent);
                         overridePendingTransition(0, 0);
                         return true;
+                    case R.id.transactions:
+                        Intent intent1 = new Intent(UserHomepage.this, CurrentTransactions.class);
+                        startActivity(intent1);
+                        overridePendingTransition(0, 0);
+                        return true;
                 }
                 return true;
             }

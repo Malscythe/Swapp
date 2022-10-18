@@ -61,6 +61,20 @@ public class currentLoc extends AppCompatActivity {
 
                 }
             });
+        } else if (category.equals("getDirection")) {
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            final MapsFragment mapsFragment = new MapsFragment();
+
+            Bundle b = new Bundle();
+            b.putString("from", getIntent().getStringExtra("from"));
+            b.putString("category", getIntent().getStringExtra("category"));
+            b.putString("latitude", getIntent().getStringExtra("latitude"));
+            b.putString("longitude", getIntent().getStringExtra("longitude"));
+            mapsFragment.setArguments(b);
+            fragmentTransaction.add(R.id.container, mapsFragment).commit();
+
         } else if (category.equals("postitem")) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

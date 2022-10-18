@@ -2,14 +2,17 @@ package com.example.Swapp;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
@@ -25,8 +28,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.directions.route.AbstractRouting;
+import com.directions.route.Route;
+import com.directions.route.RouteException;
+import com.directions.route.Routing;
+import com.directions.route.RoutingListener;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -41,23 +51,37 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.slider.Slider;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.maps.DirectionsApi;
+import com.google.maps.DirectionsApiRequest;
+import com.google.maps.GeoApiContext;
+import com.google.maps.model.DirectionsLeg;
+import com.google.maps.model.DirectionsResult;
+import com.google.maps.model.DirectionsRoute;
+import com.google.maps.model.DirectionsStep;
+import com.google.maps.model.EncodedPolyline;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.tonyakitori.inc.easyroutes.EasyRoutesDirections;
+import com.tonyakitori.inc.easyroutes.EasyRoutesDrawer;
+import com.tonyakitori.inc.easyroutes.enums.TransportationMode;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -78,7 +102,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     SupportMapFragment mapFragment;
     private GoogleMap mMap;
     private FusedLocationProviderClient fusedLocationProviderClient;
-    private Marker marker, marker1;
+    private Marker marker;
     private MarkerOptions markerOptions;
     private Circle circle;
     FirebaseAuth firebaseAuth;
@@ -669,6 +693,55 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                                         markerOptions.position(new LatLng(location.getLatitude(), location.getLongitude()));
                                         marker = mMap.addMarker(markerOptions);
+                                    } else if (hideSearch.equals("getDirection")) {
+                                        binding.getRadius.setVisibility(View.GONE);
+                                        binding.currentAddressLayout.setVisibility(View.GONE);
+                                        binding.searchLocation.setVisibility(View.GONE);
+                                        binding.searchNearByLocation.setVisibility(View.GONE);
+
+                                        gotoLatLng(location.getLatitude(), location.getLongitude(), 15f);
+
+                                        binding.goToMyLocation.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                gotoLatLng(location.getLatitude(), location.getLongitude(), 15f);
+                                            }
+                                        });
+
+                                        Double destLatitude = Double.parseDouble(bundle.getString("latitude"));
+                                        Double destLongitude = Double.parseDouble(bundle.getString("longitude"));
+
+                                        LatLng destination = new LatLng(destLatitude, destLongitude);
+
+                                        MarkerOptions destinationMarker = new MarkerOptions();
+                                        MarkerOptions originMarker = new MarkerOptions();
+                                        destinationMarker.position(destination);
+                                        originMarker.position(new LatLng(location.getLatitude(), location.getLongitude()));
+
+                                        mMap.addMarker(destinationMarker);
+                                        mMap.addMarker(originMarker);
+
+                                        List<LatLng> path = new ArrayList();
+
+                                        String origin = originMarker.getPosition().latitude + "," + originMarker.getPosition().longitude;
+                                        String destination1 = destinationMarker.getPosition().latitude + "," + destinationMarker.getPosition().longitude;
+
+                                        Log.w("Route", destination1);
+
+                                        try {
+                                            Uri uri = Uri.parse("https://www.google.com/maps/dir/" + origin + "/" + destination1);
+                                            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                                            intent.setPackage("com.google.android.apps.maps");
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            startActivity(intent);
+                                        } catch (ActivityNotFoundException e) {
+                                            Uri uri = Uri.parse("https://play.google.com/store/apps/details?id=com.google.android.apps.maps");
+                                            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            startActivity(intent);
+                                        }
+
+
                                     }
 
                                     binding.confirmBtn.setOnClickListener(new View.OnClickListener() {

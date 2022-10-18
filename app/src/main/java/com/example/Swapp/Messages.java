@@ -42,7 +42,6 @@ import java.util.List;
 
 import Swapp.R;
 import maes.tech.intentanim.CustomIntent;
-import okhttp3.internal.Util;
 
 public class Messages extends BaseActivity {
 
@@ -100,6 +99,11 @@ public class Messages extends BaseActivity {
                         Intent intent1 = new Intent(Messages.this, OfferMainAcitvity.class);
                         startActivity(intent1);
                         overridePendingTransition(0,0);
+                        return true;
+                    case R.id.transactions:
+                        Intent intent2 = new Intent(Messages.this, CurrentTransactions.class);
+                        startActivity(intent2);
+                        overridePendingTransition(0, 0);
                         return true;
                 }
                 return true;

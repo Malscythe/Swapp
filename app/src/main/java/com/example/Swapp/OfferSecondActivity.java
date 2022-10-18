@@ -3,6 +3,8 @@ package com.example.Swapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -33,6 +37,7 @@ public class OfferSecondActivity extends AppCompatActivity {
     OfferAdapter2 offerAdapter2;
     DatabaseReference databaseReference;
     FirebaseAuth firebaseAuth;
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +51,6 @@ public class OfferSecondActivity extends AppCompatActivity {
         String itemid = getIntent().getStringExtra("itemid");
         String itemname = getIntent().getStringExtra("itemname");
 
-        Log.d(TAG, "items/" + itemid + "/" + itemname +"/Offers");
         databaseReference = FirebaseDatabase.getInstance().getReference("items/" + itemid + "/" + itemname +"/Offers");
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -54,8 +58,6 @@ public class OfferSecondActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot ds: snapshot.getChildren())
                 {
-                    Log.d(TAG, ds.toString());
-
                     String address = ds.child("Address").child("City").getValue(String.class).concat(", " + ds.child("Address").child("State").getValue(String.class));
 
                     OfferFetch offerFetch = new OfferFetch();
