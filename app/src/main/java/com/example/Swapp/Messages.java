@@ -135,7 +135,11 @@ public class Messages extends BaseActivity {
                             String user1 = dataSnapshot1.child("user_1").getValue(String.class);
                             String user2 = dataSnapshot1.child("user_2").getValue(String.class);
 
-                            if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
+                                if(user2 == null) {
+                                    return;
+                                }
+
+                                if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
 
                                 final String getName = dataSnapshot.child("First_Name").getValue(String.class).concat(" " + dataSnapshot.child("Last_Name").getValue(String.class));
                                 final String getCurrentId = dataSnapshot.getKey();
