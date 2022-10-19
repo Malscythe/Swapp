@@ -568,4 +568,10 @@ public class TransactionMoreInfo extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        CustomIntent.customType(TransactionMoreInfo.this, "right-to-left");
+    }
 }

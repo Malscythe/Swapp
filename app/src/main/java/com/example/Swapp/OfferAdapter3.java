@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.Swapp.chat.Chat;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -90,9 +91,6 @@ public class OfferAdapter3 extends RecyclerView.Adapter {
                                 viewHolderClass.getDirection.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        Log.w(TAG, dataSnapshot1.child("Accepted_Offers").child(offerFetch.getPoster_UID()).child("Address").child("Latitude").getValue(String.class));
-                                        Log.w(TAG, dataSnapshot1.child("Accepted_Offers").child(offerFetch.getPoster_UID()).child("Address").child("Longitude").getValue(String.class));
-
                                         Intent intent = new Intent(v.getContext(), currentLoc.class);
                                         intent.putExtra("from", "getDirection");
                                         intent.putExtra("category", "getDirection");
@@ -100,6 +98,71 @@ public class OfferAdapter3 extends RecyclerView.Adapter {
                                         intent.putExtra("longitude", dataSnapshot1.child("Accepted_Offers").child(offerFetch.getPoster_UID()).child("Address").child("Longitude").getValue(String.class));
                                         v.getContext().startActivity(intent);
                                         CustomIntent.customType(v.getContext(), "left-to-right");
+                                    }
+                                });
+
+                                viewHolderClass.goToChat.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        for (DataSnapshot dataSnapshot2 : snapshot.child("chat").getChildren()) {
+                                            String user1 = dataSnapshot2.child("user_1").getValue(String.class);
+                                            String user2 = dataSnapshot2.child("user_2").getValue(String.class);
+
+                                            String myPhone;
+                                            String traderPhone;
+                                            String userName;
+                                            String traderID;
+                                            String traderStatus;
+
+                                            if (!offerFetch.getPoster_UID().equals(uid)) {
+                                                myPhone = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
+                                                userName = snapshot.child("users").child(offerFetch.getPoster_UID()).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(offerFetch.getPoster_UID()).child("Last_Name").getValue(String.class));
+                                                traderPhone = snapshot.child("users").child(offerFetch.getPoster_UID()).child("Phone").getValue(String.class);
+                                                traderID = offerFetch.getPoster_UID();
+                                                traderStatus = snapshot.child("users-status").child(offerFetch.getPoster_UID()).child("Status").getValue(String.class);
+                                            } else {
+                                                myPhone = snapshot.child("users").child(offerFetch.getPoster_UID()).child("Phone").getValue(String.class);
+                                                userName = snapshot.child("users").child(dataSnapshot.getKey()).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(dataSnapshot.getKey()).child("Last_Name").getValue(String.class));
+                                                traderPhone = snapshot.child("users").child(dataSnapshot.getKey()).child("Phone").getValue(String.class);
+                                                traderID = dataSnapshot.getKey();
+                                                traderStatus = snapshot.child("users-status").child(dataSnapshot.getKey()).child("Status").getValue(String.class);
+                                            }
+
+                                            if (((user1.equals(myPhone) || user2.equals(myPhone)) && ((user1.equals(traderPhone) || user2.equals(traderPhone)))) && (!myPhone.equals(traderPhone))) {
+                                                Intent intent = new Intent(v.getContext(), Chat.class);
+                                                intent.putExtra("mobile", traderPhone);
+                                                intent.putExtra("name", userName);
+                                                intent.putExtra("chat_key", dataSnapshot2.getKey());
+                                                intent.putExtra("userID", traderID);
+                                                intent.putExtra("userStatus", traderStatus);
+
+                                                v.getContext().startActivity(intent);
+                                                CustomIntent.customType(v.getContext(), "left-to-right");
+                                            }
+
+                                        }
+                                    }
+                                });
+
+                                viewHolderClass.goToReview.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        if (!dataSnapshot.getKey().equals(uid)) {
+                                            Intent intent = new Intent(v.getContext(), TransactionReview.class);
+                                            intent.putExtra("ParentKey", dataSnapshot.getKey());
+                                            intent.putExtra("ParentItemName", dataSnapshot1.getKey());
+                                            intent.putExtra("OffererKey", uid);
+                                            v.getContext().startActivity(intent);
+                                            CustomIntent.customType(v.getContext(), "left-to-right");
+                                        } else {
+                                            Intent intent = new Intent(v.getContext(), TransactionReview.class);
+                                            intent.putExtra("ParentKey", dataSnapshot.getKey());
+                                            intent.putExtra("ParentItemName", dataSnapshot1.getKey());
+                                            intent.putExtra("OffererKey", offerFetch.getPoster_UID());
+                                            v.getContext().startActivity(intent);
+                                            CustomIntent.customType(v.getContext(), "left-to-right");
+                                        }
+
                                     }
                                 });
                             }
@@ -122,12 +185,14 @@ public class OfferAdapter3 extends RecyclerView.Adapter {
 
     public class ViewHolderClass extends RecyclerView.ViewHolder {
 
-        TextView textView, itemlocation, moreInfo;
-        ImageView img, getDirection;
+        TextView textView, itemlocation, moreInfo, goToReview;
+        ImageView img, getDirection, goToChat;
 
         public ViewHolderClass(@NonNull View itemView) {
             super(itemView);
 
+            goToReview = itemView.findViewById(R.id.submitReview);
+            goToChat = itemView.findViewById(R.id.goToChat);
             getDirection = itemView.findViewById(R.id.getDirection);
             moreInfo = itemView.findViewById(R.id.moreInfo);
             textView = itemView.findViewById(R.id.offereditemname);

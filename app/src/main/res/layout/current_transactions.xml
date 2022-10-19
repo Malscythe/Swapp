@@ -20,7 +20,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/poppins"
-            android:text="ACCEPTED OFFERS"
+            android:text="ONGOING TRANSACTION"
             android:textColor="@color/primary_black"
             android:textSize="24sp" />
 

@@ -158,10 +158,8 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
 
                         if (dataSnapshot1.hasChild("Accepted_Offers")) {
                             if (dataSnapshot1.child("Accepted_Offers").hasChild(uid)){
-                                if (!pendingCounts.getText().toString().equals("0")) {
-                                    pendingTrades = pendingTrades - 1;
-                                    pendingCounts.setText(pendingTrades.toString());
-                                }
+                                pendingTrades = Long.parseLong(pendingCounts.getText().toString()) - 1;
+                                pendingCounts.setText(pendingTrades.toString());
 
                                 currentTrades = currentTrades + 1;
                                 currentCounts.setText(currentTrades.toString());
@@ -170,7 +168,7 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
 
                         if (dataSnapshot1.hasChild("Offers")) {
                             if (dataSnapshot1.child("Offers").hasChild(uid)){
-                                pendingTrades = pendingTrades + 1;
+                                pendingTrades = Long.parseLong(pendingCounts.getText().toString()) + 1;
                                 pendingCounts.setText(pendingTrades.toString());
                             }
                         }

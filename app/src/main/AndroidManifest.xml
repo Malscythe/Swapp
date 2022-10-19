@@ -28,9 +28,11 @@
         android:theme="@style/Theme.Swapp"
         android:usesCleartextTraffic="true">
         <activity
+            android:name="com.example.Swapp.TransactionReview"
+            android:exported="true"/>
+        <activity
             android:name="com.example.Swapp.TransactionMoreInfo"
-            android:exported="true">
-        </activity>
+            android:exported="true"/>
         <activity
             android:name="com.example.Swapp.CurrentTransactions"
             android:exported="true" />

@@ -569,7 +569,7 @@ public class currentLoc extends AppCompatActivity {
                         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
                             DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
-                            databaseReference1.child("items").child(dataSnapshot.getKey()).child(dataSnapshot1.getKey()).orderByChild("Item_Category").addListenerForSingleValueEvent(new ValueEventListener() {
+                            databaseReference1.child("items").child(dataSnapshot.getKey()).child(dataSnapshot1.getKey()).orderByChild("Item_Category").equalTo(category).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot1) {
                                     if (!snapshot1.hasChildren()) {
