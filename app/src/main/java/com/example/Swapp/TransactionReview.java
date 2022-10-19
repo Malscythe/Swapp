@@ -26,12 +26,13 @@ import Swapp.R;
 public class TransactionReview extends AppCompatActivity {
 
     ImageView parentPic, offeredPic;
-    TextView parentItemName, parentItemLocation, offeredItemName, offeredItemLocation;
+    TextView parentItemName, parentItemLocation, offeredItemName, offeredItemLocation, userToRateName;
     DatabaseReference databaseReference;
     FirebaseAuth firebaseAuth;
     RadioGroup radioGroup;
     TextInputLayout reasonLayout;
     TextInputEditText reason;
+    String selectedRdo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class TransactionReview extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
+        String myUid = firebaseAuth.getCurrentUser().getUid();
 
         parentPic = findViewById(R.id.parentItemPic);
         offeredPic = findViewById(R.id.offeredItemPic);
@@ -51,6 +53,8 @@ public class TransactionReview extends AppCompatActivity {
         parentItemLocation = findViewById(R.id.parentItemLocation);
         offeredItemName = findViewById(R.id.offeredItemName);
         offeredItemLocation = findViewById(R.id.offeredItemLocation);
+
+        userToRateName =  findViewById(R.id.userToRateName);
 
         radioGroup = findViewById(R.id.reviewRadioGroup);
 
@@ -87,11 +91,31 @@ public class TransactionReview extends AppCompatActivity {
                 switch (selectedButton.getText().toString()) {
                     case "Yes" :
                         reasonLayout.setVisibility(View.GONE);
+                        selectedRdo = selectedButton.getText().toString();
                         break;
                     case "No" :
                         reasonLayout.setVisibility(View.VISIBLE);
+                        selectedRdo = selectedButton.getText().toString();
                         break;
                 }
+            }
+        });
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (parentkey.equals(myUid)) {
+                    String username = snapshot.child("items").child(parentkey).child(parentitemname).child("Accepted_Offers").child(offererkey).child("Poster_Name").getValue(String.class);
+                    userToRateName.setText(username);
+                } else {
+                    String username = snapshot.child(myUid).child("First_Name").getValue(String.class).concat(" " + snapshot.child(myUid).child("Last_Name").getValue(String.class));
+                    userToRateName.setText(username);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
