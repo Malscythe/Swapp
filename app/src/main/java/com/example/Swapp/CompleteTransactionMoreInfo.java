@@ -1,57 +1,32 @@
 package com.example.Swapp;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
-import android.content.ContentResolver;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.airbnb.lottie.L;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
 import com.bumptech.glide.Glide;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
-import com.example.Swapp.chat.Chat;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import Swapp.R;
 import maes.tech.intentanim.CustomIntent;
 
-public class TransactionMoreInfo extends AppCompatActivity {
+public class CompleteTransactionMoreInfo extends AppCompatActivity {
 
     private static final String TAG = "Debug";
     private DatabaseReference mDatabase;
@@ -63,23 +38,17 @@ public class TransactionMoreInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction_more_info);
 
-        String item_Name = getIntent().getStringExtra("itemName");
-        String uid = getIntent().getStringExtra("userID");
-        String parentKey = getIntent().getStringExtra("parentKey");
-        String parentItemName = getIntent().getStringExtra("parentItemName");
+        String transactionKey = getIntent().getStringExtra("transactionKey");
         String viewDetails = getIntent().getStringExtra("view");
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        String currentId = firebaseAuth.getCurrentUser().getUid();
-
         DatabaseReference items;
 
         if (viewDetails.equals("Offered")) {
-            items = FirebaseDatabase.getInstance().getReference().child("items").child(parentKey).child(parentItemName).child("Accepted_Offers").child(uid);
+            items = FirebaseDatabase.getInstance().getReference().child("trade-transactions").child(transactionKey).child("Offered_Item");
         } else {
-            items = FirebaseDatabase.getInstance().getReference().child("items").child(parentKey).child(parentItemName);
+            items = FirebaseDatabase.getInstance().getReference().child("trade-transactions").child(transactionKey).child("Posted_Item");
         }
 
 
@@ -133,7 +102,7 @@ public class TransactionMoreInfo extends AppCompatActivity {
                         if (snapshot.hasChild("Item_SizeChart")) {
                             mSizeChartLayout.setVisibility(View.VISIBLE);
 
-                            Glide.with(TransactionMoreInfo.this).load(snapshot.child("Item_SizeChart").getValue(String.class)).into(mSizeChart);
+                            Glide.with(CompleteTransactionMoreInfo.this).load(snapshot.child("Item_SizeChart").getValue(String.class)).into(mSizeChart);
                         } else {
 
                             mSizeChartLayout.setVisibility(View.GONE);
@@ -183,7 +152,7 @@ public class TransactionMoreInfo extends AppCompatActivity {
                         if (snapshot.hasChild("Item_SizeChart")) {
                             wSizeChartLayout.setVisibility(View.VISIBLE);
 
-                            Glide.with(TransactionMoreInfo.this).load(snapshot.child("Item_SizeChart").getValue(String.class)).into(wSizeChart);
+                            Glide.with(CompleteTransactionMoreInfo.this).load(snapshot.child("Item_SizeChart").getValue(String.class)).into(wSizeChart);
                         } else {
 
                             wSizeChartLayout.setVisibility(View.GONE);
@@ -574,6 +543,6 @@ public class TransactionMoreInfo extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        CustomIntent.customType(TransactionMoreInfo.this, "right-to-left");
+        CustomIntent.customType(CompleteTransactionMoreInfo.this, "right-to-left");
     }
 }

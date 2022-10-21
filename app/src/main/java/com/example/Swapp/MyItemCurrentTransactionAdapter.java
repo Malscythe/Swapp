@@ -19,21 +19,20 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.protobuf.FieldOrBuilder;
 
 import java.util.List;
 
 import Swapp.R;
 import maes.tech.intentanim.CustomIntent;
 
-public class OfferAdapter3 extends RecyclerView.Adapter {
+public class MyItemCurrentTransactionAdapter extends RecyclerView.Adapter {
     private static final String TAG = "Offer";
     List<OfferFetch> offerFetchList;
     DatabaseReference databaseReference;
     FirebaseAuth firebaseAuth;
 
 
-    public OfferAdapter3(List<OfferFetch> offerFetchList) {
+    public MyItemCurrentTransactionAdapter(List<OfferFetch> offerFetchList) {
         this.offerFetchList = offerFetchList;
     }
 
@@ -41,8 +40,8 @@ public class OfferAdapter3 extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.current_transaction_layout, parent, false);
-        OfferAdapter3.ViewHolderClass viewHolderClass = new OfferAdapter3.ViewHolderClass(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_item_current_transaction_layout, parent, false);
+        MyItemCurrentTransactionAdapter.ViewHolderClass viewHolderClass = new MyItemCurrentTransactionAdapter.ViewHolderClass(view);
         return viewHolderClass;
     }
 
@@ -51,8 +50,9 @@ public class OfferAdapter3 extends RecyclerView.Adapter {
 
         firebaseAuth = FirebaseAuth.getInstance();
         String uid = firebaseAuth.getCurrentUser().getUid();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        OfferAdapter3.ViewHolderClass viewHolderClass = (OfferAdapter3.ViewHolderClass) holder;
+        MyItemCurrentTransactionAdapter.ViewHolderClass viewHolderClass = (MyItemCurrentTransactionAdapter.ViewHolderClass) holder;
         final OfferFetch offerFetch = offerFetchList.get(position);
         viewHolderClass.textView.setText(offerFetch.getItem_Name());
         viewHolderClass.itemlocation.setText(offerFetch.getItem_Location());
@@ -62,6 +62,56 @@ public class OfferAdapter3 extends RecyclerView.Adapter {
                 .error(com.google.firebase.database.R.drawable.common_google_signin_btn_icon_dark_normal)
                 .into(viewHolderClass.img);
 
+        databaseReference.child("trade-transactions").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+
+                    databaseReference.child("items").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
+                                for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
+                                    if (dataSnapshot2.child("Accepted_Offers").hasChild(offerFetch.getPoster_UID())) {
+
+                                        if (dataSnapshot.child("Poster_Response").exists()) {
+                                            if (dataSnapshot.child("Posted_Item").child("Poster_UID").getValue(String.class).equals(offerFetch.getPoster_UID()) &&
+                                                    dataSnapshot.child("Posted_Item").child("Item_Name").getValue(String.class).equals(offerFetch.getItem_Name()) &&
+                                                    dataSnapshot.child("Transaction_Status").getValue(String.class).equals("Waiting for review")) {
+
+                                                viewHolderClass.goToReview.setVisibility(View.VISIBLE);
+                                                viewHolderClass.transactionStatus.setText("Waiting for review");
+                                                viewHolderClass.transactionStatus.setBackgroundResource(R.drawable.waiting_for_review);
+
+                                            } else if (dataSnapshot.child("Posted_Item").child("Poster_UID").getValue(String.class).equals(dataSnapshot1.getKey()) &&
+                                                    dataSnapshot.child("Posted_Item").child("Item_Name").getValue(String.class).equals(dataSnapshot2.getKey()) &&
+                                                    dataSnapshot.child("Transaction_Status").getValue(String.class).equals("Waiting for validation")) {
+
+                                                viewHolderClass.goToReview.setVisibility(View.GONE);
+                                                viewHolderClass.transactionStatus.setText("Waiting for validation");
+                                                viewHolderClass.transactionStatus.setBackgroundResource(R.drawable.waiting_for_validation);
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -70,7 +120,7 @@ public class OfferAdapter3 extends RecyclerView.Adapter {
                     for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                         if (dataSnapshot1.child("Accepted_Offers").hasChild(offerFetch.getPoster_UID()) ) {
                             if (dataSnapshot1.child("Accepted_Offers").child(offerFetch.getPoster_UID()).child("Item_Name").getValue(String.class).equals(offerFetch.getItem_Name())) {
-                                viewHolderClass.moreInfo.setOnClickListener(new View.OnClickListener() {
+                                viewHolderClass.offeredMoreInfo.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
 
@@ -79,14 +129,26 @@ public class OfferAdapter3 extends RecyclerView.Adapter {
                                         intent.putExtra("userID", offerFetch.getPoster_UID());
                                         intent.putExtra("parentKey", dataSnapshot.getKey());
                                         intent.putExtra("parentItemName", dataSnapshot1.getKey());
+                                        intent.putExtra("view", "Offered");
                                         view.getContext().startActivity(intent);
                                         CustomIntent.customType(view.getContext(), "left-to-right");
                                     }
                                 });
 
-                                if (!dataSnapshot.getKey().equals(uid)) {
-                                    viewHolderClass.getDirection.setVisibility(View.GONE);
-                                }
+                                viewHolderClass.postedMoreInfo.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+
+                                        Intent intent = new Intent(view.getContext(), TransactionMoreInfo.class);
+                                        intent.putExtra("itemName", offerFetch.getItem_Name());
+                                        intent.putExtra("userID", offerFetch.getPoster_UID());
+                                        intent.putExtra("parentKey", dataSnapshot.getKey());
+                                        intent.putExtra("parentItemName", dataSnapshot1.getKey());
+                                        intent.putExtra("view", "Posted");
+                                        view.getContext().startActivity(intent);
+                                        CustomIntent.customType(view.getContext(), "left-to-right");
+                                    }
+                                });
 
                                 viewHolderClass.getDirection.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -185,16 +247,18 @@ public class OfferAdapter3 extends RecyclerView.Adapter {
 
     public class ViewHolderClass extends RecyclerView.ViewHolder {
 
-        TextView textView, itemlocation, moreInfo, goToReview;
+        TextView textView, itemlocation, offeredMoreInfo, goToReview, postedMoreInfo, transactionStatus;
         ImageView img, getDirection, goToChat;
 
         public ViewHolderClass(@NonNull View itemView) {
             super(itemView);
 
+            transactionStatus = itemView.findViewById(R.id.transactionStatus);
             goToReview = itemView.findViewById(R.id.submitReview);
             goToChat = itemView.findViewById(R.id.goToChat);
             getDirection = itemView.findViewById(R.id.getDirection);
-            moreInfo = itemView.findViewById(R.id.moreInfo);
+            offeredMoreInfo = itemView.findViewById(R.id.offeredMoreInfo);
+            postedMoreInfo = itemView.findViewById(R.id.postedMoreInfo);
             textView = itemView.findViewById(R.id.offereditemname);
             img = itemView.findViewById(R.id.offeredpic);
             itemlocation = itemView.findViewById(R.id.offeredlocation);

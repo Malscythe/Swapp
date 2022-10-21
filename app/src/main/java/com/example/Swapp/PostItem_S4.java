@@ -205,6 +205,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Item_RFT").setValue(mReasonForTrading);
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Item_Category").setValue(mCategory);
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Item_PrefItem").setValue(mPrefItem);
+                                                        databaseReference.child("items").child(currentId).child(mItemName).child("Open_For_Offers").setValue("true");
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Address").child("Street").setValue(mStreet);
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Address").child("Barangay").setValue(mBarangay);
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Address").child("City").setValue(mCity);
@@ -315,6 +316,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(gadgetItemName).child("Item_RFT").setValue(gadgetReasonForTrading);
                                                         databaseReference.child("items").child(currentId).child(gadgetItemName).child("Item_Category").setValue(gadgetCategory);
                                                         databaseReference.child("items").child(currentId).child(gadgetItemName).child("Item_PrefItem").setValue(gadgetPrefItem);
+                                                        databaseReference.child("items").child(currentId).child(gadgetItemName).child("Open_For_Offers").setValue("true");
                                                         databaseReference.child("items").child(currentId).child(gadgetItemName).child("Address").child("Street").setValue(gadgetStreet);
                                                         databaseReference.child("items").child(currentId).child(gadgetItemName).child("Address").child("Barangay").setValue(gadgetBarangay);
                                                         databaseReference.child("items").child(currentId).child(gadgetItemName).child("Address").child("City").setValue(gadgetCity);
@@ -404,6 +406,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(gameItemName).child("Item_RFT").setValue(gameReasonForTrading);
                                                         databaseReference.child("items").child(currentId).child(gameItemName).child("Item_Category").setValue(gameCategory);
                                                         databaseReference.child("items").child(currentId).child(gameItemName).child("Item_PrefItem").setValue(gamePrefItem);
+                                                        databaseReference.child("items").child(currentId).child(gameItemName).child("Open_For_Offers").setValue("true");
                                                         databaseReference.child("items").child(currentId).child(gameItemName).child("Address").child("Street").setValue(gameStreet);
                                                         databaseReference.child("items").child(currentId).child(gameItemName).child("Address").child("Barangay").setValue(gameBarangay);
                                                         databaseReference.child("items").child(currentId).child(gameItemName).child("Address").child("City").setValue(gameCity);
@@ -497,6 +500,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(bagItemName).child("Item_RFT").setValue(bagReasonForTrading);
                                                         databaseReference.child("items").child(currentId).child(bagItemName).child("Item_Category").setValue(bagCategory);
                                                         databaseReference.child("items").child(currentId).child(bagItemName).child("Item_PrefItem").setValue(bagPrefItem);
+                                                        databaseReference.child("items").child(currentId).child(bagItemName).child("Open_For_Offers").setValue("true");
                                                         databaseReference.child("items").child(currentId).child(bagItemName).child("Address").child("Street").setValue(bagStreet);
                                                         databaseReference.child("items").child(currentId).child(bagItemName).child("Address").child("Barangay").setValue(bagBarangay);
                                                         databaseReference.child("items").child(currentId).child(bagItemName).child("Address").child("City").setValue(bagCity);
@@ -581,6 +585,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(groceryItemName).child("Item_RFT").setValue(groceryReasonForTrading);
                                                         databaseReference.child("items").child(currentId).child(groceryItemName).child("Item_Category").setValue(groceryCategory);
                                                         databaseReference.child("items").child(currentId).child(groceryItemName).child("Item_PrefItem").setValue(groceryPrefItem);
+                                                        databaseReference.child("items").child(currentId).child(groceryItemName).child("Open_For_Offers").setValue("true");
                                                         databaseReference.child("items").child(currentId).child(groceryItemName).child("Address").child("Street").setValue(groceryStreet);
                                                         databaseReference.child("items").child(currentId).child(groceryItemName).child("Address").child("Barangay").setValue(groceryBarangay);
                                                         databaseReference.child("items").child(currentId).child(groceryItemName).child("Address").child("City").setValue(groceryCity);
@@ -677,6 +682,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(furnitureItemName).child("Item_RFT").setValue(furnitureReasonForTrading);
                                                         databaseReference.child("items").child(currentId).child(furnitureItemName).child("Item_Category").setValue(furnitureCategory);
                                                         databaseReference.child("items").child(currentId).child(furnitureItemName).child("Item_PrefItem").setValue(furniturePrefItem);
+                                                        databaseReference.child("items").child(currentId).child(furnitureItemName).child("Open_For_Offers").setValue("true");
                                                         databaseReference.child("items").child(currentId).child(furnitureItemName).child("Address").child("Street").setValue(furnitureStreet);
                                                         databaseReference.child("items").child(currentId).child(furnitureItemName).child("Address").child("Barangay").setValue(furnitureBarangay);
                                                         databaseReference.child("items").child(currentId).child(furnitureItemName).child("Address").child("City").setValue(furnitureCity);
@@ -769,6 +775,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(bnkItemName).child("Item_RFT").setValue(bnkReasonForTrading);
                                                         databaseReference.child("items").child(currentId).child(bnkItemName).child("Item_Category").setValue(bnkCategory);
                                                         databaseReference.child("items").child(currentId).child(bnkItemName).child("Item_PrefItem").setValue(bnkPrefItem);
+                                                        databaseReference.child("items").child(currentId).child(bnkItemName).child("Open_For_Offers").setValue("true");
                                                         databaseReference.child("items").child(currentId).child(bnkItemName).child("Address").child("Street").setValue(bnkStreet);
                                                         databaseReference.child("items").child(currentId).child(bnkItemName).child("Address").child("Barangay").setValue(bnkBarangay);
                                                         databaseReference.child("items").child(currentId).child(bnkItemName).child("Address").child("City").setValue(bnkCity);
@@ -858,6 +865,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(appliancesItemName).child("Item_Usage").setValue(appliancesUsage);
                                                         databaseReference.child("items").child(currentId).child(appliancesItemName).child("Item_Description").setValue(appliancesDescription);
                                                         databaseReference.child("items").child(currentId).child(appliancesItemName).child("Item_Name").setValue(appliancesItemName);
+                                                        databaseReference.child("items").child(currentId).child(appliancesItemName).child("Open_For_Offers").setValue("true");
                                                         databaseReference.child("items").child(currentId).child(appliancesItemName).child("Item_RFT").setValue(appliancesReasonForTrading);
                                                         databaseReference.child("items").child(currentId).child(appliancesItemName).child("Item_Category").setValue(appliancesCategory);
                                                         databaseReference.child("items").child(currentId).child(appliancesItemName).child("Item_PrefItem").setValue(appliancesPrefItem);
@@ -952,6 +960,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(motorItemName).child("Item_Name").setValue(motorItemName);
                                                         databaseReference.child("items").child(currentId).child(motorItemName).child("Item_RFT").setValue(motorReasonForTrading);
                                                         databaseReference.child("items").child(currentId).child(motorItemName).child("Item_Category").setValue(motorCategory);
+                                                        databaseReference.child("items").child(currentId).child(motorItemName).child("Open_For_Offers").setValue("true");
                                                         databaseReference.child("items").child(currentId).child(motorItemName).child("Item_PrefItem").setValue(motorPrefItem);
                                                         databaseReference.child("items").child(currentId).child(motorItemName).child("Address").child("Street").setValue(motorStreet);
                                                         databaseReference.child("items").child(currentId).child(motorItemName).child("Address").child("Barangay").setValue(motorBarangay);
@@ -1042,6 +1051,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(audioItemName).child("Item_Name").setValue(audioItemName);
                                                         databaseReference.child("items").child(currentId).child(audioItemName).child("Item_RFT").setValue(audioReasonForTrading);
                                                         databaseReference.child("items").child(currentId).child(audioItemName).child("Item_Category").setValue(audioCategory);
+                                                        databaseReference.child("items").child(currentId).child(audioItemName).child("Open_For_Offers").setValue("true");
                                                         databaseReference.child("items").child(currentId).child(audioItemName).child("Item_PrefItem").setValue(audioPrefItem);
                                                         databaseReference.child("items").child(currentId).child(audioItemName).child("Address").child("Street").setValue(audioStreet);
                                                         databaseReference.child("items").child(currentId).child(audioItemName).child("Address").child("Barangay").setValue(audioBarangay);
@@ -1135,6 +1145,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(schoolItemName).child("Item_RFT").setValue(schoolReasonForTrading);
                                                         databaseReference.child("items").child(currentId).child(schoolItemName).child("Item_Category").setValue(schoolCategory);
                                                         databaseReference.child("items").child(currentId).child(schoolItemName).child("Item_PrefItem").setValue(schoolPrefItem);
+                                                        databaseReference.child("items").child(currentId).child(schoolItemName).child("Open_For_Offers").setValue("true");
                                                         databaseReference.child("items").child(currentId).child(schoolItemName).child("Address").child("Street").setValue(schoolStreet);
                                                         databaseReference.child("items").child(currentId).child(schoolItemName).child("Address").child("Barangay").setValue(schoolBarangay);
                                                         databaseReference.child("items").child(currentId).child(schoolItemName).child("Address").child("City").setValue(schoolCity);
@@ -1232,6 +1243,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(wItemName).child("Item_RFT").setValue(wReasonForTrading);
                                                         databaseReference.child("items").child(currentId).child(wItemName).child("Item_Category").setValue(wCategory);
                                                         databaseReference.child("items").child(currentId).child(wItemName).child("Item_PrefItem").setValue(wPrefItem);
+                                                        databaseReference.child("items").child(currentId).child(wItemName).child("Open_For_Offers").setValue("true");
                                                         databaseReference.child("items").child(currentId).child(wItemName).child("Address").child("Street").setValue(wStreet);
                                                         databaseReference.child("items").child(currentId).child(wItemName).child("Address").child("Barangay").setValue(wBarangay);
                                                         databaseReference.child("items").child(currentId).child(wItemName).child("Address").child("City").setValue(wCity);
@@ -1336,6 +1348,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(otherItemName).child("Item_RFT").setValue(otherReasonForTrading);
                                                         databaseReference.child("items").child(currentId).child(otherItemName).child("Item_Category").setValue(otherCategory);
                                                         databaseReference.child("items").child(currentId).child(otherItemName).child("Item_PrefItem").setValue(otherPrefItem);
+                                                        databaseReference.child("items").child(currentId).child(otherItemName).child("Open_For_Offers").setValue("true");
                                                         databaseReference.child("items").child(currentId).child(otherItemName).child("Address").child("Street").setValue(otherStreet);
                                                         databaseReference.child("items").child(currentId).child(otherItemName).child("Address").child("Barangay").setValue(otherBarangay);
                                                         databaseReference.child("items").child(currentId).child(otherItemName).child("Address").child("City").setValue(otherCity);

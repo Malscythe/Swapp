@@ -20,7 +20,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/poppins"
-            android:text="ONGOING TRANSACTION"
+            android:text="TRANSACTIONS"
             android:textColor="@color/primary_black"
             android:textSize="24sp" />
 
@@ -39,9 +39,44 @@
         app:itemIconSize="24dp"
         app:menu="@menu/bottom_nav" />
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabTop"
+        android:background="@drawable/bottom_border"
+        android:layout_below="@id/topBanner"
+        android:layout_width="match_parent"
+        app:tabMode="scrollable"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/acceptedTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Accepted offers"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/offerSentTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Offers sent"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/successfulTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Successful" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/unsuccessfulTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unsuccessful"/>
+
+    </com.google.android.material.tabs.TabLayout>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_above="@id/bottom_nav"
-        android:layout_below="@id/topBanner"
+        android:layout_below="@id/tabTop"
         android:background="#E7E7E7"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

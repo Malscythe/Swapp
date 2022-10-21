@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
@@ -20,7 +21,7 @@ import maes.tech.intentanim.CustomIntent;
 
 public class AdminHomepage extends AppCompatActivity {
 
-    ImageView usermanage;
+    CardView manageUsers;
 
 
     @Override
@@ -28,8 +29,8 @@ public class AdminHomepage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_homepage);
 
-        usermanage = (ImageView) findViewById(R.id.usermanage);
-        usermanage.setOnClickListener(new View.OnClickListener() {
+        manageUsers = findViewById(R.id.manageUsers);
+        manageUsers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent FileMaintenance = new Intent(AdminHomepage.this, FileMaintenance.class);

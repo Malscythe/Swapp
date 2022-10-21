@@ -168,6 +168,45 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             databaseReference.child("Accepted_Offers").child(uid).child("Images").child(String.valueOf(i)).setValue(snapshot.child("Offers").child(uid).child("Images").child(String.valueOf(i)).getValue(String.class));
                                         }
 
+                                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                int newPendingParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Pending").getValue(String.class));
+                                                newPendingParent = newPendingParent - 1;
+
+                                                int newPendingOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Pending").getValue(String.class));
+                                                newPendingOfferer = newPendingOfferer - 1;
+
+                                                databaseReference.child("user-transactions").child(currentId).child("Pending").setValue(String.valueOf(newPendingParent));
+                                                databaseReference.child("user-transactions").child(uid).child("Pending").setValue(String.valueOf(newPendingOfferer));
+
+                                                if (snapshot.child("user-transactions").child(currentId).child("Current").exists()) {
+                                                    int newCurrentParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Current").getValue(String.class));
+                                                    newCurrentParent = newCurrentParent + 1;
+
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue(String.valueOf(newCurrentParent));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue("1");
+                                                }
+
+                                                if (snapshot.child("user-transactions").child(uid).child("Current").exists()) {
+                                                    int newCurrentOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Current").getValue(String.class));
+                                                    newCurrentOfferer = newCurrentOfferer + 1;
+
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue(String.valueOf(newCurrentOfferer));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue("1");
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
                                         DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
@@ -358,6 +397,45 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             databaseReference.child("Accepted_Offers").child(uid).child("Images").child(String.valueOf(i)).setValue(snapshot.child("Offers").child(uid).child("Images").child(String.valueOf(i)).getValue(String.class));
                                         }
 
+                                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                int newPendingParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Pending").getValue(String.class));
+                                                newPendingParent = newPendingParent - 1;
+
+                                                int newPendingOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Pending").getValue(String.class));
+                                                newPendingOfferer = newPendingOfferer - 1;
+
+                                                databaseReference.child("user-transactions").child(currentId).child("Pending").setValue(String.valueOf(newPendingParent));
+                                                databaseReference.child("user-transactions").child(uid).child("Pending").setValue(String.valueOf(newPendingOfferer));
+
+                                                if (snapshot.child("user-transactions").child(currentId).child("Current").exists()) {
+                                                    int newCurrentParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Current").getValue(String.class));
+                                                    newCurrentParent = newCurrentParent + 1;
+
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue(String.valueOf(newCurrentParent));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue("1");
+                                                }
+
+                                                if (snapshot.child("user-transactions").child(uid).child("Current").exists()) {
+                                                    int newCurrentOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Current").getValue(String.class));
+                                                    newCurrentOfferer = newCurrentOfferer + 1;
+
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue(String.valueOf(newCurrentOfferer));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue("1");
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
                                         DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
@@ -528,6 +606,45 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             databaseReference.child("Accepted_Offers").child(uid).child("Images").child(String.valueOf(i)).setValue(snapshot.child("Offers").child(uid).child("Images").child(String.valueOf(i)).getValue(String.class));
                                         }
 
+                                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                int newPendingParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Pending").getValue(String.class));
+                                                newPendingParent = newPendingParent - 1;
+
+                                                int newPendingOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Pending").getValue(String.class));
+                                                newPendingOfferer = newPendingOfferer - 1;
+
+                                                databaseReference.child("user-transactions").child(currentId).child("Pending").setValue(String.valueOf(newPendingParent));
+                                                databaseReference.child("user-transactions").child(uid).child("Pending").setValue(String.valueOf(newPendingOfferer));
+
+                                                if (snapshot.child("user-transactions").child(currentId).child("Current").exists()) {
+                                                    int newCurrentParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Current").getValue(String.class));
+                                                    newCurrentParent = newCurrentParent + 1;
+
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue(String.valueOf(newCurrentParent));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue("1");
+                                                }
+
+                                                if (snapshot.child("user-transactions").child(uid).child("Current").exists()) {
+                                                    int newCurrentOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Current").getValue(String.class));
+                                                    newCurrentOfferer = newCurrentOfferer + 1;
+
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue(String.valueOf(newCurrentOfferer));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue("1");
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
                                         DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
@@ -694,6 +811,45 @@ public class OfferMoreInfo extends AppCompatActivity {
                                         for (int i = 1; i <= snapshot.child("Offers").child(uid).child("Images").getChildrenCount(); i++) {
                                             databaseReference.child("Accepted_Offers").child(uid).child("Images").child(String.valueOf(i)).setValue(snapshot.child("Offers").child(uid).child("Images").child(String.valueOf(i)).getValue(String.class));
                                         }
+
+                                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                int newPendingParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Pending").getValue(String.class));
+                                                newPendingParent = newPendingParent - 1;
+
+                                                int newPendingOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Pending").getValue(String.class));
+                                                newPendingOfferer = newPendingOfferer - 1;
+
+                                                databaseReference.child("user-transactions").child(currentId).child("Pending").setValue(String.valueOf(newPendingParent));
+                                                databaseReference.child("user-transactions").child(uid).child("Pending").setValue(String.valueOf(newPendingOfferer));
+
+                                                if (snapshot.child("user-transactions").child(currentId).child("Current").exists()) {
+                                                    int newCurrentParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Current").getValue(String.class));
+                                                    newCurrentParent = newCurrentParent + 1;
+
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue(String.valueOf(newCurrentParent));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue("1");
+                                                }
+
+                                                if (snapshot.child("user-transactions").child(uid).child("Current").exists()) {
+                                                    int newCurrentOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Current").getValue(String.class));
+                                                    newCurrentOfferer = newCurrentOfferer + 1;
+
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue(String.valueOf(newCurrentOfferer));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue("1");
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
 
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
@@ -865,6 +1021,45 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             databaseReference.child("Accepted_Offers").child(uid).child("Images").child(String.valueOf(i)).setValue(snapshot.child("Offers").child(uid).child("Images").child(String.valueOf(i)).getValue(String.class));
                                         }
 
+                                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                int newPendingParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Pending").getValue(String.class));
+                                                newPendingParent = newPendingParent - 1;
+
+                                                int newPendingOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Pending").getValue(String.class));
+                                                newPendingOfferer = newPendingOfferer - 1;
+
+                                                databaseReference.child("user-transactions").child(currentId).child("Pending").setValue(String.valueOf(newPendingParent));
+                                                databaseReference.child("user-transactions").child(uid).child("Pending").setValue(String.valueOf(newPendingOfferer));
+
+                                                if (snapshot.child("user-transactions").child(currentId).child("Current").exists()) {
+                                                    int newCurrentParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Current").getValue(String.class));
+                                                    newCurrentParent = newCurrentParent + 1;
+
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue(String.valueOf(newCurrentParent));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue("1");
+                                                }
+
+                                                if (snapshot.child("user-transactions").child(uid).child("Current").exists()) {
+                                                    int newCurrentOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Current").getValue(String.class));
+                                                    newCurrentOfferer = newCurrentOfferer + 1;
+
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue(String.valueOf(newCurrentOfferer));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue("1");
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
                                         DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
@@ -1005,6 +1200,45 @@ public class OfferMoreInfo extends AppCompatActivity {
                                         for (int i = 1; i <= snapshot.child("Offers").child(uid).child("Images").getChildrenCount(); i++) {
                                             databaseReference.child("Accepted_Offers").child(uid).child("Images").child(String.valueOf(i)).setValue(snapshot.child("Offers").child(uid).child("Images").child(String.valueOf(i)).getValue(String.class));
                                         }
+
+                                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                int newPendingParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Pending").getValue(String.class));
+                                                newPendingParent = newPendingParent - 1;
+
+                                                int newPendingOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Pending").getValue(String.class));
+                                                newPendingOfferer = newPendingOfferer - 1;
+
+                                                databaseReference.child("user-transactions").child(currentId).child("Pending").setValue(String.valueOf(newPendingParent));
+                                                databaseReference.child("user-transactions").child(uid).child("Pending").setValue(String.valueOf(newPendingOfferer));
+
+                                                if (snapshot.child("user-transactions").child(currentId).child("Current").exists()) {
+                                                    int newCurrentParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Current").getValue(String.class));
+                                                    newCurrentParent = newCurrentParent + 1;
+
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue(String.valueOf(newCurrentParent));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue("1");
+                                                }
+
+                                                if (snapshot.child("user-transactions").child(uid).child("Current").exists()) {
+                                                    int newCurrentOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Current").getValue(String.class));
+                                                    newCurrentOfferer = newCurrentOfferer + 1;
+
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue(String.valueOf(newCurrentOfferer));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue("1");
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
 
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
@@ -1182,6 +1416,45 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             databaseReference.child("Accepted_Offers").child(uid).child("Images").child(String.valueOf(i)).setValue(snapshot.child("Offers").child(uid).child("Images").child(String.valueOf(i)).getValue(String.class));
                                         }
 
+                                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                int newPendingParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Pending").getValue(String.class));
+                                                newPendingParent = newPendingParent - 1;
+
+                                                int newPendingOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Pending").getValue(String.class));
+                                                newPendingOfferer = newPendingOfferer - 1;
+
+                                                databaseReference.child("user-transactions").child(currentId).child("Pending").setValue(String.valueOf(newPendingParent));
+                                                databaseReference.child("user-transactions").child(uid).child("Pending").setValue(String.valueOf(newPendingOfferer));
+
+                                                if (snapshot.child("user-transactions").child(currentId).child("Current").exists()) {
+                                                    int newCurrentParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Current").getValue(String.class));
+                                                    newCurrentParent = newCurrentParent + 1;
+
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue(String.valueOf(newCurrentParent));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue("1");
+                                                }
+
+                                                if (snapshot.child("user-transactions").child(uid).child("Current").exists()) {
+                                                    int newCurrentOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Current").getValue(String.class));
+                                                    newCurrentOfferer = newCurrentOfferer + 1;
+
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue(String.valueOf(newCurrentOfferer));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue("1");
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
                                         DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
@@ -1351,6 +1624,45 @@ public class OfferMoreInfo extends AppCompatActivity {
                                         for (int i = 1; i <= snapshot.child("Offers").child(uid).child("Images").getChildrenCount(); i++) {
                                             databaseReference.child("Accepted_Offers").child(uid).child("Images").child(String.valueOf(i)).setValue(snapshot.child("Offers").child(uid).child("Images").child(String.valueOf(i)).getValue(String.class));
                                         }
+
+                                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                int newPendingParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Pending").getValue(String.class));
+                                                newPendingParent = newPendingParent - 1;
+
+                                                int newPendingOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Pending").getValue(String.class));
+                                                newPendingOfferer = newPendingOfferer - 1;
+
+                                                databaseReference.child("user-transactions").child(currentId).child("Pending").setValue(String.valueOf(newPendingParent));
+                                                databaseReference.child("user-transactions").child(uid).child("Pending").setValue(String.valueOf(newPendingOfferer));
+
+                                                if (snapshot.child("user-transactions").child(currentId).child("Current").exists()) {
+                                                    int newCurrentParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Current").getValue(String.class));
+                                                    newCurrentParent = newCurrentParent + 1;
+
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue(String.valueOf(newCurrentParent));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue("1");
+                                                }
+
+                                                if (snapshot.child("user-transactions").child(uid).child("Current").exists()) {
+                                                    int newCurrentOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Current").getValue(String.class));
+                                                    newCurrentOfferer = newCurrentOfferer + 1;
+
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue(String.valueOf(newCurrentOfferer));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue("1");
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
 
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
@@ -1522,6 +1834,45 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             databaseReference.child("Accepted_Offers").child(uid).child("Images").child(String.valueOf(i)).setValue(snapshot.child("Offers").child(uid).child("Images").child(String.valueOf(i)).getValue(String.class));
                                         }
 
+                                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                int newPendingParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Pending").getValue(String.class));
+                                                newPendingParent = newPendingParent - 1;
+
+                                                int newPendingOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Pending").getValue(String.class));
+                                                newPendingOfferer = newPendingOfferer - 1;
+
+                                                databaseReference.child("user-transactions").child(currentId).child("Pending").setValue(String.valueOf(newPendingParent));
+                                                databaseReference.child("user-transactions").child(uid).child("Pending").setValue(String.valueOf(newPendingOfferer));
+
+                                                if (snapshot.child("user-transactions").child(currentId).child("Current").exists()) {
+                                                    int newCurrentParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Current").getValue(String.class));
+                                                    newCurrentParent = newCurrentParent + 1;
+
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue(String.valueOf(newCurrentParent));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue("1");
+                                                }
+
+                                                if (snapshot.child("user-transactions").child(uid).child("Current").exists()) {
+                                                    int newCurrentOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Current").getValue(String.class));
+                                                    newCurrentOfferer = newCurrentOfferer + 1;
+
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue(String.valueOf(newCurrentOfferer));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue("1");
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
                                         DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
@@ -1692,6 +2043,45 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             databaseReference.child("Accepted_Offers").child(uid).child("Images").child(String.valueOf(i)).setValue(snapshot.child("Offers").child(uid).child("Images").child(String.valueOf(i)).getValue(String.class));
                                         }
 
+                                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                int newPendingParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Pending").getValue(String.class));
+                                                newPendingParent = newPendingParent - 1;
+
+                                                int newPendingOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Pending").getValue(String.class));
+                                                newPendingOfferer = newPendingOfferer - 1;
+
+                                                databaseReference.child("user-transactions").child(currentId).child("Pending").setValue(String.valueOf(newPendingParent));
+                                                databaseReference.child("user-transactions").child(uid).child("Pending").setValue(String.valueOf(newPendingOfferer));
+
+                                                if (snapshot.child("user-transactions").child(currentId).child("Current").exists()) {
+                                                    int newCurrentParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Current").getValue(String.class));
+                                                    newCurrentParent = newCurrentParent + 1;
+
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue(String.valueOf(newCurrentParent));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue("1");
+                                                }
+
+                                                if (snapshot.child("user-transactions").child(uid).child("Current").exists()) {
+                                                    int newCurrentOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Current").getValue(String.class));
+                                                    newCurrentOfferer = newCurrentOfferer + 1;
+
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue(String.valueOf(newCurrentOfferer));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue("1");
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
                                         DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
@@ -1858,6 +2248,45 @@ public class OfferMoreInfo extends AppCompatActivity {
                                         for (int i = 1; i <= snapshot.child("Offers").child(uid).child("Images").getChildrenCount(); i++) {
                                             databaseReference.child("Accepted_Offers").child(uid).child("Images").child(String.valueOf(i)).setValue(snapshot.child("Offers").child(uid).child("Images").child(String.valueOf(i)).getValue(String.class));
                                         }
+
+                                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                int newPendingParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Pending").getValue(String.class));
+                                                newPendingParent = newPendingParent - 1;
+
+                                                int newPendingOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Pending").getValue(String.class));
+                                                newPendingOfferer = newPendingOfferer - 1;
+
+                                                databaseReference.child("user-transactions").child(currentId).child("Pending").setValue(String.valueOf(newPendingParent));
+                                                databaseReference.child("user-transactions").child(uid).child("Pending").setValue(String.valueOf(newPendingOfferer));
+
+                                                if (snapshot.child("user-transactions").child(currentId).child("Current").exists()) {
+                                                    int newCurrentParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Current").getValue(String.class));
+                                                    newCurrentParent = newCurrentParent + 1;
+
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue(String.valueOf(newCurrentParent));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue("1");
+                                                }
+
+                                                if (snapshot.child("user-transactions").child(uid).child("Current").exists()) {
+                                                    int newCurrentOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Current").getValue(String.class));
+                                                    newCurrentOfferer = newCurrentOfferer + 1;
+
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue(String.valueOf(newCurrentOfferer));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue("1");
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
 
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
@@ -2029,6 +2458,45 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             databaseReference.child("Accepted_Offers").child(uid).child("Images").child(String.valueOf(i)).setValue(snapshot.child("Offers").child(uid).child("Images").child(String.valueOf(i)).getValue(String.class));
                                         }
 
+                                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                int newPendingParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Pending").getValue(String.class));
+                                                newPendingParent = newPendingParent - 1;
+
+                                                int newPendingOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Pending").getValue(String.class));
+                                                newPendingOfferer = newPendingOfferer - 1;
+
+                                                databaseReference.child("user-transactions").child(currentId).child("Pending").setValue(String.valueOf(newPendingParent));
+                                                databaseReference.child("user-transactions").child(uid).child("Pending").setValue(String.valueOf(newPendingOfferer));
+
+                                                if (snapshot.child("user-transactions").child(currentId).child("Current").exists()) {
+                                                    int newCurrentParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Current").getValue(String.class));
+                                                    newCurrentParent = newCurrentParent + 1;
+
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue(String.valueOf(newCurrentParent));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue("1");
+                                                }
+
+                                                if (snapshot.child("user-transactions").child(uid).child("Current").exists()) {
+                                                    int newCurrentOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Current").getValue(String.class));
+                                                    newCurrentOfferer = newCurrentOfferer + 1;
+
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue(String.valueOf(newCurrentOfferer));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue("1");
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
                                         DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
@@ -2189,6 +2657,45 @@ public class OfferMoreInfo extends AppCompatActivity {
                                         for (int i = 1; i <= snapshot.child("Offers").child(uid).child("Images").getChildrenCount(); i++) {
                                             databaseReference.child("Accepted_Offers").child(uid).child("Images").child(String.valueOf(i)).setValue(snapshot.child("Offers").child(uid).child("Images").child(String.valueOf(i)).getValue(String.class));
                                         }
+
+                                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                int newPendingParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Pending").getValue(String.class));
+                                                newPendingParent = newPendingParent - 1;
+
+                                                int newPendingOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Pending").getValue(String.class));
+                                                newPendingOfferer = newPendingOfferer - 1;
+
+                                                databaseReference.child("user-transactions").child(currentId).child("Pending").setValue(String.valueOf(newPendingParent));
+                                                databaseReference.child("user-transactions").child(uid).child("Pending").setValue(String.valueOf(newPendingOfferer));
+
+                                                if (snapshot.child("user-transactions").child(currentId).child("Current").exists()) {
+                                                    int newCurrentParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Current").getValue(String.class));
+                                                    newCurrentParent = newCurrentParent + 1;
+
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue(String.valueOf(newCurrentParent));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(currentId).child("Current").setValue("1");
+                                                }
+
+                                                if (snapshot.child("user-transactions").child(uid).child("Current").exists()) {
+                                                    int newCurrentOfferer = Integer.parseInt(snapshot.child("user-transactions").child(uid).child("Current").getValue(String.class));
+                                                    newCurrentOfferer = newCurrentOfferer + 1;
+
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue(String.valueOf(newCurrentOfferer));
+                                                } else {
+                                                    databaseReference.child("user-transactions").child(uid).child("Current").setValue("1");
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
 
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 

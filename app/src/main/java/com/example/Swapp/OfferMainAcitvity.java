@@ -7,9 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -19,10 +17,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.auth.User;
-import com.google.rpc.Help;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +79,7 @@ public class OfferMainAcitvity extends AppCompatActivity {
                     case  R.id.offers:
                         return true;
                     case R.id.transactions:
-                        Intent intent2 = new Intent(OfferMainAcitvity.this, CurrentTransactions.class);
+                        Intent intent2 = new Intent(OfferMainAcitvity.this, MyItemCurrentTransaction.class);
                         startActivity(intent2);
                         overridePendingTransition(0, 0);
                         return true;

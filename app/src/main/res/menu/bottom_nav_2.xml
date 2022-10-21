@@ -2,12 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/pending"
-        android:title="Pending Offers"
-        android:icon="@drawable/ic_pending_icon" />
+        android:id="@+id/myItemTransactions"
+        android:title="My item transactions" />
 
     <item
-        android:id="@+id/current"
-        android:title="Accepted Offers"
-        android:icon="@drawable/ic_current_icon" />
+        android:id="@+id/myOfferedTransaction"
+        android:title="My offers transactions" />
+
+    <item
+        android:id="@+id/mySuccessfulTransactions"
+        android:title="Successful transactions" />
+
+    <item
+        android:id="@+id/myUnsuccessfulTransaction"
+        android:title="Unsuccessful transactions" />
 </menu>

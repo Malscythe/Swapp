@@ -247,11 +247,6 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                             });
                         }
 
-                        offeringItemDialog.DismissDialog();
-                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        startActivity(intent);
-                        CustomIntent.customType(offerItem_S4.this, "left-to-right");
-
                         break;
                     case "Gadgets":
 
@@ -335,12 +330,6 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                 }
                             });
                         }
-
-                        offeringItemDialog.DismissDialog();
-                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        startActivity(intent);
-                        CustomIntent.customType(offerItem_S4.this, "left-to-right");
-
                         break;
                     case "Game":
 
@@ -422,13 +411,6 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                 }
                             });
                         }
-
-                        offeringItemDialog.DismissDialog();
-
-                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        startActivity(intent);
-                        CustomIntent.customType(offerItem_S4.this, "left-to-right");
-
                         break;
                     case "Bags":
 
@@ -513,12 +495,6 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                 }
                             });
                         }
-
-                        offeringItemDialog.DismissDialog();
-                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        startActivity(intent);
-                        CustomIntent.customType(offerItem_S4.this, "left-to-right");
-
                         break;
                     case "Groceries":
 
@@ -594,12 +570,6 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                 }
                             });
                         }
-
-                        offeringItemDialog.DismissDialog();
-                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        startActivity(intent);
-                        CustomIntent.customType(offerItem_S4.this, "left-to-right");
-
                         break;
                     case "Furniture":
 
@@ -687,12 +657,6 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                 }
                             });
                         }
-
-                        offeringItemDialog.DismissDialog();
-                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        startActivity(intent);
-                        CustomIntent.customType(offerItem_S4.this, "left-to-right");
-
                         break;
                     case "Babies & Kids":
 
@@ -776,12 +740,6 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                 }
                             });
                         }
-
-                        offeringItemDialog.DismissDialog();
-                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        startActivity(intent);
-                        CustomIntent.customType(offerItem_S4.this, "left-to-right");
-
                         break;
                     case "Appliances":
 
@@ -865,12 +823,6 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                 }
                             });
                         }
-
-                        offeringItemDialog.DismissDialog();
-                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        startActivity(intent);
-                        CustomIntent.customType(offerItem_S4.this, "left-to-right");
-
                         break;
                     case "Motors":
 
@@ -954,12 +906,6 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                 }
                             });
                         }
-
-                        offeringItemDialog.DismissDialog();
-                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        startActivity(intent);
-                        CustomIntent.customType(offerItem_S4.this, "left-to-right");
-
                         break;
                     case "Audio":
 
@@ -1041,12 +987,6 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                 }
                             });
                         }
-
-                        offeringItemDialog.DismissDialog();
-                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        startActivity(intent);
-                        CustomIntent.customType(offerItem_S4.this, "left-to-right");
-
                         break;
                     case "School":
 
@@ -1130,12 +1070,6 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                 }
                             });
                         }
-
-                        offeringItemDialog.DismissDialog();
-                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        startActivity(intent);
-                        CustomIntent.customType(offerItem_S4.this, "left-to-right");
-
                         break;
                     case "Women's Apparel":
 
@@ -1243,12 +1177,6 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                 }
                             });
                         }
-
-                        offeringItemDialog.DismissDialog();
-                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                        startActivity(intent);
-                        CustomIntent.customType(offerItem_S4.this, "left-to-right");
-
                         break;
                     case "Others":
 
@@ -1325,14 +1253,44 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                                 }
                             });
                         }
+                        break;
+                }
+
+                String posterUID = getIntent().getStringExtra("uid");
+
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.child("user-transactions").child(posterUID).child("Pending").exists()) {
+                            int newPendingPoster = Integer.parseInt(snapshot.child("user-transactions").child(posterUID).child("Pending").getValue(String.class));
+                            newPendingPoster = newPendingPoster + 1;
+
+                            databaseReference.child("user-transactions").child(posterUID).child("Pending").setValue(String.valueOf(newPendingPoster));
+                        } else {
+                            databaseReference.child("user-transactions").child(posterUID).child("Pending").setValue("1");
+                        }
+
+                        if (snapshot.child("user-transactions").child(currentId).child("Pending").exists()) {
+                            int newPendingParent = Integer.parseInt(snapshot.child("user-transactions").child(currentId).child("Pending").getValue(String.class));
+                            newPendingParent = newPendingParent + 1;
+
+                            databaseReference.child("user-transactions").child(currentId).child("Pending").setValue(String.valueOf(newPendingParent));
+                        } else {
+                            databaseReference.child("user-transactions").child(currentId).child("Pending").setValue("1");
+                        }
 
                         offeringItemDialog.DismissDialog();
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
                         CustomIntent.customType(offerItem_S4.this, "left-to-right");
+                    }
 
-                        break;
-                }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
     }

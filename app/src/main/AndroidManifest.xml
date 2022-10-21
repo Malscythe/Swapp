@@ -7,10 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="28"
-        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -28,13 +25,16 @@
         android:theme="@style/Theme.Swapp"
         android:usesCleartextTraffic="true">
         <activity
-            android:name="com.example.Swapp.TransactionReview"
+            android:name="com.example.Swapp.MyOffersSentTransaction"
             android:exported="true"/>
+        <activity
+            android:name="com.example.Swapp.TransactionReview"
+            android:exported="true" />
         <activity
             android:name="com.example.Swapp.TransactionMoreInfo"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
-            android:name="com.example.Swapp.CurrentTransactions"
+            android:name="com.example.Swapp.MyItemCurrentTransaction"
             android:exported="true" />
         <activity
             android:name="com.example.Swapp.offerItem_S1"
@@ -60,6 +60,15 @@
             android:theme="@style/piechart" />
         <activity
             android:name="com.example.Swapp.MoreInfo"
+            android:exported="true" />
+        <activity
+            android:name="com.example.Swapp.MyUnsuccessfulTransactions"
+            android:exported="true" />
+        <activity
+            android:name="com.example.Swapp.MySuccessfulTransactions"
+            android:exported="true" />
+        <activity
+            android:name="com.example.Swapp.CompleteTransactionMoreInfo"
             android:exported="true" />
         <activity
             android:name="com.example.Swapp.OfferSecondActivity"

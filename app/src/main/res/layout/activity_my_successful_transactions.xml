@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/topBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_border">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/poppins"
+            android:text="TRANSACTIONS"
+            android:textColor="@color/primary_black"
+            android:textSize="24sp" />
+
+    </RelativeLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottom_nav_border"
+        app:itemRippleColor="#73CFD3"
+        app:elevation="10dp"
+        app:itemIconTint="@color/selector"
+        app:itemTextColor="@color/selector"
+        app:itemIconSize="24dp"
+        app:menu="@menu/bottom_nav" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabTop"
+        android:background="@drawable/bottom_border"
+        android:layout_below="@id/topBanner"
+        android:layout_width="match_parent"
+        app:tabMode="scrollable"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/acceptedTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Accepted offers"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/offerSentTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Offers sent"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/successfulTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Successful" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/unsuccessfulTab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unsuccessful"/>
+
+    </com.google.android.material.tabs.TabLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_above="@id/bottom_nav"
+        android:layout_below="@id/tabTop"
+        android:background="#E7E7E7"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/offerRV_3"/>
+
+</RelativeLayout>

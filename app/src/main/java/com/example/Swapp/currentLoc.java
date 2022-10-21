@@ -571,7 +571,7 @@ public class currentLoc extends AppCompatActivity {
 
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                            getResult.add(String.valueOf(dataSnapshot1.child("Item_Category").getValue(String.class).equals(category)));
+                            getResult.add(String.valueOf(dataSnapshot1.child("Item_Category").getValue(String.class).equals(category) && dataSnapshot1.child("Open_For_Offers").getValue(String.class).equals("true")));
                         }
                     }
 

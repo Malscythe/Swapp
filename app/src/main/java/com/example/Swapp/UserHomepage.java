@@ -10,23 +10,17 @@ import androidx.core.view.WindowCompat;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Looper;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.airbnb.lottie.L;
 import com.example.Swapp.call.BaseActivity;
 import com.example.Swapp.call.SinchService;
-import com.github.mikephil.charting.formatter.IFillFormatter;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,6 +35,10 @@ import com.sinch.android.rtc.Sinch;
 import com.sinch.android.rtc.SinchError;
 import com.sinch.android.rtc.UserController;
 import com.sinch.android.rtc.UserRegistrationCallback;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 import Swapp.R;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -120,7 +118,7 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.transactions:
-                        Intent intent1 = new Intent(UserHomepage.this, CurrentTransactions.class);
+                        Intent intent1 = new Intent(UserHomepage.this, MyItemCurrentTransaction.class);
                         startActivity(intent1);
                         overridePendingTransition(0, 0);
                         return true;
@@ -139,46 +137,32 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
             }
         }
 
-        databaseReferenceUrl.child("items").addValueEventListener(new ValueEventListener() {
+        databaseReferenceUrl.child("user-transactions").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-
-                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-
-                        if (dataSnapshot1.hasChild("Poster_UID")) {
-                            if (dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
-                                pendingTrades = pendingTrades + dataSnapshot1.child("Offers").getChildrenCount();
-                                pendingCounts.setText(pendingTrades.toString());
-
-                                currentTrades = currentTrades + dataSnapshot1.child("Accepted_Offers").getChildrenCount();
-                                currentCounts.setText(currentTrades.toString());
-                            }
-                        }
-
-                        if (dataSnapshot1.hasChild("Accepted_Offers")) {
-                            if (dataSnapshot1.child("Accepted_Offers").hasChild(uid)){
-                                pendingTrades = Long.parseLong(pendingCounts.getText().toString()) - 1;
-                                pendingCounts.setText(pendingTrades.toString());
-
-                                currentTrades = currentTrades + 1;
-                                currentCounts.setText(currentTrades.toString());
-                            }
-                        }
-
-                        if (dataSnapshot1.hasChild("Offers")) {
-                            if (dataSnapshot1.child("Offers").hasChild(uid)){
-                                pendingTrades = Long.parseLong(pendingCounts.getText().toString()) + 1;
-                                pendingCounts.setText(pendingTrades.toString());
-                            }
-                        }
-
-                    }
+                if (snapshot.child("Successful").exists()) {
+                    successfulCounts.setText(snapshot.child("Successful").getValue(String.class));
+                } else {
+                    successfulCounts.setText("0");
                 }
 
-                pendingTrades = 0L;
-                currentTrades = 0L;
+                if (snapshot.child("Unsuccessful").exists()) {
+                    unsuccessfulCounts.setText(snapshot.child("Unsuccessful").getValue(String.class));
+                } else {
+                    unsuccessfulCounts.setText("0");
+                }
 
+                if (snapshot.child("Pending").exists()) {
+                    pendingCounts.setText(snapshot.child("Pending").getValue(String.class));
+                } else {
+                    pendingCounts.setText("0");
+                }
+
+                if (snapshot.child("Current").exists()) {
+                    currentCounts.setText(snapshot.child("Current").getValue(String.class));
+                } else {
+                    currentCounts.setText("0");
+                }
             }
 
             @Override
@@ -227,7 +211,6 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
         accsetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 getSinchServiceInterface().stopClient();
 
                 MemoryData.saveUid("", UserHomepage.this);

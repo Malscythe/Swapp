@@ -7,11 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.tabs.TabItem;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,23 +25,23 @@ import java.util.List;
 
 import Swapp.R;
 
-public class CurrentTransactions extends AppCompatActivity {
+public class MyOffersSentTransaction extends AppCompatActivity {
 
     private static final String TAG = "TAG";
     RecyclerView offerRV3;
 
     List<OfferFetch> offerFetchList;
-    OfferAdapter3 offerAdapter3;
+    MyOfferSentTransactionAdapter myOfferSentTransactionAdapter;
     DatabaseReference databaseReference;
     FirebaseAuth firebaseAuth;
     BottomNavigationView bottomNavigationView;
     DatabaseReference databaseReferenceUrl = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bugsbusters-de865-default-rtdb.asia-southeast1.firebasedatabase.app/");
-
+    TabLayout transactionTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.current_transactions);
+        setContentView(R.layout.activity_my_offers_sent_transaction);
 
         bottomNavigationView = findViewById(R.id.bottom_nav);
         offerRV3 = findViewById(R.id.offerRV_3);
@@ -50,6 +51,44 @@ public class CurrentTransactions extends AppCompatActivity {
         String uid = firebaseAuth.getCurrentUser().getUid();
         String itemid = getIntent().getStringExtra("itemid");
         String itemname = getIntent().getStringExtra("itemname");
+
+        transactionTabLayout = findViewById(R.id.tabTop);
+
+        transactionTabLayout.selectTab(transactionTabLayout.getTabAt(1));
+        transactionTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getText().toString()) {
+                    case "Accepted offers":
+                        Intent intent = new Intent(MyOffersSentTransaction.this, MyItemCurrentTransaction.class);
+                        startActivity(intent);
+                        overridePendingTransition(0, 0);
+                        break;
+                    case "Offers sent":
+                        break;
+                    case "Successful":
+                        Intent intent1 = new Intent(MyOffersSentTransaction.this, MySuccessfulTransactions.class);
+                        startActivity(intent1);
+                        overridePendingTransition(0, 0);
+                        break;
+                    case "Unsuccessful":
+                        Intent intent2 = new Intent(MyOffersSentTransaction.this, MyUnsuccessfulTransactions.class);
+                        startActivity(intent2);
+                        overridePendingTransition(0, 0);
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
 
         bottomNavigationView.setSelectedItemId(R.id.transactions);
 
@@ -62,7 +101,7 @@ public class CurrentTransactions extends AppCompatActivity {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 String name = snapshot.child("First_Name").getValue(String.class).concat(" " + snapshot.child("Last_Name").getValue(String.class));
-                                Intent intent = new Intent(CurrentTransactions.this, Messages.class);
+                                Intent intent = new Intent(MyOffersSentTransaction.this, Messages.class);
                                 intent.putExtra("mobile", snapshot.child("Phone").getValue(String.class));
                                 intent.putExtra("email", snapshot.child("Email").getValue(String.class));
                                 intent.putExtra("name", name);
@@ -77,12 +116,12 @@ public class CurrentTransactions extends AppCompatActivity {
                         });
                         return true;
                     case R.id.home:
-                        Intent intent = new Intent(CurrentTransactions.this, UserHomepage.class);
+                        Intent intent = new Intent(MyOffersSentTransaction.this, UserHomepage.class);
                         startActivity(intent);
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.offers:
-                        Intent intent2 = new Intent(CurrentTransactions.this, OfferMainAcitvity.class);
+                        Intent intent2 = new Intent(MyOffersSentTransaction.this, OfferMainAcitvity.class);
                         startActivity(intent2);
                         overridePendingTransition(0, 0);
                         return true;
@@ -113,26 +152,10 @@ public class CurrentTransactions extends AppCompatActivity {
                             offerFetch.setImage_Url(dataSnapshot.child("Accepted_Offers").child(uid).child("Images").child(String.valueOf(1)).getValue(String.class));
                             offerFetchList.add(offerFetch);
                         }
-
-                        if (dataSnapshot.child("Poster_UID").getValue(String.class).equals(uid)) {
-                            for (DataSnapshot dataSnapshot1 : dataSnapshot.child("Accepted_Offers").getChildren()) {
-                                String address = dataSnapshot1.child("Address").child("City").getValue(String.class).concat(", " + dataSnapshot1.child("Address").child("State").getValue(String.class));
-
-                                OfferFetch offerFetch = new OfferFetch();
-                                offerFetch.setItem_Name(dataSnapshot1.child("Item_Name").getValue(String.class));
-                                offerFetch.setItem_Location(address);
-                                offerFetch.setPoster_UID(dataSnapshot1.child("Poster_UID").getValue(String.class));
-                                offerFetch.setParentKey(itemname);
-                                offerFetch.setOfferCount(dataSnapshot1.child("Offers").getChildrenCount());
-                                offerFetch.setImage_Url(dataSnapshot1.child("Images").child(String.valueOf(1)).getValue(String.class));
-                                offerFetchList.add(offerFetch);
-
-                            }
-                        }
                     }
 
-                    offerAdapter3 = new OfferAdapter3(offerFetchList);
-                    offerRV3.setAdapter(offerAdapter3);
+                    myOfferSentTransactionAdapter = new MyOfferSentTransactionAdapter(offerFetchList);
+                    offerRV3.setAdapter(myOfferSentTransactionAdapter);
                 }
             }
 
