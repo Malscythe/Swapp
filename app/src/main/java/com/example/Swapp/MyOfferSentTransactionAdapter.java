@@ -1,11 +1,13 @@
 package com.example.Swapp;
 
 import android.content.Intent;
+import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -62,6 +64,20 @@ public class MyOfferSentTransactionAdapter extends RecyclerView.Adapter {
                 .placeholder(com.firebase.ui.database.R.drawable.common_google_signin_btn_icon_dark)
                 .error(com.google.firebase.database.R.drawable.common_google_signin_btn_icon_dark_normal)
                 .into(viewHolderClass.img);
+
+        viewHolderClass.rootLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                TransitionManager.beginDelayedTransition(viewHolderClass.buttonsLayout);
+
+                if (viewHolderClass.buttonsLayout.getVisibility() == View.VISIBLE) {
+                    viewHolderClass.buttonsLayout.setVisibility(View.GONE);
+                } else {
+                    viewHolderClass.buttonsLayout.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
         databaseReference.child("trade-transactions").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -252,10 +268,13 @@ public class MyOfferSentTransactionAdapter extends RecyclerView.Adapter {
 
         TextView textView, itemlocation, offeredMoreInfo, goToReview, postedMoreInfo, transactionStatus;
         ImageView img, getDirection, goToChat;
+        LinearLayout rootLayout, buttonsLayout;
 
         public ViewHolderClass(@NonNull View itemView) {
             super(itemView);
 
+            rootLayout = itemView.findViewById(R.id.rootLayout);
+            buttonsLayout = itemView.findViewById(R.id.revealButtons);
             transactionStatus = itemView.findViewById(R.id.transactionStatus);
             postedMoreInfo = itemView.findViewById(R.id.postedMoreInfo);
             goToReview = itemView.findViewById(R.id.submitReview);

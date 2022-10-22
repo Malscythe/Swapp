@@ -1,10 +1,13 @@
 package com.example.Swapp;
 
 import android.content.Intent;
+import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -72,38 +75,86 @@ public class MySuccessfulTransactionAdapter extends RecyclerView.Adapter {
                 .error(com.google.firebase.database.R.drawable.common_google_signin_btn_icon_dark_normal)
                 .into(viewHolderClass.postedPic);
 
-        databaseReference.child("trade-transactions").child(completeTransactionFetch.getTransaction_Key()).addListenerForSingleValueEvent(new ValueEventListener() {
+        viewHolderClass.rootLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                TransitionManager.beginDelayedTransition(viewHolderClass.buttonsLayout);
+
+                if (viewHolderClass.buttonsLayout.getVisibility() == View.VISIBLE) {
+                    viewHolderClass.buttonsLayout.setVisibility(View.GONE);
+                } else {
+                    viewHolderClass.buttonsLayout.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                viewHolderClass.offeredMoreInfo.setOnClickListener(new View.OnClickListener() {
+                viewHolderClass.submitRating.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
+                    public void onClick(View v) {
 
-                        Intent intent = new Intent(view.getContext(), CompleteTransactionMoreInfo.class);
-                        intent.putExtra("transactionKey", completeTransactionFetch.getTransaction_Key());
-                        intent.putExtra("view", "Offered");
-                        view.getContext().startActivity(intent);
-                        CustomIntent.customType(view.getContext(), "left-to-right");
-                    }
-                });
+                        if (snapshot.child("trade-transactions").child(completeTransactionFetch.getTransaction_Key()).child("Posted_Item").child("Poster_UID").getValue(String.class).equals(uid)) {
+                            String idToPass;
+                            String nameToPass;
 
-                viewHolderClass.postedMoreInfo.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
+                            idToPass = snapshot.child("trade-transactions").child(completeTransactionFetch.getTransaction_Key()).child("Offered_Item").child("Poster_UID").getValue(String.class);
+                            nameToPass = snapshot.child("trade-transactions").child(completeTransactionFetch.getTransaction_Key()).child("Offered_Item").child("Poster_Name").getValue(String.class);
 
-                        Intent intent = new Intent(view.getContext(), CompleteTransactionMoreInfo.class);
-                        intent.putExtra("transactionKey", completeTransactionFetch.getTransaction_Key());
-                        intent.putExtra("view", "Posted");
-                        view.getContext().startActivity(intent);
-                        CustomIntent.customType(view.getContext(), "left-to-right");
+                            Intent intent = new Intent(v.getContext(), RateUser.class);
+                            intent.putExtra("uid", idToPass);
+                            intent.putExtra("name", nameToPass);
+                            intent.putExtra("transactionKey", completeTransactionFetch.getTransaction_Key());
+                            v.getContext().startActivity(intent);
+                            CustomIntent.customType(v.getContext(), "left-to-right");
+                        } else {
+                            String idToPass;
+                            String nameToPass;
+
+                            idToPass = snapshot.child("trade-transactions").child(completeTransactionFetch.getTransaction_Key()).child("Posted_Item").child("Poster_UID").getValue(String.class);
+                            nameToPass = snapshot.child("trade-transactions").child(completeTransactionFetch.getTransaction_Key()).child("Posted_Item").child("Poster_Name").getValue(String.class);
+
+                            Intent intent = new Intent(v.getContext(), RateUser.class);
+                            intent.putExtra("uid", idToPass);
+                            intent.putExtra("name", nameToPass);
+                            intent.putExtra("transactionKey", completeTransactionFetch.getTransaction_Key());
+                            v.getContext().startActivity(intent);
+                            CustomIntent.customType(v.getContext(), "left-to-right");
+                        }
+
                     }
                 });
             }
 
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        viewHolderClass.offeredMoreInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(view.getContext(), CompleteTransactionMoreInfo.class);
+                intent.putExtra("transactionKey", completeTransactionFetch.getTransaction_Key());
+                intent.putExtra("view", "Offered");
+                view.getContext().startActivity(intent);
+                CustomIntent.customType(view.getContext(), "left-to-right");
+            }
+        });
+
+        viewHolderClass.postedMoreInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(view.getContext(), CompleteTransactionMoreInfo.class);
+                intent.putExtra("transactionKey", completeTransactionFetch.getTransaction_Key());
+                intent.putExtra("view", "Posted");
+                view.getContext().startActivity(intent);
+                CustomIntent.customType(view.getContext(), "left-to-right");
             }
         });
     }
@@ -115,12 +166,17 @@ public class MySuccessfulTransactionAdapter extends RecyclerView.Adapter {
 
     public class ViewHolderClass extends RecyclerView.ViewHolder {
 
-        TextView posterName, offererName, offeredMoreInfo, postedMoreInfo, postedItemName, offeredItemName;
+        TextView posterName, offererName, offeredMoreInfo, postedMoreInfo, postedItemName, offeredItemName, submitRating;
         ImageView postedPic, offeredPic;
+        LinearLayout rootLayout, buttonsLayout;
 
         public ViewHolderClass(@NonNull View itemView) {
             super(itemView);
 
+            rootLayout = itemView.findViewById(R.id.rootLayout);
+            buttonsLayout = itemView.findViewById(R.id.revealButtons);
+
+            submitRating = itemView.findViewById(R.id.submitRating);
             postedMoreInfo = itemView.findViewById(R.id.postedMoreInfo);
             offeredMoreInfo = itemView.findViewById(R.id.offeredMoreInfo);
             posterName = itemView.findViewById(R.id.postername);

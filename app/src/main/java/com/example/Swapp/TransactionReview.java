@@ -232,10 +232,10 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
                             UploadToTransact(parentItems, databaseReferenceParent);
                             databaseReference.child("trade-transactions").child(transactionName).child("Poster_Response").setValue(selectedRdo);
                             databaseReference.child("trade-transactions").child(transactionName).child("Transaction_Status").setValue("Waiting for review");
-                            parentItems.child("Open_For_Offers").setValue("false");
                             UploadToTransact(offererItems, databaseReferenceOfferer);
 
                             if (selectedRdo.equals("Successful")) {
+                                parentItems.child("Open_For_Offers").setValue("false");
                                 StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/trades-transact/" + transactionName + "/" + "Poster_Proof");
 
                                 Uri uri = Uri.parse(MemoryData.getUri(TransactionReview.this));
@@ -248,13 +248,40 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
                                         taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Uri> task) {
-                                                databaseReference.child("trade-transactions").child(transactionName).child("Proof_Images").child("Poster_Proof").setValue(task.getResult().toString());
+                                                databaseReference.child("trade-transactions").child(transactionName).child("Proof_Images").child("Poster_Proof").setValue(task.getResult().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        task.addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void unused) {
+                                                                loadingDialog.DismissDialog();
+                                                                Intent intent = new Intent(TransactionReview.this, MyItemCurrentTransaction.class);
+                                                                startActivity(intent);
+                                                                CustomIntent.customType(TransactionReview.this, "left-to-right");
+                                                            }
+                                                        });
+                                                    }
+                                                });
                                             }
                                         });
                                     }
                                 });
                             } else {
-                                databaseReference.child("trade-transactions").child(transactionName).child("Poster_Unsuccessful_Reason").setValue(reason.getText().toString());
+                                parentItems.child("Open_For_Offers").setValue("true");
+                                databaseReference.child("trade-transactions").child(transactionName).child("Poster_Unsuccessful_Reason").setValue(reason.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        task.addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                loadingDialog.DismissDialog();
+                                                Intent intent = new Intent(TransactionReview.this, MyItemCurrentTransaction.class);
+                                                startActivity(intent);
+                                                CustomIntent.customType(TransactionReview.this, "left-to-right");
+                                            }
+                                        });
+                                    }
+                                });
                             }
                         } else {
                             databaseReference.child("trade-transactions").child(transactionKey).child("Offerer_Response").setValue(selectedRdo);
@@ -287,47 +314,47 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
                                             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                        parentItems.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                            @Override
-                                                            public void onDataChange(@NonNull DataSnapshot snapshot1) {
-                                                                Log.w("TAG", snapshot1.child("Accepted_Offers").getChildrenCount() + "");
-                                                                long removeCurrent = snapshot1.child("Accepted_Offers").getChildrenCount();
-                                                                long newCurrentParent = Long.parseLong(snapshot.child("user-transactions").child(parentkey).child("Current").getValue(String.class));
-                                                                newCurrentParent = newCurrentParent - removeCurrent;
+                                                    parentItems.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                                                            Log.w("TAG", snapshot1.child("Accepted_Offers").getChildrenCount() + "");
+                                                            long removeCurrent = snapshot1.child("Accepted_Offers").getChildrenCount();
+                                                            long newCurrentParent = Long.parseLong(snapshot.child("user-transactions").child(parentkey).child("Current").getValue(String.class));
+                                                            newCurrentParent = newCurrentParent - removeCurrent;
 
-                                                                databaseReference.child("user-transactions").child(parentkey).child("Current").setValue(String.valueOf(newCurrentParent));
+                                                            databaseReference.child("user-transactions").child(parentkey).child("Current").setValue(String.valueOf(newCurrentParent));
 
-                                                                long newCurrentOfferer = Long.parseLong(snapshot.child("user-transactions").child(offererkey).child("Current").getValue(String.class));
-                                                                newCurrentOfferer = newCurrentOfferer - 1;
+                                                            long newCurrentOfferer = Long.parseLong(snapshot.child("user-transactions").child(offererkey).child("Current").getValue(String.class));
+                                                            newCurrentOfferer = newCurrentOfferer - 1;
 
-                                                                databaseReference.child("user-transactions").child(offererkey).child("Current").setValue(String.valueOf(newCurrentOfferer));
+                                                            databaseReference.child("user-transactions").child(offererkey).child("Current").setValue(String.valueOf(newCurrentOfferer));
 
-                                                                if (snapshot.child("user-transactions").child(parentkey).child("Successful").exists()) {
-                                                                    int newSuccessParent = Integer.parseInt(snapshot.child("user-transactions").child(parentkey).child("Successful").getValue(String.class));
-                                                                    newSuccessParent = newSuccessParent + 1;
+                                                            if (snapshot.child("user-transactions").child(parentkey).child("Successful").exists()) {
+                                                                int newSuccessParent = Integer.parseInt(snapshot.child("user-transactions").child(parentkey).child("Successful").getValue(String.class));
+                                                                newSuccessParent = newSuccessParent + 1;
 
-                                                                    databaseReference.child("user-transactions").child(parentkey).child("Successful").setValue(String.valueOf(newSuccessParent));
-                                                                } else {
-                                                                    databaseReference.child("user-transactions").child(parentkey).child("Successful").setValue("1");
-                                                                }
-
-                                                                if (snapshot.child("user-transactions").child(offererkey).child("Successful").exists()) {
-                                                                    int newSuccessOfferer = Integer.parseInt(snapshot.child("user-transactions").child(offererkey).child("Successful").getValue(String.class));
-                                                                    newSuccessOfferer = newSuccessOfferer + 1;
-
-                                                                    databaseReference.child("user-transactions").child(offererkey).child("Successful").setValue(String.valueOf(newSuccessOfferer));
-                                                                } else {
-                                                                    databaseReference.child("user-transactions").child(offererkey).child("Successful").setValue("1");
-                                                                }
-
-                                                                parentItems.removeValue();
+                                                                databaseReference.child("user-transactions").child(parentkey).child("Successful").setValue(String.valueOf(newSuccessParent));
+                                                            } else {
+                                                                databaseReference.child("user-transactions").child(parentkey).child("Successful").setValue("1");
                                                             }
 
-                                                            @Override
-                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                            if (snapshot.child("user-transactions").child(offererkey).child("Successful").exists()) {
+                                                                int newSuccessOfferer = Integer.parseInt(snapshot.child("user-transactions").child(offererkey).child("Successful").getValue(String.class));
+                                                                newSuccessOfferer = newSuccessOfferer + 1;
 
+                                                                databaseReference.child("user-transactions").child(offererkey).child("Successful").setValue(String.valueOf(newSuccessOfferer));
+                                                            } else {
+                                                                databaseReference.child("user-transactions").child(offererkey).child("Successful").setValue("1");
                                                             }
-                                                        });
+
+                                                            parentItems.removeValue();
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                                        }
+                                                    });
                                                 }
 
                                                 @Override
@@ -344,32 +371,32 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                                        int newCurrentParent = Integer.parseInt(snapshot.child("user-transactions").child(parentkey).child("Current").getValue(String.class));
-                                                        newCurrentParent = newCurrentParent - 1;
+                                                    int newCurrentParent = Integer.parseInt(snapshot.child("user-transactions").child(parentkey).child("Current").getValue(String.class));
+                                                    newCurrentParent = newCurrentParent - 1;
 
-                                                        int newCurrentOfferer = Integer.parseInt(snapshot.child("user-transactions").child(offererkey).child("Current").getValue(String.class));
-                                                        newCurrentOfferer = newCurrentOfferer - 1;
+                                                    int newCurrentOfferer = Integer.parseInt(snapshot.child("user-transactions").child(offererkey).child("Current").getValue(String.class));
+                                                    newCurrentOfferer = newCurrentOfferer - 1;
 
-                                                        databaseReference.child("user-transactions").child(parentkey).child("Current").setValue(String.valueOf(newCurrentParent));
-                                                        databaseReference.child("user-transactions").child(offererkey).child("Current").setValue(String.valueOf(newCurrentOfferer));
+                                                    databaseReference.child("user-transactions").child(parentkey).child("Current").setValue(String.valueOf(newCurrentParent));
+                                                    databaseReference.child("user-transactions").child(offererkey).child("Current").setValue(String.valueOf(newCurrentOfferer));
 
-                                                        if (snapshot.child("user-transactions").child(parentkey).child("Unsuccessful").exists()) {
-                                                            int newUnsuccessfulParent = Integer.parseInt(snapshot.child("user-transactions").child(parentkey).child("Unsuccessful").getValue(String.class));
-                                                            newUnsuccessfulParent = newUnsuccessfulParent + 1;
+                                                    if (snapshot.child("user-transactions").child(parentkey).child("Unsuccessful").exists()) {
+                                                        int newUnsuccessfulParent = Integer.parseInt(snapshot.child("user-transactions").child(parentkey).child("Unsuccessful").getValue(String.class));
+                                                        newUnsuccessfulParent = newUnsuccessfulParent + 1;
 
-                                                            databaseReference.child("user-transactions").child(parentkey).child("Unsuccessful").setValue(String.valueOf(newUnsuccessfulParent));
-                                                        } else {
-                                                            databaseReference.child("user-transactions").child(parentkey).child("Unsuccessful").setValue("1");
-                                                        }
+                                                        databaseReference.child("user-transactions").child(parentkey).child("Unsuccessful").setValue(String.valueOf(newUnsuccessfulParent));
+                                                    } else {
+                                                        databaseReference.child("user-transactions").child(parentkey).child("Unsuccessful").setValue("1");
+                                                    }
 
-                                                        if (snapshot.child("user-transactions").child(offererkey).child("Unsuccessful").exists()) {
-                                                            int newUnsuccessfulOfferer = Integer.parseInt(snapshot.child("user-transactions").child(offererkey).child("Unsuccessful").getValue(String.class));
-                                                            newUnsuccessfulOfferer = newUnsuccessfulOfferer + 1;
+                                                    if (snapshot.child("user-transactions").child(offererkey).child("Unsuccessful").exists()) {
+                                                        int newUnsuccessfulOfferer = Integer.parseInt(snapshot.child("user-transactions").child(offererkey).child("Unsuccessful").getValue(String.class));
+                                                        newUnsuccessfulOfferer = newUnsuccessfulOfferer + 1;
 
-                                                            databaseReference.child("user-transactions").child(offererkey).child("Unsuccessful").setValue(String.valueOf(newUnsuccessfulOfferer));
-                                                        } else {
-                                                            databaseReference.child("user-transactions").child(offererkey).child("Unsuccessful").setValue("1");
-                                                        }
+                                                        databaseReference.child("user-transactions").child(offererkey).child("Unsuccessful").setValue(String.valueOf(newUnsuccessfulOfferer));
+                                                    } else {
+                                                        databaseReference.child("user-transactions").child(offererkey).child("Unsuccessful").setValue("1");
+                                                    }
                                                 }
 
                                                 @Override
@@ -380,7 +407,10 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
 
                                             offererItems.removeValue();
                                         }
+
+
                                     } else {
+                                        parentItems.child("Open_For_Offers").setValue("false");
                                         databaseReference.child("trade-transactions").child(transactionKey).child("Transaction_Status").setValue("Waiting for validation");
 
                                         if (selectedRdo.equals("Successful")) {
@@ -412,6 +442,11 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
 
                                 }
                             });
+
+                            loadingDialog.DismissDialog();
+                            Intent intent = new Intent(TransactionReview.this, MyItemCurrentTransaction.class);
+                            startActivity(intent);
+                            CustomIntent.customType(TransactionReview.this, "left-to-right");
                         }
 
                     }
@@ -421,12 +456,6 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
 
                     }
                 });
-
-                loadingDialog.DismissDialog();
-                Intent intent = new Intent(TransactionReview.this, MyItemCurrentTransaction.class);
-                startActivity(intent);
-                CustomIntent.customType(TransactionReview.this, "left-to-right");
-
             }
         });
     }

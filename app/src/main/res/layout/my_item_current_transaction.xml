@@ -73,7 +73,6 @@
 
     </com.google.android.material.tabs.TabLayout>
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:layout_above="@id/bottom_nav"
         android:layout_below="@id/tabTop"

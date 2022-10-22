@@ -1,11 +1,13 @@
 package com.example.Swapp;
 
 import android.content.Intent;
+import android.transition.TransitionManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -53,6 +55,7 @@ public class MyItemCurrentTransactionAdapter extends RecyclerView.Adapter {
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         MyItemCurrentTransactionAdapter.ViewHolderClass viewHolderClass = (MyItemCurrentTransactionAdapter.ViewHolderClass) holder;
+
         final OfferFetch offerFetch = offerFetchList.get(position);
         viewHolderClass.textView.setText(offerFetch.getItem_Name());
         viewHolderClass.itemlocation.setText(offerFetch.getItem_Location());
@@ -61,6 +64,20 @@ public class MyItemCurrentTransactionAdapter extends RecyclerView.Adapter {
                 .placeholder(com.firebase.ui.database.R.drawable.common_google_signin_btn_icon_dark)
                 .error(com.google.firebase.database.R.drawable.common_google_signin_btn_icon_dark_normal)
                 .into(viewHolderClass.img);
+
+        viewHolderClass.rootLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                TransitionManager.beginDelayedTransition(viewHolderClass.buttonsLayout);
+
+                if (viewHolderClass.buttonsLayout.getVisibility() == View.VISIBLE) {
+                    viewHolderClass.buttonsLayout.setVisibility(View.GONE);
+                } else {
+                    viewHolderClass.buttonsLayout.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
         databaseReference.child("trade-transactions").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -75,12 +92,14 @@ public class MyItemCurrentTransactionAdapter extends RecyclerView.Adapter {
                                     if (dataSnapshot2.child("Accepted_Offers").hasChild(offerFetch.getPoster_UID())) {
 
                                         if (dataSnapshot.child("Poster_Response").exists()) {
-                                            if (dataSnapshot.child("Posted_Item").child("Poster_UID").getValue(String.class).equals(offerFetch.getPoster_UID()) &&
-                                                    dataSnapshot.child("Posted_Item").child("Item_Name").getValue(String.class).equals(offerFetch.getItem_Name()) &&
+
+                                            if (dataSnapshot.child("Posted_Item").child("Poster_UID").getValue(String.class).equals(uid) &&
+                                                    dataSnapshot.child("Posted_Item").child("Item_Name").getValue(String.class).equals(dataSnapshot2.child("Item_Name").getValue(String.class)) &&
+                                                    dataSnapshot.child("Offered_Item").child("Poster_UID").getValue(String.class).equals(offerFetch.getPoster_UID()) &&
                                                     dataSnapshot.child("Transaction_Status").getValue(String.class).equals("Waiting for review")) {
 
                                                 viewHolderClass.goToReview.setVisibility(View.VISIBLE);
-                                                viewHolderClass.transactionStatus.setText("Waiting for review");
+                                                viewHolderClass.transactionStatus.setText("Waiting for " + dataSnapshot.child("Offered_Item").child("Poster_Name").getValue(String.class) + " review");
                                                 viewHolderClass.transactionStatus.setBackgroundResource(R.drawable.waiting_for_review);
 
                                             } else if (dataSnapshot.child("Posted_Item").child("Poster_UID").getValue(String.class).equals(dataSnapshot1.getKey()) &&
@@ -249,10 +268,13 @@ public class MyItemCurrentTransactionAdapter extends RecyclerView.Adapter {
 
         TextView textView, itemlocation, offeredMoreInfo, goToReview, postedMoreInfo, transactionStatus;
         ImageView img, getDirection, goToChat;
+        LinearLayout rootLayout, buttonsLayout;
 
         public ViewHolderClass(@NonNull View itemView) {
             super(itemView);
 
+            rootLayout = itemView.findViewById(R.id.rootLayout);
+            buttonsLayout = itemView.findViewById(R.id.revealButtons);
             transactionStatus = itemView.findViewById(R.id.transactionStatus);
             goToReview = itemView.findViewById(R.id.submitReview);
             goToChat = itemView.findViewById(R.id.goToChat);
