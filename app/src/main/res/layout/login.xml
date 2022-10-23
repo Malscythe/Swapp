@@ -47,14 +47,14 @@
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:transitionName="textTransition1" />
+            android:transitionName="textTransition2" />
 
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/bottomLayout"
         android:layout_width="match_parent"
-        android:layout_height="380dp"
+        android:layout_height="400dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/layout_bg">
 

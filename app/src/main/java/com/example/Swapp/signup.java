@@ -53,6 +53,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import Swapp.R;
@@ -74,6 +75,7 @@ public class signup extends AppCompatActivity {
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userID, birthDay, birthMonth, birthYear, strMonth;
+    String strDate;
 
     Boolean emailError = false;
     Boolean passError = false;
@@ -97,6 +99,7 @@ public class signup extends AppCompatActivity {
         builder.setTitleText("Select Date");
         MaterialDatePicker materialDatePicker = builder.build();
 
+        strDate = new SimpleDateFormat("MMMM dd, yyyy hh:mm aa", Locale.getDefault()).format(new Date());
 
         TextInputLayout textInputLayout = findViewById(R.id.birthDatePicker);
 
@@ -460,6 +463,25 @@ public class signup extends AppCompatActivity {
                                         databaseReference.child("user-rating").child(userID).child("rating5").setValue("0");
                                         databaseReference.child("user-rating").child(userID).child("Average_Rating").setValue("0.0");
 
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if (snapshot.child("activity-logs").hasChildren()) {
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(userID);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Registered");
+                                                } else {
+                                                    databaseReference.child("activity-logs").child("1").child("Date").setValue(strDate);
+                                                    databaseReference.child("activity-logs").child("1").child("User_ID").setValue(userID);
+                                                    databaseReference.child("activity-logs").child("1").child("Activity").setValue("Registered");
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
                                     }
                                 }
                             });

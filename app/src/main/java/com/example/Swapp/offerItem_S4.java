@@ -30,9 +30,12 @@ import com.google.firebase.storage.UploadTask;
 import com.kofigyan.stateprogressbar.StateProgressBar;
 import com.kroegerama.imgpicker.BottomSheetImagePicker;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import Swapp.R;
@@ -49,13 +52,14 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
     String[] descriptionData = {"Details", "Description", "Location", "Images"};
     OfferingItemDialog offeringItemDialog = new OfferingItemDialog(offerItem_S4.this);
     private FirebaseAuth firebaseAuth;
+    String strDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offer_item_s4);
 
-        Log.w(TAG, "offerItem_S4");
+        strDate = new SimpleDateFormat("MMMM dd, yyyy hh:mm aa", Locale.getDefault()).format(new Date());
 
         StateProgressBar stateProgressBar = findViewById(R.id.stateProgress);
         stateProgressBar.setStateDescriptionData(descriptionData);
@@ -1279,6 +1283,10 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                         } else {
                             databaseReference.child("user-transactions").child(currentId).child("Pending").setValue("1");
                         }
+
+                        databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                        databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                        databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Offered item to " + posterUID);
 
                         offeringItemDialog.DismissDialog();
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

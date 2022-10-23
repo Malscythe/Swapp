@@ -55,6 +55,7 @@ import com.kroegerama.imgpicker.ButtonType;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -75,7 +76,7 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
     Button submitReview, uploadBtn;
     CardView transactionRDO, proofImageLayout;
     LoadingDialog loadingDialog;
-
+    String strDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +86,8 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
         databaseReference = FirebaseDatabase.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
         String myUid = firebaseAuth.getCurrentUser().getUid();
+
+        strDate = new SimpleDateFormat("MMMM dd, yyyy hh:mm aa", Locale.getDefault()).format(new Date());
 
         parentPic = findViewById(R.id.parentItemPic);
         offeredPic = findViewById(R.id.offeredItemPic);
@@ -254,10 +257,24 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
                                                         task.addOnSuccessListener(new OnSuccessListener<Void>() {
                                                             @Override
                                                             public void onSuccess(Void unused) {
-                                                                loadingDialog.DismissDialog();
-                                                                Intent intent = new Intent(TransactionReview.this, MyItemCurrentTransaction.class);
-                                                                startActivity(intent);
-                                                                CustomIntent.customType(TransactionReview.this, "left-to-right");
+                                                                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                    @Override
+                                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                        databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                                        databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(myUid);
+                                                                        databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Submitted a review for transaction " + transactionName);
+
+                                                                        loadingDialog.DismissDialog();
+                                                                        Intent intent = new Intent(TransactionReview.this, MyItemCurrentTransaction.class);
+                                                                        startActivity(intent);
+                                                                        CustomIntent.customType(TransactionReview.this, "left-to-right");
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                                                    }
+                                                                });
                                                             }
                                                         });
                                                     }
@@ -274,10 +291,24 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
                                         task.addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void unused) {
-                                                loadingDialog.DismissDialog();
-                                                Intent intent = new Intent(TransactionReview.this, MyItemCurrentTransaction.class);
-                                                startActivity(intent);
-                                                CustomIntent.customType(TransactionReview.this, "left-to-right");
+                                                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                        databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                        databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(myUid);
+                                                        databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Submitted a review for transaction " + transactionName);
+
+                                                        loadingDialog.DismissDialog();
+                                                        Intent intent = new Intent(TransactionReview.this, MyItemCurrentTransaction.class);
+                                                        startActivity(intent);
+                                                        CustomIntent.customType(TransactionReview.this, "left-to-right");
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                                    }
+                                                });
                                             }
                                         });
                                     }
@@ -443,10 +474,24 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
                                 }
                             });
 
-                            loadingDialog.DismissDialog();
-                            Intent intent = new Intent(TransactionReview.this, MyItemCurrentTransaction.class);
-                            startActivity(intent);
-                            CustomIntent.customType(TransactionReview.this, "left-to-right");
+                            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(offererkey);
+                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Submitted a review for transaction " + transactionKey);
+
+                                    loadingDialog.DismissDialog();
+                                    Intent intent = new Intent(TransactionReview.this, MyItemCurrentTransaction.class);
+                                    startActivity(intent);
+                                    CustomIntent.customType(TransactionReview.this, "left-to-right");
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
                         }
 
                     }

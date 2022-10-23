@@ -60,12 +60,7 @@ public class maintenanceAdapter extends FirebaseRecyclerAdapter<FileMaintenanceM
         holder.phone.setText(model.getPhone());
         holder.gender.setText(model.getGender());
 
-        Glide.with(holder.img.getContext())
-                .load(model.getSurl())
-                .placeholder(R.drawable.default_picture)
-                .circleCrop()
-                .error(com.firebase.ui.database.R.drawable.common_google_signin_btn_icon_dark_normal)
-                .into(holder.img);
+        Glide.with(holder.img.getContext()).load(R.drawable.ic_default_picture).into(holder.img);
 
         holder.btnupdate.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -36,6 +36,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.sinch.android.rtc.Sinch;
 import com.sinch.android.rtc.UserController;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import Swapp.R;
 import maes.tech.intentanim.CustomIntent;
 
@@ -49,6 +53,7 @@ public class login extends AppCompatActivity {
     CheckBox rememberMe;
     LoggingInDialog loggingInDialog = new LoggingInDialog(com.example.Swapp.login.this);
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bugsbusters-de865-default-rtdb.asia-southeast1.firebasedatabase.app/");
+    String strDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +63,9 @@ public class login extends AppCompatActivity {
         rememberMe = findViewById(R.id.checkBox);
         fAuth = FirebaseAuth.getInstance();
 
+        strDate = new SimpleDateFormat("MMMM dd, yyyy hh:mm aa", Locale.getDefault()).format(new Date());
 
-        if (MemoryData.getState(this).equals("true")) {
+        if (MemoryData.getState(this).equals("true") && fAuth.getCurrentUser().isEmailVerified()) {
             databaseReference.child("users-status").child(fAuth.getCurrentUser().getUid()).child("Status").setValue("Online");
             Intent intent = new Intent(login.this, UserHomepage.class);
             intent.putExtra("mobile", MemoryData.getData(this));
@@ -129,12 +135,33 @@ public class login extends AppCompatActivity {
                                                 MemoryData.saveFirstName(snapshot.child("First_Name").getValue(String.class), com.example.Swapp.login.this);
                                                 MemoryData.saveName(snapshot.child("First_Name").getValue().toString().concat(" " + snapshot.child("Last_Name").getValue().toString()), login.this);
                                                 databaseReference.child("users-status").child(uid).child("Status").setValue("Online");
-                                                Intent intent = new Intent(login.this, UserHomepage.class);
-                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                startActivity(intent);
-                                                CustomIntent.customType(login.this, "left-to-right");
+
+                                                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                        if (snapshot.child("activity-logs").hasChildren()) {
+                                                            databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                            databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(uid);
+                                                            databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Logged In");
+                                                        } else {
+                                                            databaseReference.child("activity-logs").child("1").child("Date").setValue(strDate);
+                                                            databaseReference.child("activity-logs").child("1").child("User_ID").setValue(uid);
+                                                            databaseReference.child("activity-logs").child("1").child("Activity").setValue("Logged In");
+                                                        }
+
+                                                        Intent intent = new Intent(login.this, UserHomepage.class);
+                                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                        startActivity(intent);
+                                                        CustomIntent.customType(login.this, "left-to-right");
+                                                        finish();
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                                    }
+                                                });
                                             }
-                                            finish();
                                         }
 
                                         @Override
@@ -158,10 +185,12 @@ public class login extends AppCompatActivity {
                             });
                         }else
                         {
+                            loggingInDialog.DismissDialog();
                             fAuth.getCurrentUser().sendEmailVerification();
                             Toast.makeText(login.this, "Please verify your email first", Toast.LENGTH_SHORT).show();
                         }
                     } else {
+                        loggingInDialog.DismissDialog();
                         Toast toast = new Toast(getApplicationContext());
                         View view2 = LayoutInflater.from(login.this).inflate(R.layout.toast_error_layout, null);
                         TextView toastMessage = view2.findViewById(R.id.toastMessage);

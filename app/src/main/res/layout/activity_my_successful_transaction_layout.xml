@@ -173,6 +173,7 @@
             android:layout_height="match_parent"
             android:text="submit rating"
             android:paddingTop="10dp"
+            android:visibility="gone"
             android:paddingBottom="10dp"
             android:textColor="@color/white"
             android:background="@drawable/bottom_border_primary"

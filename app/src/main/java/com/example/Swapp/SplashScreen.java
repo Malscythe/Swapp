@@ -19,6 +19,9 @@ import com.bumptech.glide.Glide;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.github.chrisbanes.photoview.PhotoView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import Swapp.R;
 
@@ -28,6 +31,8 @@ public class SplashScreen extends AppCompatActivity {
     private TextView logoText;
     private TextView logoDesc;
     private RelativeLayout rootLayout;
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,59 +43,70 @@ public class SplashScreen extends AppCompatActivity {
         logoText = findViewById(R.id.logoText);
         logoDesc = findViewById(R.id.logoDesc);
         rootLayout = findViewById(R.id.rootLayout);
+        firebaseAuth = FirebaseAuth.getInstance();
 
-        rootLayout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                YoYo.with(Techniques.RotateIn)
-                        .duration(1000)
-                        .onEnd(new YoYo.AnimatorCallback() {
-                            @Override
-                            public void call(Animator animator) {
-                                YoYo.with(Techniques.FadeInDown)
-                                        .duration(1000)
-                                        .onStart(new YoYo.AnimatorCallback() {
-                                            @Override
-                                            public void call(Animator animator) {
-                                                logoText.setVisibility(View.VISIBLE);
+        if (MemoryData.getState(this).equals("true") && firebaseAuth.getCurrentUser().isEmailVerified()) {
+            databaseReference.child("users-status").child(firebaseAuth.getCurrentUser().getUid()).child("Status").setValue("Online");
+            Intent intent = new Intent(SplashScreen.this, UserHomepage.class);
+            intent.putExtra("mobile", MemoryData.getData(this));
+            intent.putExtra("name", "");
+            intent.putExtra("email", "");
+            startActivity(intent);
+            finish();
+        } else {
+            rootLayout.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    YoYo.with(Techniques.RotateIn)
+                            .duration(1000)
+                            .onEnd(new YoYo.AnimatorCallback() {
+                                @Override
+                                public void call(Animator animator) {
+                                    YoYo.with(Techniques.FadeInDown)
+                                            .duration(1000)
+                                            .onStart(new YoYo.AnimatorCallback() {
+                                                @Override
+                                                public void call(Animator animator) {
+                                                    logoText.setVisibility(View.VISIBLE);
 
-                                            }
-                                        })
-                                        .onEnd(new YoYo.AnimatorCallback() {
-                                            @Override
-                                            public void call(Animator animator) {
-                                                YoYo.with(Techniques.FadeInUp)
-                                                        .duration(1000)
-                                                        .onStart(new YoYo.AnimatorCallback() {
-                                                            @Override
-                                                            public void call(Animator animator) {
-                                                                logoDesc.setVisibility(View.VISIBLE);
+                                                }
+                                            })
+                                            .onEnd(new YoYo.AnimatorCallback() {
+                                                @Override
+                                                public void call(Animator animator) {
+                                                    YoYo.with(Techniques.FadeInUp)
+                                                            .duration(1000)
+                                                            .onStart(new YoYo.AnimatorCallback() {
+                                                                @Override
+                                                                public void call(Animator animator) {
+                                                                    logoDesc.setVisibility(View.VISIBLE);
 
-                                                            }
-                                                        })
-                                                        .playOn(logoDesc);
-                                            }
-                                        })
-                                        .playOn(logoText);
-                            }
-                        })
-                        .playOn(logoPic);
-            }
-        },50);
+                                                                }
+                                                            })
+                                                            .playOn(logoDesc);
+                                                }
+                                            })
+                                            .playOn(logoText);
+                                }
+                            })
+                            .playOn(logoPic);
+                }
+            },50);
 
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                Intent sharedIntent = new Intent(SplashScreen.this, login.class);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    Intent sharedIntent = new Intent(SplashScreen.this, login.class);
 
-                Pair[] pairs = new Pair[3];
-                pairs[0] = new Pair<View, String>(logoPic, "imageTransition");
-                pairs[1] = new Pair<View, String>(logoText, "textTransition1");
-                pairs[2] = new Pair<View, String>(logoDesc, "textTransition2");
+                    Pair[] pairs = new Pair[3];
+                    pairs[0] = new Pair<View, String>(logoPic, "imageTransition");
+                    pairs[1] = new Pair<View, String>(logoText, "textTransition1");
+                    pairs[2] = new Pair<View, String>(logoDesc, "textTransition2");
 
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SplashScreen.this, pairs);
-                startActivity(sharedIntent, options.toBundle());
-            }
-        }, 5000);
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SplashScreen.this, pairs);
+                    startActivity(sharedIntent, options.toBundle());
+                }
+            }, 5000);
+        }
     }
 }

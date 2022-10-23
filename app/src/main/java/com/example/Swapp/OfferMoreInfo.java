@@ -46,8 +46,11 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import Swapp.R;
 import maes.tech.intentanim.CustomIntent;
@@ -58,6 +61,7 @@ public class OfferMoreInfo extends AppCompatActivity {
     private DatabaseReference mDatabase;
 
     FirebaseAuth firebaseAuth;
+    String strDate;
 
     LoadingDialog loadingDialog = new LoadingDialog(OfferMoreInfo.this);
 
@@ -69,6 +73,8 @@ public class OfferMoreInfo extends AppCompatActivity {
         String item_Name = getIntent().getStringExtra("itemName");
         String uid = getIntent().getStringExtra("userID");
         String poster_itemName = getIntent().getStringExtra("poster_itemName");
+
+        strDate = new SimpleDateFormat("MMMM dd, yyyy hh:mm aa", Locale.getDefault()).format(new Date());
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -225,6 +231,20 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             }
                                         });
 
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
                                         DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
@@ -309,15 +329,30 @@ public class OfferMoreInfo extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                        snapshot.child("Offers").child(uid).getRef().removeValue();
+                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
 
-                                        loadingDialog.DismissDialog();
+                                                snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                        Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
-                                        intent.putExtra("itemid", currentId);
-                                        intent.putExtra("itemname", poster_itemName);
-                                        startActivity(intent);
-                                        CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                                loadingDialog.DismissDialog();
+
+                                                Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
+                                                intent.putExtra("itemid", currentId);
+                                                intent.putExtra("itemname", poster_itemName);
+                                                startActivity(intent);
+                                                CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
                                     }
 
                                     @Override
@@ -454,6 +489,20 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             }
                                         });
 
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
                                         DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
@@ -537,14 +586,30 @@ public class OfferMoreInfo extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                        loadingDialog.DismissDialog();
+                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
 
-                                        snapshot.child("Offers").child(uid).getRef().removeValue();
-                                        Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
-                                        intent.putExtra("itemid", currentId);
-                                        intent.putExtra("itemname", poster_itemName);
-                                        startActivity(intent);
-                                        CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                                snapshot.child("Offers").child(uid).getRef().removeValue();
+
+                                                loadingDialog.DismissDialog();
+
+                                                Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
+                                                intent.putExtra("itemid", currentId);
+                                                intent.putExtra("itemname", poster_itemName);
+                                                startActivity(intent);
+                                                CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
                                     }
 
                                     @Override
@@ -663,6 +728,20 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             }
                                         });
 
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
                                         DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
@@ -746,14 +825,30 @@ public class OfferMoreInfo extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                        loadingDialog.DismissDialog();
+                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
 
-                                        snapshot.child("Offers").child(uid).getRef().removeValue();
-                                        Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
-                                        intent.putExtra("itemid", currentId);
-                                        intent.putExtra("itemname", poster_itemName);
-                                        startActivity(intent);
-                                        CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                                snapshot.child("Offers").child(uid).getRef().removeValue();
+
+                                                loadingDialog.DismissDialog();
+
+                                                Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
+                                                intent.putExtra("itemid", currentId);
+                                                intent.putExtra("itemname", poster_itemName);
+                                                startActivity(intent);
+                                                CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
                                     }
 
                                     @Override
@@ -869,6 +964,20 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             }
                                         });
 
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
                                         DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
@@ -951,15 +1060,30 @@ public class OfferMoreInfo extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                        loadingDialog.DismissDialog();
+                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
 
-                                        gameLayout.setVisibility(View.GONE);
-                                        snapshot.child("Offers").child(uid).getRef().removeValue();
-                                        Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
-                                        intent.putExtra("itemid", currentId);
-                                        intent.putExtra("itemname", poster_itemName);
-                                        startActivity(intent);
-                                        CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                                snapshot.child("Offers").child(uid).getRef().removeValue();
+
+                                                loadingDialog.DismissDialog();
+
+                                                Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
+                                                intent.putExtra("itemid", currentId);
+                                                intent.putExtra("itemname", poster_itemName);
+                                                startActivity(intent);
+                                                CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
                                     }
 
                                     @Override
@@ -1078,6 +1202,20 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             }
                                         });
 
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
                                         DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
@@ -1144,14 +1282,30 @@ public class OfferMoreInfo extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                        loadingDialog.DismissDialog();
+                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
 
-                                        snapshot.child("Offers").child(uid).getRef().removeValue();
-                                        Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
-                                        intent.putExtra("itemid", currentId);
-                                        intent.putExtra("itemname", poster_itemName);
-                                        startActivity(intent);
-                                        CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                                snapshot.child("Offers").child(uid).getRef().removeValue();
+
+                                                loadingDialog.DismissDialog();
+
+                                                Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
+                                                intent.putExtra("itemid", currentId);
+                                                intent.putExtra("itemname", poster_itemName);
+                                                startActivity(intent);
+                                                CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
                                     }
 
                                     @Override
@@ -1258,6 +1412,20 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             }
                                         });
 
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
                                         DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
@@ -1335,15 +1503,18 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                 loadingDialog.startLoadingDialog();
 
-                                groceryLayout.setVisibility(View.GONE);
-                                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
-                                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                                        databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                        databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                        databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
+
+                                        snapshot.child("Offers").child(uid).getRef().removeValue();
 
                                         loadingDialog.DismissDialog();
 
-                                        snapshot.child("Offers").child(uid).getRef().removeValue();
                                         Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
                                         intent.putExtra("itemid", currentId);
                                         intent.putExtra("itemname", poster_itemName);
@@ -1473,6 +1644,20 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             }
                                         });
 
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
                                         DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
@@ -1556,14 +1741,30 @@ public class OfferMoreInfo extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                        loadingDialog.DismissDialog();
+                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
 
-                                        snapshot.child("Offers").child(uid).getRef().removeValue();
-                                        Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
-                                        intent.putExtra("itemid", currentId);
-                                        intent.putExtra("itemname", poster_itemName);
-                                        startActivity(intent);
-                                        CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                                snapshot.child("Offers").child(uid).getRef().removeValue();
+
+                                                loadingDialog.DismissDialog();
+
+                                                Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
+                                                intent.putExtra("itemid", currentId);
+                                                intent.putExtra("itemname", poster_itemName);
+                                                startActivity(intent);
+                                                CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
                                     }
 
                                     @Override
@@ -1682,6 +1883,20 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             }
                                         });
 
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
                                         DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
@@ -1764,15 +1979,30 @@ public class OfferMoreInfo extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                        loadingDialog.DismissDialog();
+                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
 
-                                        bnkLayout.setVisibility(View.GONE);
-                                        snapshot.child("Offers").child(uid).getRef().removeValue();
-                                        Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
-                                        intent.putExtra("itemid", currentId);
-                                        intent.putExtra("itemname", poster_itemName);
-                                        startActivity(intent);
-                                        CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                                snapshot.child("Offers").child(uid).getRef().removeValue();
+
+                                                loadingDialog.DismissDialog();
+
+                                                Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
+                                                intent.putExtra("itemid", currentId);
+                                                intent.putExtra("itemname", poster_itemName);
+                                                startActivity(intent);
+                                                CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
                                     }
 
                                     @Override
@@ -1891,6 +2121,20 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             }
                                         });
 
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
                                         DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
@@ -1974,14 +2218,30 @@ public class OfferMoreInfo extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                        loadingDialog.DismissDialog();
+                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
 
-                                        snapshot.child("Offers").child(uid).getRef().removeValue();
-                                        Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
-                                        intent.putExtra("itemid", currentId);
-                                        intent.putExtra("itemname", poster_itemName);
-                                        startActivity(intent);
-                                        CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                                snapshot.child("Offers").child(uid).getRef().removeValue();
+
+                                                loadingDialog.DismissDialog();
+
+                                                Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
+                                                intent.putExtra("itemid", currentId);
+                                                intent.putExtra("itemname", poster_itemName);
+                                                startActivity(intent);
+                                                CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
                                     }
 
                                     @Override
@@ -2100,6 +2360,20 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             }
                                         });
 
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
                                         DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
@@ -2183,14 +2457,30 @@ public class OfferMoreInfo extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                        loadingDialog.DismissDialog();
+                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
 
-                                        snapshot.child("Offers").child(uid).getRef().removeValue();
-                                        Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
-                                        intent.putExtra("itemid", currentId);
-                                        intent.putExtra("itemname", poster_itemName);
-                                        startActivity(intent);
-                                        CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                                snapshot.child("Offers").child(uid).getRef().removeValue();
+
+                                                loadingDialog.DismissDialog();
+
+                                                Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
+                                                intent.putExtra("itemid", currentId);
+                                                intent.putExtra("itemname", poster_itemName);
+                                                startActivity(intent);
+                                                CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
                                     }
 
                                     @Override
@@ -2306,6 +2596,20 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             }
                                         });
 
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
                                         DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
@@ -2389,14 +2693,30 @@ public class OfferMoreInfo extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                        loadingDialog.DismissDialog();
+                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
 
-                                        snapshot.child("Offers").child(uid).getRef().removeValue();
-                                        Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
-                                        intent.putExtra("itemid", currentId);
-                                        intent.putExtra("itemname", poster_itemName);
-                                        startActivity(intent);
-                                        CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                                snapshot.child("Offers").child(uid).getRef().removeValue();
+
+                                                loadingDialog.DismissDialog();
+
+                                                Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
+                                                intent.putExtra("itemid", currentId);
+                                                intent.putExtra("itemname", poster_itemName);
+                                                startActivity(intent);
+                                                CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
                                     }
 
                                     @Override
@@ -2515,6 +2835,20 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             }
                                         });
 
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
                                         DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
@@ -2598,14 +2932,30 @@ public class OfferMoreInfo extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                        loadingDialog.DismissDialog();
+                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
 
-                                        snapshot.child("Offers").child(uid).getRef().removeValue();
-                                        Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
-                                        intent.putExtra("itemid", currentId);
-                                        intent.putExtra("itemname", poster_itemName);
-                                        startActivity(intent);
-                                        CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                                snapshot.child("Offers").child(uid).getRef().removeValue();
+
+                                                loadingDialog.DismissDialog();
+
+                                                Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
+                                                intent.putExtra("itemid", currentId);
+                                                intent.putExtra("itemname", poster_itemName);
+                                                startActivity(intent);
+                                                CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
                                     }
 
                                     @Override
@@ -2715,6 +3065,20 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             }
                                         });
 
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
                                         DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
@@ -2798,14 +3162,30 @@ public class OfferMoreInfo extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                        loadingDialog.DismissDialog();
+                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
 
-                                        snapshot.child("Offers").child(uid).getRef().removeValue();
-                                        Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
-                                        intent.putExtra("itemid", currentId);
-                                        intent.putExtra("itemname", poster_itemName);
-                                        startActivity(intent);
-                                        CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                                snapshot.child("Offers").child(uid).getRef().removeValue();
+
+                                                loadingDialog.DismissDialog();
+
+                                                Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
+                                                intent.putExtra("itemid", currentId);
+                                                intent.putExtra("itemname", poster_itemName);
+                                                startActivity(intent);
+                                                CustomIntent.customType(OfferMoreInfo.this, "right-to-left");
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
                                     }
 
                                     @Override

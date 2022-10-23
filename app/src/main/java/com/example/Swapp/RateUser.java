@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,11 +17,16 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import Swapp.R;
 import maes.tech.intentanim.CustomIntent;
@@ -34,11 +40,18 @@ public class RateUser extends AppCompatActivity {
     TextInputEditText userFeedback;
     Button submitBtn;
     int selectedRating;
+    String strDate;
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    float newAvgRating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate_user);
+
+        strDate = new SimpleDateFormat("MMMM dd, yyyy hh:mm aa", Locale.getDefault()).format(new Date());
+
+        String myUid = firebaseAuth.getCurrentUser().getUid();
 
         userName = findViewById(R.id.userName);
         userPic = findViewById(R.id.userPicture);
@@ -118,7 +131,11 @@ public class RateUser extends AppCompatActivity {
                         float rating4 = Float.parseFloat(snapshot.child("user-rating").child(userToRateID).child("rating4").getValue(String.class));
                         float rating5 = Float.parseFloat(snapshot.child("user-rating").child(userToRateID).child("rating5").getValue(String.class));
 
-                        float newAvgRating = ((1 * rating1) + (2 * rating2) + (3 * rating3) + (4 * rating4) + (5 * rating5)) / (rating1 + rating2 + rating3 + rating4 + rating5);
+                        if (snapshot.child("user-rating").child(userToRateID).child("Average_Rating").getValue(String.class).equals("0") || snapshot.child("user-rating").child(userToRateID).child("Average_Rating").getValue(String.class).equals("0.0")) {
+                            newAvgRating = selectedRating;
+                        } else {
+                            newAvgRating = ((1 * rating1) + (2 * rating2) + (3 * rating3) + (4 * rating4) + (5 * rating5)) / (rating1 + rating2 + rating3 + rating4 + rating5);
+                        }
 
                         databaseReference.child("user-rating").child(userToRateID).child("Average_Rating").setValue(String.valueOf(newAvgRating));
                     }
@@ -136,9 +153,23 @@ public class RateUser extends AppCompatActivity {
                         task.addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
-                                Intent intent = new Intent(RateUser.this, MyItemCurrentTransaction.class);
-                                startActivity(intent);
-                                CustomIntent.customType(RateUser.this, "right-to-left");
+                                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                        databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(myUid);
+                                        databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Gave feedback to " + userToRateID + " for transaction " + transactionKey);
+
+                                        Intent intent = new Intent(RateUser.this, MyItemCurrentTransaction.class);
+                                        startActivity(intent);
+                                        CustomIntent.customType(RateUser.this, "right-to-left");
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
                             }
                         });
                     }

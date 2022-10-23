@@ -92,6 +92,27 @@ public class MySuccessfulTransactionAdapter extends RecyclerView.Adapter {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.child("trade-transactions").child(completeTransactionFetch.getTransaction_Key()).child("Posted_Item").child("Poster_UID").getValue(String.class).equals(uid)) {
+                    String idToPass = snapshot.child("trade-transactions").child(completeTransactionFetch.getTransaction_Key()).child("Offered_Item").child("Poster_UID").getValue(String.class);
+
+                    if (snapshot.child("user-rating").child(idToPass).child("transactions").hasChild(completeTransactionFetch.getTransaction_Key())) {
+                        viewHolderClass.submitRating.setVisibility(View.GONE);
+                    } else {
+                        viewHolderClass.submitRating.setVisibility(View.VISIBLE);
+                    }
+
+                } else {
+                    String idToPass = snapshot.child("trade-transactions").child(completeTransactionFetch.getTransaction_Key()).child("Posted_Item").child("Poster_UID").getValue(String.class);
+
+                    if (snapshot.child("user-rating").child(idToPass).child("transactions").hasChild(completeTransactionFetch.getTransaction_Key())) {
+                        viewHolderClass.submitRating.setVisibility(View.GONE);
+                    } else {
+                        viewHolderClass.submitRating.setVisibility(View.VISIBLE);
+                    }
+                }
+
+
                 viewHolderClass.submitRating.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

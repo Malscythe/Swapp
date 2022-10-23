@@ -36,7 +36,10 @@ import com.sinch.android.rtc.SinchError;
 import com.sinch.android.rtc.UserController;
 import com.sinch.android.rtc.UserRegistrationCallback;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -51,16 +54,12 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
 
     TextView pendingCounts, successfulCounts, unsuccessfulCounts, currentCounts, name;
     Dialog chartDialog;
-    ImageView viewChart;
-    CircleImageView accsetting;
+    ImageView viewChart, logoutBtn;
     CardView tradeButton, postButton;
-    Long pendingTrades = 0L;
-    Long currentTrades = 0L;
-    Long successfulTrades = 0L;
-    Long unsuccessfulTrades = 0L;
     FirebaseAuth firebaseAuth;
     BottomNavigationView bottomNavigationView;
     DatabaseReference databaseReferenceUrl = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bugsbusters-de865-default-rtdb.asia-southeast1.firebasedatabase.app/");
+    String strDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,13 +68,15 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
 
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
+        strDate = new SimpleDateFormat("MMMM dd, yyyy hh:mm aa", Locale.getDefault()).format(new Date());
+
         bottomNavigationView = findViewById(R.id.bottom_nav);
         viewChart = findViewById(R.id.viewBtn);
         chartDialog = new Dialog(this);
-//        logoutBtn = findViewById(R.id.logoutBtn);
+        logoutBtn = findViewById(R.id.logoutBtn);
         tradeButton = findViewById(R.id.tradeButton);
         postButton = findViewById(R.id.postItemButton);
-        accsetting = findViewById(R.id.accountSetting);
+//        accsetting = findViewById(R.id.accountSetting);
         pendingCounts = findViewById(R.id.pendingText);
         successfulCounts = findViewById(R.id.successfulText);
         unsuccessfulCounts = findViewById(R.id.unsuccessfulText);
@@ -208,7 +209,7 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
             }
         });
 
-        accsetting.setOnClickListener(new View.OnClickListener() {
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getSinchServiceInterface().stopClient();
@@ -220,11 +221,25 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
                 MemoryData.saveState(false, UserHomepage.this);
 
                 DatabaseReference df = FirebaseDatabase.getInstance().getReference();
-                df.child("users-status").child(uid).child("Status").setValue("Offline");
 
-                Intent intent = new Intent(UserHomepage.this, login.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+                df.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        df.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                        df.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(uid);
+                        df.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Logged Out");
+                        df.child("users-status").child(uid).child("Status").setValue("Offline");
+
+                        Intent intent = new Intent(UserHomepage.this, login.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
     }
