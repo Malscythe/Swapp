@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -45,12 +46,16 @@ public class arrayAdapter extends ArrayAdapter<cards> {
         TextView seeMore = convertView.findViewById(R.id.seeMore);
         TextView descriptinHeader = convertView.findViewById(R.id.itemDescriptionHeader);
         TextView posterName = convertView.findViewById(R.id.posterName);
+        RatingBar userRating = convertView.findViewById(R.id.userRating);
+        TextView userRatingNum = convertView.findViewById(R.id.userRatingNum);
 
         Glide.with(imageView.getContext()).load(card_item.getImageUrls()).into(imageView);
         item_Name.setText(card_item.getItem_Name());
         item_Location.setText(card_item.getItem_City().concat(", " + card_item.getItem_State()));
         item_Pref.setText(card_item.getItem_Preferred());
         posterName.setText(card_item.getPoster_Name());
+        userRating.setRating(Float.parseFloat(card_item.getAvg_Rating()));
+        userRatingNum.setText(card_item.getAvg_Rating());
 
         seeMore.setOnClickListener(new View.OnClickListener() {
             @Override

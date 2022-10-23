@@ -36,6 +36,18 @@
             android:layout_toEndOf="@+id/Item_Poster"
             android:numStars="5"/>
 
+        <TextView
+            android:id="@+id/ratingNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@id/rating"
+            android:text="0.0"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
     </RelativeLayout>
 
     <RelativeLayout

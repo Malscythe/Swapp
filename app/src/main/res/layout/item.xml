@@ -66,12 +66,28 @@
                 android:fontFamily="@font/poppins"/>
 
             <RatingBar
+                android:id="@+id/userRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/Widget.AppCompat.RatingBar.Small"
                 android:layout_toEndOf="@id/posterName"
                 android:layout_below="@id/itemLocation"
                 android:layout_marginTop="25dp"/>
+
+            <TextView
+                android:id="@+id/userRatingNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textStyle="bold"
+                android:layout_below="@id/itemLocation"
+                android:layout_toEndOf="@id/userRating"
+                android:textColor="@color/primary_black"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="25dp"
+                android:textSize="12sp"
+                android:fontFamily="@font/poppins"/>
 
             <com.google.android.material.divider.MaterialDivider
                 android:id="@+id/divider1"

@@ -8,10 +8,10 @@ import java.util.List;
 
 public class cards {
 
-    String Item_Category, Item_Description, Item_City, Item_State, Item_Name, Item_Preferred, Poster_Name, Poster_UID, ImageUrls, Item_RFT;
+    String Item_Category, Item_Description, Item_City, Item_State, Item_Name, Item_Preferred, Poster_Name, Poster_UID, ImageUrls, Item_RFT, Avg_Rating;
     ArrayList<String> keyList;
 
-    public cards(String image_Url, String item_RFT, String item_Category, String item_Description, String item_City, String item_State, String item_Name, String item_Preferred, String poster_Name, String poster_Uid, ArrayList<String> KeyList) {
+    public cards(String image_Url, String item_RFT, String item_Category, String item_Description, String item_City, String item_State, String item_Name, String item_Preferred, String poster_Name, String poster_Uid, ArrayList<String> KeyList, String avg_rating) {
         ImageUrls = image_Url;
         Item_Category = item_Category;
         Item_Description = item_Description;
@@ -23,7 +23,16 @@ public class cards {
         Poster_Name = poster_Name;
         Poster_UID = poster_Uid;
         keyList = KeyList;
+        Avg_Rating = avg_rating;
 
+    }
+
+    public String getAvg_Rating() {
+        return Avg_Rating;
+    }
+
+    public void setAvg_Rating(String avg_Rating) {
+        Avg_Rating = avg_Rating;
     }
 
     public ArrayList<String> getKeyList() {

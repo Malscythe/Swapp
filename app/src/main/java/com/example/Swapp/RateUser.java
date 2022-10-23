@@ -3,6 +3,7 @@ package com.example.Swapp;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -19,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import Swapp.R;
+import maes.tech.intentanim.CustomIntent;
 
 public class RateUser extends AppCompatActivity {
 
@@ -103,7 +108,7 @@ public class RateUser extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         int newRating = Integer.parseInt(snapshot.child("user-rating").child(userToRateID).child(userRatings).getValue(String.class));
-                        newRating = newRating + selectedRating;
+                        newRating = newRating + 1;
 
                         databaseReference.child("user-rating").child(userToRateID).child(userRatings).setValue(String.valueOf(newRating));
 
@@ -125,7 +130,19 @@ public class RateUser extends AppCompatActivity {
                 });
 
                 databaseReference.child("user-rating").child(userToRateID).child("transactions").child(transactionKey).child("Rate").setValue(selectedRating);
-                databaseReference.child("user-rating").child(userToRateID).child("transactions").child(transactionKey).child("Feedback").setValue(userFeedback.getText().toString());
+                databaseReference.child("user-rating").child(userToRateID).child("transactions").child(transactionKey).child("Feedback").setValue(userFeedback.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        task.addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Intent intent = new Intent(RateUser.this, MyItemCurrentTransaction.class);
+                                startActivity(intent);
+                                CustomIntent.customType(RateUser.this, "right-to-left");
+                            }
+                        });
+                    }
+                });
             }
         });
     }

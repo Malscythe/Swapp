@@ -156,20 +156,33 @@ public class ItemSwipe extends AppCompatActivity {
 
                     if ((snapshot.child(uid).getKey().equals(uid)) && (snapshot.child(uid).child(itemName).getKey().equals(itemName))) {
 
-                        cards item = new cards(snapshot.child(uid).child(itemName).child("Images").child("1").getValue(String.class),
-                                snapshot.child(uid).child(itemName).child("Item_RFT").getValue(String.class),
-                                snapshot.child(uid).child(itemName).child("Item_Category").getValue(String.class),
-                                snapshot.child(uid).child(itemName).child("Item_Description").getValue(String.class),
-                                snapshot.child(uid).child(itemName).child("Address").child("City").getValue(String.class),
-                                snapshot.child(uid).child(itemName).child("Address").child("State").getValue(String.class),
-                                snapshot.child(uid).child(itemName).child("Item_Name").getValue(String.class),
-                                snapshot.child(uid).child(itemName).child("Item_PrefItem").getValue(String.class),
-                                snapshot.child(uid).child(itemName).child("Poster_Name").getValue(String.class),
-                                snapshot.child(uid).child(itemName).child("Poster_UID").getValue(String.class),
-                                keysList
-                        );
-                        rowItems.add(item);
-                        arrayAdapter.notifyDataSetChanged();
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                        databaseReference.child("user-rating").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot1) {
+
+                                cards item = new cards(snapshot.child(uid).child(itemName).child("Images").child("1").getValue(String.class),
+                                        snapshot.child(uid).child(itemName).child("Item_RFT").getValue(String.class),
+                                        snapshot.child(uid).child(itemName).child("Item_Category").getValue(String.class),
+                                        snapshot.child(uid).child(itemName).child("Item_Description").getValue(String.class),
+                                        snapshot.child(uid).child(itemName).child("Address").child("City").getValue(String.class),
+                                        snapshot.child(uid).child(itemName).child("Address").child("State").getValue(String.class),
+                                        snapshot.child(uid).child(itemName).child("Item_Name").getValue(String.class),
+                                        snapshot.child(uid).child(itemName).child("Item_PrefItem").getValue(String.class),
+                                        snapshot.child(uid).child(itemName).child("Poster_Name").getValue(String.class),
+                                        snapshot.child(uid).child(itemName).child("Poster_UID").getValue(String.class),
+                                        keysList,
+                                        snapshot1.child(uid).child("Average_Rating").getValue(String.class)
+                                );
+                                rowItems.add(item);
+                                arrayAdapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                     }
                 }
             }

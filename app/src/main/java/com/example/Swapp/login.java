@@ -47,6 +47,7 @@ public class login extends AppCompatActivity {
     FirebaseAuth fAuth;
     TextView forgotPassword;
     CheckBox rememberMe;
+    LoggingInDialog loggingInDialog = new LoggingInDialog(com.example.Swapp.login.this);
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bugsbusters-de865-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
     @Override
@@ -86,6 +87,7 @@ public class login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                loggingInDialog.startLoadingDialog();
                 String userEmail = email.getText().toString().trim();
                 String userPass = password.getText().toString().trim();
 
@@ -119,14 +121,10 @@ public class login extends AppCompatActivity {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                                             if (snapshot.child("isAdmin").getValue(String.class).equals("1")){
-
-                                                Log.w(TAG, "IN ADMIN");
+                                                loggingInDialog.DismissDialog();
                                                 startActivity(new Intent(login.this, AdminHomepage.class));
-
                                             } else if (snapshot.child("isAdmin").getValue(String.class).equals("0")){
-
-
-
+                                                loggingInDialog.DismissDialog();
                                                 MemoryData.saveData(snapshot.child("Phone").getValue().toString(), login.this);
                                                 MemoryData.saveFirstName(snapshot.child("First_Name").getValue(String.class), com.example.Swapp.login.this);
                                                 MemoryData.saveName(snapshot.child("First_Name").getValue().toString().concat(" " + snapshot.child("Last_Name").getValue().toString()), login.this);

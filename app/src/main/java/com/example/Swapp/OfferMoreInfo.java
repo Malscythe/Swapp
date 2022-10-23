@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -80,6 +81,23 @@ public class OfferMoreInfo extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 String category = snapshot.child("Item_Category").getValue(String.class);
+
+                RatingBar userRating = findViewById(R.id.rating);
+                TextView userRatingNum = findViewById(R.id.ratingNum);
+
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                databaseReference.child("user-rating").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        userRating.setRating(Float.parseFloat(snapshot.child(uid).child("Average_Rating").getValue(String.class)));
+                        userRatingNum.setText(snapshot.child(uid).child("Average_Rating").getValue(String.class));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
                 switch (category) {
                     case "Men's Apparel":

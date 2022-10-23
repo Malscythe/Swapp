@@ -1,163 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#03989e"
+    android:background="@color/primary"
     tools:context="com.example.Swapp.login">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/layout_bg"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toEndOf="@id/guideline3"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/guideline2"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:layout_constraintVertical_bias="0.0">
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomLayout"
+        android:layout_centerInParent="true">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline5"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/imageLogo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_above="@id/logoText"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/swapplogotransparent"
+            android:transitionName="imageTransition" />
+
+        <TextView
+            android:id="@+id/logoText"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.1" />
+            android:layout_centerInParent="true"
+            android:layout_marginTop="-10dp"
+            android:fontFamily="@font/montserrat_extrabold"
+            android:gravity="center_horizontal"
+            android:text="Swapp"
+            android:textColor="@color/white"
+            android:textSize="45sp"
+            android:transitionName="textTransition1" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline6"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/logoDesc"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.9" />
+            android:layout_below="@id/logoText"
+            android:layout_marginBottom="50dp"
+            android:fontFamily="@font/poppins"
+            android:gravity="center_horizontal"
+            android:text="Online Bartering Application"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:transitionName="textTransition1" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
+    </RelativeLayout>
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.08" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.22" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.24" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.38" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.37" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.47" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.395" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.435" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline16"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.59" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.53" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline18"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.65" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline19"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.15" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline20"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.85" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline21"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.70" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline22"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.75" />
-
+    <RelativeLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="380dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/layout_bg">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout2"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="40dp"
             app:boxStrokeColor="#03989e"
             app:boxStrokeWidth="2dp"
-            app:endIconMode="clear_text"
-            app:layout_constraintBottom_toTopOf="@id/guideline8"
-            app:layout_constraintEnd_toEndOf="@id/guideline6"
-            app:layout_constraintStart_toStartOf="@id/guideline5"
-            app:layout_constraintTop_toBottomOf="@id/guideline7">
+            app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/loginEmail"
@@ -175,15 +86,15 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textInputLayout2"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="40dp"
             app:boxStrokeColor="#03989e"
             app:boxStrokeWidth="2dp"
-            app:endIconMode="password_toggle"
-            app:layout_constraintEnd_toEndOf="@id/guideline6"
-            app:layout_constraintStart_toStartOf="@id/guideline5"
-            app:layout_constraintTop_toBottomOf="@id/guideline9"
-            app:layout_constraintBottom_toTopOf="@id/guideline10">
+            app:endIconMode="password_toggle">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/loginPassword"
@@ -201,99 +112,80 @@
 
         <CheckBox
             android:id="@+id/checkBox"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/textInputLayout"
+            android:layout_marginStart="30dp"
             android:fontFamily="@font/poppins_semibold"
-            android:text="Remember me"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="@id/guideline5"
-            app:layout_constraintEnd_toEndOf="@id/guideline11"
-            app:layout_constraintTop_toBottomOf="@id/guideline13"
-            app:layout_constraintBottom_toTopOf="@id/guideline12"/>
+            android:textColor="@color/primary_black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/checkBoxLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textInputLayout"
+            android:layout_marginStart="-5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="40dp"
+            android:layout_toEndOf="@id/checkBox"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Keep me logged in"
+            android:textColor="@color/primary_black"
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/uForgotPassword"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textInputLayout"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="40dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="Forgot Password"
-            app:layout_constraintStart_toStartOf="@id/guideline16"
-            app:layout_constraintEnd_toEndOf="@id/guideline6"
-            app:layout_constraintTop_toBottomOf="@id/guideline14"
-            app:layout_constraintBottom_toTopOf="@id/guideline15"
-            android:textColor="#03989e" />
+            android:textColor="@color/primary"
+            android:textSize="13sp" />
 
         <android.widget.Button
             android:id="@+id/btnLogin"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:autoText="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/uForgotPassword"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="60dp"
             android:background="@drawable/buttonborder"
             android:fontFamily="@font/poppins_semibold"
             android:text="Login"
-            app:layout_constraintStart_toStartOf="@id/guideline19"
-            app:layout_constraintEnd_toEndOf="@id/guideline20"
-            app:layout_constraintTop_toBottomOf="@id/guideline17"
-            app:layout_constraintBottom_toTopOf="@id/guideline18"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnLogin"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="Don't have account?"
             android:textAlignment="center"
-            android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="@id/guideline5"
-            app:layout_constraintEnd_toEndOf="@id/guideline6"
-            app:layout_constraintTop_toBottomOf="@id/guideline21"
-            app:layout_constraintBottom_toTopOf="@id/guideline22"/>
+            android:textColor="@color/primary_black" />
 
         <TextView
             android:id="@+id/gotosignup"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/textView2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="Create a new account"
-            android:textColor="#03989e"
             android:textAlignment="center"
-            app:layout_constraintStart_toStartOf="@id/guideline5"
-            app:layout_constraintEnd_toEndOf="@id/guideline6"
-            app:layout_constraintTop_toBottomOf="@id/guideline22" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:textColor="@color/primary" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/swapp_signin" />
+    </RelativeLayout>
 
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="1.1" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

@@ -62,7 +62,7 @@
             android:exported="true"
             android:theme="@style/piechart" />
         <activity
-            android:name=".MoreInfo"
+            android:name="com.example.Swapp.MoreInfo"
             android:exported="true" />
         <activity
             android:name="com.example.Swapp.MyUnsuccessfulTransactions"
@@ -110,6 +110,9 @@
             android:name="com.example.Swapp.PostItem_S3"
             android:exported="true" />
         <activity
+            android:name="com.example.Swapp.login"
+            android:exported="true" />
+        <activity
             android:name="com.example.Swapp.PostItem_S4"
             android:exported="true" />
         <activity
@@ -141,7 +144,7 @@
             android:name="com.example.Swapp.alert_dialog_noitem"
             android:exported="true" />
         <activity
-            android:name="com.example.Swapp.login"
+            android:name="com.example.Swapp.SplashScreen"
             android:exported="true"
             android:label="Swapp">
             <intent-filter>

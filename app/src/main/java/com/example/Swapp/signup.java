@@ -32,8 +32,11 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -78,6 +81,7 @@ public class signup extends AppCompatActivity {
     Boolean phoneError = false;
     Boolean genderError = false;
     Boolean birthError = false;
+    Boolean alreadyUsed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +117,6 @@ public class signup extends AppCompatActivity {
             }
         });
 
-        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         firstName = findViewById(R.id.uFirstName);
         lastName = findViewById(R.id.uLastName);
         email = findViewById(R.id.uEmail);
@@ -165,6 +168,27 @@ public class signup extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 phoneValidation(mobileNumber);
+
+                databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            if (dataSnapshot.child("Phone").getValue(String.class).substring(1, 11).equals(charSequence.toString())) {
+                                mobileNumberL.setError("This mobile number is already in used.");
+                                mobileNumberL.setErrorIconDrawable(null);
+                                alreadyUsed = true;
+                                return;
+                            } else {
+                                alreadyUsed = false;
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
 
             @Override
@@ -325,18 +349,22 @@ public class signup extends AppCompatActivity {
                     return;
                 }
 
-                if (!mobileNumber.getText().toString().isEmpty() && phoneError == false) {
+                Log.d("GUSTO KO NA MATULOG", alreadyUsed + "");
+
+                if (!mobileNumber.getText().toString().isEmpty() && phoneError == false && alreadyUsed == false) {
                     mobileNumberL.setError(null);
                     mobileNumberL.setErrorIconDrawable(null);
                     phoneError = false;
+                    alreadyUsed = false;
                 } else {
                     if (mobileNumber.getText().toString().isEmpty()) {
                         mobileNumberL.setError("Mobile number cannot be empty.");
                     } else if (phoneError == true) {
                         mobileNumberL.setError("Invalid phone number.");
+                    } else if (alreadyUsed == true) {
+                        mobileNumberL.setError("This mobile number is already in used.");
                     }
                     mobileNumberL.setErrorIconDrawable(null);
-                    phoneError = true;
                     return;
                 }
 
@@ -430,6 +458,7 @@ public class signup extends AppCompatActivity {
                                         databaseReference.child("user-rating").child(userID).child("rating3").setValue("0");
                                         databaseReference.child("user-rating").child(userID).child("rating4").setValue("0");
                                         databaseReference.child("user-rating").child(userID).child("rating5").setValue("0");
+                                        databaseReference.child("user-rating").child(userID).child("Average_Rating").setValue("0.0");
 
                                     }
                                 }
