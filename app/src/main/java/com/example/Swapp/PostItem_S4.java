@@ -368,6 +368,34 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
 
                                                 }
                                             });
+
+                                            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    if (snapshot.child("items").hasChild("Transaction_Counter")) {
+                                                        databaseReference.child("items").child("Transaction_Counter").setValue(String.valueOf(snapshot.child("items").child("Transaction").getChildrenCount() - 1));
+                                                    } else {
+                                                        databaseReference.child("items").child("Transaction_Counter").setValue("1");
+                                                    }
+
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
+
+                                                    postingItemDialog.DismissDialog();
+
+                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                    intent.putExtra("Origin", "PostItem");
+                                                    startActivity(intent);
+                                                    CustomIntent.customType(PostItem_S4.this, "left-to-right");
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
                                         }
                                     });
 
@@ -446,6 +474,34 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     } else {
                                                         databaseReference.child("items").child(currentId).child(gameItemName).child("Images").child("1").setValue(task.getResult().toString());
                                                     }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
+
+                                            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    if (snapshot.child("items").hasChild("Transaction_Counter")) {
+                                                        databaseReference.child("items").child("Transaction_Counter").setValue(String.valueOf(snapshot.child("items").child("Transaction").getChildrenCount() - 1));
+                                                    } else {
+                                                        databaseReference.child("items").child("Transaction_Counter").setValue("1");
+                                                    }
+
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
+
+                                                    postingItemDialog.DismissDialog();
+
+                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                    intent.putExtra("Origin", "PostItem");
+                                                    startActivity(intent);
+                                                    CustomIntent.customType(PostItem_S4.this, "left-to-right");
                                                 }
 
                                                 @Override
@@ -540,6 +596,34 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
 
                                                 }
                                             });
+
+                                            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    if (snapshot.child("items").hasChild("Transaction_Counter")) {
+                                                        databaseReference.child("items").child("Transaction_Counter").setValue(String.valueOf(snapshot.child("items").child("Transaction").getChildrenCount() - 1));
+                                                    } else {
+                                                        databaseReference.child("items").child("Transaction_Counter").setValue("1");
+                                                    }
+
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
+
+                                                    postingItemDialog.DismissDialog();
+
+                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                    intent.putExtra("Origin", "PostItem");
+                                                    startActivity(intent);
+                                                    CustomIntent.customType(PostItem_S4.this, "left-to-right");
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
                                         }
                                     });
 
@@ -612,6 +696,34 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     } else {
                                                         databaseReference.child("items").child(currentId).child(groceryItemName).child("Images").child("1").setValue(task.getResult().toString());
                                                     }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
+
+                                            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    if (snapshot.child("items").hasChild("Transaction_Counter")) {
+                                                        databaseReference.child("items").child("Transaction_Counter").setValue(String.valueOf(snapshot.child("items").child("Transaction").getChildrenCount() - 1));
+                                                    } else {
+                                                        databaseReference.child("items").child("Transaction_Counter").setValue("1");
+                                                    }
+
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
+
+                                                    postingItemDialog.DismissDialog();
+
+                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                    intent.putExtra("Origin", "PostItem");
+                                                    startActivity(intent);
+                                                    CustomIntent.customType(PostItem_S4.this, "left-to-right");
                                                 }
 
                                                 @Override
@@ -710,6 +822,34 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
 
                                                 }
                                             });
+
+                                            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    if (snapshot.child("items").hasChild("Transaction_Counter")) {
+                                                        databaseReference.child("items").child("Transaction_Counter").setValue(String.valueOf(snapshot.child("items").child("Transaction").getChildrenCount() - 1));
+                                                    } else {
+                                                        databaseReference.child("items").child("Transaction_Counter").setValue("1");
+                                                    }
+
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
+
+                                                    postingItemDialog.DismissDialog();
+
+                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                    intent.putExtra("Origin", "PostItem");
+                                                    startActivity(intent);
+                                                    CustomIntent.customType(PostItem_S4.this, "left-to-right");
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
                                         }
                                     });
 
@@ -790,6 +930,34 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     } else {
                                                         databaseReference.child("items").child(currentId).child(bnkItemName).child("Images").child("1").setValue(task.getResult().toString());
                                                     }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
+
+                                            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    if (snapshot.child("items").hasChild("Transaction_Counter")) {
+                                                        databaseReference.child("items").child("Transaction_Counter").setValue(String.valueOf(snapshot.child("items").child("Transaction").getChildrenCount() - 1));
+                                                    } else {
+                                                        databaseReference.child("items").child("Transaction_Counter").setValue("1");
+                                                    }
+
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
+
+                                                    postingItemDialog.DismissDialog();
+
+                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                    intent.putExtra("Origin", "PostItem");
+                                                    startActivity(intent);
+                                                    CustomIntent.customType(PostItem_S4.this, "left-to-right");
                                                 }
 
                                                 @Override
@@ -884,6 +1052,34 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
 
                                                 }
                                             });
+
+                                            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    if (snapshot.child("items").hasChild("Transaction_Counter")) {
+                                                        databaseReference.child("items").child("Transaction_Counter").setValue(String.valueOf(snapshot.child("items").child("Transaction").getChildrenCount() - 1));
+                                                    } else {
+                                                        databaseReference.child("items").child("Transaction_Counter").setValue("1");
+                                                    }
+
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
+
+                                                    postingItemDialog.DismissDialog();
+
+                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                    intent.putExtra("Origin", "PostItem");
+                                                    startActivity(intent);
+                                                    CustomIntent.customType(PostItem_S4.this, "left-to-right");
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
                                         }
                                     });
 
@@ -964,6 +1160,34 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     } else {
                                                         databaseReference.child("items").child(currentId).child(motorItemName).child("Images").child("1").setValue(task.getResult().toString());
                                                     }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
+
+                                            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    if (snapshot.child("items").hasChild("Transaction_Counter")) {
+                                                        databaseReference.child("items").child("Transaction_Counter").setValue(String.valueOf(snapshot.child("items").child("Transaction").getChildrenCount() - 1));
+                                                    } else {
+                                                        databaseReference.child("items").child("Transaction_Counter").setValue("1");
+                                                    }
+
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
+
+                                                    postingItemDialog.DismissDialog();
+
+                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                    intent.putExtra("Origin", "PostItem");
+                                                    startActivity(intent);
+                                                    CustomIntent.customType(PostItem_S4.this, "left-to-right");
                                                 }
 
                                                 @Override
@@ -1056,6 +1280,34 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
 
                                                 }
                                             });
+
+                                            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    if (snapshot.child("items").hasChild("Transaction_Counter")) {
+                                                        databaseReference.child("items").child("Transaction_Counter").setValue(String.valueOf(snapshot.child("items").child("Transaction").getChildrenCount() - 1));
+                                                    } else {
+                                                        databaseReference.child("items").child("Transaction_Counter").setValue("1");
+                                                    }
+
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
+
+                                                    postingItemDialog.DismissDialog();
+
+                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                    intent.putExtra("Origin", "PostItem");
+                                                    startActivity(intent);
+                                                    CustomIntent.customType(PostItem_S4.this, "left-to-right");
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
                                         }
                                     });
 
@@ -1136,6 +1388,34 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     } else {
                                                         databaseReference.child("items").child(currentId).child(schoolItemName).child("Images").child("1").setValue(task.getResult().toString());
                                                     }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
+
+                                            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    if (snapshot.child("items").hasChild("Transaction_Counter")) {
+                                                        databaseReference.child("items").child("Transaction_Counter").setValue(String.valueOf(snapshot.child("items").child("Transaction").getChildrenCount() - 1));
+                                                    } else {
+                                                        databaseReference.child("items").child("Transaction_Counter").setValue("1");
+                                                    }
+
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
+
+                                                    postingItemDialog.DismissDialog();
+
+                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                    intent.putExtra("Origin", "PostItem");
+                                                    startActivity(intent);
+                                                    CustomIntent.customType(PostItem_S4.this, "left-to-right");
                                                 }
 
                                                 @Override
@@ -1253,6 +1533,34 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
 
                                                 }
                                             });
+
+                                            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    if (snapshot.child("items").hasChild("Transaction_Counter")) {
+                                                        databaseReference.child("items").child("Transaction_Counter").setValue(String.valueOf(snapshot.child("items").child("Transaction").getChildrenCount() - 1));
+                                                    } else {
+                                                        databaseReference.child("items").child("Transaction_Counter").setValue("1");
+                                                    }
+
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
+
+                                                    postingItemDialog.DismissDialog();
+
+                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                    intent.putExtra("Origin", "PostItem");
+                                                    startActivity(intent);
+                                                    CustomIntent.customType(PostItem_S4.this, "left-to-right");
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
                                         }
                                     });
 
@@ -1326,6 +1634,34 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     } else {
                                                         databaseReference.child("items").child(currentId).child(otherItemName).child("Images").child("1").setValue(task.getResult().toString());
                                                     }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
+
+                                            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    if (snapshot.child("items").hasChild("Transaction_Counter")) {
+                                                        databaseReference.child("items").child("Transaction_Counter").setValue(String.valueOf(snapshot.child("items").child("Transaction").getChildrenCount() - 1));
+                                                    } else {
+                                                        databaseReference.child("items").child("Transaction_Counter").setValue("1");
+                                                    }
+
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
+                                                    databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
+
+                                                    postingItemDialog.DismissDialog();
+
+                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                    intent.putExtra("Origin", "PostItem");
+                                                    startActivity(intent);
+                                                    CustomIntent.customType(PostItem_S4.this, "left-to-right");
                                                 }
 
                                                 @Override
