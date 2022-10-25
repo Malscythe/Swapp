@@ -40,7 +40,16 @@ public class currentLoc extends AppCompatActivity {
             databaseReference.child("items").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (!snapshot.hasChildren()) {
+
+                    ArrayList<String> getValidated = new ArrayList<>();
+
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                            getValidated.add(String.valueOf(dataSnapshot1.child("Status").getValue(String.class).equals("Validated")));
+                        }
+                    }
+
+                    if (!snapshot.hasChildren() && !getValidated.contains("true")) {
                         Intent intent = new Intent(currentLoc.this, alert_dialog_noitem.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
@@ -568,29 +577,39 @@ public class currentLoc extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                     ArrayList<String> getResult = new ArrayList<>();
+                    ArrayList<String> getValidated = new ArrayList<>();
 
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                            getValidated.add(String.valueOf(dataSnapshot1.child("Item_Category").getValue(String.class).equals(category) && dataSnapshot1.child("Status").getValue(String.class).equals("Validated")));
                             getResult.add(String.valueOf(dataSnapshot1.child("Item_Category").getValue(String.class).equals(category) && dataSnapshot1.child("Open_For_Offers").getValue(String.class).equals("true")));
                         }
                     }
 
-                    if (getResult.contains("true")) {
-                        FragmentManager fragmentManager = getSupportFragmentManager();
-                        final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        final MapsFragment mapsFragment = new MapsFragment();
+                    if (getValidated.contains("true")) {
+                        if (getResult.contains("true")) {
+                            FragmentManager fragmentManager = getSupportFragmentManager();
+                            final FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                            final MapsFragment mapsFragment = new MapsFragment();
 
-                        Bundle b = new Bundle();
-                        b.putString("from", getIntent().getStringExtra("from"));
-                        b.putString("category", getIntent().getStringExtra("category"));
-                        mapsFragment.setArguments(b);
-                        fragmentTransaction.add(R.id.container, mapsFragment).commit();
+                            Bundle b = new Bundle();
+                            b.putString("from", getIntent().getStringExtra("from"));
+                            b.putString("category", getIntent().getStringExtra("category"));
+                            mapsFragment.setArguments(b);
+                            fragmentTransaction.add(R.id.container, mapsFragment).commit();
+                        } else {
+                            Intent intent = new Intent(currentLoc.this, alert_dialog_noitem.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                            CustomIntent.customType(currentLoc.this, "fadein-to-fadeout");
+                        }
                     } else {
                         Intent intent = new Intent(currentLoc.this, alert_dialog_noitem.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
                         CustomIntent.customType(currentLoc.this, "fadein-to-fadeout");
                     }
+
                 }
 
                 @Override

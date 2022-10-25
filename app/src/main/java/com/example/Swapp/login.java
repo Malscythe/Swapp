@@ -65,14 +65,18 @@ public class login extends AppCompatActivity {
 
         strDate = new SimpleDateFormat("MMMM dd, yyyy hh:mm aa", Locale.getDefault()).format(new Date());
 
-        if (MemoryData.getState(this).equals("true") && fAuth.getCurrentUser().isEmailVerified()) {
-            databaseReference.child("users-status").child(fAuth.getCurrentUser().getUid()).child("Status").setValue("Online");
-            Intent intent = new Intent(login.this, UserHomepage.class);
-            intent.putExtra("mobile", MemoryData.getData(this));
-            intent.putExtra("name", "");
-            intent.putExtra("email", "");
-            startActivity(intent);
-            finish();
+        String from = getIntent().getStringExtra("logoutFrom");
+
+        if (from.equals("User")) {
+            if (MemoryData.getState(this).equals("true") && fAuth.getCurrentUser().isEmailVerified()) {
+                databaseReference.child("users-status").child(fAuth.getCurrentUser().getUid()).child("Status").setValue("Online");
+                Intent intent = new Intent(login.this, UserHomepage.class);
+                intent.putExtra("mobile", MemoryData.getData(this));
+                intent.putExtra("name", "");
+                intent.putExtra("email", "");
+                startActivity(intent);
+                finish();
+            }
         }
 
         TextView goCreateAcc = findViewById(R.id.gotosignup);

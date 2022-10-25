@@ -53,6 +53,7 @@ dependencies {
     implementation 'org.apache.xmlbeans:xmlbeans:3.1.0'
     implementation 'com.fasterxml:aalto-xml:1.2.2'
 
+    implementation 'com.android.volley:volley:1.2.1'
     implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
     implementation 'com.google.maps:google-maps-services:2.1.0'
     implementation 'org.slf4j:slf4j-simple:1.7.25'

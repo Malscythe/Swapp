@@ -1,0 +1,162 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_border"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/transactionKey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:text="Transaction Key"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:textColor="@color/primary"
+            android:textSize="12sp"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:id="@+id/postedItemNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/transactionKey"
+            android:fontFamily="@font/poppins"
+            android:text="Item Posted:"
+            android:textColor="@color/primary_black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/postedItemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:text="Posted Item Name"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="5dp"
+            android:layout_below="@id/transactionKey"
+            android:layout_toEndOf="@id/postedItemNameText"
+            android:textColor="@color/primary"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/postedByText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/poppins"
+            android:layout_below="@id/postedItemName"
+            android:text="Posted By:"
+            android:textColor="@color/primary_black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/postedBy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:maxLines="1"
+            android:text="Poster ID"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_toEndOf="@id/postedByText"
+            android:layout_below="@id/postedItemName"
+            android:textColor="@color/primary"
+            android:layout_marginTop="5dp"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/offeredItemNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/postedBy"
+            android:fontFamily="@font/poppins"
+            android:text="Item Offered:"
+            android:textColor="@color/primary_black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/offeredItemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:text="Offered Item Name"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="5dp"
+            android:layout_below="@id/postedByText"
+            android:layout_toEndOf="@id/offeredItemNameText"
+            android:textColor="@color/primary"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/offeredByText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/poppins"
+            android:layout_below="@id/offeredItemName"
+            android:text="Offered By:"
+            android:textColor="@color/primary_black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/offeredBy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:maxLines="1"
+            android:text="Offerer ID"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_toEndOf="@id/offeredByText"
+            android:layout_below="@id/offeredItemName"
+            android:textColor="@color/primary"
+            android:layout_marginTop="5dp"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/transactionStatusText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/poppins"
+            android:layout_below="@id/offeredBy"
+            android:text="Transaction Status:"
+            android:textColor="@color/primary_black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/transactionStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:maxLines="1"
+            android:text="Status"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_toEndOf="@id/transactionStatusText"
+            android:layout_below="@id/offeredBy"
+            android:textColor="@color/primary"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:textSize="12sp" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

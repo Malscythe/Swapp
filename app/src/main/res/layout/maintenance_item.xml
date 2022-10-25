@@ -21,7 +21,7 @@
             android:src="@mipmap/ic_launcher" />
 
         <TextView
-            android:id="@+id/fNameText"
+            android:id="@+id/nameText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -32,22 +32,10 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/lNameText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/fNameText"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/img1"
-            android:text="Last Name"
-            android:textColor="#000"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-        <TextView
             android:id="@+id/useremail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/lNameText"
+            android:layout_below="@id/nameText"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/img1"
             android:text="Email"
@@ -83,25 +71,26 @@
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
-            <Button
-                android:layout_width="160dp"
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" Update "
                 android:layout_weight="1"
+                android:background="@drawable/buttonborder"
                 android:layout_marginRight="5dp"
-                android:id="@+id/btnUpdate"
-                />
-            <Button
-                android:layout_width="160dp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/poppins"
+                android:id="@+id/btnUpdate" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Delete"
+                android:background="@drawable/buttonborderred"
+                android:textColor="@color/white"
+                android:fontFamily="@font/poppins"
                 android:layout_weight="1"
                 android:layout_marginLeft="5dp"
-                android:id="@+id/btnDelete"
-                />
-
-
-
+                android:id="@+id/btnDelete" />
         </LinearLayout>
     </RelativeLayout>
 

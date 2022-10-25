@@ -1,0 +1,134 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_border"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/postedImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="1dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/noimage" />
+
+        <TextView
+            android:id="@+id/itemNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/postedImage"
+            android:fontFamily="@font/poppins"
+            android:text="Item Name:"
+            android:textColor="@color/primary_black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/postedItemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:text="Item Name"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="15sp"
+            android:layout_toEndOf="@id/itemNameText"
+            android:textColor="@color/primary"
+            android:textSize="12sp"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:id="@+id/itemLocationText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@id/postedImage"
+            android:layout_below="@id/postedItemName"
+            android:fontFamily="@font/poppins"
+            android:text="Location:"
+            android:textColor="@color/primary_black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/postedLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:text="Location"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="5dp"
+            android:layout_below="@id/postedItemName"
+            android:layout_toEndOf="@id/itemLocationText"
+            android:textColor="@color/primary"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/itemPosterNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@id/postedImage"
+            android:fontFamily="@font/poppins"
+            android:layout_below="@id/postedLocation"
+            android:text="Posted By:"
+            android:textColor="@color/primary_black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/posterName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:maxLines="1"
+            android:text="Poster Name"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="15dp"
+            android:layout_toEndOf="@id/itemPosterNameText"
+            android:layout_below="@id/postedLocation"
+            android:textColor="@color/primary"
+            android:layout_marginTop="5dp"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/itemPosterUIDText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@id/postedImage"
+            android:fontFamily="@font/poppins"
+            android:maxLines="1"
+            android:text="User UID:"
+            android:layout_below="@id/itemPosterNameText"
+            android:textColor="@color/primary_black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/posterUID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@id/itemPosterUIDText"
+            android:layout_below="@id/itemPosterNameText"
+            android:maxLines="1"
+            android:text="Poster UID"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="5dp"
+            android:textColor="@color/primary"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

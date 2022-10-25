@@ -123,21 +123,39 @@ public class RateUser extends AppCompatActivity {
                         int newRating = Integer.parseInt(snapshot.child("user-rating").child(userToRateID).child(userRatings).getValue(String.class));
                         newRating = newRating + 1;
 
-                        databaseReference.child("user-rating").child(userToRateID).child(userRatings).setValue(String.valueOf(newRating));
+                        databaseReference.child("user-rating").child(userToRateID).child(userRatings).setValue(String.valueOf(newRating)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                task.addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot1) {
+                                                float rating1 = Float.parseFloat(snapshot1.child("user-rating").child(userToRateID).child("rating1").getValue(String.class));
+                                                float rating2 = Float.parseFloat(snapshot1.child("user-rating").child(userToRateID).child("rating2").getValue(String.class));
+                                                float rating3 = Float.parseFloat(snapshot1.child("user-rating").child(userToRateID).child("rating3").getValue(String.class));
+                                                float rating4 = Float.parseFloat(snapshot1.child("user-rating").child(userToRateID).child("rating4").getValue(String.class));
+                                                float rating5 = Float.parseFloat(snapshot1.child("user-rating").child(userToRateID).child("rating5").getValue(String.class));
 
-                        float rating1 = Float.parseFloat(snapshot.child("user-rating").child(userToRateID).child("rating1").getValue(String.class));
-                        float rating2 = Float.parseFloat(snapshot.child("user-rating").child(userToRateID).child("rating2").getValue(String.class));
-                        float rating3 = Float.parseFloat(snapshot.child("user-rating").child(userToRateID).child("rating3").getValue(String.class));
-                        float rating4 = Float.parseFloat(snapshot.child("user-rating").child(userToRateID).child("rating4").getValue(String.class));
-                        float rating5 = Float.parseFloat(snapshot.child("user-rating").child(userToRateID).child("rating5").getValue(String.class));
+                                                if (snapshot1.child("user-rating").child(userToRateID).child("Average_Rating").getValue(String.class).equals("0") || snapshot1.child("user-rating").child(userToRateID).child("Average_Rating").getValue(String.class).equals("0.0")) {
+                                                    newAvgRating = selectedRating;
+                                                } else {
+                                                    newAvgRating = ((1 * rating1) + (2 * rating2) + (3 * rating3) + (4 * rating4) + (5 * rating5)) / (rating1 + rating2 + rating3 + rating4 + rating5);
+                                                }
 
-                        if (snapshot.child("user-rating").child(userToRateID).child("Average_Rating").getValue(String.class).equals("0") || snapshot.child("user-rating").child(userToRateID).child("Average_Rating").getValue(String.class).equals("0.0")) {
-                            newAvgRating = selectedRating;
-                        } else {
-                            newAvgRating = ((1 * rating1) + (2 * rating2) + (3 * rating3) + (4 * rating4) + (5 * rating5)) / (rating1 + rating2 + rating3 + rating4 + rating5);
-                        }
+                                                databaseReference.child("user-rating").child(userToRateID).child("Average_Rating").setValue(String.format("%.1f", newAvgRating));
+                                            }
 
-                        databaseReference.child("user-rating").child(userToRateID).child("Average_Rating").setValue(String.valueOf(newAvgRating));
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
                     }
 
                     @Override
@@ -147,6 +165,7 @@ public class RateUser extends AppCompatActivity {
                 });
 
                 databaseReference.child("user-rating").child(userToRateID).child("transactions").child(transactionKey).child("Rate").setValue(selectedRating);
+                databaseReference.child("user-rating").child(userToRateID).child("transactions").child(transactionKey).child("Rated_By").setValue(myUid);
                 databaseReference.child("user-rating").child(userToRateID).child("transactions").child(transactionKey).child("Feedback").setValue(userFeedback.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

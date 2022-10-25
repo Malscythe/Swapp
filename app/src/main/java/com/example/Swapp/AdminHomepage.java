@@ -12,10 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -52,10 +54,12 @@ import maes.tech.intentanim.CustomIntent;
 
 public class AdminHomepage extends AppCompatActivity {
 
-    CardView manageUsers, goToActivityLogs;
+    CardView manageUsers, goToActivityLogs, goToFNR, goToPosted, goToTransaction, goToApproval;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    TextView registered, online, transactions, posted;
+    TextView registered, online, transactions, posted, approval;
     ImageView logout;
+    long newCount = 0;
+    long newApprovalCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +72,15 @@ public class AdminHomepage extends AppCompatActivity {
         online = findViewById(R.id.onlineCounter);
         transactions = findViewById(R.id.transactionsCounter);
         posted = findViewById(R.id.postedCounter);
+        approval = findViewById(R.id.approvalCounter);
         logout = findViewById(R.id.logoutBtn);
+        goToFNR = findViewById(R.id.feedbacksRating);
+        goToPosted = findViewById(R.id.goToPostedItems);
+        goToTransaction = findViewById(R.id.goToTransactions);
+        goToApproval = findViewById(R.id.goToApproval);
 
         if (ActivityCompat.checkSelfPermission(AdminHomepage.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
-            ActivityCompat.checkSelfPermission(AdminHomepage.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.checkSelfPermission(AdminHomepage.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(AdminHomepage.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
             ActivityCompat.requestPermissions(AdminHomepage.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
             return;
@@ -80,7 +89,10 @@ public class AdminHomepage extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AdminHomepage.this, login.class));
+                Intent intent = new Intent(AdminHomepage.this, login.class);
+                intent.putExtra("logoutFrom", "Admin");
+                startActivity(intent);
+                CustomIntent.customType(AdminHomepage.this, "right-to-left");
             }
         });
 
@@ -90,12 +102,31 @@ public class AdminHomepage extends AppCompatActivity {
                 registered.setText(String.valueOf(snapshot.child("users").getChildrenCount()));
                 transactions.setText(String.valueOf(snapshot.child("trade-transactions").getChildrenCount()));
 
-                long newCount = 0;
-                for (DataSnapshot dataSnapshot : snapshot.child("items").getChildren()) {
-                    newCount = newCount + dataSnapshot.getChildrenCount();
-                }
+                newCount = 0;
+                newApprovalCount = 0;
+                databaseReference.child("items").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                                if (dataSnapshot1.child("Status").getValue(String.class).equals("Validated")) {
+                                    newCount = newCount + 1;
+                                }
 
-                posted.setText(String.valueOf(newCount));
+                                if (dataSnapshot1.child("Status").getValue(String.class).equals("Validating")) {
+                                    newApprovalCount = newApprovalCount + 1;
+                                }
+                            }
+                        }
+                        posted.setText(String.valueOf(newCount));
+                        approval.setText(String.valueOf(newApprovalCount));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
                 databaseReference.child("users-status").orderByChild("Status").equalTo("Online").addValueEventListener(new ValueEventListener() {
                     @Override
@@ -116,20 +147,43 @@ public class AdminHomepage extends AppCompatActivity {
             }
         });
 
+        goToApproval.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminHomepage.this, ItemApproval.class));
+                CustomIntent.customType(AdminHomepage.this, "left-to-right");
+            }
+        });
+
+        goToTransaction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminHomepage.this, Transactions.class));
+                CustomIntent.customType(AdminHomepage.this, "left-to-right");
+            }
+        });
+
+        goToFNR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminHomepage.this, FeedbacksRating.class));
+                CustomIntent.customType(AdminHomepage.this, "left-to-right");
+            }
+        });
+
+        goToPosted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminHomepage.this, PostedItems.class));
+                CustomIntent.customType(AdminHomepage.this, "left-to-right");
+            }
+        });
+
         goToActivityLogs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                ArrayList<String> strings = new ArrayList<>();
-                strings.add("WTF");
-                strings.add("WTF");
-                strings.add("WTF");
-                strings.add("WTF");
-                strings.add("WTF");
-                strings.add("WTF");
-                strings.add("WTF");
-
-                createXlxs(strings);
+                startActivity(new Intent(AdminHomepage.this, ActivityLogs.class));
+                CustomIntent.customType(AdminHomepage.this, "left-to-right");
             }
         });
 
@@ -145,54 +199,10 @@ public class AdminHomepage extends AppCompatActivity {
 
     }
 
-    private void createXlxs(ArrayList<String> strings) {
-        try {
-            String strDate = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss", Locale.getDefault()).format(new Date());
-            File root = new File(Environment
-                    .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "FileExcel");
-            if (!root.exists())
-                root.mkdirs();
-            File path = new File(root, "/Activity Logs - " + strDate + ".xlsx");
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
 
-            XSSFWorkbook workbook = new XSSFWorkbook();
-            FileOutputStream outputStream = new FileOutputStream(path);
-
-            XSSFCellStyle headerStyle = workbook.createCellStyle();
-            headerStyle.setAlignment(HorizontalAlignment.CENTER);
-            headerStyle.setFillForegroundColor(IndexedColors.BLUE_GREY.getIndex());
-            headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-            headerStyle.setBorderTop(BorderStyle.MEDIUM);
-            headerStyle.setBorderBottom(BorderStyle.MEDIUM);
-            headerStyle.setBorderRight(BorderStyle.MEDIUM);
-            headerStyle.setBorderLeft(BorderStyle.MEDIUM);
-
-            XSSFFont font = workbook.createFont();
-            font.setFontHeightInPoints((short) 12);
-            font.setColor(IndexedColors.WHITE.getIndex());
-            font.setBold(true);
-            headerStyle.setFont(font);
-
-            XSSFSheet sheet = workbook.createSheet("Activity Logs - " + strDate);
-            XSSFRow row = sheet.createRow(0);
-
-            XSSFCell cell = row.createCell(0);
-            cell.setCellValue("C1");
-            cell.setCellStyle(headerStyle);
-
-            for (int i = 0; i < strings.size(); i++) {
-                row = sheet.createRow(i + 1);
-
-                cell = row.createCell(0);
-                cell.setCellValue(strings.get(i));
-                sheet.setColumnWidth(0, (strings.get(i).length() + 30) * 256);
-
-            }
-
-            workbook.write(outputStream);
-            outputStream.close();
-            Toast.makeText(AdminHomepage.this, "File created!", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        finishAffinity();
     }
 }

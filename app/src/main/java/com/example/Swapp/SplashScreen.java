@@ -45,8 +45,7 @@ public class SplashScreen extends AppCompatActivity {
         rootLayout = findViewById(R.id.rootLayout);
         firebaseAuth = FirebaseAuth.getInstance();
 
-        if (MemoryData.getState(this).equals("true") && firebaseAuth.getCurrentUser().isEmailVerified()) {
-            databaseReference.child("users-status").child(firebaseAuth.getCurrentUser().getUid()).child("Status").setValue("Online");
+        if (MemoryData.getState(this).equals("true")) {
             Intent intent = new Intent(SplashScreen.this, UserHomepage.class);
             intent.putExtra("mobile", MemoryData.getData(this));
             intent.putExtra("name", "");
@@ -104,6 +103,7 @@ public class SplashScreen extends AppCompatActivity {
                     pairs[2] = new Pair<View, String>(logoDesc, "textTransition2");
 
                     ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SplashScreen.this, pairs);
+                    sharedIntent.putExtra("logoutFrom", "User");
                     startActivity(sharedIntent, options.toBundle());
                 }
             }, 5000);

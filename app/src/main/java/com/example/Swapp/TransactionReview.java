@@ -442,7 +442,7 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
 
                                     } else {
                                         parentItems.child("Open_For_Offers").setValue("false");
-                                        databaseReference.child("trade-transactions").child(transactionKey).child("Transaction_Status").setValue("Waiting for validation");
+                                        databaseReference.child("trade-transactions").child(transactionKey).child("Transaction_Status").setValue("On hold");
 
                                         if (selectedRdo.equals("Successful")) {
                                             StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/trades-transact/" + transactionKey + "/" + "Offerer_Proof");

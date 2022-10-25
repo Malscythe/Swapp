@@ -45,6 +45,7 @@ public class MoreInfo extends AppCompatActivity {
 
         String uid = getIntent().getStringExtra("poster_uid");
         String item_Name = getIntent().getStringExtra("item_name");
+        String from = getIntent().getStringExtra("from");
 
         DatabaseReference items = FirebaseDatabase.getInstance().getReference().child("items").child(uid).child(item_Name);
         items.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -125,6 +126,12 @@ public class MoreInfo extends AppCompatActivity {
                             mSizeChartLayout.setVisibility(View.GONE);
                         }
 
+                        if (from.equals("Admin")) {
+                            mOfferBtn.setVisibility(View.GONE);
+                        } else {
+                            mOfferBtn.setVisibility(View.VISIBLE);
+                        }
+
                         mOfferBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -190,6 +197,12 @@ public class MoreInfo extends AppCompatActivity {
                             wSizeChartLayout.setVisibility(View.GONE);
                         }
 
+                        if (from.equals("Admin")) {
+                            wOfferBtn.setVisibility(View.GONE);
+                        } else {
+                            wOfferBtn.setVisibility(View.VISIBLE);
+                        }
+
                         wOfferBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -240,6 +253,12 @@ public class MoreInfo extends AppCompatActivity {
                         gadgetsRFT.setText(snapshot.child("Item_RFT").getValue(String.class));
                         gadgetsDescription.setText(snapshot.child("Item_Description").getValue(String.class));
 
+                        if (from.equals("Admin")) {
+                            gadgetsOfferBtn.setVisibility(View.GONE);
+                        } else {
+                            gadgetsOfferBtn.setVisibility(View.VISIBLE);
+                        }
+
                         gadgetsOfferBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -287,6 +306,12 @@ public class MoreInfo extends AppCompatActivity {
                         gamePref.setText(snapshot.child("Item_PrefItem").getValue(String.class));
                         gameRFT.setText(snapshot.child("Item_RFT").getValue(String.class));
                         gameDescription.setText(snapshot.child("Item_Description").getValue(String.class));
+
+                        if (from.equals("Admin")) {
+                            gameOfferBtn.setVisibility(View.GONE);
+                        } else {
+                            gameOfferBtn.setVisibility(View.VISIBLE);
+                        }
 
                         gameOfferBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -338,6 +363,12 @@ public class MoreInfo extends AppCompatActivity {
                         bagRFT.setText(snapshot.child("Item_RFT").getValue(String.class));
                         bagDescription.setText(snapshot.child("Item_Description").getValue(String.class));
 
+                        if (from.equals("Admin")) {
+                            bagOfferBtn.setVisibility(View.GONE);
+                        } else {
+                            bagOfferBtn.setVisibility(View.VISIBLE);
+                        }
+
                         bagOfferBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -379,6 +410,12 @@ public class MoreInfo extends AppCompatActivity {
                         groceryLocation.setText(groceryAddress);
                         groceryPref.setText(snapshot.child("Item_PrefItem").getValue(String.class));
                         groceryRFT.setText(snapshot.child("Item_RFT").getValue(String.class));
+
+                        if (from.equals("Admin")) {
+                            groceryOfferBtn.setVisibility(View.GONE);
+                        } else {
+                            groceryOfferBtn.setVisibility(View.VISIBLE);
+                        }
 
                         groceryOfferBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -434,6 +471,12 @@ public class MoreInfo extends AppCompatActivity {
                         furnitureRFT.setText(snapshot.child("Item_RFT").getValue(String.class));
                         furnitureDescription.setText(snapshot.child("Item_Description").getValue(String.class));
 
+                        if (from.equals("Admin")) {
+                            furnitureOfferBtn.setVisibility(View.GONE);
+                        } else {
+                            furnitureOfferBtn.setVisibility(View.VISIBLE);
+                        }
+
                         furnitureOfferBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -483,6 +526,12 @@ public class MoreInfo extends AppCompatActivity {
                         bnkPref.setText(snapshot.child("Item_PrefItem").getValue(String.class));
                         bnkRFT.setText(snapshot.child("Item_RFT").getValue(String.class));
                         bnkDescription.setText(snapshot.child("Item_Description").getValue(String.class));
+
+                        if (from.equals("Admin")) {
+                            bnkOfferBtn.setVisibility(View.GONE);
+                        } else {
+                            bnkOfferBtn.setVisibility(View.VISIBLE);
+                        }
 
                         bnkOfferBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -534,6 +583,12 @@ public class MoreInfo extends AppCompatActivity {
                         appliancesRFT.setText(snapshot.child("Item_RFT").getValue(String.class));
                         appliancesDescription.setText(snapshot.child("Item_Description").getValue(String.class));
 
+                        if (from.equals("Admin")) {
+                            appliancesOfferBtn.setVisibility(View.GONE);
+                        } else {
+                            appliancesOfferBtn.setVisibility(View.VISIBLE);
+                        }
+
                         appliancesOfferBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -584,6 +639,12 @@ public class MoreInfo extends AppCompatActivity {
                         motorRFT.setText(snapshot.child("Item_RFT").getValue(String.class));
                         motorDescription.setText(snapshot.child("Item_Description").getValue(String.class));
 
+                        if (from.equals("Admin")) {
+                            motorOfferBtn.setVisibility(View.GONE);
+                        } else {
+                            motorOfferBtn.setVisibility(View.VISIBLE);
+                        }
+
                         motorOfferBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -631,6 +692,12 @@ public class MoreInfo extends AppCompatActivity {
                         audioPref.setText(snapshot.child("Item_PrefItem").getValue(String.class));
                         audioRFT.setText(snapshot.child("Item_RFT").getValue(String.class));
                         audioDescription.setText(snapshot.child("Item_Description").getValue(String.class));
+
+                        if (from.equals("Admin")) {
+                            audioOfferBtn.setVisibility(View.GONE);
+                        } else {
+                            audioOfferBtn.setVisibility(View.VISIBLE);
+                        }
 
                         audioOfferBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -682,6 +749,12 @@ public class MoreInfo extends AppCompatActivity {
                         schoolRFT.setText(snapshot.child("Item_RFT").getValue(String.class));
                         schoolDescription.setText(snapshot.child("Item_Description").getValue(String.class));
 
+                        if (from.equals("Admin")) {
+                            schoolOfferBtn.setVisibility(View.GONE);
+                        } else {
+                            schoolOfferBtn.setVisibility(View.VISIBLE);
+                        }
+
                         schoolOfferBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -726,6 +799,12 @@ public class MoreInfo extends AppCompatActivity {
                         otherRFT.setText(snapshot.child("Item_RFT").getValue(String.class));
                         otherDescription.setText(snapshot.child("Item_Description").getValue(String.class));
 
+                        if (from.equals("Admin")) {
+                            otherOfferBtn.setVisibility(View.GONE);
+                        } else {
+                            otherOfferBtn.setVisibility(View.VISIBLE);
+                        }
+
                         otherOfferBtn.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -752,16 +831,23 @@ public class MoreInfo extends AppCompatActivity {
     public void onBackPressed() {
         String uid = getIntent().getStringExtra("poster_uid");
         String item_Name = getIntent().getStringExtra("item_name");
+        String from = getIntent().getStringExtra("from");
 
         DatabaseReference items = FirebaseDatabase.getInstance().getReference().child("items").child(uid).child(item_Name);
         items.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Intent intent = new Intent(MoreInfo.this, ItemSwipe.class);
-                intent.putExtra("category", snapshot.child("Item_Category").getValue().toString());
-                intent.putExtra("keys", getIntent().getSerializableExtra("keys"));
-                startActivity(intent);
-                CustomIntent.customType(MoreInfo.this, "right-to-left");
+                if (from.equals("Admin")) {
+                    Intent intent = new Intent(MoreInfo.this, ItemApproval.class);
+                    startActivity(intent);
+                    CustomIntent.customType(MoreInfo.this, "right-to-left");
+                } else {
+                    Intent intent = new Intent(MoreInfo.this, ItemSwipe.class);
+                    intent.putExtra("category", snapshot.child("Item_Category").getValue().toString());
+                    intent.putExtra("keys", getIntent().getSerializableExtra("keys"));
+                    startActivity(intent);
+                    CustomIntent.customType(MoreInfo.this, "right-to-left");
+                }
             }
 
             @Override

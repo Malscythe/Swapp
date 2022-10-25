@@ -247,7 +247,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                                                             String oldKey = dataSnapshot.getKey() + "-" + dataSnapshot1.getKey();
 
-                                                            if (!hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot1.child("Open_For_Offers").getValue(String.class).equals("true")) {
+                                                            if (!hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot1.child("Open_For_Offers").getValue(String.class).equals("true") && dataSnapshot1.child("Status").getValue(String.class).equals("Validated")) {
                                                                 markerOptions = new MarkerOptions();
                                                                 markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                                                                 markerOptions.position(latLng1);
@@ -261,7 +261,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                                                 keys.clear();
                                                                 keys.addAll(set);
 
-                                                            } else if (hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot1.child("Open_For_Offers").getValue(String.class).equals("true")) {
+                                                            } else if (hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot1.child("Open_For_Offers").getValue(String.class).equals("true") && dataSnapshot1.child("Status").getValue(String.class).equals("Validated")) {
                                                                 marker = hashMapMarker.get(oldKey);
                                                                 marker.remove();
                                                                 hashMapMarker.remove(oldKey);
@@ -339,7 +339,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                                                                                         String oldKey = dataSnapshot2.getKey() + "-" + dataSnapshot3.getKey();
 
-                                                                                        if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot3.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot3.child("Open_For_Offers").getValue(String.class).equals("true")) {
+                                                                                        if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot3.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot3.child("Open_For_Offers").getValue(String.class).equals("true") && dataSnapshot3.child("Status").getValue(String.class).equals("Validated")) {
                                                                                             markerOptions = new MarkerOptions();
                                                                                             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                                                                                             markerOptions.position(latLng1);
@@ -353,7 +353,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                                                                             keys.clear();
                                                                                             keys.addAll(set);
 
-                                                                                        } else if (distance[0] > circle.getRadius() && hashMapMarker.containsKey(oldKey) && !dataSnapshot3.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot3.child("Open_For_Offers").getValue(String.class).equals("true")) {
+                                                                                        } else if (distance[0] > circle.getRadius() && hashMapMarker.containsKey(oldKey) && !dataSnapshot3.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot3.child("Open_For_Offers").getValue(String.class).equals("true") && dataSnapshot3.child("Status").getValue(String.class).equals("Validated")) {
                                                                                             marker = hashMapMarker.get(oldKey);
                                                                                             marker.remove();
                                                                                             hashMapMarker.remove(oldKey);
@@ -391,7 +391,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                                                                                         String oldKey = dataSnapshot4.getKey() + "-" + dataSnapshot5.getKey();
 
-                                                                                        if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot5.child("Open_For_Offers").getValue(String.class).equals("true")) {
+                                                                                        if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot5.child("Open_For_Offers").getValue(String.class).equals("true") && dataSnapshot5.child("Status").getValue(String.class).equals("Validated")) {
                                                                                             markerOptions = new MarkerOptions();
                                                                                             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                                                                                             markerOptions.position(latLng1);
@@ -405,7 +405,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                                                                             keys.clear();
                                                                                             keys.addAll(set);
 
-                                                                                        } else if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot5.child("Open_For_Offers").getValue(String.class).equals("true")) {
+                                                                                        } else if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot5.child("Open_For_Offers").getValue(String.class).equals("true") && dataSnapshot5.child("Status").getValue(String.class).equals("Validated")) {
                                                                                             marker = hashMapMarker.get(oldKey);
                                                                                             marker.remove();
                                                                                             hashMapMarker.remove(oldKey);
@@ -444,7 +444,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                                                         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
-                                                            if (dataSnapshot1.child("Item_Category").getValue(String.class).equals(category) && dataSnapshot1.child("Open_For_Offers").getValue(String.class).equals("true")) {
+                                                            if (dataSnapshot1.child("Item_Category").getValue(String.class).equals(category) && dataSnapshot1.child("Open_For_Offers").getValue(String.class).equals("true") && dataSnapshot1.child("Status").getValue(String.class).equals("Validated")) {
 
                                                                 binding.confirmBtn.setVisibility(View.VISIBLE);
 
@@ -503,7 +503,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                                                                                 for (DataSnapshot dataSnapshot2 : snapshot.getChildren()) {
                                                                                     for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
-                                                                                        if (dataSnapshot3.child("Item_Category").getValue(String.class).equals(category) && dataSnapshot3.child("Open_For_Offers").getValue(String.class).equals("true")) {
+                                                                                        if (dataSnapshot3.child("Item_Category").getValue(String.class).equals(category) && dataSnapshot3.child("Open_For_Offers").getValue(String.class).equals("true") && dataSnapshot3.child("Status").getValue(String.class).equals("Validated")) {
 
                                                                                             if (circle != null) {
                                                                                                 circle.remove();
@@ -592,7 +592,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                                                 for (DataSnapshot dataSnapshot4 : snapshot.getChildren()) {
                                                                                     for (DataSnapshot dataSnapshot5 : dataSnapshot4.getChildren()) {
-                                                                                        if (dataSnapshot5.child("Item_Category").getValue(String.class).equals(category) && dataSnapshot5.child("Open_For_Offers").getValue(String.class).equals("true")) {
+                                                                                        if (dataSnapshot5.child("Item_Category").getValue(String.class).equals(category) && dataSnapshot5.child("Open_For_Offers").getValue(String.class).equals("true") && dataSnapshot5.child("Status").getValue(String.class).equals("Validated")) {
 
                                                                                             binding.confirmBtn.setVisibility(View.VISIBLE);
 
@@ -725,8 +725,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                                         String origin = originMarker.getPosition().latitude + "," + originMarker.getPosition().longitude;
                                         String destination1 = destinationMarker.getPosition().latitude + "," + destinationMarker.getPosition().longitude;
-
-                                        Log.w("Route", destination1);
 
                                         try {
                                             Uri uri = Uri.parse("https://www.google.com/maps/dir/" + origin + "/" + destination1);
@@ -1663,7 +1661,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                                 String oldKey = dataSnapshot.getKey() + "-" + dataSnapshot1.getKey();
 
-                                if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot1.child("Open_For_Offers").getValue(String.class).equals("true")) {
+                                if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot1.child("Open_For_Offers").getValue(String.class).equals("true")  && dataSnapshot1.child("Status").getValue(String.class).equals("Validated")) {
                                     markerOptions = new MarkerOptions();
                                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                                     markerOptions.position(latLng1);
@@ -1677,7 +1675,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                     keys.clear();
                                     keys.addAll(set);
 
-                                } else if (distance[0] > circle.getRadius() && hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot1.child("Open_For_Offers").getValue(String.class).equals("true")) {
+                                } else if (distance[0] > circle.getRadius() && hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot1.child("Open_For_Offers").getValue(String.class).equals("true") && dataSnapshot1.child("Status").getValue(String.class).equals("Validated")) {
                                     marker = hashMapMarker.get(oldKey);
                                     marker.remove();
                                     hashMapMarker.remove(oldKey);
@@ -1710,7 +1708,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                                         String oldKey = dataSnapshot.getKey() + "-" + dataSnapshot1.getKey();
 
-                                        if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot1.child("Open_For_Offers").getValue(String.class).equals("true")) {
+                                        if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot1.child("Open_For_Offers").getValue(String.class).equals("true") && dataSnapshot1.child("Status").getValue(String.class).equals("Validated")) {
                                             markerOptions = new MarkerOptions();
                                             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                                             markerOptions.position(latLng1);
@@ -1724,7 +1722,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                             keys.clear();
                                             keys.addAll(set);
 
-                                        } else if (distance[0] > circle.getRadius() && hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot1.child("Open_For_Offers").getValue(String.class).equals("true")) {
+                                        } else if (distance[0] > circle.getRadius() && hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot1.child("Open_For_Offers").getValue(String.class).equals("true") && dataSnapshot1.child("Status").getValue(String.class).equals("Validated")) {
                                             marker = hashMapMarker.get(oldKey);
                                             marker.remove();
                                             hashMapMarker.remove(oldKey);
@@ -1795,7 +1793,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                                                                     String oldKey = dataSnapshot2.getKey() + "-" + dataSnapshot3.getKey();
 
-                                                                    if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot3.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot3.child("Open_For_Offers").getValue(String.class).equals("true")) {
+                                                                    if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot3.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot3.child("Open_For_Offers").getValue(String.class).equals("true") && dataSnapshot3.child("Status").getValue(String.class).equals("Validated")) {
                                                                         markerOptions = new MarkerOptions();
                                                                         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                                                                         markerOptions.position(latLng1);
@@ -1809,7 +1807,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                                                         keys.clear();
                                                                         keys.addAll(set);
 
-                                                                    } else if (distance[0] > circle.getRadius() && hashMapMarker.containsKey(oldKey) && !dataSnapshot3.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot3.child("Open_For_Offers").getValue(String.class).equals("true")) {
+                                                                    } else if (distance[0] > circle.getRadius() && hashMapMarker.containsKey(oldKey) && !dataSnapshot3.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot3.child("Open_For_Offers").getValue(String.class).equals("true") && dataSnapshot3.child("Status").getValue(String.class).equals("Validated")) {
                                                                         marker = hashMapMarker.get(oldKey);
                                                                         marker.remove();
                                                                         hashMapMarker.remove(oldKey);
@@ -1848,7 +1846,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                                                                     String oldKey = dataSnapshot4.getKey() + "-" + dataSnapshot5.getKey();
 
-                                                                    if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot5.child("Open_For_Offers").getValue(String.class).equals("true")) {
+                                                                    if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot5.child("Open_For_Offers").getValue(String.class).equals("true")  && dataSnapshot5.child("Status").getValue(String.class).equals("Validated")) {
                                                                         markerOptions = new MarkerOptions();
                                                                         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                                                                         markerOptions.position(latLng1);
@@ -1862,7 +1860,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                                                         keys.clear();
                                                                         keys.addAll(set);
 
-                                                                    } else if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot5.child("Open_For_Offers").getValue(String.class).equals("true")) {
+                                                                    } else if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot5.child("Open_For_Offers").getValue(String.class).equals("true") && dataSnapshot5.child("Status").getValue(String.class).equals("Validated")) {
                                                                         marker = hashMapMarker.get(oldKey);
                                                                         marker.remove();
                                                                         hashMapMarker.remove(oldKey);
@@ -1951,7 +1949,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                                                             String oldKey = dataSnapshot2.getKey() + "-" + dataSnapshot3.getKey();
 
-                                                            if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot3.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot3.child("Open_For_Offers").getValue(String.class).equals("true")) {
+                                                            if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot3.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot3.child("Open_For_Offers").getValue(String.class).equals("true") && dataSnapshot3.child("Status").getValue(String.class).equals("Validated")) {
                                                                 markerOptions = new MarkerOptions();
                                                                 markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                                                                 markerOptions.position(latLng1);
@@ -1965,7 +1963,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                                                 keys.clear();
                                                                 keys.addAll(set);
 
-                                                            } else if (distance[0] > circle.getRadius() && hashMapMarker.containsKey(oldKey) && !dataSnapshot3.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot3.child("Open_For_Offers").getValue(String.class).equals("true")) {
+                                                            } else if (distance[0] > circle.getRadius() && hashMapMarker.containsKey(oldKey) && !dataSnapshot3.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot3.child("Open_For_Offers").getValue(String.class).equals("true") && dataSnapshot3.child("Status").getValue(String.class).equals("Validated")) {
                                                                 marker = hashMapMarker.get(oldKey);
                                                                 marker.remove();
                                                                 hashMapMarker.remove(oldKey);
@@ -2003,7 +2001,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                                                             String oldKey = dataSnapshot4.getKey() + "-" + dataSnapshot5.getKey();
 
-                                                            if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot5.child("Open_For_Offers").getValue(String.class).equals("true")) {
+                                                            if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot5.child("Open_For_Offers").getValue(String.class).equals("true") && dataSnapshot5.child("Status").getValue(String.class).equals("Validated")) {
                                                                 markerOptions = new MarkerOptions();
                                                                 markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                                                                 markerOptions.position(latLng1);
@@ -2017,7 +2015,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                                                 keys.clear();
                                                                 keys.addAll(set);
 
-                                                            } else if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot5.child("Open_For_Offers").getValue(String.class).equals("true")) {
+                                                            } else if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot5.child("Open_For_Offers").getValue(String.class).equals("true") && dataSnapshot5.child("Status").getValue(String.class).equals("Validated")) {
                                                                 marker = hashMapMarker.get(oldKey);
                                                                 marker.remove();
                                                                 hashMapMarker.remove(oldKey);
@@ -2056,7 +2054,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                             for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
-                                if (dataSnapshot1.child("Item_Category").getValue(String.class).equals(category) && dataSnapshot1.child("Open_For_Offers").getValue(String.class).equals("true")) {
+                                if (dataSnapshot1.child("Item_Category").getValue(String.class).equals(category) && dataSnapshot1.child("Open_For_Offers").getValue(String.class).equals("true") && dataSnapshot1.child("Status").getValue(String.class).equals("Validated")) {
 
                                     binding.confirmBtn.setVisibility(View.VISIBLE);
 
@@ -2121,7 +2119,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                                             String oldKey = dataSnapshot.getKey() + "-" + dataSnapshot1.getKey();
 
-                                            if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                            if (distance[0] < circle.getRadius() && !hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot1.child("Status").getValue(String.class).equals("Validated")) {
                                                 markerOptions = new MarkerOptions();
                                                 markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                                                 markerOptions.position(latLng1);
@@ -2135,7 +2133,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                                 keys.clear();
                                                 keys.addAll(set);
 
-                                            } else if (distance[0] > circle.getRadius() && hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                            } else if (distance[0] > circle.getRadius() && hashMapMarker.containsKey(oldKey) && !dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot1.child("Status").getValue(String.class).equals("Validated")) {
                                                 marker = hashMapMarker.get(oldKey);
                                                 marker.remove();
                                                 hashMapMarker.remove(oldKey);
@@ -2162,7 +2160,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                                                                 for (DataSnapshot dataSnapshot2 : snapshot.getChildren()) {
                                                                     for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
-                                                                        if (dataSnapshot3.child("Item_Category").getValue(String.class).equals(category)) {
+                                                                        if (dataSnapshot3.child("Item_Category").getValue(String.class).equals(category) && dataSnapshot3.child("Status").getValue(String.class).equals("Validated")) {
 
                                                                             if (circle != null) {
                                                                                 circle.remove();
@@ -2259,7 +2257,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                                                                             String oldKey = dataSnapshot4.getKey() + "-" + dataSnapshot5.getKey();
 
-                                                                            if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                            if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot1.child("Status").getValue(String.class).equals("Validated")) {
                                                                                 markerOptions = new MarkerOptions();
                                                                                 markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                                                                                 markerOptions.position(latLng1);
@@ -2273,7 +2271,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                                                                 keys.clear();
                                                                                 keys.addAll(set);
 
-                                                                            } else if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                                                            } else if (!dataSnapshot5.child("Poster_UID").getValue(String.class).equals(uid) && dataSnapshot1.child("Status").getValue(String.class).equals("Validated")) {
                                                                                 marker = hashMapMarker.get(oldKey);
                                                                                 marker.remove();
                                                                                 hashMapMarker.remove(oldKey);
@@ -2321,7 +2319,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                                                     for (DataSnapshot dataSnapshot2 : snapshot.getChildren()) {
                                                         for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
-                                                            if (dataSnapshot3.child("Item_Category").getValue(String.class).equals(category) && dataSnapshot3.child("Open_For_Offers").getValue(String.class).equals("true")) {
+                                                            if (dataSnapshot3.child("Item_Category").getValue(String.class).equals(category) && dataSnapshot3.child("Open_For_Offers").getValue(String.class).equals("true") && dataSnapshot3.child("Status").getValue(String.class).equals("Validated")) {
 
                                                                 if (circle != null) {
                                                                     circle.remove();
@@ -2410,7 +2408,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                     for (DataSnapshot dataSnapshot4 : snapshot.getChildren()) {
                                                         for (DataSnapshot dataSnapshot5 : dataSnapshot4.getChildren()) {
-                                                            if (dataSnapshot5.child("Item_Category").getValue(String.class).equals(category) && dataSnapshot5.child("Open_For_Offers").getValue(String.class).equals("true")) {
+                                                            if (dataSnapshot5.child("Item_Category").getValue(String.class).equals(category) && dataSnapshot5.child("Open_For_Offers").getValue(String.class).equals("true") && dataSnapshot5.child("Status").getValue(String.class).equals("Validated")) {
 
                                                                 binding.confirmBtn.setVisibility(View.VISIBLE);
 

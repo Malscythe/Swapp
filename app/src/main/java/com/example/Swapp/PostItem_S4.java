@@ -214,6 +214,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Address").child("City").setValue(mCity);
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Address").child("State").setValue(mState);
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Address").child("Country").setValue(mCountry);
+                                                        databaseReference.child("items").child(currentId).child(mItemName).child("Status").setValue("Validated");
 
                                                         if (!mLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(mItemName).child("Address").child("Landmark").setValue(mLandmark);
@@ -258,12 +259,6 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.child("items").hasChild("Transaction_Counter")) {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue(String.valueOf(snapshot.child("items").child("Transaction").getChildrenCount() - 1));
-                                                    } else {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue("1");
-                                                    }
-
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
@@ -347,6 +342,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(gadgetItemName).child("Address").child("City").setValue(gadgetCity);
                                                         databaseReference.child("items").child(currentId).child(gadgetItemName).child("Address").child("State").setValue(gadgetState);
                                                         databaseReference.child("items").child(currentId).child(gadgetItemName).child("Address").child("Country").setValue(gadgetCountry);
+                                                        databaseReference.child("items").child(currentId).child(gadgetItemName).child("Status").setValue("Validating");
 
                                                         if (!gadgetLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(gadgetItemName).child("Address").child("Landmark").setValue(gadgetLandmark);
@@ -372,12 +368,6 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.child("items").hasChild("Transaction_Counter")) {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue(String.valueOf(snapshot.child("items").child("Transaction").getChildrenCount() - 1));
-                                                    } else {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue("1");
-                                                    }
-
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
@@ -459,6 +449,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(gameItemName).child("Address").child("City").setValue(gameCity);
                                                         databaseReference.child("items").child(currentId).child(gameItemName).child("Address").child("State").setValue(gameState);
                                                         databaseReference.child("items").child(currentId).child(gameItemName).child("Address").child("Country").setValue(gameCountry);
+                                                        databaseReference.child("items").child(currentId).child(gameItemName).child("Status").setValue("Validating");
 
                                                         if (!gameLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(gameItemName).child("Address").child("Landmark").setValue(gameLandmark);
@@ -485,12 +476,6 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.child("items").hasChild("Transaction_Counter")) {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue(String.valueOf(snapshot.child("items").child("Transaction").getChildrenCount() - 1));
-                                                    } else {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue("1");
-                                                    }
-
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
@@ -574,6 +559,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(bagItemName).child("Address").child("City").setValue(bagCity);
                                                         databaseReference.child("items").child(currentId).child(bagItemName).child("Address").child("State").setValue(bagState);
                                                         databaseReference.child("items").child(currentId).child(bagItemName).child("Address").child("Country").setValue(bagCountry);
+                                                        databaseReference.child("items").child(currentId).child(bagItemName).child("Status").setValue("Validating");
 
                                                         if (!bagLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(bagItemName).child("Address").child("Landmark").setValue(bagLandmark);
@@ -600,12 +586,6 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.child("items").hasChild("Transaction_Counter")) {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue(String.valueOf(snapshot.child("items").child("Transaction").getChildrenCount() - 1));
-                                                    } else {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue("1");
-                                                    }
-
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
@@ -681,6 +661,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(groceryItemName).child("Address").child("City").setValue(groceryCity);
                                                         databaseReference.child("items").child(currentId).child(groceryItemName).child("Address").child("State").setValue(groceryState);
                                                         databaseReference.child("items").child(currentId).child(groceryItemName).child("Address").child("Country").setValue(groceryCountry);
+                                                        databaseReference.child("items").child(currentId).child(groceryItemName).child("Status").setValue("Validating");
 
                                                         if (!groceryLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(groceryItemName).child("Address").child("Landmark").setValue(groceryLandmark);
@@ -707,12 +688,6 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.child("items").hasChild("Transaction_Counter")) {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue(String.valueOf(snapshot.child("items").child("Transaction").getChildrenCount() - 1));
-                                                    } else {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue("1");
-                                                    }
-
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
@@ -800,6 +775,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(furnitureItemName).child("Address").child("City").setValue(furnitureCity);
                                                         databaseReference.child("items").child(currentId).child(furnitureItemName).child("Address").child("State").setValue(furnitureState);
                                                         databaseReference.child("items").child(currentId).child(furnitureItemName).child("Address").child("Country").setValue(furnitureCountry);
+                                                        databaseReference.child("items").child(currentId).child(furnitureItemName).child("Status").setValue("Validating");
 
                                                         if (!furnitureLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(furnitureItemName).child("Address").child("Landmark").setValue(furnitureLandmark);
@@ -826,12 +802,6 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.child("items").hasChild("Transaction_Counter")) {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue(String.valueOf(snapshot.child("items").child("Transaction").getChildrenCount() - 1));
-                                                    } else {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue("1");
-                                                    }
-
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
@@ -915,6 +885,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(bnkItemName).child("Address").child("City").setValue(bnkCity);
                                                         databaseReference.child("items").child(currentId).child(bnkItemName).child("Address").child("State").setValue(bnkState);
                                                         databaseReference.child("items").child(currentId).child(bnkItemName).child("Address").child("Country").setValue(bnkCountry);
+                                                        databaseReference.child("items").child(currentId).child(bnkItemName).child("Status").setValue("Validating");
 
                                                         if (!bnkLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(bnkItemName).child("Address").child("Landmark").setValue(bnkLandmark);
@@ -941,12 +912,6 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.child("items").hasChild("Transaction_Counter")) {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue(String.valueOf(snapshot.child("items").child("Transaction").getChildrenCount() - 1));
-                                                    } else {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue("1");
-                                                    }
-
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
@@ -1030,6 +995,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(appliancesItemName).child("Address").child("City").setValue(appliancesCity);
                                                         databaseReference.child("items").child(currentId).child(appliancesItemName).child("Address").child("State").setValue(appliancesState);
                                                         databaseReference.child("items").child(currentId).child(appliancesItemName).child("Address").child("Country").setValue(appliancesCountry);
+                                                        databaseReference.child("items").child(currentId).child(appliancesItemName).child("Status").setValue("Validating");
 
                                                         if (!appliancesLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(appliancesItemName).child("Address").child("Landmark").setValue(appliancesLandmark);
@@ -1056,12 +1022,6 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.child("items").hasChild("Transaction_Counter")) {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue(String.valueOf(snapshot.child("items").child("Transaction").getChildrenCount() - 1));
-                                                    } else {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue("1");
-                                                    }
-
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
@@ -1145,6 +1105,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(motorItemName).child("Address").child("City").setValue(motorCity);
                                                         databaseReference.child("items").child(currentId).child(motorItemName).child("Address").child("State").setValue(motorState);
                                                         databaseReference.child("items").child(currentId).child(motorItemName).child("Address").child("Country").setValue(motorCountry);
+                                                        databaseReference.child("items").child(currentId).child(motorItemName).child("Status").setValue("Validating");
 
                                                         if (!motorLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(motorItemName).child("Address").child("Landmark").setValue(motorLandmark);
@@ -1171,12 +1132,6 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.child("items").hasChild("Transaction_Counter")) {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue(String.valueOf(snapshot.child("items").child("Transaction").getChildrenCount() - 1));
-                                                    } else {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue("1");
-                                                    }
-
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
@@ -1258,6 +1213,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(audioItemName).child("Address").child("City").setValue(audioCity);
                                                         databaseReference.child("items").child(currentId).child(audioItemName).child("Address").child("State").setValue(audioState);
                                                         databaseReference.child("items").child(currentId).child(audioItemName).child("Address").child("Country").setValue(audioCountry);
+                                                        databaseReference.child("items").child(currentId).child(audioItemName).child("Status").setValue("Validating");
 
                                                         if (!audioLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(audioItemName).child("Address").child("Landmark").setValue(audioLandmark);
@@ -1284,12 +1240,6 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.child("items").hasChild("Transaction_Counter")) {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue(String.valueOf(snapshot.child("items").child("Transaction").getChildrenCount() - 1));
-                                                    } else {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue("1");
-                                                    }
-
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
@@ -1373,6 +1323,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(schoolItemName).child("Address").child("City").setValue(schoolCity);
                                                         databaseReference.child("items").child(currentId).child(schoolItemName).child("Address").child("State").setValue(schoolState);
                                                         databaseReference.child("items").child(currentId).child(schoolItemName).child("Address").child("Country").setValue(schoolCountry);
+                                                        databaseReference.child("items").child(currentId).child(schoolItemName).child("Status").setValue("Validating");
 
                                                         if (!schoolLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(schoolItemName).child("Address").child("Landmark").setValue(schoolLandmark);
@@ -1399,12 +1350,6 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.child("items").hasChild("Transaction_Counter")) {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue(String.valueOf(snapshot.child("items").child("Transaction").getChildrenCount() - 1));
-                                                    } else {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue("1");
-                                                    }
-
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
@@ -1493,6 +1438,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(wItemName).child("Address").child("City").setValue(wCity);
                                                         databaseReference.child("items").child(currentId).child(wItemName).child("Address").child("State").setValue(wState);
                                                         databaseReference.child("items").child(currentId).child(wItemName).child("Address").child("Country").setValue(wCountry);
+                                                        databaseReference.child("items").child(currentId).child(wItemName).child("Status").setValue("Validating");
 
                                                         if (!wLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(wItemName).child("Address").child("Landmark").setValue(wLandmark);
@@ -1537,12 +1483,6 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.child("items").hasChild("Transaction_Counter")) {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue(String.valueOf(snapshot.child("items").child("Transaction").getChildrenCount() - 1));
-                                                    } else {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue("1");
-                                                    }
-
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
@@ -1620,6 +1560,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(otherItemName).child("Address").child("City").setValue(otherCity);
                                                         databaseReference.child("items").child(currentId).child(otherItemName).child("Address").child("State").setValue(otherState);
                                                         databaseReference.child("items").child(currentId).child(otherItemName).child("Address").child("Country").setValue(otherCountry);
+                                                        databaseReference.child("items").child(currentId).child(otherItemName).child("Status").setValue("Validating");
 
                                                         if (!otherLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(otherItemName).child("Address").child("Landmark").setValue(otherLandmark);
@@ -1645,12 +1586,6 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                                 @Override
                                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                    if (snapshot.child("items").hasChild("Transaction_Counter")) {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue(String.valueOf(snapshot.child("items").child("Transaction").getChildrenCount() - 1));
-                                                    } else {
-                                                        databaseReference.child("items").child("Transaction_Counter").setValue("1");
-                                                    }
-
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));

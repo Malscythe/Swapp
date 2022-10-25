@@ -438,16 +438,6 @@ public class signup extends AppCompatActivity {
                                     if(task.isSuccessful())
                                     {
 
-
-                                        Toast toast = new Toast(getApplicationContext());
-                                        View view = LayoutInflater.from(signup.this).inflate(R.layout.toast_layout, null);
-                                        TextView toastMessage = view.findViewById(R.id.toastMessage);
-                                        toastMessage.setText("Account has been successfully created, Please check your email for verification.");
-                                        toast.setView(view);
-                                        toast.setDuration(Toast.LENGTH_LONG);
-                                        toast.setGravity(Gravity.TOP, 0,50);
-                                        toast.show();
-
                                         userID = fAuth.getCurrentUser().getUid();
                                         databaseReference.child("users").child(userID).child("First_Name").setValue(firstName.getText().toString());
                                         databaseReference.child("users").child(userID).child("Last_Name").setValue(lastName.getText().toString());
@@ -475,6 +465,20 @@ public class signup extends AppCompatActivity {
                                                     databaseReference.child("activity-logs").child("1").child("User_ID").setValue(userID);
                                                     databaseReference.child("activity-logs").child("1").child("Activity").setValue("Registered");
                                                 }
+
+                                                Intent intent = new Intent(signup.this, login.class);
+                                                intent.putExtra("logoutFrom", "User");
+                                                startActivity(intent);
+                                                CustomIntent.customType(signup.this, "right-to-left");
+
+                                                Toast toast = new Toast(getApplicationContext());
+                                                View view = LayoutInflater.from(signup.this).inflate(R.layout.toast_layout, null);
+                                                TextView toastMessage = view.findViewById(R.id.toastMessage);
+                                                toastMessage.setText("Account has been successfully created, Please check your email for verification.");
+                                                toast.setView(view);
+                                                toast.setDuration(Toast.LENGTH_LONG);
+                                                toast.setGravity(Gravity.TOP, 0,50);
+                                                toast.show();
                                             }
 
                                             @Override
@@ -485,10 +489,6 @@ public class signup extends AppCompatActivity {
                                     }
                                 }
                             });
-
-                            startActivity(new Intent(getApplicationContext(), login.class));
-                            CustomIntent.customType(signup.this, "right-to-left");
-
                         } else {
                             Toast toast = new Toast(getApplicationContext());
                             View view = LayoutInflater.from(signup.this).inflate(R.layout.toast_error_layout, null);

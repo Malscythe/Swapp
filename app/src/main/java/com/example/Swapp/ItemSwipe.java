@@ -111,6 +111,7 @@ public class ItemSwipe extends AppCompatActivity {
                 intent.putExtra("poster_uid", poster_uid);
                 intent.putExtra("item_name", currentItem);
                 intent.putExtra("keys", keysList);
+                intent.putExtra("from", "Swipe");
                 startActivity(intent);
                 CustomIntent.customType(ItemSwipe.this, "right-to-left");
                 finish();

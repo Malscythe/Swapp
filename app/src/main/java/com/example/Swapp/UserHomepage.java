@@ -20,7 +20,9 @@ import android.widget.Toast;
 
 import com.example.Swapp.call.BaseActivity;
 import com.example.Swapp.call.SinchService;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +31,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.sinch.android.rtc.ClientRegistration;
 import com.sinch.android.rtc.PushTokenRegistrationCallback;
 import com.sinch.android.rtc.Sinch;
@@ -41,6 +44,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 import Swapp.R;
@@ -172,6 +176,33 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
             }
         });
 
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if (task.isSuccessful()) {
+                    String token = Objects.requireNonNull(task.getResult());
+                    databaseReferenceUrl.child("tokens").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.child(uid).child("User_Token").exists()) {
+                                if (!snapshot.child(uid).child("User_Token").getValue(String.class).equals(token)) {
+                                    databaseReferenceUrl.child("tokens").child(uid).child("User_Token").setValue(token);
+                                }
+                            } else {
+                                databaseReferenceUrl.child("tokens").child(uid).child("User_Token").setValue(token);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                }
+            }
+        });
+
         viewChart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -231,6 +262,7 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
                         df.child("users-status").child(uid).child("Status").setValue("Offline");
 
                         Intent intent = new Intent(UserHomepage.this, login.class);
+                        intent.putExtra("logoutFrom", "User");
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     }

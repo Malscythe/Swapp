@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -108,6 +109,21 @@
             android:exported="true" />
         <activity
             android:name="com.example.Swapp.PostItem_S3"
+            android:exported="true" />
+        <activity
+            android:name="com.example.Swapp.ItemApproval"
+            android:exported="true" />
+        <activity
+            android:name="com.example.Swapp.PostedItems"
+            android:exported="true" />
+        <activity
+            android:name="com.example.Swapp.Transactions"
+            android:exported="true" />
+        <activity
+            android:name="com.example.Swapp.ActivityLogs"
+            android:exported="true" />
+        <activity
+            android:name="com.example.Swapp.FeedbacksRating"
             android:exported="true" />
         <activity
             android:name="com.example.Swapp.login"

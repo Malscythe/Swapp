@@ -7,382 +7,421 @@
     android:background="@color/white"
     tools:context="com.example.Swapp.AdminHomepage">
 
-  <ScrollView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent">
-
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-      <ImageView
-          android:id="@+id/logoutBtn"
-          android:layout_width="35dp"
-          android:layout_height="35dp"
-          android:src="@drawable/ic_baseline_logout_36"
-          android:layout_marginEnd="30dp"
-          android:layout_marginTop="20dp"
-          android:layout_alignParentEnd="true"
-          app:tint="@color/primary_black" />
-
-      <TextView
-          android:id="@+id/logo"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginLeft="30dp"
-          android:layout_marginTop="15dp"
-          android:fontFamily="@font/montserrat_extrabold"
-          android:text="Swapp"
-          android:textColor="@color/primary_black"
-          android:textSize="36sp" />
-
-      <TextView
-          android:id="@+id/userReportTitle"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="120dp"
-          android:layout_marginBottom="10dp"
-          android:layout_marginStart="50dp"
-          android:fontFamily="@font/poppins"
-          android:textColor="@color/primary_black"
-          android:textSize="24sp"
-          android:text="USERS REPORT"/>
-
-      <LinearLayout
-          android:id="@+id/userReport"
-          android:layout_below="@id/userReportTitle"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="vertical">
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent">
 
-          <androidx.cardview.widget.CardView
-              android:id="@+id/manageUsers"
-              android:layout_width="200dp"
-              android:layout_height="100dp"
-              android:layout_weight="1"
-              android:layout_marginEnd="5dp"
-              app:cardCornerRadius="20dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/primary_black"
-                android:orientation="vertical">
-
-              <TextView
-                  android:id="@+id/registeredCounter"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textSize="36sp"
-                  android:fontFamily="@font/poppins"
-                  android:layout_marginTop="10dp"
-                  android:textColor="@color/white"
-                  android:layout_marginStart="15dp"
-                  android:text="0" />
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textSize="16sp"
-                  android:fontFamily="@font/poppins"
-                  android:textColor="@color/white"
-                  android:layout_marginTop="-10dp"
-                  android:layout_marginBottom="10dp"
-                  android:layout_marginStart="15dp"
-                  android:text="Registered" />
-
-            </LinearLayout>
-
-          </androidx.cardview.widget.CardView>
-
-          <androidx.cardview.widget.CardView
-              android:layout_width="200dp"
-              android:layout_height="100dp"
-              android:layout_weight="1"
-              android:layout_marginStart="5dp"
-              app:cardCornerRadius="20dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/primary_black"
-                android:orientation="vertical">
-
-              <TextView
-                  android:id="@+id/onlineCounter"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textSize="36sp"
-                  android:fontFamily="@font/poppins"
-                  android:layout_marginTop="10dp"
-                  android:textColor="@color/white"
-                  android:layout_marginStart="15dp"
-                  android:text="0" />
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textSize="16sp"
-                  android:fontFamily="@font/poppins"
-                  android:textColor="@color/white"
-                  android:layout_marginTop="-10dp"
-                  android:layout_marginBottom="10dp"
-                  android:layout_marginStart="15dp"
-                  android:text="Online" />
-
-            </LinearLayout>
-
-          </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/goToActivityLogs"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="40dp"
-            app:cardCornerRadius="20dp">
-
-          <RelativeLayout
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/primary_black">
+            <ImageView
+                android:id="@+id/logoutBtn"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:src="@drawable/ic_baseline_logout_36"
+                app:tint="@color/primary_black" />
 
             <TextView
+                android:id="@+id/logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/montserrat_extrabold"
+                android:text="Swapp"
+                android:textColor="@color/primary_black"
+                android:textSize="36sp" />
+
+            <TextView
+                android:id="@+id/userReportTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="120dp"
+                android:layout_marginBottom="10dp"
                 android:fontFamily="@font/poppins"
-                android:textColor="@color/white"
-                android:layout_centerInParent="true"
-                android:text="Go to activity logs" />
-
-          </RelativeLayout>
-
-        </androidx.cardview.widget.CardView>
-
-      </LinearLayout>
-
-      <TextView
-          android:id="@+id/itemReportTitle"
-          android:layout_below="@id/userReport"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="50dp"
-          android:layout_marginTop="40dp"
-          android:fontFamily="@font/poppins"
-          android:textColor="@color/primary_black"
-          android:textSize="24sp"
-          android:text="ITEMS REPORT"/>
-
-      <LinearLayout
-          android:id="@+id/itemReport"
-          android:layout_below="@id/itemReportTitle"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="40dp"
-            android:orientation="horizontal">
-
-          <androidx.cardview.widget.CardView
-              android:layout_width="200dp"
-              android:layout_height="100dp"
-              android:layout_weight="1"
-              android:layout_marginEnd="5dp"
-              app:cardCornerRadius="20dp">
+                android:text="USERS REPORT"
+                android:textColor="@color/primary_black"
+                android:textSize="24sp" />
 
             <LinearLayout
+                android:id="@+id/userReport"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/primary_black"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/userReportTitle"
                 android:orientation="vertical">
 
-              <TextView
-                  android:id="@+id/postedCounter"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textSize="36sp"
-                  android:fontFamily="@font/poppins"
-                  android:layout_marginTop="10dp"
-                  android:textColor="@color/white"
-                  android:layout_marginStart="15dp"
-                  android:text="0" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginEnd="40dp"
+                    android:orientation="horizontal">
 
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textSize="16sp"
-                  android:fontFamily="@font/poppins"
-                  android:textColor="@color/white"
-                  android:layout_marginTop="-10dp"
-                  android:layout_marginBottom="10dp"
-                  android:layout_marginStart="15dp"
-                  android:text="Posted" />
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/manageUsers"
+                        android:layout_width="200dp"
+                        android:layout_height="100dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="20dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/primary_black"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/registeredCounter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/poppins"
+                                android:text="0"
+                                android:textColor="@color/white"
+                                android:textSize="36sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginTop="-10dp"
+                                android:layout_marginBottom="10dp"
+                                android:fontFamily="@font/poppins"
+                                android:text="Registered"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="200dp"
+                        android:layout_height="100dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="20dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/primary_black"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/onlineCounter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/poppins"
+                                android:text="0"
+                                android:textColor="@color/white"
+                                android:textSize="36sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginTop="-10dp"
+                                android:layout_marginBottom="10dp"
+                                android:fontFamily="@font/poppins"
+                                android:text="Online"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/feedbacksRating"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="20dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/primary_black">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="15dp"
+                            android:layout_marginBottom="10dp"
+                            android:fontFamily="@font/poppins"
+                            android:text="Feedbacks &amp; Ratings"
+                            android:textColor="@color/white"
+                            android:textSize="20sp" />
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/goToActivityLogs"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="20dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/primary_black">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="15dp"
+                            android:layout_marginBottom="10dp"
+                            android:fontFamily="@font/poppins"
+                            android:text="Activity Logs"
+                            android:textColor="@color/white"
+                            android:textSize="20sp" />
+
+                    </RelativeLayout>
+
+                </androidx.cardview.widget.CardView>
 
             </LinearLayout>
 
-          </androidx.cardview.widget.CardView>
-
-          <androidx.cardview.widget.CardView
-              android:layout_width="200dp"
-              android:layout_height="100dp"
-              android:layout_weight="1"
-              android:layout_marginStart="5dp"
-              app:cardCornerRadius="20dp">
+            <TextView
+                android:id="@+id/itemReportTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/userReport"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="40dp"
+                android:fontFamily="@font/poppins"
+                android:text="ITEMS REPORT"
+                android:textColor="@color/primary_black"
+                android:textSize="24sp" />
 
             <LinearLayout
+                android:id="@+id/itemReport"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/primary_black"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/itemReportTitle"
                 android:orientation="vertical">
 
-              <TextView
-                  android:id="@+id/transactionsCounter"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textSize="36sp"
-                  android:fontFamily="@font/poppins"
-                  android:layout_marginTop="10dp"
-                  android:textColor="@color/white"
-                  android:layout_marginStart="15dp"
-                  android:text="0" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="40dp"
+                    android:orientation="horizontal">
 
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textSize="16sp"
-                  android:fontFamily="@font/poppins"
-                  android:textColor="@color/white"
-                  android:layout_marginTop="-10dp"
-                  android:layout_marginBottom="10dp"
-                  android:layout_marginStart="15dp"
-                  android:text="Transactions" />
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/goToPostedItems"
+                        android:layout_width="200dp"
+                        android:layout_height="100dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="20dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/primary_black"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/postedCounter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/poppins"
+                                android:text="0"
+                                android:textColor="@color/white"
+                                android:textSize="36sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginTop="-10dp"
+                                android:layout_marginBottom="10dp"
+                                android:fontFamily="@font/poppins"
+                                android:text="Posted"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/goToTransactions"
+                        android:layout_width="200dp"
+                        android:layout_height="100dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="20dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/primary_black"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/transactionsCounter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/poppins"
+                                android:text="0"
+                                android:textColor="@color/white"
+                                android:textSize="36sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginTop="-10dp"
+                                android:layout_marginBottom="10dp"
+                                android:fontFamily="@font/poppins"
+                                android:text="Transactions"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="40dp"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/goToApproval"
+                        android:layout_width="200dp"
+                        android:layout_height="100dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="20dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/primary_black"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/approvalCounter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/poppins"
+                                android:text="0"
+                                android:textColor="@color/white"
+                                android:textSize="36sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginTop="-10dp"
+                                android:layout_marginBottom="10dp"
+                                android:fontFamily="@font/poppins"
+                                android:text="Waiting for approval"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="40dp"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/goToReview"
+                        android:layout_width="200dp"
+                        android:layout_height="100dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="30dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="20dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/primary_black"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/poppins"
+                                android:text="0"
+                                android:textColor="@color/white"
+                                android:textSize="36sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="15dp"
+                                android:layout_marginTop="-10dp"
+                                android:layout_marginBottom="10dp"
+                                android:fontFamily="@font/poppins"
+                                android:text="Waiting for validation"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
 
             </LinearLayout>
 
-          </androidx.cardview.widget.CardView>
+        </RelativeLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-          <androidx.cardview.widget.CardView
-              android:id="@+id/goToApproval"
-              android:layout_width="200dp"
-              android:layout_height="100dp"
-              android:layout_weight="1"
-              android:layout_marginEnd="5dp"
-              app:cardCornerRadius="20dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/primary_black"
-                android:orientation="vertical">
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textSize="36sp"
-                  android:fontFamily="@font/poppins"
-                  android:layout_marginTop="10dp"
-                  android:textColor="@color/white"
-                  android:layout_marginStart="15dp"
-                  android:text="0" />
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textSize="16sp"
-                  android:fontFamily="@font/poppins"
-                  android:textColor="@color/white"
-                  android:layout_marginTop="-10dp"
-                  android:layout_marginBottom="10dp"
-                  android:layout_marginStart="15dp"
-                  android:text="Waiting for approval" />
-
-            </LinearLayout>
-
-          </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="40dp"
-            android:orientation="horizontal">
-
-          <androidx.cardview.widget.CardView
-              android:id="@+id/goToReview"
-              android:layout_width="200dp"
-              android:layout_height="100dp"
-              android:layout_weight="1"
-              android:layout_marginBottom="30dp"
-              android:layout_marginEnd="5dp"
-              app:cardCornerRadius="20dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/primary_black"
-                android:orientation="vertical">
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textSize="36sp"
-                  android:fontFamily="@font/poppins"
-                  android:layout_marginTop="10dp"
-                  android:textColor="@color/white"
-                  android:layout_marginStart="15dp"
-                  android:text="0" />
-
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textSize="16sp"
-                  android:fontFamily="@font/poppins"
-                  android:textColor="@color/white"
-                  android:layout_marginTop="-10dp"
-                  android:layout_marginBottom="10dp"
-                  android:layout_marginStart="15dp"
-                  android:text="Waiting for validation" />
-
-            </LinearLayout>
-
-          </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
-
-      </LinearLayout>
-
-    </RelativeLayout>
-
-  </ScrollView>
+    </ScrollView>
 
 </RelativeLayout>

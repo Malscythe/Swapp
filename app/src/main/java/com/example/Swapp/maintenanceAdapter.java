@@ -54,8 +54,7 @@ public class maintenanceAdapter extends FirebaseRecyclerAdapter<FileMaintenanceM
 
     @Override
     protected void onBindViewHolder(@NonNull myViewHolder holder, int position, @NonNull FileMaintenanceModel model) {
-        holder.fname.setText(model.getFirst_Name());
-        holder.lname.setText(model.getLast_Name());
+        holder.name.setText(model.getFirst_Name() + " " + model.getLast_Name());
         holder.email.setText(model.getEmail());
         holder.phone.setText(model.getPhone());
         holder.gender.setText(model.getGender());
@@ -107,14 +106,14 @@ public class maintenanceAdapter extends FirebaseRecyclerAdapter<FileMaintenanceM
                                .addOnSuccessListener(new OnSuccessListener<Void>() {
                                    @Override
                                    public void onSuccess(Void unused) {
-                                       Toast.makeText(holder.fname.getContext(), "Data Updated Succesfully", Toast.LENGTH_SHORT).show();
+                                       Toast.makeText(holder.name.getContext(), "Data Updated Succesfully", Toast.LENGTH_SHORT).show();
                                        dialogPlus.dismiss();
                                    }
                                })
                                .addOnFailureListener(new OnFailureListener() {
                                    @Override
                                    public void onFailure(@NonNull Exception e) {
-                                       Toast.makeText(holder.fname.getContext(), "Data Updating Failed", Toast.LENGTH_SHORT).show();
+                                       Toast.makeText(holder.name.getContext(), "Data Updating Failed", Toast.LENGTH_SHORT).show();
                                    }
                                });
 
@@ -128,7 +127,7 @@ public class maintenanceAdapter extends FirebaseRecyclerAdapter<FileMaintenanceM
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(holder.fname.getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(holder.name.getContext());
                 builder.setTitle("Are you sure to Delete?");
                 builder.setMessage("You cannot undo this action!");
 
@@ -143,7 +142,7 @@ public class maintenanceAdapter extends FirebaseRecyclerAdapter<FileMaintenanceM
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(holder.fname.getContext(), "Action Cancelled", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(holder.name.getContext(), "Action Cancelled", Toast.LENGTH_SHORT).show();
                     }
                 });
                 builder.show();
@@ -162,7 +161,7 @@ public class maintenanceAdapter extends FirebaseRecyclerAdapter<FileMaintenanceM
     class myViewHolder extends RecyclerView.ViewHolder {
 
         CircleImageView img;
-        TextView fname, lname, email, gender, phone;
+        TextView name, lname, email, gender, phone;
 
         Button btnupdate, btnDelete;
 
@@ -170,8 +169,7 @@ public class maintenanceAdapter extends FirebaseRecyclerAdapter<FileMaintenanceM
             super(itemView);
 
             img = itemView.findViewById(R.id.img1);
-            fname = itemView.findViewById(R.id.fNameText);
-            lname = itemView.findViewById(R.id.lNameText);
+            name = itemView.findViewById(R.id.nameText);
             email = itemView.findViewById(R.id.useremail);
             gender = itemView.findViewById(R.id.usergender);
             phone = itemView.findViewById(R.id.userPhone);
