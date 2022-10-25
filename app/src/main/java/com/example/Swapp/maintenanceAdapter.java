@@ -42,12 +42,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class maintenanceAdapter extends FirebaseRecyclerAdapter<FileMaintenanceModel, maintenanceAdapter.myViewHolder> {
 
-    /**
-     * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
-     * {@link FirebaseRecyclerOptions} for configuration options.
-     *
-     * @param options
-     */
     public maintenanceAdapter(@NonNull FirebaseRecyclerOptions<FileMaintenanceModel> options) {
         super(options);
     }
@@ -68,8 +62,6 @@ public class maintenanceAdapter extends FirebaseRecyclerAdapter<FileMaintenanceM
                         .setContentHolder(new ViewHolder(R.layout.maintenance_popup))
                         .setExpanded(true, 1200)
                         .create();
-
-               // dialogPlus.show();
 
                 View view = dialogPlus.getHolderView();
 

@@ -152,7 +152,7 @@ public class PostedItems extends AppCompatActivity {
                             cell5.setCellStyle(headerStyle);
 
                             XSSFCell cell6 = row.createCell(5);
-                            cell6.setCellValue("Location");
+                            cell6.setCellValue("Status");
                             cell6.setCellStyle(headerStyle);
 
                             int counter = 0;

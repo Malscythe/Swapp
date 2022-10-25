@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "72000521841-aa2nueccvd2l9bk8hr9mg7mlgov48nap.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.Swapp",
+            "certificate_hash": "207368029889e514f9561267575aca277bece516"
+          }
+        },
+        {
           "client_id": "72000521841-sjsgv3l911rdv367e0e59bt4a9imm3se.apps.googleusercontent.com",
           "client_type": 3
         }

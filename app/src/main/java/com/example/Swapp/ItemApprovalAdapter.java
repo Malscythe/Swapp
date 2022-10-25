@@ -90,12 +90,18 @@ public class ItemApprovalAdapter extends RecyclerView.Adapter {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.child(itemApprovalFetch.getPoster_UID()).exists()) {
+
+
                             String token = snapshot.child(itemApprovalFetch.getPoster_UID()).child("User_Token").getValue(String.class);
                             FcmNotificationsSender notificationsSender = new FcmNotificationsSender(token,
                                     "Item Validation",
                                     "Your item " + itemApprovalFetch.getItem_Name() + " has been approved.",
                                     viewHolderClass.userID.getContext(), itemApprovalFetch.getPassedActivity());
                             notificationsSender.SendNotifications();
+
+                            databaseReference.child("items").child(itemApprovalFetch.getPoster_UID()).child(itemApprovalFetch.getItem_Name()).child("Status").setValue("Validated");
+                            itemApprovalFetchList.remove(position);
+                            notifyDataSetChanged();
                         }
                     }
 
@@ -121,6 +127,10 @@ public class ItemApprovalAdapter extends RecyclerView.Adapter {
                                     "Your item " + itemApprovalFetch.getItem_Name() + " has been rejected.",
                                     viewHolderClass.userID.getContext(), itemApprovalFetch.getPassedActivity());
                             notificationsSender.SendNotifications();
+
+                            databaseReference.child("items").child(itemApprovalFetch.getPoster_UID()).child(itemApprovalFetch.getItem_Name()).removeValue();
+                            itemApprovalFetchList.remove(position);
+                            notifyDataSetChanged();
                         }
                     }
 
