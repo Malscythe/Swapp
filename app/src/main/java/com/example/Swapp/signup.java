@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.os.Bundle;
 import android.text.Editable;
@@ -58,6 +59,7 @@ import java.util.Map;
 
 import Swapp.R;
 import Swapp.databinding.SignupBinding;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import maes.tech.intentanim.CustomIntent;
 
 public class signup extends AppCompatActivity {
@@ -352,8 +354,6 @@ public class signup extends AppCompatActivity {
                     return;
                 }
 
-                Log.d("GUSTO KO NA MATULOG", alreadyUsed + "");
-
                 if (!mobileNumber.getText().toString().isEmpty() && phoneError == false && alreadyUsed == false) {
                     mobileNumberL.setError(null);
                     mobileNumberL.setErrorIconDrawable(null);
@@ -427,6 +427,12 @@ public class signup extends AppCompatActivity {
                     return;
                 }
 
+                SweetAlertDialog pDialog = new SweetAlertDialog(signup.this, SweetAlertDialog.PROGRESS_TYPE);
+                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                pDialog.setTitleText("Signing up...");
+                pDialog.setCancelable(false);
+                pDialog.show();
+
                 fAuth.createUserWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -466,6 +472,7 @@ public class signup extends AppCompatActivity {
                                                     databaseReference.child("activity-logs").child("1").child("Activity").setValue("Registered");
                                                 }
 
+                                                pDialog.dismiss();
                                                 Intent intent = new Intent(signup.this, login.class);
                                                 intent.putExtra("logoutFrom", "User");
                                                 startActivity(intent);

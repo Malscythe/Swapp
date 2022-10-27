@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -41,6 +42,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import Swapp.R;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import maes.tech.intentanim.CustomIntent;
 
 public class login extends AppCompatActivity {
@@ -51,7 +53,6 @@ public class login extends AppCompatActivity {
     FirebaseAuth fAuth;
     TextView forgotPassword;
     CheckBox rememberMe;
-    LoggingInDialog loggingInDialog = new LoggingInDialog(com.example.Swapp.login.this);
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bugsbusters-de865-default-rtdb.asia-southeast1.firebasedatabase.app/");
     String strDate;
 
@@ -97,7 +98,11 @@ public class login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                loggingInDialog.startLoadingDialog();
+                SweetAlertDialog pDialog = new SweetAlertDialog(login.this, SweetAlertDialog.PROGRESS_TYPE);
+                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                pDialog.setTitleText("Logging in");
+                pDialog.setCancelable(false);
+                pDialog.show();
                 String userEmail = email.getText().toString().trim();
                 String userPass = password.getText().toString().trim();
 
@@ -131,10 +136,11 @@ public class login extends AppCompatActivity {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                                             if (snapshot.child("isAdmin").getValue(String.class).equals("1")){
-                                                loggingInDialog.DismissDialog();
+                                                MemoryData.saveState(false, login.this);
                                                 startActivity(new Intent(login.this, AdminHomepage.class));
+                                                pDialog.dismiss();
                                             } else if (snapshot.child("isAdmin").getValue(String.class).equals("0")){
-                                                loggingInDialog.DismissDialog();
+
                                                 MemoryData.saveData(snapshot.child("Phone").getValue().toString(), login.this);
                                                 MemoryData.saveFirstName(snapshot.child("First_Name").getValue(String.class), com.example.Swapp.login.this);
                                                 MemoryData.saveName(snapshot.child("First_Name").getValue().toString().concat(" " + snapshot.child("Last_Name").getValue().toString()), login.this);
@@ -157,6 +163,7 @@ public class login extends AppCompatActivity {
                                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                                         startActivity(intent);
                                                         CustomIntent.customType(login.this, "left-to-right");
+                                                        pDialog.dismiss();
                                                         finish();
                                                     }
 
@@ -189,12 +196,12 @@ public class login extends AppCompatActivity {
                             });
                         }else
                         {
-                            loggingInDialog.DismissDialog();
+                            pDialog.dismiss();
                             fAuth.getCurrentUser().sendEmailVerification();
                             Toast.makeText(login.this, "Please verify your email first", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        loggingInDialog.DismissDialog();
+                        pDialog.dismiss();
                         Toast toast = new Toast(getApplicationContext());
                         View view2 = LayoutInflater.from(login.this).inflate(R.layout.toast_error_layout, null);
                         TextView toastMessage = view2.findViewById(R.id.toastMessage);

@@ -265,6 +265,7 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
                         intent.putExtra("logoutFrom", "User");
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
+                        CustomIntent.customType(UserHomepage.this, "right-to-left");
                     }
 
                     @Override

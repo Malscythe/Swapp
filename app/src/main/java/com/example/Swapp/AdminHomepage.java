@@ -87,18 +87,9 @@ public class AdminHomepage extends AppCompatActivity {
         goToTransaction = findViewById(R.id.goToTransactions);
         goToApproval = findViewById(R.id.goToApproval);
 
-        if (SDK_INT >= Build.VERSION_CODES.R) {
-            if (!Environment.isExternalStorageManager()) {
-                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
-                Uri uri = Uri.fromParts("package", getPackageName(), null);
-                intent.setData(uri);
-                startActivity(intent);
-            }
-        }
-
-        if (ActivityCompat.checkSelfPermission(AdminHomepage.this, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(AdminHomepage.this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(AdminHomepage.this, MANAGE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        if ((ActivityCompat.checkSelfPermission(AdminHomepage.this, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) &&
+                (ActivityCompat.checkSelfPermission(AdminHomepage.this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) &&
+                (ActivityCompat.checkSelfPermission(AdminHomepage.this, MANAGE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
             ActivityCompat.requestPermissions(AdminHomepage.this, new String[]{READ_EXTERNAL_STORAGE}, 0);
             ActivityCompat.requestPermissions(AdminHomepage.this, new String[]{WRITE_EXTERNAL_STORAGE}, 0);
             ActivityCompat.requestPermissions(AdminHomepage.this, new String[]{MANAGE_EXTERNAL_STORAGE}, 0);

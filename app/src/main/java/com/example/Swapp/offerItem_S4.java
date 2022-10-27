@@ -1,6 +1,7 @@
 package com.example.Swapp;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,6 +40,7 @@ import java.util.Locale;
 import java.util.Set;
 
 import Swapp.R;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import maes.tech.intentanim.CustomIntent;
 
 public class offerItem_S4 extends AppCompatActivity implements BottomSheetImagePicker.OnImagesSelectedListener {
@@ -143,7 +145,11 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                 imageList.clear();
                 imageList.addAll(set);
 
-                offeringItemDialog.startLoadingDialog();
+                SweetAlertDialog pDialog = new SweetAlertDialog(offerItem_S4.this, SweetAlertDialog.PROGRESS_TYPE);
+                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                pDialog.setTitleText("Uploading item...");
+                pDialog.setCancelable(false);
+                pDialog.show();
                 Intent intent = new Intent(offerItem_S4.this, UserHomepage.class );
                 Log.d("TAG", category);
                 switch (category) {
@@ -1288,7 +1294,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                         databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                         databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Offered item to " + posterUID);
 
-                        offeringItemDialog.DismissDialog();
+                        pDialog.dismiss();
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);
                         CustomIntent.customType(offerItem_S4.this, "left-to-right");

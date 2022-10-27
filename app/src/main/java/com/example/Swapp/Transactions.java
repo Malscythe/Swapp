@@ -1,5 +1,7 @@
 package com.example.Swapp;
 
+import static com.gun0912.tedpermission.provider.TedPermissionProvider.context;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -9,9 +11,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.documentfile.provider.DocumentFile;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.anggrayudi.storage.callback.FileCallback;
+import com.anggrayudi.storage.file.DocumentFileCompat;
+import com.anggrayudi.storage.file.DocumentFileUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -104,8 +110,7 @@ public class Transactions extends AppCompatActivity {
                         try {
                             String strCurrentDate = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault()).format(new Date());
                             String strDate = new SimpleDateFormat("MMMM dd, yyyy hh:mm aa", Locale.getDefault()).format(new Date());
-                            File root = new File(Environment
-                                    .getExternalStorageDirectory(), "Exported Reports");
+                            File root = new File(getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS),"Exported Reports");
 
                             if (!root.exists()) {
                                 root.mkdirs();

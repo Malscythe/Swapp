@@ -9,6 +9,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -53,6 +54,7 @@ import java.util.List;
 import java.util.Locale;
 
 import Swapp.R;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import maes.tech.intentanim.CustomIntent;
 
 public class OfferMoreInfo extends AppCompatActivity {
@@ -62,8 +64,6 @@ public class OfferMoreInfo extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
     String strDate;
-
-    LoadingDialog loadingDialog = new LoadingDialog(OfferMoreInfo.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,7 +161,11 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.startLoadingDialog();
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Accepting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
 
                                 mLayout.setVisibility(View.GONE);
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
@@ -262,7 +266,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                         String user2 = dataSnapshot.child("user_2").getValue(String.class);
 
                                                         if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                            loadingDialog.DismissDialog();
+                                                            pDialog.dismiss();
 
                                                             Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                             intent.putExtra("mobile", mobile);
@@ -274,7 +278,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                             startActivity(intent);
                                                             CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                                                         } else {
-                                                            loadingDialog.DismissDialog();
+                                                            pDialog.dismiss();
 
                                                             Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                             intent.putExtra("mobile", mobile);
@@ -288,7 +292,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                         }
                                                     }
                                                 } else {
-                                                    loadingDialog.DismissDialog();
+                                                    pDialog.dismiss();
 
                                                     Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                     intent.putExtra("mobile", mobile);
@@ -321,7 +325,11 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.DismissDialog();
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Rejecting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
 
                                 mLayout.setVisibility(View.GONE);
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
@@ -339,7 +347,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                                 snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                                loadingDialog.DismissDialog();
+                                                pDialog.dismiss();
 
                                                 Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
                                                 intent.putExtra("itemid", currentId);
@@ -419,7 +427,11 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.startLoadingDialog();
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Accepting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
 
                                 wLayout.setVisibility(View.GONE);
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
@@ -519,7 +531,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                         String user2 = dataSnapshot.child("user_2").getValue(String.class);
 
                                                         if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                            loadingDialog.DismissDialog();
+                                                            pDialog.dismiss();
 
                                                             Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                             intent.putExtra("mobile", mobile);
@@ -531,7 +543,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                             startActivity(intent);
                                                             CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                                                         } else {
-                                                            loadingDialog.DismissDialog();
+                                                            pDialog.dismiss();
 
                                                             Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                             intent.putExtra("mobile", mobile);
@@ -545,7 +557,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                         }
                                                     }
                                                 } else {
-                                                    loadingDialog.DismissDialog();
+                                                    pDialog.dismiss();
 
                                                     Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                     intent.putExtra("mobile", mobile);
@@ -578,7 +590,11 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.startLoadingDialog();
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Rejecting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
 
                                 wLayout.setVisibility(View.GONE);
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
@@ -596,7 +612,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                                 snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                                loadingDialog.DismissDialog();
+                                                pDialog.dismiss();
 
                                                 Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
                                                 intent.putExtra("itemid", currentId);
@@ -660,7 +676,11 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.startLoadingDialog();
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Accepting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
 
                                 gadgetsLayout.setVisibility(View.GONE);
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
@@ -758,7 +778,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                         String user2 = dataSnapshot.child("user_2").getValue(String.class);
 
                                                         if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                            loadingDialog.DismissDialog();
+                                                            pDialog.dismiss();
 
                                                             Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                             intent.putExtra("mobile", mobile);
@@ -770,7 +790,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                             startActivity(intent);
                                                             CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                                                         } else {
-                                                            loadingDialog.DismissDialog();
+                                                            pDialog.dismiss();
 
                                                             Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                             intent.putExtra("mobile", mobile);
@@ -784,7 +804,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                         }
                                                     }
                                                 } else {
-                                                    loadingDialog.DismissDialog();
+                                                    pDialog.dismiss();
 
                                                     Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                     intent.putExtra("mobile", mobile);
@@ -817,7 +837,11 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.startLoadingDialog();
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Rejecting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
 
                                 gadgetsLayout.setVisibility(View.GONE);
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
@@ -835,7 +859,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                                 snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                                loadingDialog.DismissDialog();
+                                                pDialog.dismiss();
 
                                                 Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
                                                 intent.putExtra("itemid", currentId);
@@ -897,7 +921,11 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.startLoadingDialog();
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Accepting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
 
                                 gameLayout.setVisibility(View.GONE);
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
@@ -994,7 +1022,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                         String user2 = dataSnapshot.child("user_2").getValue(String.class);
 
                                                         if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                            loadingDialog.DismissDialog();
+                                                            pDialog.dismiss();
 
                                                             Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                             intent.putExtra("mobile", mobile);
@@ -1006,7 +1034,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                             startActivity(intent);
                                                             CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                                                         } else {
-                                                            loadingDialog.DismissDialog();
+                                                            pDialog.dismiss();
 
                                                             Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                             intent.putExtra("mobile", mobile);
@@ -1020,7 +1048,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                         }
                                                     }
                                                 } else {
-                                                    loadingDialog.DismissDialog();
+                                                    pDialog.dismiss();
 
                                                     Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                     intent.putExtra("mobile", mobile);
@@ -1053,7 +1081,11 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.startLoadingDialog();
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Rejecting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
 
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
                                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -1070,7 +1102,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                                 snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                                loadingDialog.DismissDialog();
+                                                pDialog.dismiss();
 
                                                 Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
                                                 intent.putExtra("itemid", currentId);
@@ -1134,7 +1166,11 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.startLoadingDialog();
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Accepting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
 
                                 bagLayout.setVisibility(View.GONE);
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
@@ -1225,7 +1261,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                 String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
                                                 String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
                                                 String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-                                                loadingDialog.DismissDialog();
+                                                pDialog.dismiss();
 
                                                 for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
                                                     String user1 = dataSnapshot.child("user_1").getValue(String.class);
@@ -1274,7 +1310,11 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.startLoadingDialog();
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Rejecting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
 
                                 bagLayout.setVisibility(View.GONE);
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
@@ -1292,7 +1332,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                                 snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                                loadingDialog.DismissDialog();
+                                                pDialog.dismiss();
 
                                                 Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
                                                 intent.putExtra("itemid", currentId);
@@ -1348,7 +1388,11 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.startLoadingDialog();
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Accepting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
 
                                 groceryLayout.setVisibility(View.GONE);
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
@@ -1442,7 +1486,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                         String user2 = dataSnapshot.child("user_2").getValue(String.class);
 
                                                         if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                            loadingDialog.DismissDialog();
+                                                            pDialog.dismiss();
 
                                                             Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                             intent.putExtra("mobile", mobile);
@@ -1454,7 +1498,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                             startActivity(intent);
                                                             CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                                                         } else {
-                                                            loadingDialog.DismissDialog();
+                                                            pDialog.dismiss();
 
                                                             Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                             intent.putExtra("mobile", mobile);
@@ -1468,7 +1512,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                         }
                                                     }
                                                 } else {
-                                                    loadingDialog.DismissDialog();
+                                                    pDialog.dismiss();
 
                                                     Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                     intent.putExtra("mobile", mobile);
@@ -1501,7 +1545,11 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.startLoadingDialog();
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Rejecting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
 
                                 DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
                                 databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -1513,7 +1561,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                        loadingDialog.DismissDialog();
+                                        pDialog.dismiss();
 
                                         Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
                                         intent.putExtra("itemid", currentId);
@@ -1574,7 +1622,11 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.startLoadingDialog();
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Accepting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
 
                                 furnitureLayout.setVisibility(View.GONE);
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
@@ -1674,7 +1726,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                         String user2 = dataSnapshot.child("user_2").getValue(String.class);
 
                                                         if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                            loadingDialog.DismissDialog();
+                                                            pDialog.dismiss();
 
                                                             Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                             intent.putExtra("mobile", mobile);
@@ -1686,7 +1738,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                             startActivity(intent);
                                                             CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                                                         } else {
-                                                            loadingDialog.DismissDialog();
+                                                            pDialog.dismiss();
 
                                                             Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                             intent.putExtra("mobile", mobile);
@@ -1700,7 +1752,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                         }
                                                     }
                                                 } else {
-                                                    loadingDialog.DismissDialog();
+                                                    pDialog.dismiss();
 
                                                     Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                     intent.putExtra("mobile", mobile);
@@ -1733,7 +1785,11 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.startLoadingDialog();
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Rejecting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
 
                                 furnitureLayout.setVisibility(View.GONE);
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
@@ -1751,7 +1807,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                                 snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                                loadingDialog.DismissDialog();
+                                                pDialog.dismiss();
 
                                                 Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
                                                 intent.putExtra("itemid", currentId);
@@ -1815,7 +1871,11 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.startLoadingDialog();
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Accepting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
 
                                 bnkLayout.setVisibility(View.GONE);
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
@@ -1913,7 +1973,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                         String user2 = dataSnapshot.child("user_2").getValue(String.class);
 
                                                         if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                            loadingDialog.DismissDialog();
+                                                            pDialog.dismiss();
 
                                                             Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                             intent.putExtra("mobile", mobile);
@@ -1925,7 +1985,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                             startActivity(intent);
                                                             CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                                                         } else {
-                                                            loadingDialog.DismissDialog();
+                                                            pDialog.dismiss();
 
                                                             Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                             intent.putExtra("mobile", mobile);
@@ -1939,7 +1999,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                         }
                                                     }
                                                 } else {
-                                                    loadingDialog.DismissDialog();
+                                                    pDialog.dismiss();
 
                                                     Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                     intent.putExtra("mobile", mobile);
@@ -1972,7 +2032,11 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.startLoadingDialog();
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Rejecting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
 
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
                                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -1989,7 +2053,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                                 snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                                loadingDialog.DismissDialog();
+                                                pDialog.dismiss();
 
                                                 Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
                                                 intent.putExtra("itemid", currentId);
@@ -2053,7 +2117,11 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.startLoadingDialog();
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Accepting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
 
                                 appliancesLayout.setVisibility(View.GONE);
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
@@ -2151,7 +2219,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                         String user2 = dataSnapshot.child("user_2").getValue(String.class);
 
                                                         if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                            loadingDialog.DismissDialog();
+                                                            pDialog.dismiss();
 
                                                             Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                             intent.putExtra("mobile", mobile);
@@ -2163,7 +2231,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                             startActivity(intent);
                                                             CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                                                         } else {
-                                                            loadingDialog.DismissDialog();
+                                                            pDialog.dismiss();
 
                                                             Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                             intent.putExtra("mobile", mobile);
@@ -2177,7 +2245,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                         }
                                                     }
                                                 } else {
-                                                    loadingDialog.DismissDialog();
+                                                    pDialog.dismiss();
 
                                                     Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                     intent.putExtra("mobile", mobile);
@@ -2210,7 +2278,11 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.startLoadingDialog();
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Rejecting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
 
                                 appliancesLayout.setVisibility(View.GONE);
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
@@ -2228,7 +2300,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                                 snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                                loadingDialog.DismissDialog();
+                                                pDialog.dismiss();
 
                                                 Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
                                                 intent.putExtra("itemid", currentId);
@@ -2292,7 +2364,11 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.startLoadingDialog();
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Accepting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
 
                                 motorLayout.setVisibility(View.GONE);
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
@@ -2390,7 +2466,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                         String user2 = dataSnapshot.child("user_2").getValue(String.class);
 
                                                         if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                            loadingDialog.DismissDialog();
+                                                            pDialog.dismiss();
 
                                                             Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                             intent.putExtra("mobile", mobile);
@@ -2402,7 +2478,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                             startActivity(intent);
                                                             CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                                                         } else {
-                                                            loadingDialog.DismissDialog();
+                                                            pDialog.dismiss();
 
                                                             Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                             intent.putExtra("mobile", mobile);
@@ -2416,7 +2492,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                         }
                                                     }
                                                 } else {
-                                                    loadingDialog.DismissDialog();
+                                                    pDialog.dismiss();
 
                                                     Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                     intent.putExtra("mobile", mobile);
@@ -2449,7 +2525,11 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.startLoadingDialog();
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Rejecting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
 
                                 motorLayout.setVisibility(View.GONE);
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
@@ -2467,7 +2547,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                                 snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                                loadingDialog.DismissDialog();
+                                                pDialog.dismiss();
 
                                                 Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
                                                 intent.putExtra("itemid", currentId);
@@ -2529,7 +2609,11 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.startLoadingDialog();
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Accepting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
 
                                 audioLayout.setVisibility(View.GONE);
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
@@ -2626,7 +2710,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                         String user2 = dataSnapshot.child("user_2").getValue(String.class);
 
                                                         if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                            loadingDialog.DismissDialog();
+                                                            pDialog.dismiss();
 
                                                             Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                             intent.putExtra("mobile", mobile);
@@ -2638,7 +2722,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                             startActivity(intent);
                                                             CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                                                         } else {
-                                                            loadingDialog.DismissDialog();
+                                                            pDialog.dismiss();
 
                                                             Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                             intent.putExtra("mobile", mobile);
@@ -2652,7 +2736,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                         }
                                                     }
                                                 } else {
-                                                    loadingDialog.DismissDialog();
+                                                    pDialog.dismiss();
 
                                                     Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                     intent.putExtra("mobile", mobile);
@@ -2685,7 +2769,11 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.startLoadingDialog();
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Rejecting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
 
                                 audioLayout.setVisibility(View.GONE);
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
@@ -2703,7 +2791,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                                 snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                                loadingDialog.DismissDialog();
+                                                pDialog.dismiss();
 
                                                 Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
                                                 intent.putExtra("itemid", currentId);
@@ -2767,8 +2855,12 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.startLoadingDialog();
-
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Accepting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
+                                
                                 schoolLayout.setVisibility(View.GONE);
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
                                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -2865,7 +2957,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                         String user2 = dataSnapshot.child("user_2").getValue(String.class);
 
                                                         if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                            loadingDialog.DismissDialog();
+                                                            pDialog.dismiss();
 
                                                             Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                             intent.putExtra("mobile", mobile);
@@ -2877,7 +2969,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                             startActivity(intent);
                                                             CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                                                         } else {
-                                                            loadingDialog.DismissDialog();
+                                                            pDialog.dismiss();
 
                                                             Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                             intent.putExtra("mobile", mobile);
@@ -2891,7 +2983,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                         }
                                                     }
                                                 } else {
-                                                    loadingDialog.DismissDialog();
+                                                    pDialog.dismiss();
 
                                                     Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                     intent.putExtra("mobile", mobile);
@@ -2924,7 +3016,11 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.startLoadingDialog();
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Rejecting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
 
                                 schoolLayout.setVisibility(View.GONE);
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
@@ -2942,7 +3038,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                                 snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                                loadingDialog.DismissDialog();
+                                                pDialog.dismiss();
 
                                                 Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
                                                 intent.putExtra("itemid", currentId);
@@ -3000,7 +3096,11 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.startLoadingDialog();
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Accepting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
 
                                 otherLayout.setVisibility(View.GONE);
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
@@ -3095,7 +3195,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                         String user2 = dataSnapshot.child("user_2").getValue(String.class);
 
                                                         if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                            loadingDialog.DismissDialog();
+                                                            pDialog.dismiss();
 
                                                             Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                             intent.putExtra("mobile", mobile);
@@ -3107,7 +3207,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                             startActivity(intent);
                                                             CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                                                         } else {
-                                                            loadingDialog.DismissDialog();
+                                                            pDialog.dismiss();
 
                                                             Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                             intent.putExtra("mobile", mobile);
@@ -3121,7 +3221,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                                         }
                                                     }
                                                 } else {
-                                                    loadingDialog.DismissDialog();
+                                                    pDialog.dismiss();
 
                                                     Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
                                                     intent.putExtra("mobile", mobile);
@@ -3154,7 +3254,11 @@ public class OfferMoreInfo extends AppCompatActivity {
                             @Override
                             public void onClick(View view) {
 
-                                loadingDialog.startLoadingDialog();
+                                SweetAlertDialog pDialog = new SweetAlertDialog(OfferMoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                                pDialog.setTitleText("Rejecting item...");
+                                pDialog.setCancelable(false);
+                                pDialog.show();
 
                                 otherLayout.setVisibility(View.GONE);
                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("items").child(currentId).child(poster_itemName);
@@ -3172,7 +3276,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                                 snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                                loadingDialog.DismissDialog();
+                                                pDialog.dismiss();
 
                                                 Intent intent = new Intent(OfferMoreInfo.this, OfferSecondActivity.class);
                                                 intent.putExtra("itemid", currentId);

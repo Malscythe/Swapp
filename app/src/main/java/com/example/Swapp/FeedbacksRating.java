@@ -107,8 +107,7 @@ public class FeedbacksRating extends AppCompatActivity {
                         try {
                             String strCurrentDate = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault()).format(new Date());
                             String strDate = new SimpleDateFormat("MMMM dd, yyyy HH:mm aa", Locale.getDefault()).format(new Date());
-                            File root = new File(Environment
-                                    .getExternalStorageDirectory(), "Exported Reports");
+                            File root = new File(getApplicationContext().getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS),"Exported Reports");
 
                             if (!root.exists()) {
                                 root.mkdirs();

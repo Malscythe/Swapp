@@ -3,6 +3,7 @@ package com.example.Swapp;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -43,6 +44,7 @@ import java.util.Locale;
 import java.util.Set;
 
 import Swapp.R;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import maes.tech.intentanim.CustomIntent;
 
 public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePicker.OnImagesSelectedListener {
@@ -54,7 +56,6 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
     private ImageAdapter adapter;
     private Handler sliderHandler = new Handler();
     String[] descriptionData = {"Details", "Description", "Location", "Images"};
-    PostingItemDialog postingItemDialog = new PostingItemDialog(PostItem_S4.this);
     private FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     String strDate;
@@ -148,7 +149,11 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                 imageList.clear();
                 imageList.addAll(set);
 
-                postingItemDialog.startLoadingDialog();
+                SweetAlertDialog pDialog = new SweetAlertDialog(PostItem_S4.this, SweetAlertDialog.PROGRESS_TYPE);
+                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                pDialog.setTitleText("Uploading item...");
+                pDialog.setCancelable(false);
+                pDialog.show();
 
                 switch (category) {
                     case "Men's Apparel":
@@ -263,13 +268,15 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
 
-                                                    postingItemDialog.DismissDialog();
+                                                    pDialog.dismiss();
 
-                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class);
                                                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                                     intent.putExtra("Origin", "PostItem");
                                                     startActivity(intent);
                                                     CustomIntent.customType(PostItem_S4.this, "left-to-right");
+
+
                                                 }
 
                                                 @Override
@@ -372,9 +379,9 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
 
-                                                    postingItemDialog.DismissDialog();
+                                                    pDialog.dismiss();
 
-                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class);
                                                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                                     intent.putExtra("Origin", "PostItem");
                                                     startActivity(intent);
@@ -457,7 +464,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
 
                                                         databaseReference.child("items").child(currentId).child(gameItemName).child("Address").child("Latitude").setValue(gameLatitude);
                                                         databaseReference.child("items").child(currentId).child(gameItemName).child("Address").child("Longitude").setValue(gameLongitude);
-                                                              
+
                                                     }
 
                                                     if (snapshot.child("items").child(currentId).child(gameItemName).hasChild("Images")) {
@@ -480,9 +487,9 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
 
-                                                    postingItemDialog.DismissDialog();
+                                                    pDialog.dismiss();
 
-                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class);
                                                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                                     intent.putExtra("Origin", "PostItem");
                                                     startActivity(intent);
@@ -567,7 +574,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
 
                                                         databaseReference.child("items").child(currentId).child(bagItemName).child("Address").child("Latitude").setValue(bagLatitude);
                                                         databaseReference.child("items").child(currentId).child(bagItemName).child("Address").child("Longitude").setValue(bagLongitude);
-                                                              
+
                                                     }
 
                                                     if (snapshot.child("items").child(currentId).child(bagItemName).hasChild("Images")) {
@@ -590,9 +597,9 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
 
-                                                    postingItemDialog.DismissDialog();
+                                                    pDialog.dismiss();
 
-                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class);
                                                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                                     intent.putExtra("Origin", "PostItem");
                                                     startActivity(intent);
@@ -669,7 +676,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
 
                                                         databaseReference.child("items").child(currentId).child(groceryItemName).child("Address").child("Latitude").setValue(groceryLatitude);
                                                         databaseReference.child("items").child(currentId).child(groceryItemName).child("Address").child("Longitude").setValue(groceryLongitude);
-                                                              
+
                                                     }
 
                                                     if (snapshot.child("items").child(currentId).child(groceryItemName).hasChild("Images")) {
@@ -692,9 +699,9 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
 
-                                                    postingItemDialog.DismissDialog();
+                                                    pDialog.dismiss();
 
-                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class);
                                                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                                     intent.putExtra("Origin", "PostItem");
                                                     startActivity(intent);
@@ -783,7 +790,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
 
                                                         databaseReference.child("items").child(currentId).child(furnitureItemName).child("Address").child("Latitude").setValue(furnitureLatitude);
                                                         databaseReference.child("items").child(currentId).child(furnitureItemName).child("Address").child("Longitude").setValue(furnitureLongitude);
-                                                              
+
                                                     }
 
                                                     if (snapshot.child("items").child(currentId).child(furnitureItemName).hasChild("Images")) {
@@ -806,9 +813,9 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
 
-                                                    postingItemDialog.DismissDialog();
+                                                    pDialog.dismiss();
 
-                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class);
                                                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                                     intent.putExtra("Origin", "PostItem");
                                                     startActivity(intent);
@@ -893,7 +900,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
 
                                                         databaseReference.child("items").child(currentId).child(bnkItemName).child("Address").child("Latitude").setValue(bnkLatitude);
                                                         databaseReference.child("items").child(currentId).child(bnkItemName).child("Address").child("Longitude").setValue(bnkLongitude);
-                                                              
+
                                                     }
 
                                                     if (snapshot.child("items").child(currentId).child(bnkItemName).hasChild("Images")) {
@@ -916,9 +923,9 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
 
-                                                    postingItemDialog.DismissDialog();
+                                                    pDialog.dismiss();
 
-                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class);
                                                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                                     intent.putExtra("Origin", "PostItem");
                                                     startActivity(intent);
@@ -1003,7 +1010,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
 
                                                         databaseReference.child("items").child(currentId).child(appliancesItemName).child("Address").child("Latitude").setValue(appliancesLatitude);
                                                         databaseReference.child("items").child(currentId).child(appliancesItemName).child("Address").child("Longitude").setValue(appliancesLongitude);
-                                                              
+
                                                     }
 
                                                     if (snapshot.child("items").child(currentId).child(appliancesItemName).hasChild("Images")) {
@@ -1026,9 +1033,9 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
 
-                                                    postingItemDialog.DismissDialog();
+                                                    pDialog.dismiss();
 
-                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class);
                                                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                                     intent.putExtra("Origin", "PostItem");
                                                     startActivity(intent);
@@ -1113,7 +1120,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
 
                                                         databaseReference.child("items").child(currentId).child(motorItemName).child("Address").child("Latitude").setValue(motorLatitude);
                                                         databaseReference.child("items").child(currentId).child(motorItemName).child("Address").child("Longitude").setValue(motorLongitude);
-                                                              
+
                                                     }
 
                                                     if (snapshot.child("items").child(currentId).child(motorItemName).hasChild("Images")) {
@@ -1136,9 +1143,9 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
 
-                                                    postingItemDialog.DismissDialog();
+                                                    pDialog.dismiss();
 
-                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class);
                                                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                                     intent.putExtra("Origin", "PostItem");
                                                     startActivity(intent);
@@ -1221,7 +1228,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
 
                                                         databaseReference.child("items").child(currentId).child(audioItemName).child("Address").child("Latitude").setValue(audioLatitude);
                                                         databaseReference.child("items").child(currentId).child(audioItemName).child("Address").child("Longitude").setValue(audioLongitude);
-                                                              
+
                                                     }
 
                                                     if (snapshot.child("items").child(currentId).child(audioItemName).hasChild("Images")) {
@@ -1244,9 +1251,9 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
 
-                                                    postingItemDialog.DismissDialog();
+                                                    pDialog.dismiss();
 
-                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class);
                                                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                                     intent.putExtra("Origin", "PostItem");
                                                     startActivity(intent);
@@ -1331,7 +1338,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
 
                                                         databaseReference.child("items").child(currentId).child(schoolItemName).child("Address").child("Latitude").setValue(schoolLatitude);
                                                         databaseReference.child("items").child(currentId).child(schoolItemName).child("Address").child("Longitude").setValue(schoolLongitude);
-                                                              
+
                                                     }
 
                                                     if (snapshot.child("items").child(currentId).child(schoolItemName).hasChild("Images")) {
@@ -1354,9 +1361,9 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
 
-                                                    postingItemDialog.DismissDialog();
+                                                    pDialog.dismiss();
 
-                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class);
                                                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                                     intent.putExtra("Origin", "PostItem");
                                                     startActivity(intent);
@@ -1446,7 +1453,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
 
                                                         databaseReference.child("items").child(currentId).child(wItemName).child("Address").child("Latitude").setValue(wLatitude);
                                                         databaseReference.child("items").child(currentId).child(wItemName).child("Address").child("Longitude").setValue(wLongitude);
-                                                              
+
                                                     }
 
                                                     if (snapshot.child("items").child(currentId).child(wItemName).hasChild("Images")) {
@@ -1487,9 +1494,9 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
 
-                                                    postingItemDialog.DismissDialog();
+                                                    pDialog.dismiss();
 
-                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class);
                                                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                                     intent.putExtra("Origin", "PostItem");
                                                     startActivity(intent);
@@ -1590,9 +1597,9 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
                                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Posted an item " + getIntent().getStringExtra("item_name"));
 
-                                                    postingItemDialog.DismissDialog();
+                                                    pDialog.dismiss();
 
-                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class );
+                                                    Intent intent = new Intent(PostItem_S4.this, UserHomepage.class);
                                                     intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                                     intent.putExtra("Origin", "PostItem");
                                                     startActivity(intent);

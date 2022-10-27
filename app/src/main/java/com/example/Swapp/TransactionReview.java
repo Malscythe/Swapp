@@ -9,6 +9,7 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -61,6 +62,7 @@ import java.util.Locale;
 import java.util.UUID;
 
 import Swapp.R;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import maes.tech.intentanim.CustomIntent;
 
 public class TransactionReview extends AppCompatActivity implements BottomSheetImagePicker.OnImagesSelectedListener {
@@ -75,7 +77,6 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
     String selectedRdo;
     Button submitReview, uploadBtn;
     CardView transactionRDO, proofImageLayout;
-    LoadingDialog loadingDialog;
     String strDate;
 
     @Override
@@ -108,8 +109,6 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
         parentItemLocation = findViewById(R.id.parentItemLocation);
         offeredItemName = findViewById(R.id.offeredItemName);
         offeredItemLocation = findViewById(R.id.offeredItemLocation);
-
-        loadingDialog = new LoadingDialog(TransactionReview.this);
 
         transactionRDO = findViewById(R.id.transactionRdo);
 
@@ -218,7 +217,11 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
                     }
                 }
 
-                loadingDialog.startLoadingDialog();
+                SweetAlertDialog pDialog = new SweetAlertDialog(TransactionReview.this, SweetAlertDialog.PROGRESS_TYPE);
+                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                pDialog.setTitleText("Submitting review...");
+                pDialog.setCancelable(false);
+                pDialog.show();
 
                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -264,7 +267,7 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
                                                                         databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(myUid);
                                                                         databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Submitted a review for transaction " + transactionName);
 
-                                                                        loadingDialog.DismissDialog();
+                                                                        pDialog.dismiss();
                                                                         Intent intent = new Intent(TransactionReview.this, MyItemCurrentTransaction.class);
                                                                         startActivity(intent);
                                                                         CustomIntent.customType(TransactionReview.this, "left-to-right");
@@ -298,7 +301,7 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
                                                         databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(myUid);
                                                         databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Submitted a review for transaction " + transactionName);
 
-                                                        loadingDialog.DismissDialog();
+                                                        pDialog.dismiss();
                                                         Intent intent = new Intent(TransactionReview.this, MyItemCurrentTransaction.class);
                                                         startActivity(intent);
                                                         CustomIntent.customType(TransactionReview.this, "left-to-right");
@@ -493,7 +496,7 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(offererkey);
                                     databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Submitted a review for transaction " + transactionKey);
 
-                                    loadingDialog.DismissDialog();
+                                    pDialog.dismiss();
                                     Intent intent = new Intent(TransactionReview.this, MyItemCurrentTransaction.class);
                                     startActivity(intent);
                                     CustomIntent.customType(TransactionReview.this, "left-to-right");
