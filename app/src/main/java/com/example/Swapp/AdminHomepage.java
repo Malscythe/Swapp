@@ -1,10 +1,18 @@
 package com.example.Swapp;
 
+import static android.Manifest.permission.MANAGE_EXTERNAL_STORAGE;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static android.os.Build.VERSION.SDK_INT;
+
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -79,10 +87,21 @@ public class AdminHomepage extends AppCompatActivity {
         goToTransaction = findViewById(R.id.goToTransactions);
         goToApproval = findViewById(R.id.goToApproval);
 
-        if (ActivityCompat.checkSelfPermission(AdminHomepage.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(AdminHomepage.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(AdminHomepage.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
-            ActivityCompat.requestPermissions(AdminHomepage.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+        if (SDK_INT >= Build.VERSION_CODES.R) {
+            if (!Environment.isExternalStorageManager()) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                Uri uri = Uri.fromParts("package", getPackageName(), null);
+                intent.setData(uri);
+                startActivity(intent);
+            }
+        }
+
+        if (ActivityCompat.checkSelfPermission(AdminHomepage.this, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(AdminHomepage.this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(AdminHomepage.this, MANAGE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(AdminHomepage.this, new String[]{READ_EXTERNAL_STORAGE}, 0);
+            ActivityCompat.requestPermissions(AdminHomepage.this, new String[]{WRITE_EXTERNAL_STORAGE}, 0);
+            ActivityCompat.requestPermissions(AdminHomepage.this, new String[]{MANAGE_EXTERNAL_STORAGE}, 0);
         }
 
         logout.setOnClickListener(new View.OnClickListener() {
