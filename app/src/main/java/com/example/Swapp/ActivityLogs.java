@@ -44,6 +44,7 @@ import java.util.List;
 import java.util.Locale;
 
 import Swapp.R;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import maes.tech.intentanim.CustomIntent;
 
 public class ActivityLogs extends AppCompatActivity {
@@ -106,8 +107,10 @@ public class ActivityLogs extends AppCompatActivity {
                             String strDate = new SimpleDateFormat("MMMM dd, yyyy HH:mm aa", Locale.getDefault()).format(new Date());
                             File root = new File(Environment
                                     .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "FileExcel");
-                            if (!root.exists())
+                            if (!root.exists()) {
                                 root.mkdirs();
+                            }
+
                             File path = new File(root, "/Activity logs " + strCurrentDate + ".xlsx");
 
                             XSSFWorkbook workbook = new XSSFWorkbook();
@@ -145,8 +148,6 @@ public class ActivityLogs extends AppCompatActivity {
 
                             int counter = 0;
 
-                            Log.d("WTF", snapshot.getChildrenCount() + "");
-
                             for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
                                 row = sheet.createRow(counter + 1);
@@ -168,7 +169,10 @@ public class ActivityLogs extends AppCompatActivity {
 
                             workbook.write(outputStream);
                             outputStream.close();
-                            Toast.makeText(ActivityLogs.this, "Data Exported", Toast.LENGTH_SHORT).show();
+                            new SweetAlertDialog(ActivityLogs.this, SweetAlertDialog.SUCCESS_TYPE)
+                                    .setTitleText("Create excel report")
+                                    .setContentText("Report for Activity Logs has been created!")
+                                    .show();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

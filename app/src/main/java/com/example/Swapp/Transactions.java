@@ -41,6 +41,7 @@ import java.util.List;
 import java.util.Locale;
 
 import Swapp.R;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import maes.tech.intentanim.CustomIntent;
 
 public class Transactions extends AppCompatActivity {
@@ -105,8 +106,10 @@ public class Transactions extends AppCompatActivity {
                             String strDate = new SimpleDateFormat("MMMM dd, yyyy HH:mm aa", Locale.getDefault()).format(new Date());
                             File root = new File(Environment
                                     .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "FileExcel");
-                            if (!root.exists())
+                            if (!root.exists()) {
                                 root.mkdirs();
+                            }
+
                             File path = new File(root, "/Transactions " + strCurrentDate + ".xlsx");
 
                             XSSFWorkbook workbook = new XSSFWorkbook();
@@ -188,7 +191,10 @@ public class Transactions extends AppCompatActivity {
 
                             workbook.write(outputStream);
                             outputStream.close();
-                            Toast.makeText(Transactions.this, "Data Exported", Toast.LENGTH_SHORT).show();
+                            new SweetAlertDialog(Transactions.this, SweetAlertDialog.SUCCESS_TYPE)
+                                    .setTitleText("Create excel report")
+                                    .setContentText("Report for Transactions has been created!")
+                                    .show();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

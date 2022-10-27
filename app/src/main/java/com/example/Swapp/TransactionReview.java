@@ -348,12 +348,24 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
                                                     parentItems.addListenerForSingleValueEvent(new ValueEventListener() {
                                                         @Override
                                                         public void onDataChange(@NonNull DataSnapshot snapshot1) {
-                                                            Log.w("TAG", snapshot1.child("Accepted_Offers").getChildrenCount() + "");
                                                             long removeCurrent = snapshot1.child("Accepted_Offers").getChildrenCount();
+                                                            long removePending = snapshot1.child("Offers").getChildrenCount();
+
                                                             long newCurrentParent = Long.parseLong(snapshot.child("user-transactions").child(parentkey).child("Current").getValue(String.class));
                                                             newCurrentParent = newCurrentParent - removeCurrent;
 
+                                                            long newPendingParent = Long.parseLong(snapshot.child("user-transactions").child(parentkey).child("Pending").getValue(String.class));
+                                                            newPendingParent = newPendingParent - removePending;
+
+                                                            databaseReference.child("user-transactions").child(parentkey).child("Pending").setValue(String.valueOf(newPendingParent));
                                                             databaseReference.child("user-transactions").child(parentkey).child("Current").setValue(String.valueOf(newCurrentParent));
+
+                                                            for (DataSnapshot dataSnapshot : snapshot1.child("Offers").getChildren()) {
+                                                                long newPendingOffer = Long.parseLong(snapshot.child("user-transactions").child(dataSnapshot.getKey()).child("Pending").getValue(String.class));
+                                                                newPendingOffer = newPendingOffer - 1;
+
+                                                                databaseReference.child("user-transactions").child(dataSnapshot.getKey()).child("Pending").setValue(newPendingOffer);
+                                                            }
 
                                                             long newCurrentOfferer = Long.parseLong(snapshot.child("user-transactions").child(offererkey).child("Current").getValue(String.class));
                                                             newCurrentOfferer = newCurrentOfferer - 1;

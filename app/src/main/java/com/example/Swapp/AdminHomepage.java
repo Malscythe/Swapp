@@ -98,7 +98,13 @@ public class AdminHomepage extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                registered.setText(String.valueOf(snapshot.child("users").getChildrenCount()));
+                long newRegisteredCount = 0;
+                for (DataSnapshot dataSnapshot : snapshot.child("users").getChildren()) {
+                    if (dataSnapshot.child("isAdmin").getValue(String.class).equals("0")) {
+                        newRegisteredCount = newRegisteredCount + 1;
+                    }
+                }
+                registered.setText(String.valueOf(newRegisteredCount));
                 transactions.setText(String.valueOf(snapshot.child("trade-transactions").getChildrenCount()));
 
                 newCount = 0;

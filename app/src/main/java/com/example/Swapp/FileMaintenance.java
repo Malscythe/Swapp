@@ -53,6 +53,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import Swapp.R;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import maes.tech.intentanim.CustomIntent;
 
 public class FileMaintenance extends AppCompatActivity {
@@ -113,8 +114,10 @@ public class FileMaintenance extends AppCompatActivity {
                             String strDate = new SimpleDateFormat("MMMM dd, yyyy HH:mm aa", Locale.getDefault()).format(new Date());
                             File root = new File(Environment
                                     .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "FileExcel");
-                            if (!root.exists())
+                            if (!root.exists()) {
                                 root.mkdirs();
+                            }
+
                             File path = new File(root, "/List of users " + strCurrentDate + ".xlsx");
 
                             XSSFWorkbook workbook = new XSSFWorkbook();
@@ -204,7 +207,10 @@ public class FileMaintenance extends AppCompatActivity {
 
                             workbook.write(outputStream);
                             outputStream.close();
-                            Toast.makeText(FileMaintenance.this, "Data Exported", Toast.LENGTH_SHORT).show();
+                            new SweetAlertDialog(FileMaintenance.this, SweetAlertDialog.SUCCESS_TYPE)
+                                    .setTitleText("Create excel report")
+                                    .setContentText("Report for Registered Users has been created!")
+                                    .show();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
