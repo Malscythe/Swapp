@@ -103,8 +103,8 @@ public class PostedItems extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         try {
-                            String strCurrentDate = new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault()).format(new Date());
-                            String strDate = new SimpleDateFormat("MMMM dd, yyyy HH:mm aa", Locale.getDefault()).format(new Date());
+                            String strCurrentDate = new SimpleDateFormat("MMMM dd, yyyy hh mm aa", Locale.getDefault()).format(new Date());
+                            String strDate = new SimpleDateFormat("MMMM dd, yyyy hh:mm aa", Locale.getDefault()).format(new Date());
                             File root = new File(Environment
                                     .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS), "FileExcel");
                             if (!root.exists()) {
