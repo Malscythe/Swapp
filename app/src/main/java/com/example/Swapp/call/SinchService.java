@@ -170,7 +170,6 @@ public class SinchService extends Service {
         boolean permissionsGranted = true;
         createClientIfNecessary();
         try {
-            //mandatory checks
             mSinchClient.checkManifest();
         } catch (MissingPermissionException e) {
             permissionsGranted = false;

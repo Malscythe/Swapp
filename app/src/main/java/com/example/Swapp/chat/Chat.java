@@ -1,11 +1,26 @@
 package com.example.Swapp.chat;
 
+import static android.Manifest.permission.MANAGE_EXTERNAL_STORAGE;
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.READ_PHONE_STATE;
+import static android.Manifest.permission.RECORD_AUDIO;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
+import android.Manifest;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
+import android.os.Messenger;
+import android.os.RemoteException;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -18,6 +33,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,6 +41,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.daimajia.androidanimations.library.specials.out.TakingOffAnimator;
+import com.example.Swapp.AdminHomepage;
+import com.example.Swapp.UserHomepage;
 import com.example.Swapp.call.CallScreenActivity;
 import com.example.Swapp.MemoryData;
 import com.example.Swapp.Messages;
@@ -43,8 +61,18 @@ import com.google.firebase.database.annotations.NotNull;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.DexterBuilder;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.DialogOnAnyDeniedMultiplePermissionsListener;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.kroegerama.imgpicker.BottomSheetImagePicker;
 import com.kroegerama.imgpicker.ButtonType;
+import com.sinch.android.rtc.MissingPermissionException;
+import com.sinch.android.rtc.SinchClient;
+import com.sinch.android.rtc.SinchError;
 import com.sinch.android.rtc.calling.Call;
 
 import java.io.ByteArrayOutputStream;
@@ -56,6 +84,7 @@ import java.util.List;
 import java.util.Locale;
 
 import Swapp.R;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
 import maes.tech.intentanim.CustomIntent;
 
@@ -79,7 +108,6 @@ public class Chat extends BaseActivity implements BottomSheetImagePicker.OnImage
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-
         final ImageView callBtn = findViewById(R.id.voiceCall);
         final ImageView backBtn = findViewById(R.id.backBtn);
         final TextView name = findViewById(R.id.name);
@@ -118,18 +146,76 @@ public class Chat extends BaseActivity implements BottomSheetImagePicker.OnImage
                 callBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (status.equals("Online")) {
-                            Call call = getSinchServiceInterface().callUser(getUID);
-                            String callId = call.getCallId();
+                        Log.d(TAG, "CLICKED1");
+                        Dexter.withContext(Chat.this)
+                                .withPermissions(RECORD_AUDIO, READ_PHONE_STATE)
+                                .withListener(new MultiplePermissionsListener() {
+                                    @Override
+                                    public void onPermissionsChecked(MultiplePermissionsReport multiplePermissionsReport) {
+                                        Log.d(TAG, !multiplePermissionsReport.areAllPermissionsGranted() + "" );
+                                        if (multiplePermissionsReport.isAnyPermissionPermanentlyDenied()) {
+                                            new SweetAlertDialog(Chat.this, SweetAlertDialog.WARNING_TYPE)
+                                                    .setTitleText("Permission required.")
+                                                    .setContentText("You need to allow Phone and Microphone permission to run use this feature.")
+                                                    .setConfirmText("Go to settings")
+                                                    .showCancelButton(false)
+                                                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                                        @Override
+                                                        public void onClick(SweetAlertDialog sDialog) {
+                                                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                                            Uri uri = Uri.fromParts("package", getPackageName(), null);
+                                                            intent.setData(uri);
+                                                            startActivity(intent);
+                                                        }
+                                                    })
+                                                    .show();
+                                        } else if (!multiplePermissionsReport.areAllPermissionsGranted()) {
+                                            Toast.makeText(Chat.this, "Permission denied!", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            getSinchServiceInterface().retryStartAfterPermissionGranted();
+                                            if (getSinchServiceInterface().isStarted()) {
+                                                if (status.equals("Online")) {
+                                                    Call call = getSinchServiceInterface().callUser(getUID);
+                                                    String callId = call.getCallId();
 
-                            Intent callScreen = new Intent(Chat.this, CallScreenActivity.class);
-                            callScreen.putExtra(SinchService.CALL_ID, callId);
-                            callScreen.putExtra("userName", getName);
-                            startActivity(callScreen);
-                        } else {
-                            Toast.makeText(Chat.this, "User is offline!", Toast.LENGTH_SHORT).show();
-                        }
+                                                    Intent callScreen = new Intent(Chat.this, CallScreenActivity.class);
+                                                    callScreen.putExtra(SinchService.CALL_ID, callId);
+                                                    callScreen.putExtra("userName", getName);
+                                                    startActivity(callScreen);
+                                                } else {
+                                                    Toast.makeText(Chat.this, "User is offline!", Toast.LENGTH_SHORT).show();
+                                                }
+                                            } else {
+                                                getSinchServiceInterface().setStartListener(new SinchService.StartFailedListener() {
+                                                    @Override
+                                                    public void onFailed(SinchError error) {
 
+                                                    }
+
+                                                    @Override
+                                                    public void onStarted() {
+                                                        if (status.equals("Online")) {
+                                                            Call call = getSinchServiceInterface().callUser(getUID);
+                                                            String callId = call.getCallId();
+
+                                                            Intent callScreen = new Intent(Chat.this, CallScreenActivity.class);
+                                                            callScreen.putExtra(SinchService.CALL_ID, callId);
+                                                            callScreen.putExtra("userName", getName);
+                                                            startActivity(callScreen);
+                                                        } else {
+                                                            Toast.makeText(Chat.this, "User is offline!", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken) {
+                                        permissionToken.continuePermissionRequest();
+                                    }
+                                }).check();
                     }
                 });
             }
@@ -202,7 +288,6 @@ public class Chat extends BaseActivity implements BottomSheetImagePicker.OnImage
                     }
 
                 }
-
 
 
             }

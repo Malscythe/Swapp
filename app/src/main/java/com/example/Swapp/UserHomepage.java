@@ -292,11 +292,8 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
 
     @Override
     protected void onServiceConnected() {
-
         if (getSinchServiceInterface().isStarted()) {
-
         } else {
-
             getSinchServiceInterface().setStartListener(this);
             initializeSinch();
         }
@@ -304,25 +301,21 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
 
     @Override
     protected void onPause() {
-
         super.onPause();
     }
 
     private void startClientAndOpenPlaceCallActivity() {
         if (!getSinchServiceInterface().isStarted()) {
-
             getSinchServiceInterface().startClient();
         }
     }
 
     @Override
     public void onFailed(SinchError error) {
-
     }
 
     @Override
     public void onStarted() {
-
     }
 
     private void initializeSinch() {
@@ -341,14 +334,10 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
 
     @Override
     public void onUserRegistrationFailed(SinchError sinchError) {
-        Toast.makeText(this, "Registration failed!", Toast.LENGTH_LONG).show();
-        Log.w("Sinch error", sinchError.getMessage());
     }
 
     @Override
     public void onUserRegistered() {
-        // Instance is registered, but we'll wait for another callback, assuring that the push token is
-        // registered as well, meaning we can receive incoming calls.
     }
 
     @Override
@@ -358,8 +347,7 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
 
     @Override
     public void onPushTokenRegistrationFailed(SinchError sinchError) {
-        Toast.makeText(this, "Push token registration failed - incoming calls can't be received!", Toast.LENGTH_LONG).show();
-        Log.w("Sinch error", sinchError.getMessage());
+        Log.d(TAG, sinchError.getMessage());
     }
 
     @Override

@@ -1,5 +1,10 @@
 package com.example.Swapp.call;
 
+import static android.Manifest.permission.READ_PHONE_STATE;
+import static android.Manifest.permission.RECORD_AUDIO;
+
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -9,6 +14,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -67,15 +73,15 @@ public abstract class BaseActivity extends AppCompatActivity implements ServiceC
         return mSinchServiceInterface;
     }
 
-    private Messenger messenger = new Messenger(new Handler() {
+    private final Messenger messenger = new Messenger(new Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case SinchService.MESSAGE_PERMISSIONS_NEEDED:
                     Bundle bundle = msg.getData();
                     String requiredPermission = bundle.getString(SinchService.REQUIRED_PERMISSION);
-                    ActivityCompat.requestPermissions(BaseActivity.this, new String[]{requiredPermission}, 0);
-                    break;
+//                    ActivityCompat.requestPermissions(BaseActivity.this, new String[]{requiredPermission}, 0);
+                    return;
             }
         }
     });
@@ -86,11 +92,7 @@ public abstract class BaseActivity extends AppCompatActivity implements ServiceC
         for (int grantResult : grantResults) {
             granted &= grantResult == PackageManager.PERMISSION_GRANTED;
         }
-        if (granted) {
-            Toast.makeText(this, "You may now place a call", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(this, "This application needs permission to use your microphone and camera to function properly.", Toast.LENGTH_LONG).show();
-        }
+
         mSinchServiceInterface.retryStartAfterPermissionGranted();
     }
 
