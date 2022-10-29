@@ -219,7 +219,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Address").child("City").setValue(mCity);
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Address").child("State").setValue(mState);
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Address").child("Country").setValue(mCountry);
-                                                        databaseReference.child("items").child(currentId).child(mItemName).child("Status").setValue("Validated");
+                                                        databaseReference.child("items").child(currentId).child(mItemName).child("Status").setValue("Validating");
 
                                                         if (!mLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(mItemName).child("Address").child("Landmark").setValue(mLandmark);

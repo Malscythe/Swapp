@@ -146,6 +146,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
         String category = bundle.getString("category");
         String from = bundle.getString("from");
+        String isOffer = bundle.getString("Offers");
+        String category1 = bundle.getString("category1");
 
         mMap = googleMap;
 
@@ -168,11 +170,521 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                             startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                         }
                     })
-                    .setNegativeButton("Return to categories", new DialogInterface.OnClickListener() {
+                    .setCancelable(false)
+                    .setNegativeButton("Return", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            startActivity(new Intent(getContext(), Categories.class));
-                            CustomIntent.customType(getContext(), "right-to-left");
+                            switch (from) {
+                                case "categories":
+                                    startActivity(new Intent(getContext(), Categories.class));
+                                    CustomIntent.customType(getContext(), "right-to-left");
+                                    break;
+                                case "postitem":
+                                    if (isOffer.equals("true")) {
+                                        Intent intent = new Intent(getContext(), offerItem_S3.class);
+                                        
+                                        switch (category1) {
+                                            case "Men's Apparel":
+
+                                                intent.putExtra("mensSizeChart", bundle.getString("mensSizeChart"));
+                                                intent.putExtra("mensClothingType", bundle.getString("mensClothingType"));
+                                                intent.putExtra("mensBrand", bundle.getString("mensBrand"));
+                                                intent.putExtra("mensColor", bundle.getString("mensColor"));
+                                                intent.putExtra("uid", bundle.getString("uid"));
+                                                intent.putExtra("itemname", bundle.getString("itemname"));
+                                                intent.putExtra("mensMaterial", bundle.getString("mensMaterial"));
+                                                intent.putExtra("mensUsage", bundle.getString("mensUsage"));
+                                                intent.putExtra("mensSizes", bundle.getString("mensSizes"));
+                                                intent.putExtra("mensDescription", bundle.getString("mensDescription"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                            case "Gadgets":
+
+                                                intent.putExtra("gadgetType", bundle.getString("gadgetType"));
+                                                intent.putExtra("gadgetBrand", bundle.getString("gadgetBrand"));
+                                                intent.putExtra("uid", bundle.getString("uid"));
+                                                intent.putExtra("itemname", bundle.getString("itemname"));
+                                                intent.putExtra("gadgetColor", bundle.getString("gadgetColor"));
+                                                intent.putExtra("gadgetUsage", bundle.getString("gadgetUsage"));
+                                                intent.putExtra("gadgetDescription", bundle.getString("gadgetDescription"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+
+
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                            case "Game":
+
+                                                intent.putExtra("gameType", bundle.getString("gameType"));
+                                                intent.putExtra("gameBrand", bundle.getString("gameBrand"));
+                                                intent.putExtra("uid", bundle.getString("uid"));
+                                                intent.putExtra("itemname", bundle.getString("itemname"));
+                                                intent.putExtra("gameUsage", bundle.getString("gameUsage"));
+                                                intent.putExtra("gameDescription", bundle.getString("gameDescription"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+
+
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                            case "Bags":
+
+                                                intent.putExtra("bagType", bundle.getString("bagType"));
+                                                intent.putExtra("bagBrand", bundle.getString("bagBrand"));
+                                                intent.putExtra("uid", bundle.getString("uid"));
+                                                intent.putExtra("itemname", bundle.getString("itemname"));
+                                                intent.putExtra("bagColor", bundle.getString("bagColor"));
+                                                intent.putExtra("bagUsage", bundle.getString("bagUsage"));
+                                                intent.putExtra("bagDescription", bundle.getString("bagDescription"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+
+
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                            case "Groceries":
+
+                                                intent.putExtra("groceryList", bundle.getString("groceryList"));
+                                                intent.putExtra("uid", bundle.getString("uid"));
+                                                intent.putExtra("itemname", bundle.getString("itemname"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+
+
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                            case "Furniture":
+
+                                                intent.putExtra("furnitureBrand", bundle.getString("furnitureBrand"));
+                                                intent.putExtra("furnitureColor", bundle.getString("furnitureColor"));
+                                                intent.putExtra("uid", bundle.getString("uid"));
+                                                intent.putExtra("itemname", bundle.getString("itemname"));
+                                                intent.putExtra("furnitureUsage", bundle.getString("furnitureUsage"));
+                                                intent.putExtra("furnitureHeight", bundle.getString("furnitureHeight"));
+                                                intent.putExtra("furnitureWidth", bundle.getString("furnitureWidth"));
+                                                intent.putExtra("furnitureLength", bundle.getString("furnitureLength"));
+                                                intent.putExtra("furnitureDescription", bundle.getString("furnitureDescription"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+
+
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                            case "Babies & Kids":
+
+                                                intent.putExtra("bnkAge", bundle.getString("bnkAge"));
+                                                intent.putExtra("bnkBrand", bundle.getString("bnkBrand"));
+                                                intent.putExtra("uid", bundle.getString("uid"));
+                                                intent.putExtra("itemname", bundle.getString("itemname"));
+                                                intent.putExtra("bnkType", bundle.getString("bnkType"));
+                                                intent.putExtra("bnkUsage", bundle.getString("bnkUsage"));
+                                                intent.putExtra("bnkDescription", bundle.getString("bnkDescription"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+
+
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                            case "Appliances":
+
+                                                intent.putExtra("appliancesType", bundle.getString("appliancesType"));
+                                                intent.putExtra("appliancesBrand", bundle.getString("appliancesBrand"));
+                                                intent.putExtra("uid", bundle.getString("uid"));
+                                                intent.putExtra("itemname", bundle.getString("itemname"));
+                                                intent.putExtra("appliancesColor", bundle.getString("appliancesColor"));
+                                                intent.putExtra("appliancesUsage", bundle.getString("appliancesUsage"));
+                                                intent.putExtra("appliancesDescription", bundle.getString("appliancesDescription"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+
+
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                            case "Motors":
+
+                                                intent.putExtra("motorModel", bundle.getString("motorModel"));
+                                                intent.putExtra("motorBrand", bundle.getString("motorBrand"));
+                                                intent.putExtra("uid", bundle.getString("uid"));
+                                                intent.putExtra("itemname", bundle.getString("itemname"));
+                                                intent.putExtra("motorColor", bundle.getString("motorColor"));
+                                                intent.putExtra("motorUsage", bundle.getString("motorUsage"));
+                                                intent.putExtra("motorDescription", bundle.getString("motorDescription"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+
+
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                            case "Audio":
+
+                                                intent.putExtra("audioArtist", bundle.getString("audioArtist"));
+                                                intent.putExtra("audioReleaseDate", bundle.getString("audioReleaseDate"));
+                                                intent.putExtra("uid", bundle.getString("uid"));
+                                                intent.putExtra("itemname", bundle.getString("itemname"));
+                                                intent.putExtra("audioUsage", bundle.getString("audioUsage"));
+                                                intent.putExtra("audioDescription", bundle.getString("audioDescription"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+
+
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                            case "School":
+
+                                                intent.putExtra("schoolType", bundle.getString("schoolType"));
+                                                intent.putExtra("schoolBrand", bundle.getString("schoolBrand"));
+                                                intent.putExtra("schoolColor", bundle.getString("schoolColor"));
+                                                intent.putExtra("uid", bundle.getString("uid"));
+                                                intent.putExtra("itemname", bundle.getString("itemname"));
+                                                intent.putExtra("schoolUsage", bundle.getString("schoolUsage"));
+                                                intent.putExtra("schoolDescription", bundle.getString("schoolDescription"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+
+
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                            case "Women's Apparel":
+
+                                                intent.putExtra("womensSizeChart", bundle.getString("womensSizeChart"));
+                                                intent.putExtra("womensClothingType", bundle.getString("womensClothingType"));
+                                                intent.putExtra("womensBrand", bundle.getString("womensBrand"));
+                                                intent.putExtra("womensColor", bundle.getString("womensColor"));
+                                                intent.putExtra("uid", bundle.getString("uid"));
+                                                intent.putExtra("itemname", bundle.getString("itemname"));
+                                                intent.putExtra("womensMaterial", bundle.getString("womensMaterial"));
+                                                intent.putExtra("womensUsage", bundle.getString("womensUsage"));
+                                                intent.putExtra("womensSizes", bundle.getString("womensSizes"));
+                                                intent.putExtra("womensDescription", bundle.getString("womensDescription"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+
+
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                            case "Others":
+
+                                                intent.putExtra("otherType", bundle.getString("otherType"));
+                                                intent.putExtra("otherDescription", bundle.getString("otherDescription"));
+                                                intent.putExtra("uid", bundle.getString("uid"));
+                                                intent.putExtra("itemname", bundle.getString("itemname"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+
+
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                        }
+                                    } else {
+                                        Intent intent = new Intent(getContext(), PostItem_S3.class);
+
+
+                                        switch (category1) {
+                                            case "Men's Apparel":
+
+                                                intent.putExtra("mensClothingType", bundle.getString("mensClothingType"));
+                                                intent.putExtra("mensBrand", bundle.getString("mensBrand"));
+                                                intent.putExtra("mensColor", bundle.getString("mensColor"));
+                                                intent.putExtra("mensSizeChart", bundle.getString("mensSizeChart"));
+                                                intent.putExtra("mensMaterial", bundle.getString("mensMaterial"));
+                                                intent.putExtra("mensUsage", bundle.getString("mensUsage"));
+                                                intent.putExtra("mensSizes", bundle.getString("mensSizes"));
+                                                intent.putExtra("mensDescription", bundle.getString("mensDescription"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+                                                intent.putExtra("rft", bundle.getString("rft"));
+                                                intent.putExtra("pref_item", bundle.getString("pref_item"));
+
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                            case "Gadgets":
+
+                                                intent.putExtra("gadgetType", bundle.getString("gadgetType"));
+                                                intent.putExtra("gadgetBrand", bundle.getString("gadgetBrand"));
+
+                                                intent.putExtra("gadgetColor", bundle.getString("gadgetColor"));
+                                                intent.putExtra("gadgetUsage", bundle.getString("gadgetUsage"));
+                                                intent.putExtra("gadgetDescription", bundle.getString("gadgetDescription"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+                                                intent.putExtra("rft", bundle.getString("rft"));
+                                                intent.putExtra("pref_item", bundle.getString("pref_item"));
+
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                            case "Game":
+
+                                                intent.putExtra("gameType", bundle.getString("gameType"));
+                                                intent.putExtra("gameBrand", bundle.getString("gameBrand"));
+
+                                                intent.putExtra("gameUsage", bundle.getString("gameUsage"));
+                                                intent.putExtra("gameDescription", bundle.getString("gameDescription"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+                                                intent.putExtra("rft", bundle.getString("rft"));
+                                                intent.putExtra("pref_item", bundle.getString("pref_item"));
+
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                            case "Bags":
+
+                                                intent.putExtra("bagType", bundle.getString("bagType"));
+                                                intent.putExtra("bagBrand", bundle.getString("bagBrand"));
+
+                                                intent.putExtra("bagColor", bundle.getString("bagColor"));
+                                                intent.putExtra("bagUsage", bundle.getString("bagUsage"));
+                                                intent.putExtra("bagDescription", bundle.getString("bagDescription"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+                                                intent.putExtra("rft", bundle.getString("rft"));
+                                                intent.putExtra("pref_item", bundle.getString("pref_item"));
+
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                            case "Groceries":
+
+                                                intent.putExtra("groceryList", bundle.getString("groceryList"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+                                                intent.putExtra("rft", bundle.getString("rft"));
+                                                intent.putExtra("pref_item", bundle.getString("pref_item"));
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                            case "Furniture":
+
+                                                intent.putExtra("furnitureBrand", bundle.getString("furnitureBrand"));
+                                                intent.putExtra("furnitureColor", bundle.getString("furnitureColor"));
+
+                                                intent.putExtra("furnitureUsage", bundle.getString("furnitureUsage"));
+                                                intent.putExtra("furnitureHeight", bundle.getString("furnitureHeight"));
+                                                intent.putExtra("furnitureWidth", bundle.getString("furnitureWidth"));
+                                                intent.putExtra("furnitureLength", bundle.getString("furnitureLength"));
+                                                intent.putExtra("furnitureDescription", bundle.getString("furnitureDescription"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+                                                intent.putExtra("rft", bundle.getString("rft"));
+                                                intent.putExtra("pref_item", bundle.getString("pref_item"));
+
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                            case "Babies & Kids":
+
+                                                intent.putExtra("bnkAge", bundle.getString("bnkAge"));
+                                                intent.putExtra("bnkBrand", bundle.getString("bnkBrand"));
+
+                                                intent.putExtra("bnkType", bundle.getString("bnkType"));
+                                                intent.putExtra("bnkUsage", bundle.getString("bnkUsage"));
+                                                intent.putExtra("bnkDescription", bundle.getString("bnkDescription"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+                                                intent.putExtra("rft", bundle.getString("rft"));
+                                                intent.putExtra("pref_item", bundle.getString("pref_item"));
+
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                            case "Appliances":
+
+                                                intent.putExtra("appliancesType", bundle.getString("appliancesType"));
+                                                intent.putExtra("appliancesBrand", bundle.getString("appliancesBrand"));
+
+                                                intent.putExtra("appliancesColor", bundle.getString("appliancesColor"));
+                                                intent.putExtra("appliancesUsage", bundle.getString("appliancesUsage"));
+                                                intent.putExtra("appliancesDescription", bundle.getString("appliancesDescription"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+                                                intent.putExtra("rft", bundle.getString("rft"));
+                                                intent.putExtra("pref_item", bundle.getString("pref_item"));
+
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                            case "Motors":
+
+                                                intent.putExtra("motorModel", bundle.getString("motorModel"));
+                                                intent.putExtra("motorBrand", bundle.getString("motorBrand"));
+
+                                                intent.putExtra("motorColor", bundle.getString("motorColor"));
+                                                intent.putExtra("motorUsage", bundle.getString("motorUsage"));
+                                                intent.putExtra("motorDescription", bundle.getString("motorDescription"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+                                                intent.putExtra("rft", bundle.getString("rft"));
+                                                intent.putExtra("pref_item", bundle.getString("pref_item"));
+
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                            case "Audio":
+
+                                                intent.putExtra("audioArtist", bundle.getString("audioArtist"));
+                                                intent.putExtra("audioReleaseDate", bundle.getString("audioReleaseDate"));
+
+                                                intent.putExtra("audioUsage", bundle.getString("audioUsage"));
+                                                intent.putExtra("audioDescription", bundle.getString("audioDescription"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+
+                                                intent.putExtra("rft", bundle.getString("rft"));
+                                                intent.putExtra("pref_item", bundle.getString("pref_item"));
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                            case "School":
+
+                                                intent.putExtra("schoolType", bundle.getString("schoolType"));
+                                                intent.putExtra("schoolBrand", bundle.getString("schoolBrand"));
+                                                intent.putExtra("schoolColor", bundle.getString("schoolColor"));
+
+                                                intent.putExtra("schoolUsage", bundle.getString("schoolUsage"));
+                                                intent.putExtra("schoolDescription", bundle.getString("schoolDescription"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+                                                intent.putExtra("rft", bundle.getString("rft"));
+                                                intent.putExtra("pref_item", bundle.getString("pref_item"));
+
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                            case "Women's Apparel":
+
+                                                intent.putExtra("womensClothingType", bundle.getString("womensClothingType"));
+                                                intent.putExtra("womensBrand", bundle.getString("womensBrand"));
+                                                intent.putExtra("womensColor", bundle.getString("womensColor"));
+                                                intent.putExtra("womensSizeChart", bundle.getString("womensSizeChart"));
+                                                intent.putExtra("womensMaterial", bundle.getString("womensMaterial"));
+                                                intent.putExtra("womensUsage", bundle.getString("womensUsage"));
+                                                intent.putExtra("womensSizes", bundle.getString("womensSizes"));
+                                                intent.putExtra("womensDescription", bundle.getString("womensDescription"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+                                                intent.putExtra("rft", bundle.getString("rft"));
+                                                intent.putExtra("pref_item", bundle.getString("pref_item"));
+
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                            case "Others":
+
+                                                intent.putExtra("otherType", bundle.getString("otherType"));
+                                                intent.putExtra("otherDescription", bundle.getString("otherDescription"));
+                                                intent.putExtra("currentState", "preLocation");
+                                                intent.putExtra("item_name", bundle.getString("item_name"));
+                                                intent.putExtra("rft", bundle.getString("rft"));
+                                                intent.putExtra("pref_item", bundle.getString("pref_item"));
+
+                                                intent.putExtra("category", bundle.getString("category1"));
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                                startActivity(intent);
+                                                CustomIntent.customType(getContext(), "right-to-left");
+
+                                                break;
+                                        }
+                                    }
+                                    CustomIntent.customType(getContext(), "right-to-left");
+                                    break;
+                                case "getDirection":
+                                    startActivity(new Intent(getContext(), MyItemCurrentTransaction.class));
+                                    CustomIntent.customType(getContext(), "right-to-left");
+                                    break;
+                            }
+
                         }
                     })
                     .show();
@@ -813,8 +1325,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
             if (hideSearch.equals("postitem")) {
 
-                String category1 = bundle.getString("category1");
-
                 binding.confirmLocationBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -830,7 +1340,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
                             String isOffer = bundle.getString("Offers");
 
-                            Log.d("TAG", isOffer);
                             if (isOffer.equals("true")) {
                                 Intent intent = new Intent(getContext(), offerItem_S3.class);
 

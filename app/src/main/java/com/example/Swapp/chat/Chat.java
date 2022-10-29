@@ -173,28 +173,11 @@ public class Chat extends BaseActivity implements BottomSheetImagePicker.OnImage
                                             Toast.makeText(Chat.this, "Permission denied!", Toast.LENGTH_SHORT).show();
                                         } else {
                                             getSinchServiceInterface().retryStartAfterPermissionGranted();
-                                            if (getSinchServiceInterface().isStarted()) {
-                                                if (status.equals("Online")) {
-                                                    Call call = getSinchServiceInterface().callUser(getUID);
-                                                    String callId = call.getCallId();
-
-                                                    Intent callScreen = new Intent(Chat.this, CallScreenActivity.class);
-                                                    callScreen.putExtra(SinchService.CALL_ID, callId);
-                                                    callScreen.putExtra("userName", getName);
-                                                    startActivity(callScreen);
-                                                } else {
-                                                    Toast.makeText(Chat.this, "User is offline!", Toast.LENGTH_SHORT).show();
-                                                }
-                                            } else {
-                                                getSinchServiceInterface().setStartListener(new SinchService.StartFailedListener() {
-                                                    @Override
-                                                    public void onFailed(SinchError error) {
-
-                                                    }
-
-                                                    @Override
-                                                    public void onStarted() {
-                                                        if (status.equals("Online")) {
+                                            databaseReference.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    if (getSinchServiceInterface().isStarted()) {
+                                                        if (status.equals("Online") && snapshot.child(getUID).child("canCall").getValue(String.class).equals("true")) {
                                                             Call call = getSinchServiceInterface().callUser(getUID);
                                                             String callId = call.getCallId();
 
@@ -203,11 +186,38 @@ public class Chat extends BaseActivity implements BottomSheetImagePicker.OnImage
                                                             callScreen.putExtra("userName", getName);
                                                             startActivity(callScreen);
                                                         } else {
-                                                            Toast.makeText(Chat.this, "User is offline!", Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(Chat.this, "Can't call the user.", Toast.LENGTH_SHORT).show();
                                                         }
+                                                    } else {
+                                                        getSinchServiceInterface().setStartListener(new SinchService.StartFailedListener() {
+                                                            @Override
+                                                            public void onFailed(SinchError error) {
+
+                                                            }
+
+                                                            @Override
+                                                            public void onStarted() {
+                                                                if (status.equals("Online") && snapshot.child(getUID).child("canCall").getValue(String.class).equals("true")) {
+                                                                    Call call = getSinchServiceInterface().callUser(getUID);
+                                                                    String callId = call.getCallId();
+
+                                                                    Intent callScreen = new Intent(Chat.this, CallScreenActivity.class);
+                                                                    callScreen.putExtra(SinchService.CALL_ID, callId);
+                                                                    callScreen.putExtra("userName", getName);
+                                                                    startActivity(callScreen);
+                                                                } else {
+                                                                    Toast.makeText(Chat.this, "User is offline!", Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            }
+                                                        });
                                                     }
-                                                });
-                                            }
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
                                         }
                                     }
 

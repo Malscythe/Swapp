@@ -67,7 +67,7 @@ public class IncomingCallScreenActivity extends BaseActivity {
     @Override
     protected void onServiceConnected() {
         Call call = getSinchServiceInterface().getCall(mCallId);
-        if (call != null) {
+        if (call != null && getSinchServiceInterface().isStarted()) {
             call.addCallListener(new SinchCallListener());
             TextView remoteUser = findViewById(R.id.remoteUser);
             remoteUser.setText(getIntent().getStringExtra("userName"));

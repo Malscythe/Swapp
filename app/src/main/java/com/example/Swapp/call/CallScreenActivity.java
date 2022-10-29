@@ -145,7 +145,6 @@ public class CallScreenActivity extends BaseActivity {
             Log.d(TAG, "Call ended. Reason: " + cause.toString());
             mAudioPlayer.stopProgressTone();
             setVolumeControlStream(AudioManager.USE_DEFAULT_STREAM_TYPE);
-            Toast.makeText(CallScreenActivity.this, "Call ended", Toast.LENGTH_LONG).show();
             endCall();
         }
 

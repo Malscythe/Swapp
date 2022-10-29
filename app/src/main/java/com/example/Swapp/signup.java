@@ -452,6 +452,7 @@ public class signup extends AppCompatActivity {
                                         databaseReference.child("users").child(userID).child("Email").setValue(email.getText().toString());
                                         databaseReference.child("users").child(userID).child("Phone").setValue("0" + mobileNumber.getText().toString());
                                         databaseReference.child("users").child(userID).child("isAdmin").setValue("0");
+                                        databaseReference.child("users").child(userID).child("canCall").setValue("false");
                                         databaseReference.child("user-rating").child(userID).child("rating1").setValue("0");
                                         databaseReference.child("user-rating").child(userID).child("rating2").setValue("0");
                                         databaseReference.child("user-rating").child(userID).child("rating3").setValue("0");

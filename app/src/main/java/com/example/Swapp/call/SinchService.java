@@ -32,6 +32,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.Swapp.JWT;
 import com.example.Swapp.call.fcm.FcmListenerService;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -187,7 +188,9 @@ public class SinchService extends Service {
             }
         }
         if (permissionsGranted) {
-            Log.d(TAG, "Starting SinchClient");
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+            databaseReference.child("users").child(firebaseAuth.getCurrentUser().getUid()).child("canCall").setValue("true");
             try {
                 mSinchClient.start();
             } catch (IllegalStateException e) {
