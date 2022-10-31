@@ -22,6 +22,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="iconGenText">
+        <item name="android:textSize">26sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="fab_square" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeBottomLeft">5dp</item>

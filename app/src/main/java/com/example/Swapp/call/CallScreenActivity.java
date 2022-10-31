@@ -155,6 +155,7 @@ public class CallScreenActivity extends BaseActivity {
             mCallState.setText(call.getState().toString());
             muteButton.setVisibility(View.VISIBLE);
             speakerButton.setVisibility(View.VISIBLE);
+            mCallDuration.setVisibility(View.VISIBLE);
 
             AudioController audioController = getSinchServiceInterface().getAudioController();
 
@@ -182,15 +183,15 @@ public class CallScreenActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     if (audioController.isSpeakerOn()) {
-                        speakerButton.setBackground(AppCompatResources.getDrawable(CallScreenActivity.this, R.drawable.black_circle_button));
-                        speakerButton.setImageDrawable(AppCompatResources.getDrawable(CallScreenActivity.this, R.drawable.speaker_icon));
-                        speakerButton.setImageTintList(AppCompatResources.getColorStateList(CallScreenActivity.this, R.color.white));
-                        audioController.disableSpeaker();
-
-                    } else {
                         speakerButton.setBackground(AppCompatResources.getDrawable(CallScreenActivity.this, R.drawable.white_circle_button));
                         speakerButton.setImageDrawable(AppCompatResources.getDrawable(CallScreenActivity.this, R.drawable.speaker_low_icon));
                         speakerButton.setImageTintList(AppCompatResources.getColorStateList(CallScreenActivity.this, R.color.primary_black));
+                        audioController.disableSpeaker();
+
+                    } else {
+                        speakerButton.setBackground(AppCompatResources.getDrawable(CallScreenActivity.this, R.drawable.black_circle_button));
+                        speakerButton.setImageDrawable(AppCompatResources.getDrawable(CallScreenActivity.this, R.drawable.speaker_icon));
+                        speakerButton.setImageTintList(AppCompatResources.getColorStateList(CallScreenActivity.this, R.color.white));
                         audioController.enableSpeaker();
 
                     }
@@ -204,6 +205,7 @@ public class CallScreenActivity extends BaseActivity {
         @Override
         public void onCallProgressing(Call call) {
             Log.d(TAG, "Call progressing");
+            mCallDuration.setVisibility(GONE);
             mAudioPlayer.playProgressTone();
         }
 

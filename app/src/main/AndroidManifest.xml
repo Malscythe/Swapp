@@ -43,6 +43,9 @@
             android:name="com.example.Swapp.TransactionMoreInfo"
             android:exported="true" />
         <activity
+            android:name="com.example.Swapp.ViewItems"
+            android:exported="true" />
+        <activity
             android:name="com.example.Swapp.MyItemCurrentTransaction"
             android:exported="true" />
         <activity

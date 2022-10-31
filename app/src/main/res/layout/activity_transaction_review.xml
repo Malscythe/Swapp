@@ -38,9 +38,9 @@
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
@@ -63,8 +63,8 @@
                             <RelativeLayout
                                 android:id="@+id/parentItem"
                                 android:layout_width="match_parent"
-                                android:background="@drawable/bottom_border"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bottom_border">
 
                                 <ImageView
                                     android:id="@+id/parentItemPic"
@@ -113,10 +113,10 @@
                         </androidx.cardview.widget.CardView>
 
                         <RelativeLayout
-                            android:layout_marginTop="10dp"
                             android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:layout_height="wrap_content">
+                            android:layout_marginTop="10dp">
 
                             <ImageView
                                 android:layout_width="40dp"
@@ -127,15 +127,15 @@
                         </RelativeLayout>
 
                         <androidx.cardview.widget.CardView
-                            android:layout_marginTop="10dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp">
 
                             <RelativeLayout
                                 android:id="@+id/offeredItem"
-                                android:background="@drawable/bottom_nav_border"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bottom_nav_border">
 
                                 <ImageView
                                     android:id="@+id/offeredItemPic"
@@ -188,14 +188,130 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="10dp"
+                    app:cardCornerRadius="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/noModeError"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="15dp"
+                            android:fontFamily="@font/poppins"
+                            android:text="This field is required."
+                            android:textColor="@android:color/holo_red_light"
+                            android:textStyle="italic"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginBottom="10dp"
+                            android:fontFamily="@font/poppins"
+                            android:text="Mode of transaction"
+                            android:textColor="@color/primary_black"
+                            android:textSize="16sp" />
+
+                        <RadioGroup
+                            android:id="@+id/transactionModeRadioBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RadioButton
+                                android:id="@+id/transactionModePickUp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="20dp"
+                                android:text="Pick up" />
+
+                            <RadioButton
+                                android:id="@+id/transactionModeDelivery"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="20dp"
+                                android:layout_marginBottom="20dp"
+                                android:text="Delivery" />
+
+                        </RadioGroup>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/courierNameLayout"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:background="@color/white"
+                            android:visibility="gone"
+                            app:boxStrokeColor="@color/primary"
+                            app:boxStrokeWidth="2dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/courierName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_medium"
+                                android:gravity="top|start"
+                                android:hint="Courier Name *"
+                                android:importantForAutofill="no"
+                                android:singleLine="false"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/trackingNumberLayout"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:background="@color/white"
+                            android:visibility="gone"
+                            app:boxStrokeColor="@color/primary"
+                            app:boxStrokeWidth="2dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/trackingNumber"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_medium"
+                                android:gravity="top|start"
+                                android:hint="Tracking Number *"
+                                android:importantForAutofill="no"
+                                android:singleLine="false"
+                                android:textColor="@color/black" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
                     android:id="@+id/transactionRdo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:cardCornerRadius="10dp"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginEnd="20dp">
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="10dp"
+                    app:cardCornerRadius="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -206,14 +322,14 @@
                             android:id="@+id/noProofError"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Please upload proof of transaction"
-                            android:fontFamily="@font/poppins"
-                            android:layout_marginEnd="15dp"
-                            android:textStyle="italic"
-                            android:visibility="gone"
-                            android:textColor="@android:color/holo_red_light"
                             android:layout_gravity="end"
-                            android:layout_marginTop="10dp"/>
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="15dp"
+                            android:fontFamily="@font/poppins"
+                            android:text="Please upload proof of transaction"
+                            android:textColor="@android:color/holo_red_light"
+                            android:textStyle="italic"
+                            android:visibility="gone" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -254,17 +370,17 @@
                         <androidx.cardview.widget.CardView
                             android:id="@+id/proofImageLayout"
                             android:layout_width="200dp"
-                            android:visibility="gone"
                             android:layout_height="200dp"
-                            app:cardCornerRadius="20dp"
                             android:layout_marginStart="20dp"
-                            android:layout_marginBottom="10dp">
+                            android:layout_marginBottom="10dp"
+                            android:visibility="gone"
+                            app:cardCornerRadius="20dp">
 
                             <ImageView
                                 android:id="@+id/proofImage"
                                 android:layout_width="200dp"
-                                android:scaleType="centerInside"
                                 android:layout_height="200dp"
+                                android:scaleType="centerInside"
                                 android:src="@drawable/black" />
 
                         </androidx.cardview.widget.CardView>
@@ -274,15 +390,15 @@
                             android:id="@+id/uploadProof"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Upload Proof"
-                            android:visibility="gone"
-                            android:background="@drawable/buttonborder"
                             android:layout_marginStart="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:background="@drawable/buttonborder"
+                            android:fontFamily="@font/poppins"
                             android:paddingStart="15dp"
                             android:paddingEnd="15dp"
-                            android:layout_marginBottom="20dp"
-                            android:fontFamily="@font/poppins"
-                            android:textColor="@color/white"/>
+                            android:text="Upload Proof"
+                            android:textColor="@color/white"
+                            android:visibility="gone" />
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/reviewUnsuccessfulReasonLayout"
@@ -304,9 +420,9 @@
                                 android:layout_height="200dp"
                                 android:fontFamily="@font/poppins_medium"
                                 android:gravity="top|start"
-                                android:singleLine="false"
                                 android:hint="Tell us the reason *"
                                 android:importantForAutofill="no"
+                                android:singleLine="false"
                                 android:textColor="@color/black" />
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -318,18 +434,18 @@
                     android:id="@+id/submitReview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Submit"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/poppins"
-                    android:textStyle="bold"
-                    android:background="@drawable/buttonborder"
-                    android:textColor="@color/white"
                     android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="20dp"
-                    android:layout_marginTop="10dp"
+                    android:background="@drawable/buttonborder"
+                    android:fontFamily="@font/poppins"
                     android:paddingTop="10dp"
-                    android:paddingBottom="10dp"/>
+                    android:paddingBottom="10dp"
+                    android:text="Submit"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 

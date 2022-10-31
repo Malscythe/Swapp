@@ -52,6 +52,16 @@ public final class MemoryData {
         }
     }
 
+    public static void saveUriOnClick(String image, Context context) {
+        try {
+            FileOutputStream fileOutputStream = context.openFileOutput("onclick.txt", Context.MODE_PRIVATE);
+            fileOutputStream.write(image.getBytes());
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void saveLastMsgTS(String data, String chatId, Context context, String number) {
         try {
             FileOutputStream fileOutputStream = context.openFileOutput(chatId + "-" + number + ".txt", Context.MODE_PRIVATE);
@@ -118,6 +128,25 @@ public final class MemoryData {
             e.printStackTrace();
         }
          return data;
+    }
+
+    public static String getUriOnClick(Context context) {
+        String data = "";
+        try {
+            FileInputStream fis = context.openFileInput("onclick.txt");
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line);
+            }
+            data = sb.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return data;
     }
 
     public static String getUri(Context context) {

@@ -49,7 +49,7 @@ public class currentLoc extends AppCompatActivity {
                         }
                     }
 
-                    if (!snapshot.hasChildren() && !getValidated.contains("true")) {
+                    if (!snapshot.hasChildren() || (snapshot.hasChildren() && !getValidated.contains("true"))) {
                         Intent intent = new Intent(currentLoc.this, alert_dialog_noitem.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(intent);

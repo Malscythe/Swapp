@@ -68,13 +68,13 @@ import maes.tech.intentanim.CustomIntent;
 public class TransactionReview extends AppCompatActivity implements BottomSheetImagePicker.OnImagesSelectedListener {
 
     ImageView parentPic, offeredPic, proofImage;
-    TextView parentItemName, parentItemLocation, offeredItemName, offeredItemLocation, uploadError;
+    TextView parentItemName, parentItemLocation, offeredItemName, offeredItemLocation, uploadError, modeError;
     DatabaseReference databaseReference;
     FirebaseAuth firebaseAuth;
-    RadioGroup radioGroup;
-    TextInputLayout reasonLayout;
-    TextInputEditText reason;
-    String selectedRdo;
+    RadioGroup radioGroup, transactionMode;
+    TextInputLayout reasonLayout, courierNameLayout, trackingNumberLayout;
+    TextInputEditText reason, courierName, trackingNumber;
+    String selectedRdo, selectedMode;
     Button submitReview, uploadBtn;
     CardView transactionRDO, proofImageLayout;
     String strDate;
@@ -97,8 +97,18 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
 
         uploadError = findViewById(R.id.noProofError);
 
+        modeError = findViewById(R.id.noModeError);
+
         reasonLayout = findViewById(R.id.reviewUnsuccessfulReasonLayout);
         reason = findViewById(R.id.reviewUnsuccessfulReason);
+
+        courierNameLayout = findViewById(R.id.courierNameLayout);
+        courierName = findViewById(R.id.courierName);
+
+        trackingNumberLayout = findViewById(R.id.trackingNumberLayout);
+        trackingNumber = findViewById(R.id.trackingNumber);
+
+        transactionMode = findViewById(R.id.transactionModeRadioBtn);
 
         submitReview = findViewById(R.id.submitReview);
 
@@ -119,6 +129,28 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
         String parentkey = getIntent().getStringExtra("ParentKey");
         String parentitemname = getIntent().getStringExtra("ParentItemName");
         String offererkey = getIntent().getStringExtra("OffererKey");
+
+        if (myUid.equals(offererkey)) {
+            databaseReference.child("trade-transactions").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.child(transactionKey).exists()) {
+                        if (snapshot.child(transactionKey).child("Mode_Transaction").getValue(String.class).equals("Delivery")) {
+                            if (offererkey.equals(myUid)) {
+                                transactionMode.setVisibility(View.GONE);
+                                courierNameLayout.setVisibility(View.VISIBLE);
+                                trackingNumberLayout.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
 
         databaseReference.child("items").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -165,6 +197,26 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
             }
         });
 
+        transactionMode.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                RadioButton mode = findViewById(i);
+
+                switch (mode.getText().toString()) {
+                    case "Pick up":
+                        courierNameLayout.setVisibility(View.GONE);
+                        trackingNumberLayout.setVisibility(View.GONE);
+                        selectedMode = "Pick up";
+                        break;
+                    case "Delivery":
+                        courierNameLayout.setVisibility(View.VISIBLE);
+                        trackingNumberLayout.setVisibility(View.VISIBLE);
+                        selectedMode = "Delivery";
+                        break;
+                }
+            }
+        });
+
         uploadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,9 +244,41 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
                 if (selectedRdo.equals("") || selectedRdo.equals(null)) {
                     uploadError.setVisibility(View.VISIBLE);
                     uploadError.setText("Please select an answer");
+                    return;
                 } else {
                     uploadError.setVisibility(View.GONE);
                     uploadError.setText(null);
+                }
+
+                if (myUid.equals(parentkey)) {
+                    if (selectedMode.equals("") || selectedMode.equals(null)) {
+                        modeError.setVisibility(View.VISIBLE);
+                        modeError.setText("Please select an answer");
+                        return;
+                    } else {
+                        modeError.setVisibility(View.GONE);
+                        modeError.setText(null);
+                    }
+                }
+
+                if (courierNameLayout.getVisibility() == View.VISIBLE || trackingNumberLayout.getVisibility() == View.VISIBLE) {
+                    if (courierName.getText().toString().equals("") || courierName.getText().toString().equals(null)) {
+                        courierNameLayout.setError("This cannot be empty");
+                        courierNameLayout.setErrorIconDrawable(null);
+                        return;
+                    } else {
+                        courierNameLayout.setError(null);
+                        courierNameLayout.setErrorIconDrawable(null);
+                    }
+
+                    if (trackingNumber.getText().toString().equals("") || trackingNumber.getText().toString().equals(null)) {
+                        trackingNumberLayout.setError("This cannot be empty");
+                        trackingNumberLayout.setErrorIconDrawable(null);
+                        return;
+                    } else {
+                        trackingNumberLayout.setError(null);
+                        trackingNumberLayout.setErrorIconDrawable(null);
+                    }
                 }
 
                 if (reasonLayout.getVisibility() == View.VISIBLE) {
@@ -239,6 +323,12 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
                             databaseReference.child("trade-transactions").child(transactionName).child("Poster_Response").setValue(selectedRdo);
                             databaseReference.child("trade-transactions").child(transactionName).child("Transaction_Status").setValue("Waiting for review");
                             UploadToTransact(offererItems, databaseReferenceOfferer);
+                            databaseReference.child("trade-transactions").child(transactionName).child("Mode_Transaction").setValue(selectedMode);
+
+                            if (selectedMode.equals("Delivery")) {
+                                databaseReference.child("trade-transactions").child(transactionName).child("Delivery_Info").child("Parent_Courier_Name").setValue(courierName.getText().toString());
+                                databaseReference.child("trade-transactions").child(transactionName).child("Delivery_Info").child("Parent_Tracking_Number").setValue(trackingNumber.getText().toString());
+                            }
 
                             if (selectedRdo.equals("Successful")) {
                                 parentItems.child("Open_For_Offers").setValue("false");
@@ -319,6 +409,9 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
                             }
                         } else {
                             databaseReference.child("trade-transactions").child(transactionKey).child("Offerer_Response").setValue(selectedRdo);
+
+                            databaseReference.child("trade-transactions").child(transactionKey).child("Delivery_Info").child("Offerer_Courier_Name").setValue(courierName.getText().toString());
+                            databaseReference.child("trade-transactions").child(transactionKey).child("Delivery_Info").child("Offerer_Tracking_Number").setValue(trackingNumber.getText().toString());
 
                             databaseReference.child("trade-transactions").child(transactionKey).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
