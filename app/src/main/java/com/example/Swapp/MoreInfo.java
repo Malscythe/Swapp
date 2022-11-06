@@ -7,6 +7,7 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.example.Swapp.chat.Chat;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Swapp.R;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import maes.tech.intentanim.CustomIntent;
 
 public class MoreInfo extends AppCompatActivity {
@@ -46,6 +50,95 @@ public class MoreInfo extends AppCompatActivity {
         String uid = getIntent().getStringExtra("poster_uid");
         String item_Name = getIntent().getStringExtra("item_name");
         String from = getIntent().getStringExtra("from");
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+        String currentId = firebaseAuth.getCurrentUser().getUid();
+
+        ImageView chat = findViewById(R.id.chatUser);
+
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                SweetAlertDialog pDialog = new SweetAlertDialog(MoreInfo.this, SweetAlertDialog.PROGRESS_TYPE);
+                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                pDialog.setTitleText("Loading...");
+                pDialog.setCancelable(false);
+                pDialog.show();
+
+                DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
+                        String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
+                        String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
+
+                        if (snapshot.child("chat").exists()) {
+                            String chatKey = null;
+                            for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
+
+                                String user1 = dataSnapshot.child("user_1").getValue(String.class);
+                                String user2 = dataSnapshot.child("user_2").getValue(String.class);
+
+                                if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
+                                    chatKey = dataSnapshot.getKey();
+                                }
+                            }
+
+                            if (chatKey != null) {
+
+                                pDialog.dismiss();
+
+                                Intent intent = new Intent(MoreInfo.this, Chat.class);
+                                intent.putExtra("mobile", mobile);
+                                intent.putExtra("name", userName);
+                                intent.putExtra("chat_key", chatKey);
+                                intent.putExtra("userID", uid);
+                                intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                startActivity(intent);
+                                CustomIntent.customType(MoreInfo.this, "left-to-right");
+
+                            } else {
+
+                                pDialog.dismiss();
+
+                                Intent intent = new Intent(MoreInfo.this, Chat.class);
+                                intent.putExtra("mobile", mobile);
+                                intent.putExtra("name", userName);
+                                intent.putExtra("chat_key", "");
+                                intent.putExtra("userID", uid);
+                                intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                                startActivity(intent);
+                                CustomIntent.customType(MoreInfo.this, "left-to-right");
+
+                            }
+                        } else {
+                            pDialog.dismiss();
+
+                            Intent intent = new Intent(MoreInfo.this, Chat.class);
+                            intent.putExtra("mobile", mobile);
+                            intent.putExtra("name", userName);
+                            intent.putExtra("chat_key", "");
+                            intent.putExtra("userID", uid);
+                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                            startActivity(intent);
+                            CustomIntent.customType(MoreInfo.this, "left-to-right");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
 
         DatabaseReference items = FirebaseDatabase.getInstance().getReference().child("items").child(uid).child(item_Name);
         items.addListenerForSingleValueEvent(new ValueEventListener() {

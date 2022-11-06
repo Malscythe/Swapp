@@ -33,6 +33,16 @@ public class MyItemCurrentTransactionAdapter extends RecyclerView.Adapter {
     DatabaseReference databaseReference;
     FirebaseAuth firebaseAuth;
 
+    String myPhone;
+    String traderPhone;
+    String userName;
+    String traderID;
+    String traderStatus;
+
+    String user1;
+    String user2;
+
+    String chatKey = null;
 
     public MyItemCurrentTransactionAdapter(List<OfferFetch> offerFetchList) {
         this.offerFetchList = offerFetchList;
@@ -185,42 +195,74 @@ public class MyItemCurrentTransactionAdapter extends RecyclerView.Adapter {
                                 viewHolderClass.goToChat.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        for (DataSnapshot dataSnapshot2 : snapshot.child("chat").getChildren()) {
-                                            String user1 = dataSnapshot2.child("user_1").getValue(String.class);
-                                            String user2 = dataSnapshot2.child("user_2").getValue(String.class);
 
-                                            String myPhone;
-                                            String traderPhone;
-                                            String userName;
-                                            String traderID;
-                                            String traderStatus;
+                                        if (snapshot.child("chat").exists()) {
 
-                                            if (!offerFetch.getPoster_UID().equals(uid)) {
-                                                myPhone = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
-                                                userName = snapshot.child("users").child(offerFetch.getPoster_UID()).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(offerFetch.getPoster_UID()).child("Last_Name").getValue(String.class));
-                                                traderPhone = snapshot.child("users").child(offerFetch.getPoster_UID()).child("Phone").getValue(String.class);
-                                                traderID = offerFetch.getPoster_UID();
-                                                traderStatus = snapshot.child("users-status").child(offerFetch.getPoster_UID()).child("Status").getValue(String.class);
-                                            } else {
-                                                myPhone = snapshot.child("users").child(offerFetch.getPoster_UID()).child("Phone").getValue(String.class);
-                                                userName = snapshot.child("users").child(dataSnapshot.getKey()).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(dataSnapshot.getKey()).child("Last_Name").getValue(String.class));
-                                                traderPhone = snapshot.child("users").child(dataSnapshot.getKey()).child("Phone").getValue(String.class);
-                                                traderID = dataSnapshot.getKey();
-                                                traderStatus = snapshot.child("users-status").child(dataSnapshot.getKey()).child("Status").getValue(String.class);
+                                            for (DataSnapshot dataSnapshot2 : snapshot.child("chat").getChildren()) {
+                                                user1 = dataSnapshot2.child("user_1").getValue(String.class);
+                                                user2 = dataSnapshot2.child("user_2").getValue(String.class);
+
+                                                if (!offerFetch.getPoster_UID().equals(uid)) {
+                                                    myPhone = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
+                                                    userName = snapshot.child("users").child(offerFetch.getPoster_UID()).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(offerFetch.getPoster_UID()).child("Last_Name").getValue(String.class));
+                                                    traderPhone = snapshot.child("users").child(offerFetch.getPoster_UID()).child("Phone").getValue(String.class);
+                                                    traderID = offerFetch.getPoster_UID();
+                                                    traderStatus = snapshot.child("users-status").child(offerFetch.getPoster_UID()).child("Status").getValue(String.class);
+                                                } else {
+                                                    myPhone = snapshot.child("users").child(offerFetch.getPoster_UID()).child("Phone").getValue(String.class);
+                                                    userName = snapshot.child("users").child(dataSnapshot.getKey()).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(dataSnapshot.getKey()).child("Last_Name").getValue(String.class));
+                                                    traderPhone = snapshot.child("users").child(dataSnapshot.getKey()).child("Phone").getValue(String.class);
+                                                    traderID = dataSnapshot.getKey();
+                                                    traderStatus = snapshot.child("users-status").child(dataSnapshot.getKey()).child("Status").getValue(String.class);
+                                                }
+
+                                                if (((user1.equals(myPhone) || user2.equals(myPhone)) && ((user1.equals(traderPhone) || user2.equals(traderPhone)))) && (!myPhone.equals(traderPhone))) {
+                                                    chatKey = dataSnapshot2.getKey();
+                                                }
                                             }
+                                        }
 
-                                            if (((user1.equals(myPhone) || user2.equals(myPhone)) && ((user1.equals(traderPhone) || user2.equals(traderPhone)))) && (!myPhone.equals(traderPhone))) {
+                                        if (snapshot.child("chat").exists()) {
+
+                                            if (chatKey != null) {
+
+                                                Log.d("CHAT", chatKey);
                                                 Intent intent = new Intent(v.getContext(), Chat.class);
                                                 intent.putExtra("mobile", traderPhone);
                                                 intent.putExtra("name", userName);
-                                                intent.putExtra("chat_key", dataSnapshot2.getKey());
+                                                intent.putExtra("chat_key", chatKey);
                                                 intent.putExtra("userID", traderID);
                                                 intent.putExtra("userStatus", traderStatus);
 
                                                 v.getContext().startActivity(intent);
                                                 CustomIntent.customType(v.getContext(), "left-to-right");
-                                            }
 
+                                            } else {
+
+                                                Log.d("CHAT", "ELSE");
+                                                Intent intent = new Intent(v.getContext(), Chat.class);
+                                                intent.putExtra("mobile", traderPhone);
+                                                intent.putExtra("name", userName);
+                                                intent.putExtra("chat_key", "");
+                                                intent.putExtra("userID", traderID);
+                                                intent.putExtra("userStatus", traderStatus);
+
+                                                v.getContext().startActivity(intent);
+                                                CustomIntent.customType(v.getContext(), "left-to-right");
+
+                                            }
+                                        } else {
+
+                                            Log.d("CHAT", "ELSE ELSE");
+                                            Intent intent = new Intent(v.getContext(), Chat.class);
+                                            intent.putExtra("mobile", traderPhone);
+                                            intent.putExtra("name", userName);
+                                            intent.putExtra("chat_key", "");
+                                            intent.putExtra("userID", traderID);
+                                            intent.putExtra("userStatus", traderStatus);
+
+                                            v.getContext().startActivity(intent);
+                                            CustomIntent.customType(v.getContext(), "left-to-right");
                                         }
                                     }
                                 });

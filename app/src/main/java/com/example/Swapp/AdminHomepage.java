@@ -62,12 +62,13 @@ import maes.tech.intentanim.CustomIntent;
 
 public class AdminHomepage extends AppCompatActivity {
 
-    CardView manageUsers, goToActivityLogs, goToFNR, goToPosted, goToTransaction, goToApproval;
+    CardView manageUsers, goToActivityLogs, goToFNR, goToPosted, goToTransaction, goToApproval, goToReview;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-    TextView registered, online, transactions, posted, approval;
+    TextView registered, online, transactions, posted, approval, validation;
     ImageView logout;
     long newCount = 0;
     long newApprovalCount = 0;
+    long newValidationCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,11 +82,13 @@ public class AdminHomepage extends AppCompatActivity {
         transactions = findViewById(R.id.transactionsCounter);
         posted = findViewById(R.id.postedCounter);
         approval = findViewById(R.id.approvalCounter);
+        validation = findViewById(R.id.validationCounter);
         logout = findViewById(R.id.logoutBtn);
         goToFNR = findViewById(R.id.feedbacksRating);
         goToPosted = findViewById(R.id.goToPostedItems);
         goToTransaction = findViewById(R.id.goToTransactions);
         goToApproval = findViewById(R.id.goToApproval);
+        goToReview = findViewById(R.id.goToReview);
 
         if ((ActivityCompat.checkSelfPermission(AdminHomepage.this, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) &&
                 (ActivityCompat.checkSelfPermission(AdminHomepage.this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) &&
@@ -143,6 +146,24 @@ public class AdminHomepage extends AppCompatActivity {
                     }
                 });
 
+                newValidationCount = 0;
+                databaseReference.child("trade-transactions").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            if (dataSnapshot.child("Transaction_Status").getValue(String.class).equals("On hold")) {
+                                newValidationCount = newValidationCount + 1;
+                            }
+                        }
+                        validation.setText(String.valueOf(newValidationCount));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
                 databaseReference.child("users-status").orderByChild("Status").equalTo("Online").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -166,6 +187,14 @@ public class AdminHomepage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(AdminHomepage.this, ItemApproval.class));
+                CustomIntent.customType(AdminHomepage.this, "left-to-right");
+            }
+        });
+
+        goToReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminHomepage.this, ConflictTransactions.class));
                 CustomIntent.customType(AdminHomepage.this, "left-to-right");
             }
         });

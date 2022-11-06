@@ -1022,14 +1022,18 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
                                                         categoryItem.clear();
+                                                        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                                            if (ds.child("Item_Category").getValue(String.class).equals(category)) {
+                                                                for (int i = 0; i < dataSnapshot.getChildrenCount(); i++) {
+                                                                    if (ds.child("Item_Category").getValue(String.class).equals(category) && !categoryItem.contains(ds.getKey())) {
+                                                                        categoryItem.add(ds.getKey());
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
 
                                                         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
-                                                            for (int i = 0; i < dataSnapshot.getChildrenCount(); i++) {
-                                                                if (dataSnapshot1.child("Item_Category").getValue(String.class).equals(category) && !categoryItem.contains(dataSnapshot1.getKey())) {
-                                                                    categoryItem.add(dataSnapshot1.getKey());
-                                                                }
-                                                            }
 
                                                             if (dataSnapshot1.child("Item_Category").getValue(String.class).equals(category) && dataSnapshot1.child("Open_For_Offers").getValue(String.class).equals("true") && dataSnapshot1.child("Status").getValue(String.class).equals("Validated")) {
 
@@ -1359,6 +1363,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                                             Intent intent = new Intent(getContext(), ItemSwipe.class);
                                             intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                             intent.putExtra("keys", keys);
+                                            intent.putExtra("category", category);
                                             startActivity(intent);
                                             CustomIntent.customType(getContext(), "left-to-right");
                                         }
@@ -2728,14 +2733,17 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
                             categoryItem.clear();
-
-                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-
-                                for (int i = 0; i < dataSnapshot.getChildrenCount(); i++) {
-                                    if (dataSnapshot1.child("Item_Category").getValue(String.class).equals(category) && !categoryItem.contains(dataSnapshot1.getKey())) {
-                                        categoryItem.add(dataSnapshot1.getKey());
+                            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                if (ds.child("Item_Category").getValue(String.class).equals(category)) {
+                                    for (int i = 0; i < dataSnapshot.getChildrenCount(); i++) {
+                                        if (ds.child("Item_Category").getValue(String.class).equals(category) && !categoryItem.contains(ds.getKey())) {
+                                            categoryItem.add(ds.getKey());
+                                        }
                                     }
                                 }
+                            }
+
+                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
 
                                 if (dataSnapshot1.child("Item_Category").getValue(String.class).equals(category) && dataSnapshot1.child("Open_For_Offers").getValue(String.class).equals("true") && dataSnapshot1.child("Status").getValue(String.class).equals("Validated")) {
 
@@ -3220,6 +3228,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                 Intent intent = new Intent(getContext(), ItemSwipe.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intent.putExtra("keys", keys);
+                intent.putExtra("category", category);
                 startActivity(intent);
                 CustomIntent.customType(getContext(), "left-to-right");
             }

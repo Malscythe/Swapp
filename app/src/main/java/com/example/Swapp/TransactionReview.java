@@ -410,12 +410,15 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
                         } else {
                             databaseReference.child("trade-transactions").child(transactionKey).child("Offerer_Response").setValue(selectedRdo);
 
-                            databaseReference.child("trade-transactions").child(transactionKey).child("Delivery_Info").child("Offerer_Courier_Name").setValue(courierName.getText().toString());
-                            databaseReference.child("trade-transactions").child(transactionKey).child("Delivery_Info").child("Offerer_Tracking_Number").setValue(trackingNumber.getText().toString());
-
                             databaseReference.child("trade-transactions").child(transactionKey).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                    if (snapshot.child("Mode_Transaction").getValue(String.class).equals("Delivery")) {
+                                        databaseReference.child("trade-transactions").child(transactionKey).child("Delivery_Info").child("Offerer_Courier_Name").setValue(courierName.getText().toString());
+                                        databaseReference.child("trade-transactions").child(transactionKey).child("Delivery_Info").child("Offerer_Tracking_Number").setValue(trackingNumber.getText().toString());
+                                    }
+
                                     if (snapshot.child("Poster_Response").getValue(String.class).equals(selectedRdo)) {
                                         if (selectedRdo.equals("Successful")) {
                                             StorageReference storageReference = FirebaseStorage.getInstance().getReference("images/trades-transact/" + transactionKey + "/" + "Offerer_Proof");

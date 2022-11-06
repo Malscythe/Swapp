@@ -136,6 +136,7 @@ public class login extends AppCompatActivity {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                                             if (snapshot.child("isAdmin").getValue(String.class).equals("1")){
+                                                MemoryData.saveData(snapshot.child("Phone").getValue().toString(), login.this);
                                                 MemoryData.saveState(false, login.this);
                                                 startActivity(new Intent(login.this, AdminHomepage.class));
                                                 pDialog.dismiss();

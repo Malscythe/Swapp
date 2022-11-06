@@ -42,6 +42,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.daimajia.androidanimations.library.specials.out.TakingOffAnimator;
 import com.example.Swapp.AdminHomepage;
+import com.example.Swapp.ConflictTransactions;
 import com.example.Swapp.UserHomepage;
 import com.example.Swapp.call.CallScreenActivity;
 import com.example.Swapp.MemoryData;
@@ -135,12 +136,19 @@ public class Chat extends BaseActivity implements BottomSheetImagePicker.OnImage
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String status = snapshot.child(getUID).child("Status").getValue(String.class);
-                userStatus.setText(status);
+                if (getName.equals("Swapp Team")) {
 
-                if (status.equals("Online")) {
+                    userStatus.setText("Online");
                     userStatus.setTextColor(Color.parseColor("#00C853"));
-                } else if (status.equals("Offline")) {
-                    userStatus.setTextColor(Color.parseColor("#818181"));
+
+                } else {
+                    userStatus.setText(status);
+
+                    if (status.equals("Online")) {
+                        userStatus.setTextColor(Color.parseColor("#00C853"));
+                    } else if (status.equals("Offline")) {
+                        userStatus.setTextColor(Color.parseColor("#818181"));
+                    }
                 }
 
                 callBtn.setOnClickListener(new View.OnClickListener() {
@@ -377,13 +385,29 @@ public class Chat extends BaseActivity implements BottomSheetImagePicker.OnImage
                 databaseReference.child("users").child(uid).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String name = snapshot.child("First_Name").getValue(String.class).concat(" " + snapshot.child("Last_Name").getValue(String.class));
-                        Intent intent = new Intent(Chat.this, Messages.class);
-                        intent.putExtra("mobile", snapshot.child("Phone").getValue(String.class));
-                        intent.putExtra("email", snapshot.child("Email").getValue(String.class));
-                        intent.putExtra("name", name);
-                        startActivity(intent);
-                        CustomIntent.customType(Chat.this, "right-to-left");
+                        if (getIntent().getStringExtra("from") != null) {
+                            if (getIntent().getStringExtra("from").equals("admin")) {
+                                Intent intent = new Intent(Chat.this, ConflictTransactions.class);
+                                startActivity(intent);
+                                CustomIntent.customType(Chat.this, "right-to-left");
+                            } else {
+                                String name = snapshot.child("First_Name").getValue(String.class).concat(" " + snapshot.child("Last_Name").getValue(String.class));
+                                Intent intent = new Intent(Chat.this, Messages.class);
+                                intent.putExtra("mobile", snapshot.child("Phone").getValue(String.class));
+                                intent.putExtra("email", snapshot.child("Email").getValue(String.class));
+                                intent.putExtra("name", name);
+                                startActivity(intent);
+                                CustomIntent.customType(Chat.this, "right-to-left");
+                            }
+                        } else {
+                            String name = snapshot.child("First_Name").getValue(String.class).concat(" " + snapshot.child("Last_Name").getValue(String.class));
+                            Intent intent = new Intent(Chat.this, Messages.class);
+                            intent.putExtra("mobile", snapshot.child("Phone").getValue(String.class));
+                            intent.putExtra("email", snapshot.child("Email").getValue(String.class));
+                            intent.putExtra("name", name);
+                            startActivity(intent);
+                            CustomIntent.customType(Chat.this, "right-to-left");
+                        }
 
                     }
 
@@ -412,13 +436,29 @@ public class Chat extends BaseActivity implements BottomSheetImagePicker.OnImage
         databaseReference.child("users").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String name = snapshot.child("First_Name").getValue(String.class).concat(" " + snapshot.child("Last_Name").getValue(String.class));
-                Intent intent = new Intent(Chat.this, Messages.class);
-                intent.putExtra("mobile", snapshot.child("Phone").getValue(String.class));
-                intent.putExtra("email", snapshot.child("Email").getValue(String.class));
-                intent.putExtra("name", name);
-                startActivity(intent);
-
+                if (getIntent().getStringExtra("from") != null) {
+                    if (getIntent().getStringExtra("from").equals("admin")) {
+                        Intent intent = new Intent(Chat.this, ConflictTransactions.class);
+                        startActivity(intent);
+                        CustomIntent.customType(Chat.this, "right-to-left");
+                    } else {
+                        String name = snapshot.child("First_Name").getValue(String.class).concat(" " + snapshot.child("Last_Name").getValue(String.class));
+                        Intent intent = new Intent(Chat.this, Messages.class);
+                        intent.putExtra("mobile", snapshot.child("Phone").getValue(String.class));
+                        intent.putExtra("email", snapshot.child("Email").getValue(String.class));
+                        intent.putExtra("name", name);
+                        startActivity(intent);
+                        CustomIntent.customType(Chat.this, "right-to-left");
+                    }
+                } else {
+                    String name = snapshot.child("First_Name").getValue(String.class).concat(" " + snapshot.child("Last_Name").getValue(String.class));
+                    Intent intent = new Intent(Chat.this, Messages.class);
+                    intent.putExtra("mobile", snapshot.child("Phone").getValue(String.class));
+                    intent.putExtra("email", snapshot.child("Email").getValue(String.class));
+                    intent.putExtra("name", name);
+                    startActivity(intent);
+                    CustomIntent.customType(Chat.this, "right-to-left");
+                }
             }
 
             @Override
@@ -426,7 +466,6 @@ public class Chat extends BaseActivity implements BottomSheetImagePicker.OnImage
 
             }
         });
-        CustomIntent.customType(Chat.this, "right-to-left");
     }
 
     private void selectImage() {

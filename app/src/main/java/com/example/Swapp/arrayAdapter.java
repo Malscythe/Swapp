@@ -60,13 +60,13 @@ public class arrayAdapter extends ArrayAdapter<cards> {
         seeMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, MoreInfo.class);
+                Intent intent = new Intent(getContext(), MoreInfo.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intent.putExtra("poster_uid", card_item.getPoster_UID());
                 intent.putExtra("item_name", card_item.getItem_Name());
                 intent.putExtra("keys", card_item.getKeyList());
-                context.startActivity(intent);
-                CustomIntent.customType(context, "right-to-left");
+                getContext().startActivity(intent);
+                CustomIntent.customType(getContext(), "right-to-left");
             }
         });
 

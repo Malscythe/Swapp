@@ -51,14 +51,14 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
         holder.name.setText(list2.getName());
         holder.lastMessage.setText(list2.getLastMessage());
 
-        if (list2.getUnseenMessages() == 0) {
-            holder.unseenMessages.setVisibility(View.GONE);
-            holder.lastMessage.setTextColor(Color.parseColor("#959595"));
-        } else {
-            holder.unseenMessages.setVisibility(View.VISIBLE);
-            holder.unseenMessages.setText(list2.getUnseenMessages()+"");
-            holder.lastMessage.setTextColor(context.getResources().getColor(R.color.primary));
-        }
+//        if (list2.getUnseenMessages() == 0) {
+//            holder.unseenMessages.setVisibility(View.GONE);
+//            holder.lastMessage.setTextColor(Color.parseColor("#959595"));
+//        } else {
+//            holder.unseenMessages.setVisibility(View.VISIBLE);
+//            holder.unseenMessages.setText(list2.getUnseenMessages()+"");
+//            holder.lastMessage.setTextColor(context.getResources().getColor(R.color.primary));
+//        }
 
         holder.rootLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +94,6 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
         private CircleImageView profilePic;
         private TextView name;
         private TextView lastMessage;
-        private TextView unseenMessages;
         private LinearLayout rootLayout;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -103,7 +102,6 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
             profilePic = itemView.findViewById(R.id.profilePic);
             name = itemView.findViewById(R.id.name);
             lastMessage = itemView.findViewById(R.id.lastMessage);
-            unseenMessages = itemView.findViewById(R.id.unseenMessages);
             rootLayout = itemView.findViewById(R.id.rootLayout);
 
         }

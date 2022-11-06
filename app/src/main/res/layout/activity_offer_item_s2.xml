@@ -1133,7 +1133,7 @@
                                 android:layout_marginStart="20dp"
                                 android:layout_marginTop="10dp"
                                 android:fontFamily="@font/poppins"
-                                android:text="Furniture dimension: "
+                                android:text="Furniture dimension (CM): "
                                 android:textColor="@color/primary_black"
                                 android:textSize="18sp" />
 
@@ -1356,13 +1356,14 @@
                         android:background="@color/white"
                         app:boxStrokeColor="@color/primary"
                         app:boxStrokeWidth="2dp"
-                        app:helperText="Age restriction for this item.">
+                        app:helperText="Minimum age that use this item.">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/bnkAge"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:fontFamily="@font/poppins_medium"
+                            android:inputType="number"
                             android:hint="Age *"
                             android:importantForAutofill="no"
                             android:textColor="@color/black" />
@@ -1880,14 +1881,14 @@
                         android:background="@color/white"
                         app:boxStrokeColor="@color/primary"
                         app:boxStrokeWidth="2dp"
-                        app:helperText="The release date of the album.">
+                        app:helperText="The release year date of the album.">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/audioReleaseDate"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:fontFamily="@font/poppins_medium"
-                            android:hint="Release date *"
+                            android:hint="Release year date *"
                             android:importantForAutofill="no"
                             android:textColor="@color/black" />
                     </com.google.android.material.textfield.TextInputLayout>

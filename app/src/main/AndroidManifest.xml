@@ -77,6 +77,9 @@
             android:name="com.example.Swapp.MyUnsuccessfulTransactions"
             android:exported="true" />
         <activity
+            android:name="com.example.Swapp.ConflictTransactions"
+            android:exported="true" />
+        <activity
             android:name="com.example.Swapp.MySuccessfulTransactions"
             android:exported="true" />
         <activity
