@@ -453,6 +453,7 @@ public class signup extends AppCompatActivity {
                                         databaseReference.child("users").child(userID).child("Phone").setValue("0" + mobileNumber.getText().toString());
                                         databaseReference.child("users").child(userID).child("isAdmin").setValue("0");
                                         databaseReference.child("users").child(userID).child("canCall").setValue("false");
+                                        databaseReference.child("users").child(userID).child("User_Profile").setValue("https://firebasestorage.googleapis.com/v0/b/bugsbusters-de865.appspot.com/o/big-img.png?alt=media&token=0ef114ca-b5a2-4ea4-b498-338f5a76fae9");
                                         databaseReference.child("user-rating").child(userID).child("rating1").setValue("0");
                                         databaseReference.child("user-rating").child(userID).child("rating2").setValue("0");
                                         databaseReference.child("user-rating").child(userID).child("rating3").setValue("0");

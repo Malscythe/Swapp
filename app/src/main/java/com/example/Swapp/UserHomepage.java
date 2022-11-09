@@ -6,18 +6,23 @@ import static com.example.Swapp.call.SinchService.ENVIRONMENT;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.view.GravityCompat;
 import androidx.core.view.WindowCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.Swapp.call.BaseActivity;
 import com.example.Swapp.call.SinchService;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,6 +30,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,6 +38,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.auth.User;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.sinch.android.rtc.ClientRegistration;
 import com.sinch.android.rtc.PushTokenRegistrationCallback;
@@ -59,12 +66,15 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
 
     TextView pendingCounts, successfulCounts, unsuccessfulCounts, currentCounts, name;
     Dialog chartDialog;
-    ImageView viewChart, logoutBtn;
+    ImageView viewChart;
+    CircleImageView userProfile;
     CardView tradeButton, postButton;
     FirebaseAuth firebaseAuth;
     BottomNavigationView bottomNavigationView;
     DatabaseReference databaseReferenceUrl = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bugsbusters-de865-default-rtdb.asia-southeast1.firebasedatabase.app/");
     String strDate;
+    DrawerLayout drawerLayout;
+    String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,10 +88,9 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
         bottomNavigationView = findViewById(R.id.bottom_nav);
         viewChart = findViewById(R.id.viewBtn);
         chartDialog = new Dialog(this);
-        logoutBtn = findViewById(R.id.logoutBtn);
+        userProfile = findViewById(R.id.userProfile);
         tradeButton = findViewById(R.id.tradeButton);
         postButton = findViewById(R.id.postItemButton);
-//        accsetting = findViewById(R.id.accountSetting);
         pendingCounts = findViewById(R.id.pendingText);
         successfulCounts = findViewById(R.id.successfulText);
         unsuccessfulCounts = findViewById(R.id.unsuccessfulText);
@@ -89,7 +98,24 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
         firebaseAuth = FirebaseAuth.getInstance();
         name = findViewById(R.id.userFullName);
 
-        String uid = firebaseAuth.getCurrentUser().getUid();
+        uid = firebaseAuth.getCurrentUser().getUid();
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+
+        databaseReferenceUrl.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Uri uri = Uri.parse(snapshot.child("users").child(uid).child("User_Profile").getValue(String.class));
+
+                Glide.with(UserHomepage.this).load(uri).into(userProfile);
+                name.setText(snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat("!"));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         bottomNavigationView.setSelectedItemId(R.id.homepage);
 
@@ -132,8 +158,6 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
                 return true;
             }
         });
-
-        name.setText(MemoryData.getFirstName(UserHomepage.this) + "!");
 
         MemoryData.saveUid(uid, UserHomepage.this);
 
@@ -241,32 +265,33 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
             }
         });
 
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
+        drawerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSinchServiceInterface().stopClient();
+                closeDrawer(drawerLayout);
+            }
+        });
 
-                MemoryData.saveUid("", UserHomepage.this);
-                MemoryData.saveData("", UserHomepage.this);
-                MemoryData.saveName("", UserHomepage.this);
-                MemoryData.saveFirstName("", UserHomepage.this);
-                MemoryData.saveState(false, UserHomepage.this);
+        userProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-                DatabaseReference df = FirebaseDatabase.getInstance().getReference();
+                RatingBar userRating = findViewById(R.id.userRating);
+                TextView userName = findViewById(R.id.userName);
+                CircleImageView userProfilePic = findViewById(R.id.profilePic);
 
-                df.addListenerForSingleValueEvent(new ValueEventListener() {
+                databaseReferenceUrl.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        df.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
-                        df.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(uid);
-                        df.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Logged Out");
-                        df.child("users-status").child(uid).child("Status").setValue("Offline");
+                        String username = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
 
-                        Intent intent = new Intent(UserHomepage.this, login.class);
-                        intent.putExtra("logoutFrom", "User");
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                        CustomIntent.customType(UserHomepage.this, "right-to-left");
+                        userName.setText(username);
+                        userRating.setRating(Float.parseFloat(snapshot.child("user-rating").child(uid).child("Average_Rating").getValue(String.class)));
+
+                        if (snapshot.child("users").child(uid).hasChild("User_Profile")) {
+                            Uri uri = Uri.parse(snapshot.child("users").child(uid).child("User_Profile").getValue(String.class));
+                            Glide.with(UserHomepage.this).load(uri).into(userProfilePic);
+                        }
                     }
 
                     @Override
@@ -274,9 +299,22 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
 
                     }
                 });
+
+                openDrawer(drawerLayout);
             }
         });
     }
+
+    private void closeDrawer(DrawerLayout drawerLayout) {
+        if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+            drawerLayout.closeDrawer(GravityCompat.END);
+        }
+    }
+
+    private void openDrawer(DrawerLayout drawerLayout) {
+        drawerLayout.openDrawer(GravityCompat.END);
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -303,6 +341,7 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
     @Override
     protected void onPause() {
         super.onPause();
+        closeDrawer(drawerLayout);
     }
 
     private void startClientAndOpenPlaceCallActivity() {
@@ -355,5 +394,50 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
     public void onCredentialsRequired(ClientRegistration clientRegistration) {
         clientRegistration.register(JWT.create(APP_KEY, APP_SECRET, mUserId));
 
+    }
+
+    public void clickLogout(View view) {
+        getSinchServiceInterface().stopClient();
+
+        MemoryData.saveUid("", UserHomepage.this);
+        MemoryData.saveData("", UserHomepage.this);
+        MemoryData.saveName("", UserHomepage.this);
+        MemoryData.saveFirstName("", UserHomepage.this);
+        MemoryData.saveState(false, UserHomepage.this);
+
+        DatabaseReference df = FirebaseDatabase.getInstance().getReference();
+
+        df.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                df.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
+                df.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(uid);
+                df.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Logged Out");
+                df.child("users-status").child(uid).child("Status").setValue("Offline");
+
+                Intent intent = new Intent(UserHomepage.this, login.class);
+                intent.putExtra("logoutFrom", "User");
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                CustomIntent.customType(UserHomepage.this, "right-to-left");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void clickChangePass(View view) {
+        Intent intent = new Intent(UserHomepage.this, ChangePassword.class);
+        startActivity(intent);
+        CustomIntent.customType(UserHomepage.this, "left-to-right");
+    }
+
+    public void clickAccountDetails(View view) {
+        Intent intent = new Intent(UserHomepage.this, AccountSettings.class);
+        startActivity(intent);
+        CustomIntent.customType(UserHomepage.this, "left-to-right");
     }
 }

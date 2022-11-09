@@ -170,8 +170,6 @@ public class ItemSwipe extends AppCompatActivity {
                 ArrayList<String> keysList = (ArrayList<String>) getIntent().getSerializableExtra("keys");
 
                 switch (category) {
-                    case "all":
-                        break;
                     case "Apparel":
                         type = true;
                         brand = true;
@@ -973,8 +971,6 @@ public class ItemSwipe extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot1) {
 
                         switch (category) {
-                            case "all":
-                                break;
                             case "Apparel":
 
                                 for (int i = 0; i < keysList.size(); i++) {

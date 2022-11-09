@@ -118,7 +118,8 @@
             android:layout_marginStart="30dp"
             android:fontFamily="@font/poppins_semibold"
             android:textColor="@color/primary_black"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <TextView
             android:id="@+id/checkBoxLabel"

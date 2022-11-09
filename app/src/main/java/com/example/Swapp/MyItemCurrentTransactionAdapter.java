@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.Swapp.chat.Chat;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -66,6 +68,16 @@ public class MyItemCurrentTransactionAdapter extends RecyclerView.Adapter {
 
         MyItemCurrentTransactionAdapter.ViewHolderClass viewHolderClass = (MyItemCurrentTransactionAdapter.ViewHolderClass) holder;
 
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(viewHolderClass.textView.getContext(), R.style.BottomSheetDialogTheme);
+
+        View bottomSheetView = LayoutInflater.from(viewHolderClass.textView.getContext()).inflate(R.layout.bottom_sheet_layout_offered, null);
+
+        Button viewPosted = bottomSheetView.findViewById(R.id.postedItem);
+        Button viewOffered = bottomSheetView.findViewById(R.id.offeredItem);
+        Button goToChat = bottomSheetView.findViewById(R.id.goToChat);
+        Button getDirection = bottomSheetView.findViewById(R.id.getDirection);
+        Button goToReview = bottomSheetView.findViewById(R.id.goToReview);
+
         final OfferFetch offerFetch = offerFetchList.get(position);
         viewHolderClass.textView.setText(offerFetch.getItem_Name());
         viewHolderClass.itemlocation.setText(offerFetch.getItem_Location());
@@ -74,20 +86,6 @@ public class MyItemCurrentTransactionAdapter extends RecyclerView.Adapter {
                 .placeholder(com.firebase.ui.database.R.drawable.common_google_signin_btn_icon_dark)
                 .error(com.google.firebase.database.R.drawable.common_google_signin_btn_icon_dark_normal)
                 .into(viewHolderClass.img);
-
-        viewHolderClass.rootLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                TransitionManager.beginDelayedTransition(viewHolderClass.buttonsLayout);
-
-                if (viewHolderClass.buttonsLayout.getVisibility() == View.VISIBLE) {
-                    viewHolderClass.buttonsLayout.setVisibility(View.GONE);
-                } else {
-                    viewHolderClass.buttonsLayout.setVisibility(View.VISIBLE);
-                }
-            }
-        });
 
         databaseReference.child("trade-transactions").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -108,17 +106,15 @@ public class MyItemCurrentTransactionAdapter extends RecyclerView.Adapter {
                                                     dataSnapshot.child("Offered_Item").child("Poster_UID").getValue(String.class).equals(offerFetch.getPoster_UID()) &&
                                                     dataSnapshot.child("Transaction_Status").getValue(String.class).equals("Waiting for review")) {
 
-                                                viewHolderClass.goToReview.setVisibility(View.VISIBLE);
-                                                viewHolderClass.transactionStatus.setText("Waiting for " + dataSnapshot.child("Offered_Item").child("Poster_Name").getValue(String.class) + " review");
-                                                viewHolderClass.transactionStatus.setBackgroundResource(R.drawable.waiting_for_review);
+                                                goToReview.setVisibility(View.GONE);
+                                                viewHolderClass.transactionStatus.setText("Waiting for offerer review");
 
                                             } else if (dataSnapshot.child("Posted_Item").child("Poster_UID").getValue(String.class).equals(dataSnapshot1.getKey()) &&
                                                     dataSnapshot.child("Posted_Item").child("Item_Name").getValue(String.class).equals(dataSnapshot2.getKey()) &&
                                                     dataSnapshot.child("Transaction_Status").getValue(String.class).equals("Waiting for validation")) {
 
-                                                viewHolderClass.goToReview.setVisibility(View.GONE);
-                                                viewHolderClass.transactionStatus.setText("Waiting for validation");
-                                                viewHolderClass.transactionStatus.setBackgroundResource(R.drawable.waiting_for_validation);
+                                                goToReview.setVisibility(View.VISIBLE);
+                                                viewHolderClass.transactionStatus.setText("Waiting for your review");
 
                                             }
                                         }
@@ -141,162 +137,170 @@ public class MyItemCurrentTransactionAdapter extends RecyclerView.Adapter {
             }
         });
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        viewHolderClass.rootLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.child("items").getChildren()) {
-                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                        if (dataSnapshot1.child("Accepted_Offers").hasChild(offerFetch.getPoster_UID()) ) {
-                            if (dataSnapshot1.child("Accepted_Offers").child(offerFetch.getPoster_UID()).child("Item_Name").getValue(String.class).equals(offerFetch.getItem_Name())) {
-                                viewHolderClass.offeredMoreInfo.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
+            public void onClick(View v) {
+                databaseReference = FirebaseDatabase.getInstance().getReference();
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot : snapshot.child("items").getChildren()) {
+                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                                if (dataSnapshot1.child("Accepted_Offers").hasChild(offerFetch.getPoster_UID()) ) {
+                                    if (dataSnapshot1.child("Accepted_Offers").child(offerFetch.getPoster_UID()).child("Item_Name").getValue(String.class).equals(offerFetch.getItem_Name())) {
+                                        viewOffered.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
 
-                                        Intent intent = new Intent(view.getContext(), TransactionMoreInfo.class);
-                                        intent.putExtra("itemName", offerFetch.getItem_Name());
-                                        intent.putExtra("userID", offerFetch.getPoster_UID());
-                                        intent.putExtra("parentKey", dataSnapshot.getKey());
-                                        intent.putExtra("parentItemName", dataSnapshot1.getKey());
-                                        intent.putExtra("view", "Offered");
-                                        view.getContext().startActivity(intent);
-                                        CustomIntent.customType(view.getContext(), "left-to-right");
-                                    }
-                                });
+                                                Intent intent = new Intent(view.getContext(), TransactionMoreInfo.class);
+                                                intent.putExtra("itemName", offerFetch.getItem_Name());
+                                                intent.putExtra("userID", offerFetch.getPoster_UID());
+                                                intent.putExtra("parentKey", dataSnapshot.getKey());
+                                                intent.putExtra("parentItemName", dataSnapshot1.getKey());
+                                                intent.putExtra("view", "Offered");
+                                                view.getContext().startActivity(intent);
+                                                CustomIntent.customType(view.getContext(), "left-to-right");
+                                            }
+                                        });
 
-                                viewHolderClass.postedMoreInfo.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
+                                        viewPosted.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
 
-                                        Intent intent = new Intent(view.getContext(), TransactionMoreInfo.class);
-                                        intent.putExtra("itemName", offerFetch.getItem_Name());
-                                        intent.putExtra("userID", offerFetch.getPoster_UID());
-                                        intent.putExtra("parentKey", dataSnapshot.getKey());
-                                        intent.putExtra("parentItemName", dataSnapshot1.getKey());
-                                        intent.putExtra("view", "Posted");
-                                        view.getContext().startActivity(intent);
-                                        CustomIntent.customType(view.getContext(), "left-to-right");
-                                    }
-                                });
+                                                Intent intent = new Intent(view.getContext(), TransactionMoreInfo.class);
+                                                intent.putExtra("itemName", offerFetch.getItem_Name());
+                                                intent.putExtra("userID", offerFetch.getPoster_UID());
+                                                intent.putExtra("parentKey", dataSnapshot.getKey());
+                                                intent.putExtra("parentItemName", dataSnapshot1.getKey());
+                                                intent.putExtra("view", "Posted");
+                                                view.getContext().startActivity(intent);
+                                                CustomIntent.customType(view.getContext(), "left-to-right");
+                                            }
+                                        });
 
-                                viewHolderClass.getDirection.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Intent intent = new Intent(v.getContext(), currentLoc.class);
-                                        intent.putExtra("from", "getDirection");
-                                        intent.putExtra("category", "getDirection");
-                                        intent.putExtra("latitude", dataSnapshot1.child("Accepted_Offers").child(offerFetch.getPoster_UID()).child("Address").child("Latitude").getValue(String.class));
-                                        intent.putExtra("longitude", dataSnapshot1.child("Accepted_Offers").child(offerFetch.getPoster_UID()).child("Address").child("Longitude").getValue(String.class));
-                                        v.getContext().startActivity(intent);
-                                        CustomIntent.customType(v.getContext(), "left-to-right");
-                                    }
-                                });
+                                        getDirection.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                Intent intent = new Intent(v.getContext(), currentLoc.class);
+                                                intent.putExtra("from", "getDirection");
+                                                intent.putExtra("category", "getDirection");
+                                                intent.putExtra("latitude", dataSnapshot1.child("Accepted_Offers").child(offerFetch.getPoster_UID()).child("Address").child("Latitude").getValue(String.class));
+                                                intent.putExtra("longitude", dataSnapshot1.child("Accepted_Offers").child(offerFetch.getPoster_UID()).child("Address").child("Longitude").getValue(String.class));
+                                                v.getContext().startActivity(intent);
+                                                CustomIntent.customType(v.getContext(), "left-to-right");
+                                            }
+                                        });
 
-                                viewHolderClass.goToChat.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
+                                        goToChat.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
 
-                                        if (snapshot.child("chat").exists()) {
+                                                if (snapshot.child("chat").exists()) {
 
-                                            for (DataSnapshot dataSnapshot2 : snapshot.child("chat").getChildren()) {
-                                                user1 = dataSnapshot2.child("user_1").getValue(String.class);
-                                                user2 = dataSnapshot2.child("user_2").getValue(String.class);
+                                                    for (DataSnapshot dataSnapshot2 : snapshot.child("chat").getChildren()) {
+                                                        user1 = dataSnapshot2.child("user_1").getValue(String.class);
+                                                        user2 = dataSnapshot2.child("user_2").getValue(String.class);
 
-                                                if (!offerFetch.getPoster_UID().equals(uid)) {
-                                                    myPhone = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
-                                                    userName = snapshot.child("users").child(offerFetch.getPoster_UID()).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(offerFetch.getPoster_UID()).child("Last_Name").getValue(String.class));
-                                                    traderPhone = snapshot.child("users").child(offerFetch.getPoster_UID()).child("Phone").getValue(String.class);
-                                                    traderID = offerFetch.getPoster_UID();
-                                                    traderStatus = snapshot.child("users-status").child(offerFetch.getPoster_UID()).child("Status").getValue(String.class);
+                                                        if (!offerFetch.getPoster_UID().equals(uid)) {
+                                                            myPhone = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
+                                                            userName = snapshot.child("users").child(offerFetch.getPoster_UID()).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(offerFetch.getPoster_UID()).child("Last_Name").getValue(String.class));
+                                                            traderPhone = snapshot.child("users").child(offerFetch.getPoster_UID()).child("Phone").getValue(String.class);
+                                                            traderID = offerFetch.getPoster_UID();
+                                                            traderStatus = snapshot.child("users-status").child(offerFetch.getPoster_UID()).child("Status").getValue(String.class);
+                                                        } else {
+                                                            myPhone = snapshot.child("users").child(offerFetch.getPoster_UID()).child("Phone").getValue(String.class);
+                                                            userName = snapshot.child("users").child(dataSnapshot.getKey()).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(dataSnapshot.getKey()).child("Last_Name").getValue(String.class));
+                                                            traderPhone = snapshot.child("users").child(dataSnapshot.getKey()).child("Phone").getValue(String.class);
+                                                            traderID = dataSnapshot.getKey();
+                                                            traderStatus = snapshot.child("users-status").child(dataSnapshot.getKey()).child("Status").getValue(String.class);
+                                                        }
+
+                                                        if (((user1.equals(myPhone) || user2.equals(myPhone)) && ((user1.equals(traderPhone) || user2.equals(traderPhone)))) && (!myPhone.equals(traderPhone))) {
+                                                            chatKey = dataSnapshot2.getKey();
+                                                        }
+                                                    }
+                                                }
+
+                                                if (snapshot.child("chat").exists()) {
+
+                                                    if (chatKey != null) {
+
+                                                        Log.d("CHAT", chatKey);
+                                                        Intent intent = new Intent(v.getContext(), Chat.class);
+                                                        intent.putExtra("mobile", traderPhone);
+                                                        intent.putExtra("name", userName);
+                                                        intent.putExtra("chat_key", chatKey);
+                                                        intent.putExtra("userID", traderID);
+                                                        intent.putExtra("userStatus", traderStatus);
+
+                                                        v.getContext().startActivity(intent);
+                                                        CustomIntent.customType(v.getContext(), "left-to-right");
+
+                                                    } else {
+
+                                                        Log.d("CHAT", "ELSE");
+                                                        Intent intent = new Intent(v.getContext(), Chat.class);
+                                                        intent.putExtra("mobile", traderPhone);
+                                                        intent.putExtra("name", userName);
+                                                        intent.putExtra("chat_key", "");
+                                                        intent.putExtra("userID", traderID);
+                                                        intent.putExtra("userStatus", traderStatus);
+
+                                                        v.getContext().startActivity(intent);
+                                                        CustomIntent.customType(v.getContext(), "left-to-right");
+
+                                                    }
                                                 } else {
-                                                    myPhone = snapshot.child("users").child(offerFetch.getPoster_UID()).child("Phone").getValue(String.class);
-                                                    userName = snapshot.child("users").child(dataSnapshot.getKey()).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(dataSnapshot.getKey()).child("Last_Name").getValue(String.class));
-                                                    traderPhone = snapshot.child("users").child(dataSnapshot.getKey()).child("Phone").getValue(String.class);
-                                                    traderID = dataSnapshot.getKey();
-                                                    traderStatus = snapshot.child("users-status").child(dataSnapshot.getKey()).child("Status").getValue(String.class);
-                                                }
 
-                                                if (((user1.equals(myPhone) || user2.equals(myPhone)) && ((user1.equals(traderPhone) || user2.equals(traderPhone)))) && (!myPhone.equals(traderPhone))) {
-                                                    chatKey = dataSnapshot2.getKey();
+                                                    Log.d("CHAT", "ELSE ELSE");
+                                                    Intent intent = new Intent(v.getContext(), Chat.class);
+                                                    intent.putExtra("mobile", traderPhone);
+                                                    intent.putExtra("name", userName);
+                                                    intent.putExtra("chat_key", "");
+                                                    intent.putExtra("userID", traderID);
+                                                    intent.putExtra("userStatus", traderStatus);
+
+                                                    v.getContext().startActivity(intent);
+                                                    CustomIntent.customType(v.getContext(), "left-to-right");
                                                 }
                                             }
-                                        }
+                                        });
 
-                                        if (snapshot.child("chat").exists()) {
-
-                                            if (chatKey != null) {
-
-                                                Log.d("CHAT", chatKey);
-                                                Intent intent = new Intent(v.getContext(), Chat.class);
-                                                intent.putExtra("mobile", traderPhone);
-                                                intent.putExtra("name", userName);
-                                                intent.putExtra("chat_key", chatKey);
-                                                intent.putExtra("userID", traderID);
-                                                intent.putExtra("userStatus", traderStatus);
-
-                                                v.getContext().startActivity(intent);
-                                                CustomIntent.customType(v.getContext(), "left-to-right");
-
-                                            } else {
-
-                                                Log.d("CHAT", "ELSE");
-                                                Intent intent = new Intent(v.getContext(), Chat.class);
-                                                intent.putExtra("mobile", traderPhone);
-                                                intent.putExtra("name", userName);
-                                                intent.putExtra("chat_key", "");
-                                                intent.putExtra("userID", traderID);
-                                                intent.putExtra("userStatus", traderStatus);
-
-                                                v.getContext().startActivity(intent);
-                                                CustomIntent.customType(v.getContext(), "left-to-right");
+                                        goToReview.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                if (!dataSnapshot.getKey().equals(uid)) {
+                                                    Intent intent = new Intent(v.getContext(), TransactionReview.class);
+                                                    intent.putExtra("ParentKey", dataSnapshot.getKey());
+                                                    intent.putExtra("ParentItemName", dataSnapshot1.getKey());
+                                                    intent.putExtra("OffererKey", uid);
+                                                    v.getContext().startActivity(intent);
+                                                    CustomIntent.customType(v.getContext(), "left-to-right");
+                                                } else {
+                                                    Intent intent = new Intent(v.getContext(), TransactionReview.class);
+                                                    intent.putExtra("ParentKey", dataSnapshot.getKey());
+                                                    intent.putExtra("ParentItemName", dataSnapshot1.getKey());
+                                                    intent.putExtra("OffererKey", offerFetch.getPoster_UID());
+                                                    v.getContext().startActivity(intent);
+                                                    CustomIntent.customType(v.getContext(), "left-to-right");
+                                                }
 
                                             }
-                                        } else {
-
-                                            Log.d("CHAT", "ELSE ELSE");
-                                            Intent intent = new Intent(v.getContext(), Chat.class);
-                                            intent.putExtra("mobile", traderPhone);
-                                            intent.putExtra("name", userName);
-                                            intent.putExtra("chat_key", "");
-                                            intent.putExtra("userID", traderID);
-                                            intent.putExtra("userStatus", traderStatus);
-
-                                            v.getContext().startActivity(intent);
-                                            CustomIntent.customType(v.getContext(), "left-to-right");
-                                        }
+                                        });
                                     }
-                                });
-
-                                viewHolderClass.goToReview.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        if (!dataSnapshot.getKey().equals(uid)) {
-                                            Intent intent = new Intent(v.getContext(), TransactionReview.class);
-                                            intent.putExtra("ParentKey", dataSnapshot.getKey());
-                                            intent.putExtra("ParentItemName", dataSnapshot1.getKey());
-                                            intent.putExtra("OffererKey", uid);
-                                            v.getContext().startActivity(intent);
-                                            CustomIntent.customType(v.getContext(), "left-to-right");
-                                        } else {
-                                            Intent intent = new Intent(v.getContext(), TransactionReview.class);
-                                            intent.putExtra("ParentKey", dataSnapshot.getKey());
-                                            intent.putExtra("ParentItemName", dataSnapshot1.getKey());
-                                            intent.putExtra("OffererKey", offerFetch.getPoster_UID());
-                                            v.getContext().startActivity(intent);
-                                            CustomIntent.customType(v.getContext(), "left-to-right");
-                                        }
-
-                                    }
-                                });
+                                }
                             }
                         }
                     }
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
+                    }
+                });
+
+                bottomSheetDialog.setContentView(bottomSheetView);
+                bottomSheetDialog.show();
             }
         });
     }
@@ -308,21 +312,15 @@ public class MyItemCurrentTransactionAdapter extends RecyclerView.Adapter {
 
     public class ViewHolderClass extends RecyclerView.ViewHolder {
 
-        TextView textView, itemlocation, offeredMoreInfo, goToReview, postedMoreInfo, transactionStatus;
-        ImageView img, getDirection, goToChat;
-        LinearLayout rootLayout, buttonsLayout;
+        TextView textView, itemlocation, transactionStatus;
+        ImageView img;
+        LinearLayout rootLayout;
 
         public ViewHolderClass(@NonNull View itemView) {
             super(itemView);
 
             rootLayout = itemView.findViewById(R.id.rootLayout);
-            buttonsLayout = itemView.findViewById(R.id.revealButtons);
             transactionStatus = itemView.findViewById(R.id.transactionStatus);
-            goToReview = itemView.findViewById(R.id.submitReview);
-            goToChat = itemView.findViewById(R.id.goToChat);
-            getDirection = itemView.findViewById(R.id.getDirection);
-            offeredMoreInfo = itemView.findViewById(R.id.offeredMoreInfo);
-            postedMoreInfo = itemView.findViewById(R.id.postedMoreInfo);
             textView = itemView.findViewById(R.id.offereditemname);
             img = itemView.findViewById(R.id.offeredpic);
             itemlocation = itemView.findViewById(R.id.offeredlocation);

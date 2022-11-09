@@ -130,6 +130,7 @@ public class Messages extends BaseActivity {
 
                                 final String getName = dataSnapshot.child("First_Name").getValue(String.class).concat(" " + dataSnapshot.child("Last_Name").getValue(String.class));
                                 final String getCurrentId = dataSnapshot.getKey();
+                                final String getPicture = dataSnapshot.child("User_Profile").getValue(String.class);
 
                                 int getChatCounts = (int) snapshot.getChildrenCount();
 
@@ -190,7 +191,7 @@ public class Messages extends BaseActivity {
                                         }
                                     }
                                     if (!dataSet && oppositeNum.equals(mobile)) {
-                                        MessagesList messagesList = new MessagesList(getName, currentMobile, lastMessage, "", unseenMessages, chatKey, snapshot.child("users-status").child(getCurrentId).child("Status").getValue(String.class), currentId);
+                                        MessagesList messagesList = new MessagesList(getName, currentMobile, lastMessage, getPicture, unseenMessages, chatKey, snapshot.child("users-status").child(getCurrentId).child("Status").getValue(String.class), currentId);
                                         messagesLists.add(messagesList);
                                         messagesAdapter.updateData(messagesLists);
                                         dataSet = true;

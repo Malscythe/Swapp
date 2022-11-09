@@ -109,4 +109,12 @@ public class SplashScreen extends AppCompatActivity {
             }, 5000);
         }
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Intent sharedIntent = new Intent(SplashScreen.this, login.class);
+        sharedIntent.putExtra("logoutFrom", "User");
+        startActivity(sharedIntent);
+    }
 }

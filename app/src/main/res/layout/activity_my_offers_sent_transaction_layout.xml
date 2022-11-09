@@ -12,20 +12,6 @@
         android:backgroundTint="@color/white"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/transactionStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Waiting for review"
-            android:textAlignment="center"
-            android:fontFamily="@font/poppins"
-            android:padding="5dp"
-            android:textAllCaps="true"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:background="@drawable/waiting_for_review"/>
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -71,89 +57,22 @@
                     android:textSize="13sp"
                     android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/getDirection"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="60dp"
-                    android:layout_marginTop="5dp"
-                    android:src="@drawable/direction"
-                    app:tint="@color/primary" />
-
-                <ImageView
-                    android:id="@+id/goToChat"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="15dp"
-                    android:src="@drawable/chat"
-                    app:tint="@color/primary" />
+                <TextView
+                    android:id="@+id/transactionStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:fontFamily="@font/poppins"
+                    android:textStyle="bold"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@id/offeredlocation"
+                    android:textColor="@color/primary"
+                    android:textSize="14sp"/>
 
             </RelativeLayout>
 
         </RelativeLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/revealButtons"
-        android:layout_below="@id/rootLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:background="@color/white"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/postedMoreInfo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="View posted item details"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:background="@drawable/bottom_border"
-            android:textColor="@color/primary_black"
-            android:fontFamily="@font/poppins"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            android:textAllCaps="true"
-            android:layout_gravity="center_horizontal"/>
-
-        <TextView
-            android:id="@+id/offeredMoreInfo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="View offered item details"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:textColor="@color/primary_black"
-            android:background="@drawable/bottom_border"
-            android:fontFamily="@font/poppins"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            android:textAllCaps="true"
-            android:layout_gravity="center_horizontal"/>
-
-        <TextView
-            android:id="@+id/submitReview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Submit a review"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:visibility="gone"
-            android:textColor="@color/primary_black"
-            android:background="@drawable/bottom_border"
-            android:fontFamily="@font/poppins"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            android:textAllCaps="true"
-            android:layout_gravity="center_horizontal"/>
 
     </LinearLayout>
 

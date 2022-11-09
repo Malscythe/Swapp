@@ -3,6 +3,7 @@ package com.example.Swapp.messages;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.Swapp.MemoryData;
 import com.example.Swapp.Messages;
 import com.example.Swapp.UserHomepage;
@@ -51,14 +53,9 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
         holder.name.setText(list2.getName());
         holder.lastMessage.setText(list2.getLastMessage());
 
-//        if (list2.getUnseenMessages() == 0) {
-//            holder.unseenMessages.setVisibility(View.GONE);
-//            holder.lastMessage.setTextColor(Color.parseColor("#959595"));
-//        } else {
-//            holder.unseenMessages.setVisibility(View.VISIBLE);
-//            holder.unseenMessages.setText(list2.getUnseenMessages()+"");
-//            holder.lastMessage.setTextColor(context.getResources().getColor(R.color.primary));
-//        }
+        Uri uri = Uri.parse(list2.getProfilePic());
+
+        Glide.with(context).load(uri).into(holder.profilePic);
 
         holder.rootLayout.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -124,9 +124,14 @@ public class Chat extends BaseActivity implements BottomSheetImagePicker.OnImage
         chatKey = getIntent().getStringExtra("chat_key");
         final String getMobile = getIntent().getStringExtra("mobile");
         final String getStatus = getIntent().getStringExtra("userStatus");
+        final String getProfilePic = getIntent().getStringExtra("profile_pic");
         final String getUID = getIntent().getStringExtra("userID");
 
         getUserMobile = MemoryData.getData(Chat.this);
+
+        Uri uri = Uri.parse(getProfilePic);
+
+        Glide.with(Chat.this).load(uri).into(profilePic);
 
         name.setText(getName);
 

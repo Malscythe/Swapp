@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomSheetContainer"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/postedItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_border"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="VIEW POSTED ITEM"
+        android:fontFamily="@font/poppins"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary_black"
+        android:textAlignment="center" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/offeredItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_border"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="VIEW OFFERED ITEM"
+        android:textColor="@color/primary_black"
+        android:fontFamily="@font/poppins"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textAlignment="center" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/goToChat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_border"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="GO TO CHAT"
+        android:textColor="@color/primary_black"
+        android:fontFamily="@font/poppins"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textAlignment="center" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/getDirection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_border"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="GET DIRECTION"
+        android:textColor="@color/primary_black"
+        android:fontFamily="@font/poppins"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textAlignment="center" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/goToReview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_border"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="SUBMIT TRANSACTION REVIEW"
+        android:textColor="@color/primary_black"
+        android:fontFamily="@font/poppins"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textAlignment="center" />
+
+
+</LinearLayout>

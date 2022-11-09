@@ -77,7 +77,13 @@
             android:name="com.example.Swapp.MyUnsuccessfulTransactions"
             android:exported="true" />
         <activity
+            android:name="com.example.Swapp.ChangePassword"
+            android:exported="true" />
+        <activity
             android:name="com.example.Swapp.ConflictTransactions"
+            android:exported="true" />
+        <activity
+            android:name="com.example.Swapp.AccountSettings"
             android:exported="true" />
         <activity
             android:name="com.example.Swapp.MySuccessfulTransactions"
