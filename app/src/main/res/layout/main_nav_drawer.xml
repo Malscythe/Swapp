@@ -55,7 +55,6 @@
         android:layout_below="@id/topBanner"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/logoutRoot"
         android:orientation="vertical">
 
         <com.google.android.material.divider.MaterialDivider
@@ -92,46 +91,21 @@
             android:textSize="18sp"
             android:onClick="clickChangePass"/>
 
-    </LinearLayout>
-
-    <com.google.android.material.divider.MaterialDivider
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/logoutRoot"/>
-
-    <RelativeLayout
-        android:id="@+id/logoutRoot"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"
-        android:onClick="clickLogout">
-
-        <ImageView
-            android:id="@+id/logoutIcon"
-            android:layout_width="25sp"
-            android:layout_height="25sp"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:src="@drawable/ic_baseline_logout_36"
-            app:tint="@color/primary_black" />
-
         <TextView
-            android:id="@+id/logout"
-            android:layout_width="wrap_content"
+            android:id="@+id/logoutRoot"
+            android:background="@android:color/holo_red_light"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/logoutIcon"
-            android:fontFamily="@font/poppins"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
             android:text="Log out"
-            android:textColor="@color/primary_black"
-            android:textSize="18sp" />
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:onClick="clickChangePass"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </RelativeLayout>

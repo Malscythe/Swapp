@@ -7,7 +7,9 @@ import static com.example.Swapp.call.SinchService.ENVIRONMENT;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
+import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Dialog;
@@ -75,6 +77,8 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
     String strDate;
     DrawerLayout drawerLayout;
     String uid;
+    View mDecorView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +88,8 @@ public class UserHomepage extends BaseActivity implements SinchService.StartFail
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         strDate = new SimpleDateFormat("MMMM dd, yyyy hh:mm aa", Locale.getDefault()).format(new Date());
+
+        mDecorView = getWindow().getDecorView();
 
         bottomNavigationView = findViewById(R.id.bottom_nav);
         viewChart = findViewById(R.id.viewBtn);
