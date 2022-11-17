@@ -1272,6 +1272,9 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        String name = snapshot.child("users").child(posterUID).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(posterUID).child("Last_Name").getValue(String.class));
+
                         if (snapshot.child("user-transactions").child(posterUID).child("Pending").exists()) {
                             int newPendingPoster = Integer.parseInt(snapshot.child("user-transactions").child(posterUID).child("Pending").getValue(String.class));
                             newPendingPoster = newPendingPoster + 1;
@@ -1292,7 +1295,7 @@ public class offerItem_S4 extends AppCompatActivity implements BottomSheetImageP
 
                         databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                         databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                        databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Offered item to " + posterUID);
+                        databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Offered item " + getIntent().getStringExtra("item_name") + " to " + name);
 
                         pDialog.dismiss();
                         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

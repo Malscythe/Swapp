@@ -35,6 +35,7 @@ import com.kofigyan.stateprogressbar.StateProgressBar;
 import com.kroegerama.imgpicker.BottomSheetImagePicker;
 
 import java.io.ByteArrayOutputStream;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -155,6 +156,9 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                 pDialog.setCancelable(false);
                 pDialog.show();
 
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy ", Locale.getDefault());
+
                 switch (category) {
                     case "Men's Apparel":
 
@@ -199,6 +203,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                     String mSizeChart = getIntent().getStringExtra("mensSizeChart");
                                                     String mLandmark = getIntent().getStringExtra("landmark");
 
+
                                                     if (!snapshot.child("items").child(currentId).hasChild(mItemName)) {
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Poster_Name").setValue(MemoryData.getName(PostItem_S4.this));
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Poster_UID").setValue(currentId);
@@ -220,6 +225,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Address").child("State").setValue(mState);
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Address").child("Country").setValue(mCountry);
                                                         databaseReference.child("items").child(currentId).child(mItemName).child("Status").setValue("Validating");
+                                                        databaseReference.child("items").child(currentId).child(mItemName).child("Date_Posted").setValue(simpleDateFormat.format(timestamp));
 
                                                         if (!mLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(mItemName).child("Address").child("Landmark").setValue(mLandmark);
@@ -350,6 +356,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(gadgetItemName).child("Address").child("State").setValue(gadgetState);
                                                         databaseReference.child("items").child(currentId).child(gadgetItemName).child("Address").child("Country").setValue(gadgetCountry);
                                                         databaseReference.child("items").child(currentId).child(gadgetItemName).child("Status").setValue("Validating");
+                                                        databaseReference.child("items").child(currentId).child(gadgetItemName).child("Date_Posted").setValue(simpleDateFormat.format(timestamp));
 
                                                         if (!gadgetLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(gadgetItemName).child("Address").child("Landmark").setValue(gadgetLandmark);
@@ -457,6 +464,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(gameItemName).child("Address").child("State").setValue(gameState);
                                                         databaseReference.child("items").child(currentId).child(gameItemName).child("Address").child("Country").setValue(gameCountry);
                                                         databaseReference.child("items").child(currentId).child(gameItemName).child("Status").setValue("Validating");
+                                                        databaseReference.child("items").child(currentId).child(gameItemName).child("Date_Posted").setValue(simpleDateFormat.format(timestamp));
 
                                                         if (!gameLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(gameItemName).child("Address").child("Landmark").setValue(gameLandmark);
@@ -567,6 +575,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(bagItemName).child("Address").child("State").setValue(bagState);
                                                         databaseReference.child("items").child(currentId).child(bagItemName).child("Address").child("Country").setValue(bagCountry);
                                                         databaseReference.child("items").child(currentId).child(bagItemName).child("Status").setValue("Validating");
+                                                        databaseReference.child("items").child(currentId).child(bagItemName).child("Date_Posted").setValue(simpleDateFormat.format(timestamp));
 
                                                         if (!bagLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(bagItemName).child("Address").child("Landmark").setValue(bagLandmark);
@@ -669,6 +678,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(groceryItemName).child("Address").child("State").setValue(groceryState);
                                                         databaseReference.child("items").child(currentId).child(groceryItemName).child("Address").child("Country").setValue(groceryCountry);
                                                         databaseReference.child("items").child(currentId).child(groceryItemName).child("Status").setValue("Validating");
+                                                        databaseReference.child("items").child(currentId).child(groceryItemName).child("Date_Posted").setValue(simpleDateFormat.format(timestamp));
 
                                                         if (!groceryLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(groceryItemName).child("Address").child("Landmark").setValue(groceryLandmark);
@@ -783,6 +793,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(furnitureItemName).child("Address").child("State").setValue(furnitureState);
                                                         databaseReference.child("items").child(currentId).child(furnitureItemName).child("Address").child("Country").setValue(furnitureCountry);
                                                         databaseReference.child("items").child(currentId).child(furnitureItemName).child("Status").setValue("Validating");
+                                                        databaseReference.child("items").child(currentId).child(furnitureItemName).child("Date_Posted").setValue(simpleDateFormat.format(timestamp));
 
                                                         if (!furnitureLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(furnitureItemName).child("Address").child("Landmark").setValue(furnitureLandmark);
@@ -893,6 +904,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(bnkItemName).child("Address").child("State").setValue(bnkState);
                                                         databaseReference.child("items").child(currentId).child(bnkItemName).child("Address").child("Country").setValue(bnkCountry);
                                                         databaseReference.child("items").child(currentId).child(bnkItemName).child("Status").setValue("Validating");
+                                                        databaseReference.child("items").child(currentId).child(bnkItemName).child("Date_Posted").setValue(simpleDateFormat.format(timestamp));
 
                                                         if (!bnkLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(bnkItemName).child("Address").child("Landmark").setValue(bnkLandmark);
@@ -1003,6 +1015,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(appliancesItemName).child("Address").child("State").setValue(appliancesState);
                                                         databaseReference.child("items").child(currentId).child(appliancesItemName).child("Address").child("Country").setValue(appliancesCountry);
                                                         databaseReference.child("items").child(currentId).child(appliancesItemName).child("Status").setValue("Validating");
+                                                        databaseReference.child("items").child(currentId).child(appliancesItemName).child("Date_Posted").setValue(simpleDateFormat.format(timestamp));
 
                                                         if (!appliancesLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(appliancesItemName).child("Address").child("Landmark").setValue(appliancesLandmark);
@@ -1113,6 +1126,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(motorItemName).child("Address").child("State").setValue(motorState);
                                                         databaseReference.child("items").child(currentId).child(motorItemName).child("Address").child("Country").setValue(motorCountry);
                                                         databaseReference.child("items").child(currentId).child(motorItemName).child("Status").setValue("Validating");
+                                                        databaseReference.child("items").child(currentId).child(motorItemName).child("Date_Posted").setValue(simpleDateFormat.format(timestamp));
 
                                                         if (!motorLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(motorItemName).child("Address").child("Landmark").setValue(motorLandmark);
@@ -1221,6 +1235,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(audioItemName).child("Address").child("State").setValue(audioState);
                                                         databaseReference.child("items").child(currentId).child(audioItemName).child("Address").child("Country").setValue(audioCountry);
                                                         databaseReference.child("items").child(currentId).child(audioItemName).child("Status").setValue("Validating");
+                                                        databaseReference.child("items").child(currentId).child(audioItemName).child("Date_Posted").setValue(simpleDateFormat.format(timestamp));
 
                                                         if (!audioLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(audioItemName).child("Address").child("Landmark").setValue(audioLandmark);
@@ -1331,6 +1346,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(schoolItemName).child("Address").child("State").setValue(schoolState);
                                                         databaseReference.child("items").child(currentId).child(schoolItemName).child("Address").child("Country").setValue(schoolCountry);
                                                         databaseReference.child("items").child(currentId).child(schoolItemName).child("Status").setValue("Validating");
+                                                        databaseReference.child("items").child(currentId).child(schoolItemName).child("Date_Posted").setValue(simpleDateFormat.format(timestamp));
 
                                                         if (!schoolLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(schoolItemName).child("Address").child("Landmark").setValue(schoolLandmark);
@@ -1446,6 +1462,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(wItemName).child("Address").child("State").setValue(wState);
                                                         databaseReference.child("items").child(currentId).child(wItemName).child("Address").child("Country").setValue(wCountry);
                                                         databaseReference.child("items").child(currentId).child(wItemName).child("Status").setValue("Validating");
+                                                        databaseReference.child("items").child(currentId).child(wItemName).child("Date_Posted").setValue(simpleDateFormat.format(timestamp));
 
                                                         if (!wLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(wItemName).child("Address").child("Landmark").setValue(wLandmark);
@@ -1568,6 +1585,7 @@ public class PostItem_S4 extends AppCompatActivity implements BottomSheetImagePi
                                                         databaseReference.child("items").child(currentId).child(otherItemName).child("Address").child("State").setValue(otherState);
                                                         databaseReference.child("items").child(currentId).child(otherItemName).child("Address").child("Country").setValue(otherCountry);
                                                         databaseReference.child("items").child(currentId).child(otherItemName).child("Status").setValue("Validating");
+                                                        databaseReference.child("items").child(currentId).child(otherItemName).child("Date_Posted").setValue(simpleDateFormat.format(timestamp));
 
                                                         if (!otherLandmark.equals("")) {
                                                             databaseReference.child("items").child(currentId).child(otherItemName).child("Address").child("Landmark").setValue(otherLandmark);

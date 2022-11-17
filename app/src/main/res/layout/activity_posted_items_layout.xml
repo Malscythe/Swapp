@@ -12,8 +12,8 @@
 
         <ImageView
             android:id="@+id/postedImage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_centerVertical="true"
             android:layout_marginBottom="1dp"
             android:scaleType="centerCrop"
@@ -123,6 +123,36 @@
             android:layout_below="@id/itemPosterNameText"
             android:maxLines="1"
             android:text="Poster UID"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="5dp"
+            android:textColor="@color/primary"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/datePostedText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@id/postedImage"
+            android:fontFamily="@font/poppins"
+            android:maxLines="1"
+            android:text="Date Posted:"
+            android:layout_below="@id/itemPosterUIDText"
+            android:textColor="@color/primary_black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/datePosted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@id/datePostedText"
+            android:layout_below="@id/itemPosterUIDText"
+            android:maxLines="1"
+            android:text="Date"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="10dp"
             android:layout_marginStart="5dp"

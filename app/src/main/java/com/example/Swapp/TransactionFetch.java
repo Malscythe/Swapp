@@ -4,18 +4,27 @@ import java.io.Serializable;
 
 public class TransactionFetch implements Serializable {
 
-    String TransactionKey, Posted_ItemName, Offered_ItemName, Poster_UID, Offerer_UID, TransactionStatus;
+    String TransactionKey, Posted_ItemName, Offered_ItemName, Poster_UID, Offerer_UID, TransactionStatus, Date_Traded;
 
     public TransactionFetch() {
     }
 
-    public TransactionFetch(String transactionKey, String posted_ItemName, String offered_ItemName, String poster_UID, String offerer_UID, String transactionStatus) {
+    public TransactionFetch(String transactionKey, String posted_ItemName, String offered_ItemName, String poster_UID, String offerer_UID, String transactionStatus, String date_Traded) {
         TransactionKey = transactionKey;
         Posted_ItemName = posted_ItemName;
         Offered_ItemName = offered_ItemName;
         Poster_UID = poster_UID;
         Offerer_UID = offerer_UID;
         TransactionStatus = transactionStatus;
+        Date_Traded = date_Traded;
+    }
+
+    public String getDate_Traded() {
+        return Date_Traded;
+    }
+
+    public void setDate_Traded(String date_Traded) {
+        Date_Traded = date_Traded;
     }
 
     public String getTransactionKey() {

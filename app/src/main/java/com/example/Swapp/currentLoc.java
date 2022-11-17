@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +36,8 @@ public class currentLoc extends AppCompatActivity {
 
         String category = getIntent().getStringExtra("category");
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        String uid = firebaseAuth.getCurrentUser().getUid();
 
         if (category.equals("all")) {
             databaseReference.child("items").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -581,8 +584,10 @@ public class currentLoc extends AppCompatActivity {
 
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                            getValidated.add(String.valueOf(dataSnapshot1.child("Item_Category").getValue(String.class).equals(category) && dataSnapshot1.child("Status").getValue(String.class).equals("Validated")));
-                            getResult.add(String.valueOf(dataSnapshot1.child("Item_Category").getValue(String.class).equals(category) && dataSnapshot1.child("Open_For_Offers").getValue(String.class).equals("true")));
+                            if (!dataSnapshot1.child("Poster_UID").getValue(String.class).equals(uid)) {
+                                getValidated.add(String.valueOf(dataSnapshot1.child("Item_Category").getValue(String.class).equals(category) && dataSnapshot1.child("Status").getValue(String.class).equals("Validated")));
+                                getResult.add(String.valueOf(dataSnapshot1.child("Item_Category").getValue(String.class).equals(category) && dataSnapshot1.child("Open_For_Offers").getValue(String.class).equals("true")));
+                            }
                         }
                     }
 

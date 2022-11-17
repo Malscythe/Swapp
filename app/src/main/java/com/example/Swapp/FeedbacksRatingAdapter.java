@@ -39,7 +39,8 @@ public class FeedbacksRatingAdapter extends RecyclerView.Adapter {
 
         final FeedbacksRatingFetch feedbacksRatingFetch = feedbacksRatingFetchList.get(position);
 
-        viewHolderClass.userID.setText(feedbacksRatingFetch.getUser_ID());
+        viewHolderClass.userID.setText(feedbacksRatingFetch.getUser_To_Rate());
+        viewHolderClass.dateRated.setText(feedbacksRatingFetch.getDate_Rated());
         viewHolderClass.feedback.setText(feedbacksRatingFetch.getFeedback());
         viewHolderClass.transactionKey.setText(feedbacksRatingFetch.getTransaction_Key());
         viewHolderClass.ratedBy.setText(feedbacksRatingFetch.getRated_By());
@@ -53,12 +54,13 @@ public class FeedbacksRatingAdapter extends RecyclerView.Adapter {
 
     public class ViewHolderClass extends RecyclerView.ViewHolder {
 
-        TextView userID, feedback, transactionKey, ratedBy;
+        TextView userID, feedback, transactionKey, ratedBy, dateRated;
         RatingBar rating;
 
         public ViewHolderClass(@NonNull View itemView) {
             super(itemView);
 
+            dateRated = itemView.findViewById(R.id.dateRated);
             userID = itemView.findViewById(R.id.toRateID);
             feedback = itemView.findViewById(R.id.feedback);
             transactionKey = itemView.findViewById(R.id.transactionKey);

@@ -81,6 +81,7 @@ public class PostedItems extends AppCompatActivity {
                             postedItemsFetch.setItem_Location(dataSnapshot.child("Address").child("City").getValue(String.class).concat(", " + dataSnapshot.child("Address").child("State").getValue(String.class)));
                             postedItemsFetch.setItem_PosterName(dataSnapshot.child("Poster_Name").getValue(String.class));
                             postedItemsFetch.setItem_Name(dataSnapshot.child("Item_Name").getValue(String.class));
+                            postedItemsFetch.setDate_Posted(dataSnapshot.child("Date_Posted").getValue(String.class));
                             postedItemsFetches.add(postedItemsFetch);
                         }
                     }
@@ -158,6 +159,10 @@ public class PostedItems extends AppCompatActivity {
                             cell6.setCellValue("Status");
                             cell6.setCellStyle(headerStyle);
 
+                            XSSFCell cell7 = row.createCell(6);
+                            cell7.setCellValue("Date Posted");
+                            cell7.setCellStyle(headerStyle);
+
                             int counter = 0;
 
                             for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
@@ -188,6 +193,10 @@ public class PostedItems extends AppCompatActivity {
                                     cell6 = row.createCell(5);
                                     cell6.setCellValue(dataSnapshot1.child("Status").getValue(String.class));
                                     sheet.setColumnWidth(5, (dataSnapshot1.child("Status").getValue(String.class).length() + 30) * 256);
+
+                                    cell7 = row.createCell(6);
+                                    cell7.setCellValue(dataSnapshot1.child("Date_Posted").getValue(String.class));
+                                    sheet.setColumnWidth(6, (dataSnapshot1.child("Date_Posted").getValue(String.class).length() + 30) * 256);
 
                                     counter++;
                                 }

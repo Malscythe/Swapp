@@ -24,9 +24,22 @@ public class postforgotpassword extends AppCompatActivity {
         returnToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), login.class));
+                Intent intent = new Intent(postforgotpassword.this, login.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("logoutFrom", "forgotPassword");
+                startActivity(intent);
                 CustomIntent.customType(postforgotpassword.this, "right-to-left");
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(postforgotpassword.this, login.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("logoutFrom", "forgotPassword");
+        startActivity(intent);
+        CustomIntent.customType(postforgotpassword.this, "right-to-left");
     }
 }

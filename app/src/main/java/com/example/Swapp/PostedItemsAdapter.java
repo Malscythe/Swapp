@@ -44,6 +44,7 @@ public class PostedItemsAdapter extends RecyclerView.Adapter {
         viewHolderClass.posterName.setText(postedItemsFetch.getItem_PosterName());
         viewHolderClass.location.setText(postedItemsFetch.getItem_Location());
         viewHolderClass.itemName.setText(postedItemsFetch.getItem_Name());
+        viewHolderClass.datePosted.setText(postedItemsFetch.getDate_Posted());
 
         Glide.with(viewHolderClass.userID.getContext()).load(postedItemsFetch.getItem_Image()).into(viewHolderClass.itemImage);
     }
@@ -55,12 +56,13 @@ public class PostedItemsAdapter extends RecyclerView.Adapter {
 
     public class ViewHolderClass extends RecyclerView.ViewHolder {
 
-        TextView userID, posterName, location, itemName;
+        TextView userID, posterName, location, itemName, datePosted;
         ImageView itemImage;
 
         public ViewHolderClass(@NonNull View itemView) {
             super(itemView);
 
+            datePosted = itemView.findViewById(R.id.datePosted);
             userID = itemView.findViewById(R.id.posterUID);
             posterName = itemView.findViewById(R.id.posterName);
             location = itemView.findViewById(R.id.postedLocation);

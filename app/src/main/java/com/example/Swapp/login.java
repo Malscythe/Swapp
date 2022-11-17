@@ -110,20 +110,19 @@ public class login extends AppCompatActivity {
                     MemoryData.saveState(true, login.this);
                 }
 
-                if(TextUtils.isEmpty(userEmail)) {
+                if (TextUtils.isEmpty(userEmail)) {
                     email.setError("Email must not be empty.");
                     return;
                 }
 
-                if(TextUtils.isEmpty(userPass)) {
+                if (TextUtils.isEmpty(userPass)) {
                     password.setError("Password must not be empty");
                     return;
                 }
 
                 fAuth.signInWithEmailAndPassword(userEmail, userPass).addOnCompleteListener((task -> {
                     if (task.isSuccessful()) {
-                        if(fAuth.getCurrentUser().isEmailVerified())
-                        {
+                        if (fAuth.getCurrentUser().isEmailVerified()) {
                             fAuth.signInWithEmailAndPassword(userEmail, userPass).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
@@ -135,12 +134,12 @@ public class login extends AppCompatActivity {
 
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            if (snapshot.child("isAdmin").getValue(String.class).equals("1")){
+                                            if (snapshot.child("isAdmin").getValue(String.class).equals("1")) {
                                                 MemoryData.saveData(snapshot.child("Phone").getValue().toString(), login.this);
                                                 MemoryData.saveState(false, login.this);
                                                 startActivity(new Intent(login.this, AdminHomepage.class));
                                                 pDialog.dismiss();
-                                            } else if (snapshot.child("isAdmin").getValue(String.class).equals("0")){
+                                            } else if (snapshot.child("isAdmin").getValue(String.class).equals("0")) {
 
                                                 MemoryData.saveData(snapshot.child("Phone").getValue().toString(), login.this);
                                                 MemoryData.saveFirstName(snapshot.child("First_Name").getValue(String.class), com.example.Swapp.login.this);
@@ -191,12 +190,11 @@ public class login extends AppCompatActivity {
                                     toastMessage.setText(e.getMessage());
                                     toast.setView(view);
                                     toast.setDuration(Toast.LENGTH_LONG);
-                                    toast.setGravity(Gravity.TOP, 0,50);
+                                    toast.setGravity(Gravity.TOP, 0, 50);
                                     toast.show();
                                 }
                             });
-                        }else
-                        {
+                        } else {
                             pDialog.dismiss();
                             fAuth.getCurrentUser().sendEmailVerification();
                             Toast.makeText(login.this, "Please verify your email first", Toast.LENGTH_SHORT).show();
@@ -209,7 +207,7 @@ public class login extends AppCompatActivity {
                         toastMessage.setText("Email or password doesn't exist.");
                         toast.setView(view2);
                         toast.setDuration(Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.TOP, 0,50);
+                        toast.setGravity(Gravity.TOP, 0, 50);
                         toast.show();
                     }
                 }));
@@ -227,6 +225,6 @@ public class login extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        System.exit(0);
+        finishAffinity();
     }
 }

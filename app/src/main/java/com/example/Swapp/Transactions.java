@@ -58,7 +58,7 @@ public class Transactions extends AppCompatActivity {
     TransactionAdapter transactionAdapter;
     DatabaseReference databaseReference;
     FirebaseAuth firebaseAuth;
-    FloatingActionButton exportData;
+    FloatingActionButton exportData, openChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +73,7 @@ public class Transactions extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         exportData = findViewById(R.id.exportData);
+        openChart = findViewById(R.id.openChart);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("trade-transactions");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -81,10 +82,11 @@ public class Transactions extends AppCompatActivity {
                 for (DataSnapshot ds : snapshot.getChildren()) {
                     if (!ds.child("Transaction_Status").getValue(String.class).equals("Waiting for review")) {
                         TransactionFetch transactionFetch = new TransactionFetch();
-                        transactionFetch.setPoster_UID(ds.child("Posted_Item").child("Poster_UID").getValue(String.class));
-                        transactionFetch.setOfferer_UID(ds.child("Offered_Item").child("Poster_UID").getValue(String.class));
+                        transactionFetch.setPoster_UID(ds.child("Posted_Item").child("Poster_Name").getValue(String.class));
+                        transactionFetch.setOfferer_UID(ds.child("Offered_Item").child("Poster_Name").getValue(String.class));
                         transactionFetch.setPosted_ItemName(ds.child("Posted_Item").child("Item_Name").getValue(String.class));
                         transactionFetch.setOffered_ItemName(ds.child("Offered_Item").child("Item_Name").getValue(String.class));
+                        transactionFetch.setDate_Traded(ds.child("Date_Traded").getValue(String.class));
                         transactionFetch.setTransactionKey(ds.getKey());
                         transactionFetch.setTransactionStatus(ds.child("Transaction_Status").getValue(String.class));
                         transactionFetchList.add(transactionFetch);
@@ -98,6 +100,49 @@ public class Transactions extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        openChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                databaseReference = FirebaseDatabase.getInstance().getReference("trade-transactions");
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        int successful = 0;
+                        int unsuccessful = 0;
+                        int onhold = 0;
+
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            switch (dataSnapshot.child("Transaction_Status").getValue(String.class)) {
+                                case "Successful":
+                                    successful++;
+                                    break;
+                                case "Unsuccessful":
+                                    unsuccessful++;
+                                    break;
+                                case "On hold":
+                                    onhold++;
+                                    break;
+                            }
+                        }
+
+                        Intent intent = new Intent(Transactions.this, popup_transactions.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        intent.putExtra("successful", successful);
+                        intent.putExtra("unsuccessful", unsuccessful);
+                        intent.putExtra("onhold", onhold);
+                        startActivity(intent);
+                        CustomIntent.customType(Transactions.this, "fadein-to-fadeout");
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
 
@@ -144,24 +189,28 @@ public class Transactions extends AppCompatActivity {
                             cell1.setCellStyle(headerStyle);
 
                             XSSFCell cell2 = row.createCell(1);
-                            cell2.setCellValue("Posted Item");
+                            cell2.setCellValue("Date Traded");
                             cell2.setCellStyle(headerStyle);
 
                             XSSFCell cell3 = row.createCell(2);
-                            cell3.setCellValue("Posted By");
+                            cell3.setCellValue("Posted Item");
                             cell3.setCellStyle(headerStyle);
 
                             XSSFCell cell4 = row.createCell(3);
-                            cell4.setCellValue("Offered Item");
+                            cell4.setCellValue("Posted By");
                             cell4.setCellStyle(headerStyle);
 
                             XSSFCell cell5 = row.createCell(4);
-                            cell5.setCellValue("Offered By");
+                            cell5.setCellValue("Offered Item");
                             cell5.setCellStyle(headerStyle);
 
                             XSSFCell cell6 = row.createCell(5);
-                            cell6.setCellValue("Status");
+                            cell6.setCellValue("Offered By");
                             cell6.setCellStyle(headerStyle);
+
+                            XSSFCell cell7 = row.createCell(6);
+                            cell7.setCellValue("Status");
+                            cell7.setCellStyle(headerStyle);
 
                             int counter = 0;
 
@@ -173,24 +222,28 @@ public class Transactions extends AppCompatActivity {
                                 sheet.setColumnWidth(0, (dataSnapshot.getKey().length() + 30) * 256);
 
                                 cell2 = row.createCell(1);
-                                cell2.setCellValue(dataSnapshot.child("Posted_Item").child("Item_Name").getValue(String.class));
-                                sheet.setColumnWidth(1, (dataSnapshot.child("Posted_Item").child("Item_Name").getValue(String.class).length() + 30) * 256);
+                                cell2.setCellValue(dataSnapshot.child("Date_Traded").getValue(String.class));
+                                sheet.setColumnWidth(1, (dataSnapshot.child("Date_Traded").getValue(String.class).length() + 30) * 256);
 
                                 cell3 = row.createCell(2);
-                                cell3.setCellValue(dataSnapshot.child("Posted_Item").child("Poster_UID").getValue(String.class));
-                                sheet.setColumnWidth(2, (dataSnapshot.child("Posted_Item").child("Poster_UID").getValue(String.class).length() + 30) * 256);
+                                cell3.setCellValue(dataSnapshot.child("Posted_Item").child("Item_Name").getValue(String.class));
+                                sheet.setColumnWidth(2, (dataSnapshot.child("Posted_Item").child("Item_Name").getValue(String.class).length() + 30) * 256);
 
                                 cell4 = row.createCell(3);
-                                cell4.setCellValue(dataSnapshot.child("Offered_Item").child("Item_Name").getValue(String.class));
-                                sheet.setColumnWidth(3, (dataSnapshot.child("Offered_Item").child("Item_Name").getValue(String.class).length() + 30) * 256);
+                                cell4.setCellValue(dataSnapshot.child("Posted_Item").child("Poster_UID").getValue(String.class));
+                                sheet.setColumnWidth(3, (dataSnapshot.child("Posted_Item").child("Poster_Name").getValue(String.class).length() + 30) * 256);
 
                                 cell5 = row.createCell(4);
-                                cell5.setCellValue(dataSnapshot.child("Offered_Item").child("Poster_UID").getValue(String.class));
-                                sheet.setColumnWidth(4, (dataSnapshot.child("Offered_Item").child("Poster_UID").getValue(String.class).length() + 30) * 256);
+                                cell5.setCellValue(dataSnapshot.child("Offered_Item").child("Item_Name").getValue(String.class));
+                                sheet.setColumnWidth(4, (dataSnapshot.child("Offered_Item").child("Item_Name").getValue(String.class).length() + 30) * 256);
 
                                 cell6 = row.createCell(5);
-                                cell6.setCellValue(dataSnapshot.child("Transaction_Status").getValue(String.class));
-                                sheet.setColumnWidth(5, (dataSnapshot.child("Transaction_Status").getValue(String.class).length() + 30) * 256);
+                                cell6.setCellValue(dataSnapshot.child("Offered_Item").child("Poster_UID").getValue(String.class));
+                                sheet.setColumnWidth(5, (dataSnapshot.child("Offered_Item").child("Poster_Name").getValue(String.class).length() + 30) * 256);
+
+                                cell7 = row.createCell(6);
+                                cell7.setCellValue(dataSnapshot.child("Transaction_Status").getValue(String.class));
+                                sheet.setColumnWidth(6, (dataSnapshot.child("Transaction_Status").getValue(String.class).length() + 30) * 256);
 
                                 counter++;
                             }

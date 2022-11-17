@@ -104,7 +104,7 @@
             android:fontFamily="@font/poppins"
             android:textColor="@color/white"
             android:textSize="18sp"
-            android:onClick="clickChangePass"/>
+            android:onClick="clickLogout"/>
 
     </LinearLayout>
 

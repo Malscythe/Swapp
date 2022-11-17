@@ -476,7 +476,7 @@ public class signup extends AppCompatActivity {
 
                                                 pDialog.dismiss();
                                                 Intent intent = new Intent(signup.this, login.class);
-                                                intent.putExtra("logoutFrom", "User");
+                                                intent.putExtra("logoutFrom", "signUp");
                                                 startActivity(intent);
                                                 CustomIntent.customType(signup.this, "right-to-left");
 
@@ -517,7 +517,10 @@ public class signup extends AppCompatActivity {
         backToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), login.class));
+                Intent intent = new Intent(signup.this, login.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("logoutFrom", "signUp");
+                startActivity(intent);
                 CustomIntent.customType(signup.this, "right-to-left");
             }
         });
@@ -607,5 +610,15 @@ public class signup extends AppCompatActivity {
             mobileNumberL.setError(null);
             phoneError = false;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(signup.this, login.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("logoutFrom", "signUp");
+        startActivity(intent);
+        CustomIntent.customType(signup.this, "right-to-left");
     }
 }

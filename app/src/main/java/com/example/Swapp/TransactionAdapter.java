@@ -46,6 +46,7 @@ public class TransactionAdapter extends RecyclerView.Adapter {
         viewHolderClass.postedItemName.setText(transactionFetch.getPosted_ItemName());
         viewHolderClass.offeredItemName.setText(transactionFetch.getOffered_ItemName());
         viewHolderClass.transactionStatus.setText(transactionFetch.getTransactionStatus());
+        viewHolderClass.dateTraded.setText(transactionFetch.getDate_Traded());
 
     }
 
@@ -56,11 +57,12 @@ public class TransactionAdapter extends RecyclerView.Adapter {
 
     public class ViewHolderClass extends RecyclerView.ViewHolder {
 
-        TextView transactionKey, posterUID, offererUID, postedItemName, offeredItemName, transactionStatus;
+        TextView transactionKey, posterUID, offererUID, postedItemName, offeredItemName, transactionStatus, dateTraded;
 
         public ViewHolderClass(@NonNull View itemView) {
             super(itemView);
 
+            dateTraded = itemView.findViewById(R.id.dateTraded);
             transactionKey = itemView.findViewById(R.id.transactionKey);
             posterUID = itemView.findViewById(R.id.postedBy);
             offererUID = itemView.findViewById(R.id.offeredBy);

@@ -43,6 +43,7 @@ public class ActivityLogsAdapter extends RecyclerView.Adapter {
 
         final ActivityLogsFetch activityLogsFetch = activityLogsFetchList.get(position);
 
+        viewHolderClass.userName.setText(activityLogsFetch.getUser_Name());
         viewHolderClass.userID.setText(activityLogsFetch.getUser_ID());
         viewHolderClass.activity.setText(activityLogsFetch.getActivity());
         viewHolderClass.date.setText(activityLogsFetch.getDate());
@@ -55,11 +56,12 @@ public class ActivityLogsAdapter extends RecyclerView.Adapter {
 
     public class ViewHolderClass extends RecyclerView.ViewHolder {
 
-        TextView userID, activity, date;
+        TextView userID, activity, date, userName;
 
         public ViewHolderClass(@NonNull View itemView) {
             super(itemView);
 
+            userName = itemView.findViewById(R.id.userName);
             userID = itemView.findViewById(R.id.userID);
             activity = itemView.findViewById(R.id.activity);
             date = itemView.findViewById(R.id.date);

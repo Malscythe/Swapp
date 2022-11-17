@@ -14,6 +14,20 @@
         android:layout_height="wrap_content"
         android:padding="15dp">
 
+        <TextView
+            android:id="@+id/counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="-5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="@font/poppins"
+            android:text="1"
+            android:textColor="#000"
+            android:textSize="16sp"/>
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img1"
             android:layout_width="80dp"
@@ -24,7 +38,8 @@
             android:id="@+id/nameText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="50dp"
             android:layout_toRightOf="@+id/img1"
             android:text="First Name"
             android:textColor="#000"
@@ -36,7 +51,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/nameText"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="50dp"
             android:layout_toRightOf="@+id/img1"
             android:text="Email"
             android:textColor="#000"
@@ -47,7 +63,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/useremail"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="50dp"
             android:layout_toRightOf="@+id/img1"
             android:text="Gender"
             android:textColor="#000"
@@ -58,7 +75,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/usergender"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="50dp"
             android:layout_toRightOf="@+id/img1"
             android:text="Phone"
             android:textColor="#000"
@@ -68,7 +86,7 @@
             android:layout_below="@+id/userPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatButton

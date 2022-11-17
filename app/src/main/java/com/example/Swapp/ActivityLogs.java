@@ -71,17 +71,22 @@ public class ActivityLogs extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         exportData = findViewById(R.id.exportData);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("activity-logs");
+        databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot ds: snapshot.getChildren())
+                for(DataSnapshot ds: snapshot.child("activity-logs").getChildren())
                 {
-                    ActivityLogsFetch activityLogsFetch = new ActivityLogsFetch();
-                    activityLogsFetch.setUser_ID(ds.child("User_ID").getValue(String.class));
-                    activityLogsFetch.setActivity(ds.child("Activity").getValue(String.class));
-                    activityLogsFetch.setDate(ds.child("Date").getValue(String.class));
-                    activityLogsFetches.add(activityLogsFetch);
+                    if (snapshot.child("users").hasChild(ds.child("User_ID").getValue(String.class))) {
+                        String userName = snapshot.child("users").child(ds.child("User_ID").getValue(String.class)).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(ds.child("User_ID").getValue(String.class)).child("Last_Name").getValue(String.class));
+
+                        ActivityLogsFetch activityLogsFetch = new ActivityLogsFetch();
+                        activityLogsFetch.setUser_Name(userName);
+                        activityLogsFetch.setUser_ID(ds.child("User_ID").getValue(String.class));
+                        activityLogsFetch.setActivity(ds.child("Activity").getValue(String.class));
+                        activityLogsFetch.setDate(ds.child("Date").getValue(String.class));
+                        activityLogsFetches.add(activityLogsFetch);
+                    }
                 }
 
                 activityLogsAdapter = new ActivityLogsAdapter(activityLogsFetches);
@@ -143,28 +148,40 @@ public class ActivityLogs extends AppCompatActivity {
                             cell2.setCellStyle(headerStyle);
 
                             XSSFCell cell3 = row.createCell(2);
-                            cell3.setCellValue("Activity");
+                            cell3.setCellValue("User Name");
                             cell3.setCellStyle(headerStyle);
+
+                            XSSFCell cell4 = row.createCell(3);
+                            cell4.setCellValue("Activity");
+                            cell4.setCellStyle(headerStyle);
 
                             int counter = 0;
 
-                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            for (DataSnapshot dataSnapshot : snapshot.child("activity-logs").getChildren()) {
 
-                                row = sheet.createRow(counter + 1);
+                                if (snapshot.child("users").hasChild(dataSnapshot.child("User_ID").getValue(String.class))) {
+                                    String userName = snapshot.child("users").child(dataSnapshot.child("User_ID").getValue(String.class)).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(dataSnapshot.child("User_ID").getValue(String.class)).child("Last_Name").getValue(String.class));
 
-                                cell1 = row.createCell(0);
-                                cell1.setCellValue(dataSnapshot.child("Date").getValue(String.class));
-                                sheet.setColumnWidth(0, (dataSnapshot.child("Date").getValue(String.class).length() + 30) * 256);
+                                    row = sheet.createRow(counter + 1);
 
-                                cell2 = row.createCell(1);
-                                cell2.setCellValue(dataSnapshot.child("User_ID").getValue(String.class));
-                                sheet.setColumnWidth(1, (dataSnapshot.child("User_ID").getValue(String.class).length() + 30) * 256);
+                                    cell1 = row.createCell(0);
+                                    cell1.setCellValue(dataSnapshot.child("Date").getValue(String.class));
+                                    sheet.setColumnWidth(0, (dataSnapshot.child("Date").getValue(String.class).length() + 30) * 256);
 
-                                cell3 = row.createCell(2);
-                                cell3.setCellValue(dataSnapshot.child("Activity").getValue(String.class));
-                                sheet.setColumnWidth(2, (dataSnapshot.child("Activity").getValue(String.class).length() + 30) * 256);
+                                    cell2 = row.createCell(1);
+                                    cell2.setCellValue(dataSnapshot.child("User_ID").getValue(String.class));
+                                    sheet.setColumnWidth(1, (dataSnapshot.child("User_ID").getValue(String.class).length() + 30) * 256);
 
-                                counter++;
+                                    cell3 = row.createCell(2);
+                                    cell3.setCellValue(userName);
+                                    sheet.setColumnWidth(2, (userName.length() + 30) * 256);
+
+                                    cell4 = row.createCell(3);
+                                    cell4.setCellValue(dataSnapshot.child("Activity").getValue(String.class));
+                                    sheet.setColumnWidth(3, (dataSnapshot.child("Activity").getValue(String.class).length() + 30) * 256);
+
+                                    counter++;
+                                }
                             }
 
                             workbook.write(outputStream);

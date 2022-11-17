@@ -45,7 +45,11 @@ public class forgotpassword extends AppCompatActivity {
         returnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), login.class));
+                Intent intent = new Intent(forgotpassword.this, login.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("logoutFrom", "forgotPassword");
+                startActivity(intent);
+                CustomIntent.customType(forgotpassword.this, "right-to-left");
             }
         });
 
@@ -81,7 +85,10 @@ public class forgotpassword extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(forgotpassword.this, login.class));
+        Intent intent = new Intent(forgotpassword.this, login.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("logoutFrom", "forgotPassword");
+        startActivity(intent);
         CustomIntent.customType(forgotpassword.this, "right-to-left");
     }
 }

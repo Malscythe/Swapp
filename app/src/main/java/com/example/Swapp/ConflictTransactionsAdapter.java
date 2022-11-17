@@ -86,6 +86,7 @@ public class ConflictTransactionsAdapter extends RecyclerView.Adapter {
                         String mobile = snapshot.child("users").child(conflictTransactionsFetch.getPoster_UID()).child("Phone").getValue(String.class);
                         String userName = snapshot.child("users").child(conflictTransactionsFetch.getPoster_UID()).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(conflictTransactionsFetch.getPoster_UID()).child("Last_Name").getValue(String.class));
                         String currentMobile = snapshot.child("users").child(myUid).child("Phone").getValue(String.class);
+                        String profile = snapshot.child("users").child(conflictTransactionsFetch.getPoster_UID()).child("User_Profile").getValue(String.class);
 
                         if (snapshot.child("chat").exists()) {
                             String chatKey = null;
@@ -108,6 +109,7 @@ public class ConflictTransactionsAdapter extends RecyclerView.Adapter {
                                 intent.putExtra("mobile", mobile);
                                 intent.putExtra("name", userName);
                                 intent.putExtra("chat_key", chatKey);
+                                intent.putExtra("profile_pic", profile);
                                 intent.putExtra("userID", conflictTransactionsFetch.getPoster_UID());
                                 intent.putExtra("userStatus", snapshot.child("users-status").child(conflictTransactionsFetch.getPoster_UID()).child("Status").getValue(String.class));
 
@@ -123,6 +125,7 @@ public class ConflictTransactionsAdapter extends RecyclerView.Adapter {
                                 intent.putExtra("mobile", mobile);
                                 intent.putExtra("name", userName);
                                 intent.putExtra("chat_key", "");
+                                intent.putExtra("profile_pic", profile);
                                 intent.putExtra("userID", conflictTransactionsFetch.getPoster_UID());
                                 intent.putExtra("userStatus", snapshot.child("users-status").child(conflictTransactionsFetch.getPoster_UID()).child("Status").getValue(String.class));
 
@@ -138,6 +141,7 @@ public class ConflictTransactionsAdapter extends RecyclerView.Adapter {
                             intent.putExtra("mobile", mobile);
                             intent.putExtra("name", userName);
                             intent.putExtra("chat_key", "");
+                            intent.putExtra("profile_pic", profile);
                             intent.putExtra("userID", conflictTransactionsFetch.getPoster_UID());
                             intent.putExtra("userStatus", snapshot.child("users-status").child(conflictTransactionsFetch.getPoster_UID()).child("Status").getValue(String.class));
 
@@ -171,6 +175,7 @@ public class ConflictTransactionsAdapter extends RecyclerView.Adapter {
                         String mobile = snapshot.child("users").child(conflictTransactionsFetch.getOfferer_UID()).child("Phone").getValue(String.class);
                         String userName = snapshot.child("users").child(conflictTransactionsFetch.getOfferer_UID()).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(conflictTransactionsFetch.getOfferer_UID()).child("Last_Name").getValue(String.class));
                         String currentMobile = snapshot.child("users").child(myUid).child("Phone").getValue(String.class);
+                        String profile = snapshot.child("users").child(conflictTransactionsFetch.getOfferer_UID()).child("User_Profile").getValue(String.class);
 
                         if (snapshot.child("chat").exists()) {
                             String chatKey = null;
@@ -193,6 +198,7 @@ public class ConflictTransactionsAdapter extends RecyclerView.Adapter {
                                 intent.putExtra("mobile", mobile);
                                 intent.putExtra("name", userName);
                                 intent.putExtra("chat_key", chatKey);
+                                intent.putExtra("profile_pic", profile);
                                 intent.putExtra("userID", conflictTransactionsFetch.getOfferer_UID());
                                 intent.putExtra("userStatus", snapshot.child("users-status").child(conflictTransactionsFetch.getOfferer_UID()).child("Status").getValue(String.class));
 
@@ -208,6 +214,7 @@ public class ConflictTransactionsAdapter extends RecyclerView.Adapter {
                                 intent.putExtra("mobile", mobile);
                                 intent.putExtra("name", userName);
                                 intent.putExtra("chat_key", "");
+                                intent.putExtra("profile_pic", profile);
                                 intent.putExtra("userID", conflictTransactionsFetch.getOfferer_UID());
                                 intent.putExtra("userStatus", snapshot.child("users-status").child(conflictTransactionsFetch.getOfferer_UID()).child("Status").getValue(String.class));
 
@@ -223,6 +230,7 @@ public class ConflictTransactionsAdapter extends RecyclerView.Adapter {
                             intent.putExtra("mobile", mobile);
                             intent.putExtra("name", userName);
                             intent.putExtra("chat_key", "");
+                            intent.putExtra("profile_pic", profile);
                             intent.putExtra("userID", conflictTransactionsFetch.getOfferer_UID());
                             intent.putExtra("userStatus", snapshot.child("users-status").child(conflictTransactionsFetch.getOfferer_UID()).child("Status").getValue(String.class));
 

@@ -27,6 +27,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Date: "
+            android:layout_below="@id/userNameText"
+            android:fontFamily="@font/poppins"
+            android:textSize="14sp"
+            android:textColor="@color/primary_black"
+            android:layout_marginStart="15dp" />
+
+        <TextView
+            android:id="@+id/userNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User name: "
             android:layout_below="@id/idText"
             android:fontFamily="@font/poppins"
             android:textSize="14sp"
@@ -51,8 +62,20 @@
             android:layout_marginStart="5dp"
             android:fontFamily="@font/poppins"
             android:layout_toEndOf="@id/dateText"
-            android:layout_below="@id/userID"
+            android:layout_below="@id/userNameText"
             android:text="Date"
+            android:textColor="@color/primary"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/poppins"
+            android:layout_toEndOf="@id/userNameText"
+            android:layout_below="@id/userID"
+            android:text="Username"
             android:textColor="@color/primary"
             android:textSize="14sp" />
 

@@ -64,6 +64,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
     String strDate;
+    String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +91,8 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                 RatingBar userRating = findViewById(R.id.rating);
                 TextView userRatingNum = findViewById(R.id.ratingNum);
+
+                userName = snapshot.child("Poster_Name").getValue(String.class);
 
                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
                 databaseReference.child("user-rating").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -240,7 +243,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + userName);
                                             }
 
                                             @Override
@@ -251,76 +254,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
-                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                                                String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
-                                                String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
-                                                String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-
-                                                if (snapshot.child("chat").exists()) {
-                                                    String chatKey = null;
-                                                    for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
-
-                                                        String user1 = dataSnapshot.child("user_1").getValue(String.class);
-                                                        String user2 = dataSnapshot.child("user_2").getValue(String.class);
-
-                                                        if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                            chatKey = dataSnapshot.getKey();
-                                                        }
-                                                    }
-
-                                                    if (chatKey != null) {
-
-                                                        pDialog.dismiss();
-
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", chatKey);
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-
-                                                    } else {
-
-                                                        pDialog.dismiss();
-
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", "");
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-
-                                                    }
-                                                } else {
-                                                    pDialog.dismiss();
-
-                                                    Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                    intent.putExtra("mobile", mobile);
-                                                    intent.putExtra("name", userName);
-                                                    intent.putExtra("chat_key", "");
-                                                    intent.putExtra("userID", uid);
-                                                    intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                    startActivity(intent);
-                                                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
+                                        goToChat(pDialog, uid, currentId);
                                     }
 
                                     @Override
@@ -353,7 +287,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot1) {
                                                 databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                 databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + userName);
 
                                                 snapshot.child("Offers").child(uid).getRef().removeValue();
 
@@ -516,7 +450,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + userName);
                                             }
 
                                             @Override
@@ -527,65 +461,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
-                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
-                                                String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
-                                                String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-
-                                                if (snapshot.child("chat").exists()) {
-                                                    for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
-                                                        String user1 = dataSnapshot.child("user_1").getValue(String.class);
-                                                        String user2 = dataSnapshot.child("user_2").getValue(String.class);
-
-                                                        if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                            pDialog.dismiss();
-
-                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                            intent.putExtra("mobile", mobile);
-                                                            intent.putExtra("name", userName);
-                                                            intent.putExtra("chat_key", dataSnapshot.getKey());
-                                                            intent.putExtra("userID", uid);
-                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                            startActivity(intent);
-                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                        } else {
-                                                            pDialog.dismiss();
-
-                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                            intent.putExtra("mobile", mobile);
-                                                            intent.putExtra("name", userName);
-                                                            intent.putExtra("chat_key", "");
-                                                            intent.putExtra("userID", uid);
-                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                            startActivity(intent);
-                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                        }
-                                                    }
-                                                } else {
-                                                    pDialog.dismiss();
-
-                                                    Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                    intent.putExtra("mobile", mobile);
-                                                    intent.putExtra("name", userName);
-                                                    intent.putExtra("chat_key", "");
-                                                    intent.putExtra("userID", uid);
-                                                    intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                    startActivity(intent);
-                                                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
+                                        goToChat(pDialog, uid, currentId);
                                     }
 
                                     @Override
@@ -618,7 +494,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot1) {
                                                 databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                 databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + userName);
 
                                                 snapshot.child("Offers").child(uid).getRef().removeValue();
 
@@ -763,7 +639,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + userName);
                                             }
 
                                             @Override
@@ -774,65 +650,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
-                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
-                                                String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
-                                                String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-
-                                                if (snapshot.child("chat").exists()) {
-                                                    for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
-                                                        String user1 = dataSnapshot.child("user_1").getValue(String.class);
-                                                        String user2 = dataSnapshot.child("user_2").getValue(String.class);
-
-                                                        if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                            pDialog.dismiss();
-
-                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                            intent.putExtra("mobile", mobile);
-                                                            intent.putExtra("name", userName);
-                                                            intent.putExtra("chat_key", dataSnapshot.getKey());
-                                                            intent.putExtra("userID", uid);
-                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                            startActivity(intent);
-                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                        } else {
-                                                            pDialog.dismiss();
-
-                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                            intent.putExtra("mobile", mobile);
-                                                            intent.putExtra("name", userName);
-                                                            intent.putExtra("chat_key", "");
-                                                            intent.putExtra("userID", uid);
-                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                            startActivity(intent);
-                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                        }
-                                                    }
-                                                } else {
-                                                    pDialog.dismiss();
-
-                                                    Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                    intent.putExtra("mobile", mobile);
-                                                    intent.putExtra("name", userName);
-                                                    intent.putExtra("chat_key", "");
-                                                    intent.putExtra("userID", uid);
-                                                    intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                    startActivity(intent);
-                                                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
+                                        goToChat(pDialog, uid, currentId);
                                     }
 
                                     @Override
@@ -865,7 +683,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot1) {
                                                 databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                 databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + userName);
 
                                                 snapshot.child("Offers").child(uid).getRef().removeValue();
 
@@ -1007,7 +825,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + userName);
                                             }
 
                                             @Override
@@ -1018,65 +836,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
-                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
-                                                String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
-                                                String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-
-                                                if (snapshot.child("chat").exists()) {
-                                                    for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
-                                                        String user1 = dataSnapshot.child("user_1").getValue(String.class);
-                                                        String user2 = dataSnapshot.child("user_2").getValue(String.class);
-
-                                                        if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                            pDialog.dismiss();
-
-                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                            intent.putExtra("mobile", mobile);
-                                                            intent.putExtra("name", userName);
-                                                            intent.putExtra("chat_key", dataSnapshot.getKey());
-                                                            intent.putExtra("userID", uid);
-                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                            startActivity(intent);
-                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                        } else {
-                                                            pDialog.dismiss();
-
-                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                            intent.putExtra("mobile", mobile);
-                                                            intent.putExtra("name", userName);
-                                                            intent.putExtra("chat_key", "");
-                                                            intent.putExtra("userID", uid);
-                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                            startActivity(intent);
-                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                        }
-                                                    }
-                                                } else {
-                                                    pDialog.dismiss();
-
-                                                    Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                    intent.putExtra("mobile", mobile);
-                                                    intent.putExtra("name", userName);
-                                                    intent.putExtra("chat_key", "");
-                                                    intent.putExtra("userID", uid);
-                                                    intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                    startActivity(intent);
-                                                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
+                                        goToChat(pDialog, uid, currentId);
                                     }
 
                                     @Override
@@ -1108,7 +868,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot1) {
                                                 databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                 databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + userName);
 
                                                 snapshot.child("Offers").child(uid).getRef().removeValue();
 
@@ -1253,7 +1013,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + userName);
                                             }
 
                                             @Override
@@ -1264,48 +1024,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
-                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
-                                                String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
-                                                String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-                                                pDialog.dismiss();
-
-                                                for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
-                                                    String user1 = dataSnapshot.child("user_1").getValue(String.class);
-                                                    String user2 = dataSnapshot.child("user_2").getValue(String.class);
-
-                                                    if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", dataSnapshot.getKey());
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                    } else {
-                                                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                        intent.putExtra("mobile", mobile);
-                                                        intent.putExtra("name", userName);
-                                                        intent.putExtra("chat_key", "");
-                                                        intent.putExtra("userID", uid);
-                                                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                        startActivity(intent);
-                                                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                    }
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
+                                        goToChat(pDialog, uid, currentId);
                                     }
 
                                     @Override
@@ -1338,7 +1057,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot1) {
                                                 databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                 databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + userName);
 
                                                 snapshot.child("Offers").child(uid).getRef().removeValue();
 
@@ -1471,7 +1190,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + userName);
                                             }
 
                                             @Override
@@ -1482,65 +1201,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
-                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
-                                                String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
-                                                String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-
-                                                if (snapshot.child("chat").exists()) {
-                                                    for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
-                                                        String user1 = dataSnapshot.child("user_1").getValue(String.class);
-                                                        String user2 = dataSnapshot.child("user_2").getValue(String.class);
-
-                                                        if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                            pDialog.dismiss();
-
-                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                            intent.putExtra("mobile", mobile);
-                                                            intent.putExtra("name", userName);
-                                                            intent.putExtra("chat_key", dataSnapshot.getKey());
-                                                            intent.putExtra("userID", uid);
-                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                            startActivity(intent);
-                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                        } else {
-                                                            pDialog.dismiss();
-
-                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                            intent.putExtra("mobile", mobile);
-                                                            intent.putExtra("name", userName);
-                                                            intent.putExtra("chat_key", "");
-                                                            intent.putExtra("userID", uid);
-                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                            startActivity(intent);
-                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                        }
-                                                    }
-                                                } else {
-                                                    pDialog.dismiss();
-
-                                                    Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                    intent.putExtra("mobile", mobile);
-                                                    intent.putExtra("name", userName);
-                                                    intent.putExtra("chat_key", "");
-                                                    intent.putExtra("userID", uid);
-                                                    intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                    startActivity(intent);
-                                                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
+                                        goToChat(pDialog, uid, currentId);
                                     }
 
                                     @Override
@@ -1567,7 +1228,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                     public void onDataChange(@NonNull DataSnapshot snapshot1) {
                                         databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                         databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                        databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
+                                        databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + userName);
 
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
@@ -1711,7 +1372,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + userName);
                                             }
 
                                             @Override
@@ -1722,65 +1383,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
-                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
-                                                String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
-                                                String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-
-                                                if (snapshot.child("chat").exists()) {
-                                                    for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
-                                                        String user1 = dataSnapshot.child("user_1").getValue(String.class);
-                                                        String user2 = dataSnapshot.child("user_2").getValue(String.class);
-
-                                                        if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                            pDialog.dismiss();
-
-                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                            intent.putExtra("mobile", mobile);
-                                                            intent.putExtra("name", userName);
-                                                            intent.putExtra("chat_key", dataSnapshot.getKey());
-                                                            intent.putExtra("userID", uid);
-                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                            startActivity(intent);
-                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                        } else {
-                                                            pDialog.dismiss();
-
-                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                            intent.putExtra("mobile", mobile);
-                                                            intent.putExtra("name", userName);
-                                                            intent.putExtra("chat_key", "");
-                                                            intent.putExtra("userID", uid);
-                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                            startActivity(intent);
-                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                        }
-                                                    }
-                                                } else {
-                                                    pDialog.dismiss();
-
-                                                    Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                    intent.putExtra("mobile", mobile);
-                                                    intent.putExtra("name", userName);
-                                                    intent.putExtra("chat_key", "");
-                                                    intent.putExtra("userID", uid);
-                                                    intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                    startActivity(intent);
-                                                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
+                                        goToChat(pDialog, uid, currentId);
                                     }
 
                                     @Override
@@ -1813,7 +1416,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot1) {
                                                 databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                 databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + userName);
 
                                                 snapshot.child("Offers").child(uid).getRef().removeValue();
 
@@ -1958,7 +1561,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + userName);
                                             }
 
                                             @Override
@@ -1969,65 +1572,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
-                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
-                                                String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
-                                                String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-
-                                                if (snapshot.child("chat").exists()) {
-                                                    for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
-                                                        String user1 = dataSnapshot.child("user_1").getValue(String.class);
-                                                        String user2 = dataSnapshot.child("user_2").getValue(String.class);
-
-                                                        if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                            pDialog.dismiss();
-
-                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                            intent.putExtra("mobile", mobile);
-                                                            intent.putExtra("name", userName);
-                                                            intent.putExtra("chat_key", dataSnapshot.getKey());
-                                                            intent.putExtra("userID", uid);
-                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                            startActivity(intent);
-                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                        } else {
-                                                            pDialog.dismiss();
-
-                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                            intent.putExtra("mobile", mobile);
-                                                            intent.putExtra("name", userName);
-                                                            intent.putExtra("chat_key", "");
-                                                            intent.putExtra("userID", uid);
-                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                            startActivity(intent);
-                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                        }
-                                                    }
-                                                } else {
-                                                    pDialog.dismiss();
-
-                                                    Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                    intent.putExtra("mobile", mobile);
-                                                    intent.putExtra("name", userName);
-                                                    intent.putExtra("chat_key", "");
-                                                    intent.putExtra("userID", uid);
-                                                    intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                    startActivity(intent);
-                                                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
+                                        goToChat(pDialog, uid, currentId);
                                     }
 
                                     @Override
@@ -2059,7 +1604,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot1) {
                                                 databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                 databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + userName);
 
                                                 snapshot.child("Offers").child(uid).getRef().removeValue();
 
@@ -2204,7 +1749,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + userName);
                                             }
 
                                             @Override
@@ -2215,65 +1760,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
-                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
-                                                String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
-                                                String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-
-                                                if (snapshot.child("chat").exists()) {
-                                                    for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
-                                                        String user1 = dataSnapshot.child("user_1").getValue(String.class);
-                                                        String user2 = dataSnapshot.child("user_2").getValue(String.class);
-
-                                                        if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                            pDialog.dismiss();
-
-                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                            intent.putExtra("mobile", mobile);
-                                                            intent.putExtra("name", userName);
-                                                            intent.putExtra("chat_key", dataSnapshot.getKey());
-                                                            intent.putExtra("userID", uid);
-                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                            startActivity(intent);
-                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                        } else {
-                                                            pDialog.dismiss();
-
-                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                            intent.putExtra("mobile", mobile);
-                                                            intent.putExtra("name", userName);
-                                                            intent.putExtra("chat_key", "");
-                                                            intent.putExtra("userID", uid);
-                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                            startActivity(intent);
-                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                        }
-                                                    }
-                                                } else {
-                                                    pDialog.dismiss();
-
-                                                    Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                    intent.putExtra("mobile", mobile);
-                                                    intent.putExtra("name", userName);
-                                                    intent.putExtra("chat_key", "");
-                                                    intent.putExtra("userID", uid);
-                                                    intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                    startActivity(intent);
-                                                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
+                                        goToChat(pDialog, uid, currentId);
                                     }
 
                                     @Override
@@ -2306,7 +1793,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot1) {
                                                 databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                 databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + userName);
 
                                                 snapshot.child("Offers").child(uid).getRef().removeValue();
 
@@ -2451,7 +1938,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + userName);
                                             }
 
                                             @Override
@@ -2462,65 +1949,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
-                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
-                                                String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
-                                                String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-
-                                                if (snapshot.child("chat").exists()) {
-                                                    for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
-                                                        String user1 = dataSnapshot.child("user_1").getValue(String.class);
-                                                        String user2 = dataSnapshot.child("user_2").getValue(String.class);
-
-                                                        if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                            pDialog.dismiss();
-
-                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                            intent.putExtra("mobile", mobile);
-                                                            intent.putExtra("name", userName);
-                                                            intent.putExtra("chat_key", dataSnapshot.getKey());
-                                                            intent.putExtra("userID", uid);
-                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                            startActivity(intent);
-                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                        } else {
-                                                            pDialog.dismiss();
-
-                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                            intent.putExtra("mobile", mobile);
-                                                            intent.putExtra("name", userName);
-                                                            intent.putExtra("chat_key", "");
-                                                            intent.putExtra("userID", uid);
-                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                            startActivity(intent);
-                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                        }
-                                                    }
-                                                } else {
-                                                    pDialog.dismiss();
-
-                                                    Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                    intent.putExtra("mobile", mobile);
-                                                    intent.putExtra("name", userName);
-                                                    intent.putExtra("chat_key", "");
-                                                    intent.putExtra("userID", uid);
-                                                    intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                    startActivity(intent);
-                                                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
+                                        goToChat(pDialog, uid, currentId);
                                     }
 
                                     @Override
@@ -2553,7 +1982,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot1) {
                                                 databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                 databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + userName);
 
                                                 snapshot.child("Offers").child(uid).getRef().removeValue();
 
@@ -2695,7 +2124,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + userName);
                                             }
 
                                             @Override
@@ -2706,65 +2135,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
-                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
-                                                String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
-                                                String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-
-                                                if (snapshot.child("chat").exists()) {
-                                                    for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
-                                                        String user1 = dataSnapshot.child("user_1").getValue(String.class);
-                                                        String user2 = dataSnapshot.child("user_2").getValue(String.class);
-
-                                                        if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                            pDialog.dismiss();
-
-                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                            intent.putExtra("mobile", mobile);
-                                                            intent.putExtra("name", userName);
-                                                            intent.putExtra("chat_key", dataSnapshot.getKey());
-                                                            intent.putExtra("userID", uid);
-                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                            startActivity(intent);
-                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                        } else {
-                                                            pDialog.dismiss();
-
-                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                            intent.putExtra("mobile", mobile);
-                                                            intent.putExtra("name", userName);
-                                                            intent.putExtra("chat_key", "");
-                                                            intent.putExtra("userID", uid);
-                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                            startActivity(intent);
-                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                        }
-                                                    }
-                                                } else {
-                                                    pDialog.dismiss();
-
-                                                    Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                    intent.putExtra("mobile", mobile);
-                                                    intent.putExtra("name", userName);
-                                                    intent.putExtra("chat_key", "");
-                                                    intent.putExtra("userID", uid);
-                                                    intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                    startActivity(intent);
-                                                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
+                                        goToChat(pDialog, uid, currentId);
                                     }
 
                                     @Override
@@ -2797,7 +2168,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot1) {
                                                 databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                 databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + userName);
 
                                                 snapshot.child("Offers").child(uid).getRef().removeValue();
 
@@ -2942,7 +2313,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + userName);
                                             }
 
                                             @Override
@@ -2953,65 +2324,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
-                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
-                                                String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
-                                                String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-
-                                                if (snapshot.child("chat").exists()) {
-                                                    for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
-                                                        String user1 = dataSnapshot.child("user_1").getValue(String.class);
-                                                        String user2 = dataSnapshot.child("user_2").getValue(String.class);
-
-                                                        if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                            pDialog.dismiss();
-
-                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                            intent.putExtra("mobile", mobile);
-                                                            intent.putExtra("name", userName);
-                                                            intent.putExtra("chat_key", dataSnapshot.getKey());
-                                                            intent.putExtra("userID", uid);
-                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                            startActivity(intent);
-                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                        } else {
-                                                            pDialog.dismiss();
-
-                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                            intent.putExtra("mobile", mobile);
-                                                            intent.putExtra("name", userName);
-                                                            intent.putExtra("chat_key", "");
-                                                            intent.putExtra("userID", uid);
-                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                            startActivity(intent);
-                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                        }
-                                                    }
-                                                } else {
-                                                    pDialog.dismiss();
-
-                                                    Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                    intent.putExtra("mobile", mobile);
-                                                    intent.putExtra("name", userName);
-                                                    intent.putExtra("chat_key", "");
-                                                    intent.putExtra("userID", uid);
-                                                    intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                    startActivity(intent);
-                                                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
+                                        goToChat(pDialog, uid, currentId);
                                     }
 
                                     @Override
@@ -3044,7 +2357,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot1) {
                                                 databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                 databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + userName);
 
                                                 snapshot.child("Offers").child(uid).getRef().removeValue();
 
@@ -3180,7 +2493,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                 databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + uid);
+                                                databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Accepted offer of " + userName);
                                             }
 
                                             @Override
@@ -3191,65 +2504,7 @@ public class OfferMoreInfo extends AppCompatActivity {
 
                                         snapshot.child("Offers").child(uid).getRef().removeValue();
 
-                                        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
-                                        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
-                                                String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
-                                                String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
-
-                                                if (snapshot.child("chat").exists()) {
-                                                    for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
-                                                        String user1 = dataSnapshot.child("user_1").getValue(String.class);
-                                                        String user2 = dataSnapshot.child("user_2").getValue(String.class);
-
-                                                        if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
-                                                            pDialog.dismiss();
-
-                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                            intent.putExtra("mobile", mobile);
-                                                            intent.putExtra("name", userName);
-                                                            intent.putExtra("chat_key", dataSnapshot.getKey());
-                                                            intent.putExtra("userID", uid);
-                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                            startActivity(intent);
-                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                        } else {
-                                                            pDialog.dismiss();
-
-                                                            Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                            intent.putExtra("mobile", mobile);
-                                                            intent.putExtra("name", userName);
-                                                            intent.putExtra("chat_key", "");
-                                                            intent.putExtra("userID", uid);
-                                                            intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                            startActivity(intent);
-                                                            CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                        }
-                                                    }
-                                                } else {
-                                                    pDialog.dismiss();
-
-                                                    Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
-                                                    intent.putExtra("mobile", mobile);
-                                                    intent.putExtra("name", userName);
-                                                    intent.putExtra("chat_key", "");
-                                                    intent.putExtra("userID", uid);
-                                                    intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
-
-                                                    startActivity(intent);
-                                                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
+                                        goToChat(pDialog, uid, currentId);
                                     }
 
                                     @Override
@@ -3282,7 +2537,7 @@ public class OfferMoreInfo extends AppCompatActivity {
                                             public void onDataChange(@NonNull DataSnapshot snapshot1) {
                                                 databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                                 databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(currentId);
-                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + uid);
+                                                databaseReference1.child("activity-logs").child(String.valueOf(snapshot1.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Declined offer of " + userName);
 
                                                 snapshot.child("Offers").child(uid).getRef().removeValue();
 
@@ -3311,6 +2566,83 @@ public class OfferMoreInfo extends AppCompatActivity {
                         });
                         break;
 
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void goToChat(SweetAlertDialog pDialog, String uid, String currentId) {
+        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference();
+        databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
+                String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
+                String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
+                String profile = snapshot.child("users").child(uid).child("User_Profile").getValue(String.class);
+
+                if (snapshot.child("chat").exists()) {
+                    String chatKey = null;
+                    for (DataSnapshot dataSnapshot : snapshot.child("chat").getChildren()) {
+
+                        String user1 = dataSnapshot.child("user_1").getValue(String.class);
+                        String user2 = dataSnapshot.child("user_2").getValue(String.class);
+
+                        if (((user1.equals(currentMobile) || user2.equals(currentMobile)) && ((user1.equals(mobile) || user2.equals(mobile)))) && (!currentMobile.equals(mobile))) {
+                            chatKey = dataSnapshot.getKey();
+                        }
+                    }
+
+                    if (chatKey != null) {
+
+                        pDialog.dismiss();
+
+                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                        intent.putExtra("mobile", mobile);
+                        intent.putExtra("name", userName);
+                        intent.putExtra("chat_key", chatKey);
+                        intent.putExtra("profile_pic", profile);
+                        intent.putExtra("userID", uid);
+                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                        startActivity(intent);
+                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+
+                    } else {
+
+                        pDialog.dismiss();
+
+                        Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                        intent.putExtra("mobile", mobile);
+                        intent.putExtra("name", userName);
+                        intent.putExtra("chat_key", "");
+                        intent.putExtra("profile_pic", profile);
+                        intent.putExtra("userID", uid);
+                        intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                        startActivity(intent);
+                        CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
+
+                    }
+                } else {
+                    pDialog.dismiss();
+
+                    Intent intent = new Intent(OfferMoreInfo.this, Chat.class);
+                    intent.putExtra("mobile", mobile);
+                    intent.putExtra("name", userName);
+                    intent.putExtra("chat_key", "");
+                    intent.putExtra("profile_pic", profile);
+                    intent.putExtra("userID", uid);
+                    intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
+
+                    startActivity(intent);
+                    CustomIntent.customType(OfferMoreInfo.this, "left-to-right");
                 }
             }
 

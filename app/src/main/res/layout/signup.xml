@@ -98,14 +98,14 @@
                 android:background="@color/white"
                 app:boxStrokeColor="#03989e"
                 app:boxStrokeWidth="2dp"
-                app:helperText="*Required">
+                app:helperText=" ">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/uEmail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/poppins_medium"
-                    android:hint="Your E-mail"
+                    android:hint="Your E-mail *"
                     android:maxLines="1"
                     android:importantForAutofill="no"
                     android:textColor="#03989e" />
@@ -122,7 +122,7 @@
                 android:background="@color/white"
                 app:boxStrokeColor="#03989e"
                 app:boxStrokeWidth="2dp"
-                app:helperText="*Required"
+                app:helperText=" "
                 app:prefixText="+63"
                 app:prefixTextColor="@color/primary">
 
@@ -131,7 +131,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/poppins_medium"
-                    android:hint="Your Mobile Number"
+                    android:hint="Your Mobile Number *"
                     android:inputType="number"
                     android:maxLength="10"
                     android:importantForAutofill="no"
@@ -150,14 +150,14 @@
                 app:boxStrokeColor="#03989e"
                 app:boxStrokeWidth="2dp"
                 app:endIconMode="password_toggle"
-                app:helperText="*Required">
+                app:helperText=" ">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/uPassword"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/poppins_medium"
-                    android:hint="Create your Password"
+                    android:hint="Create your Password *"
                     android:password="true"
                     android:textColor="#03989e" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -174,14 +174,14 @@
                 app:boxStrokeColor="#03989e"
                 app:boxStrokeWidth="2dp"
                 app:endIconMode="password_toggle"
-                app:helperText="*Required">
+                app:helperText=" ">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/uRePassword"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/poppins_medium"
-                    android:hint="Re-type your Password"
+                    android:hint="Re-type your Password *"
                     android:password="true"
                     android:textColor="#03989e" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -197,7 +197,7 @@
                 android:layout_marginBottom="10dp"
                 app:boxStrokeColor="#03989e"
                 app:boxStrokeWidth="2dp"
-                app:helperText="*Required">
+                app:helperText=" ">
 
                 <AutoCompleteTextView
                     android:id="@+id/uGender"
@@ -205,7 +205,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:fontFamily="@font/poppins_medium"
-                    android:hint="Gender"
+                    android:hint="Gender *"
                     android:inputType="none"
                     android:textColor="#03989e" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -223,7 +223,7 @@
                 app:endIconDrawable="@drawable/ic_calendar"
                 app:endIconMode="custom"
 
-                app:helperText="*Required">
+                app:helperText=" ">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/ubirthDate"
@@ -231,7 +231,7 @@
                     android:layout_height="match_parent"
                     android:editable="false"
                     android:fontFamily="@font/poppins_medium"
-                    android:hint="Birth"
+                    android:hint="Birth *"
                     android:inputType="none"
                     android:textColor="@color/primary" />
             </com.google.android.material.textfield.TextInputLayout>

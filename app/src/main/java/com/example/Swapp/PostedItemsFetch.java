@@ -4,17 +4,26 @@ import java.io.Serializable;
 
 public class PostedItemsFetch implements Serializable {
 
-    String Item_Image, Item_Name, Item_PosterName, Item_Location, Poster_UID;
+    String Item_Image, Item_Name, Item_PosterName, Item_Location, Poster_UID, Date_Posted;
 
     public PostedItemsFetch() {
     }
 
-    public PostedItemsFetch(String item_Image, String item_Name, String item_PosterName, String item_Location, String poster_UID) {
+    public PostedItemsFetch(String item_Image, String item_Name, String item_PosterName, String item_Location, String poster_UID, String date_Posted) {
         Item_Image = item_Image;
         Item_Name = item_Name;
         Item_PosterName = item_PosterName;
         Item_Location = item_Location;
         Poster_UID = poster_UID;
+        Date_Posted = date_Posted;
+    }
+
+    public String getDate_Posted() {
+        return Date_Posted;
+    }
+
+    public void setDate_Posted(String date_Posted) {
+        Date_Posted = date_Posted;
     }
 
     public String getPoster_UID() {

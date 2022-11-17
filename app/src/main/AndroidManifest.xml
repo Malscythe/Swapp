@@ -71,6 +71,14 @@
             android:exported="true"
             android:theme="@style/piechart" />
         <activity
+            android:name="com.example.Swapp.popup_fnr"
+            android:exported="true"
+            android:theme="@style/piechart" />
+        <activity
+            android:name="com.example.Swapp.popup_transactions"
+            android:exported="true"
+            android:theme="@style/piechart" />
+        <activity
             android:name="com.example.Swapp.MoreInfo"
             android:exported="true" />
         <activity

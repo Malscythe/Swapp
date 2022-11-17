@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Swapp.R;
+import maes.tech.intentanim.CustomIntent;
 
 public class MyItemCurrentTransaction extends AppCompatActivity {
 
@@ -168,5 +169,13 @@ public class MyItemCurrentTransaction extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(MyItemCurrentTransaction.this, UserHomepage.class);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
     }
 }

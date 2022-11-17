@@ -108,6 +108,51 @@ public class AdminHomepage extends AppCompatActivity {
             }
         });
 
+
+        databaseReference.child("items").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                newCount = 0;
+                newApprovalCount = 0;
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                        if (dataSnapshot1.child("Status").getValue(String.class).equals("Validated")) {
+                            newCount = newCount + 1;
+                        }
+
+                        if (dataSnapshot1.child("Status").getValue(String.class).equals("Validating")) {
+                            newApprovalCount = newApprovalCount + 1;
+                        }
+                    }
+                }
+                posted.setText(String.valueOf(newCount));
+                approval.setText(String.valueOf(newApprovalCount));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        newValidationCount = 0;
+        databaseReference.child("trade-transactions").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    if (dataSnapshot.child("Transaction_Status").getValue(String.class).equals("On hold")) {
+                        newValidationCount = newValidationCount + 1;
+                    }
+                }
+                validation.setText(String.valueOf(newValidationCount));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -119,50 +164,6 @@ public class AdminHomepage extends AppCompatActivity {
                 }
                 registered.setText(String.valueOf(newRegisteredCount));
                 transactions.setText(String.valueOf(snapshot.child("trade-transactions").getChildrenCount()));
-
-                newCount = 0;
-                newApprovalCount = 0;
-                databaseReference.child("items").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                if (dataSnapshot1.child("Status").getValue(String.class).equals("Validated")) {
-                                    newCount = newCount + 1;
-                                }
-
-                                if (dataSnapshot1.child("Status").getValue(String.class).equals("Validating")) {
-                                    newApprovalCount = newApprovalCount + 1;
-                                }
-                            }
-                        }
-                        posted.setText(String.valueOf(newCount));
-                        approval.setText(String.valueOf(newApprovalCount));
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-                newValidationCount = 0;
-                databaseReference.child("trade-transactions").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            if (dataSnapshot.child("Transaction_Status").getValue(String.class).equals("On hold")) {
-                                newValidationCount = newValidationCount + 1;
-                            }
-                        }
-                        validation.setText(String.valueOf(newValidationCount));
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
 
                 databaseReference.child("users-status").orderByChild("Status").equalTo("Online").addValueEventListener(new ValueEventListener() {
                     @Override

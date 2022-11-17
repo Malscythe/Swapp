@@ -43,6 +43,9 @@ import com.bumptech.glide.request.transition.Transition;
 import com.daimajia.androidanimations.library.specials.out.TakingOffAnimator;
 import com.example.Swapp.AdminHomepage;
 import com.example.Swapp.ConflictTransactions;
+import com.example.Swapp.MoreInfo;
+import com.example.Swapp.MyItemCurrentTransaction;
+import com.example.Swapp.MyOffersSentTransaction;
 import com.example.Swapp.UserHomepage;
 import com.example.Swapp.call.CallScreenActivity;
 import com.example.Swapp.MemoryData;
@@ -390,9 +393,19 @@ public class Chat extends BaseActivity implements BottomSheetImagePicker.OnImage
                 databaseReference.child("users").child(uid).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String getUID = getIntent().getStringExtra("userID");
+
                         if (getIntent().getStringExtra("from") != null) {
                             if (getIntent().getStringExtra("from").equals("admin")) {
                                 Intent intent = new Intent(Chat.this, ConflictTransactions.class);
+                                startActivity(intent);
+                                CustomIntent.customType(Chat.this, "right-to-left");
+                            } else if (getIntent().getStringExtra("from").equals("MoreInfo")){
+                                Intent intent = new Intent(Chat.this, MoreInfo.class);
+                                intent.putExtra("poster_uid", getUID);
+                                intent.putExtra("keys", getIntent().getSerializableExtra("keys"));
+                                intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
+                                intent.putExtra("from", "chat");
                                 startActivity(intent);
                                 CustomIntent.customType(Chat.this, "right-to-left");
                             } else {
@@ -413,7 +426,6 @@ public class Chat extends BaseActivity implements BottomSheetImagePicker.OnImage
                             startActivity(intent);
                             CustomIntent.customType(Chat.this, "right-to-left");
                         }
-
                     }
 
                     @Override
@@ -441,9 +453,27 @@ public class Chat extends BaseActivity implements BottomSheetImagePicker.OnImage
         databaseReference.child("users").child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String getUID = getIntent().getStringExtra("userID");
+
                 if (getIntent().getStringExtra("from") != null) {
                     if (getIntent().getStringExtra("from").equals("admin")) {
                         Intent intent = new Intent(Chat.this, ConflictTransactions.class);
+                        startActivity(intent);
+                        CustomIntent.customType(Chat.this, "right-to-left");
+                    } else if (getIntent().getStringExtra("from").equals("MoreInfo")){
+                        Intent intent = new Intent(Chat.this, MoreInfo.class);
+                        intent.putExtra("poster_uid", getUID);
+                        intent.putExtra("keys", getIntent().getSerializableExtra("keys"));
+                        intent.putExtra("item_name", getIntent().getStringExtra("item_name"));
+                        intent.putExtra("from", "chat");
+                        startActivity(intent);
+                        CustomIntent.customType(Chat.this, "right-to-left");
+                    } else if (getIntent().getStringExtra("from").equals("accepted")) {
+                        Intent intent = new Intent(Chat.this, MyItemCurrentTransaction.class);
+                        startActivity(intent);
+                        CustomIntent.customType(Chat.this, "right-to-left");
+                    } else if (getIntent().getStringExtra("from").equals("my_offers")) {
+                        Intent intent = new Intent(Chat.this, MyOffersSentTransaction.class);
                         startActivity(intent);
                         CustomIntent.customType(Chat.this, "right-to-left");
                     } else {

@@ -75,6 +75,8 @@ public class MoreInfo extends AppCompatActivity {
                         String mobile = snapshot.child("users").child(uid).child("Phone").getValue(String.class);
                         String userName = snapshot.child("users").child(uid).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(uid).child("Last_Name").getValue(String.class));
                         String currentMobile = snapshot.child("users").child(currentId).child("Phone").getValue(String.class);
+                        String profile = snapshot.child("users").child(uid).child("User_Profile").getValue(String.class);
+                        String category = snapshot.child("items").child(uid).child(item_Name).child("Item_Category").getValue(String.class);
 
                         if (snapshot.child("chat").exists()) {
                             String chatKey = null;
@@ -96,6 +98,11 @@ public class MoreInfo extends AppCompatActivity {
                                 intent.putExtra("mobile", mobile);
                                 intent.putExtra("name", userName);
                                 intent.putExtra("chat_key", chatKey);
+                                intent.putExtra("profile_pic", profile);
+                                intent.putExtra("keys", getIntent().getSerializableExtra("keys"));
+                                intent.putExtra("category", category);
+                                intent.putExtra("from", "MoreInfo");
+                                intent.putExtra("item_name", item_Name);
                                 intent.putExtra("userID", uid);
                                 intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
 
@@ -110,6 +117,11 @@ public class MoreInfo extends AppCompatActivity {
                                 intent.putExtra("mobile", mobile);
                                 intent.putExtra("name", userName);
                                 intent.putExtra("chat_key", "");
+                                intent.putExtra("profile_pic", profile);
+                                intent.putExtra("keys", getIntent().getSerializableExtra("keys"));
+                                intent.putExtra("category", category);
+                                intent.putExtra("from", "MoreInfo");
+                                intent.putExtra("item_name", item_Name);
                                 intent.putExtra("userID", uid);
                                 intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
 
@@ -124,6 +136,11 @@ public class MoreInfo extends AppCompatActivity {
                             intent.putExtra("mobile", mobile);
                             intent.putExtra("name", userName);
                             intent.putExtra("chat_key", "");
+                            intent.putExtra("profile_pic", profile);
+                            intent.putExtra("keys", getIntent().getSerializableExtra("keys"));
+                            intent.putExtra("category", category);
+                            intent.putExtra("from", "MoreInfo");
+                            intent.putExtra("item_name", item_Name);
                             intent.putExtra("userID", uid);
                             intent.putExtra("userStatus", snapshot.child("users-status").child(uid).child("Status").getValue(String.class));
 

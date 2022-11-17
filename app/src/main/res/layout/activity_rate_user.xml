@@ -19,7 +19,7 @@
         android:layout_marginTop="15dp"
         android:textColor="@android:color/holo_red_light"/>
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/userPicture"
         android:layout_width="100dp"
         android:layout_height="100dp"

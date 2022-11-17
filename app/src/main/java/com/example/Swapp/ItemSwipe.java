@@ -546,9 +546,14 @@ public class ItemSwipe extends AppCompatActivity {
                                 sort(getReleaseDate);
                                 sort(newGetSizeText);
 
-                                sizeNum.setValueTo(maxNum(getSizeNum));
-                                sizeNum.setValueFrom(minNum(getSizeNum));
-                                sizeNum.setValue(maxNum(getSizeNum));
+                                if (!getSizeNum.isEmpty()) {
+                                    sizeNum.setVisibility(View.VISIBLE);
+                                    sizeNum.setValueTo(maxNum(getSizeNum));
+                                    sizeNum.setValueFrom(minNum(getSizeNum));
+                                    sizeNum.setValue(maxNum(getSizeNum));
+                                } else {
+                                    sizeNum.setVisibility(View.GONE);
+                                }
 
                                 if (type) {
                                     for (int i = 0; i < getType.size(); i++) {

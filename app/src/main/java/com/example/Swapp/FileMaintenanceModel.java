@@ -3,7 +3,7 @@ package com.example.Swapp;
 
 public class FileMaintenanceModel {
 
-  String First_Name, Last_Name, Email, Gender, Phone, surl;
+  String First_Name, Last_Name, Email, Gender, Phone, surl, User_Profile;
 
     public FileMaintenanceModel(String surl) {
         this.surl = surl;
@@ -21,12 +21,21 @@ public class FileMaintenanceModel {
 {
 
 }
-    public FileMaintenanceModel(String first_Name, String last_Name, String email, String gender, String phone) {
+    public FileMaintenanceModel(String first_Name, String last_Name, String email, String gender, String phone, String user_Profile) {
         First_Name = first_Name;
         Last_Name = last_Name;
         Email = email;
         Gender = gender;
         Phone = phone;
+        User_Profile = user_Profile;
+    }
+
+    public String getUser_Profile() {
+        return User_Profile;
+    }
+
+    public void setUser_Profile(String user_Profile) {
+        User_Profile = user_Profile;
     }
 
     public String getFirst_Name() {

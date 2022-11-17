@@ -7,12 +7,12 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
-            <value value="C:\Users\Terence\.android\avd\Nexus_5_API_28.avd" />
+            <value value="C:\Users\Terence\.android\avd\POCO_X3_PRO.avd" />
           </Key>
         </deviceKey>
       </Target>
     </targetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2022-11-09T07:05:55.560475700Z" />
+    <timeTargetWasSelectedWithDropDown value="2022-11-14T14:14:01.192280100Z" />
     <runningDeviceTargetsSelectedWithDialog>
       <Target>
         <type value="RUNNING_DEVICE_TARGET" />

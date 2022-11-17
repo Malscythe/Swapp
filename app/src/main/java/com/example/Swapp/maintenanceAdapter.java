@@ -52,15 +52,16 @@ public class maintenanceAdapter extends FirebaseRecyclerAdapter<FileMaintenanceM
         holder.email.setText(model.getEmail());
         holder.phone.setText(model.getPhone());
         holder.gender.setText(model.getGender());
+        holder.counter.setText(String.valueOf(position + 1));
 
-        Glide.with(holder.img.getContext()).load(R.drawable.ic_default_picture).into(holder.img);
+        Glide.with(holder.img.getContext()).load(model.getUser_Profile()).into(holder.img);
 
         holder.btnupdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final DialogPlus dialogPlus = DialogPlus.newDialog(holder.phone.getContext())
                         .setContentHolder(new ViewHolder(R.layout.maintenance_popup))
-                        .setExpanded(true, 1200)
+//                        .setExpanded(true, 1200)
                         .create();
 
                 View view = dialogPlus.getHolderView();
@@ -153,13 +154,14 @@ public class maintenanceAdapter extends FirebaseRecyclerAdapter<FileMaintenanceM
     class myViewHolder extends RecyclerView.ViewHolder {
 
         CircleImageView img;
-        TextView name, lname, email, gender, phone;
+        TextView name, counter, email, gender, phone;
 
         Button btnupdate, btnDelete;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            counter = itemView.findViewById(R.id.counter);
             img = itemView.findViewById(R.id.img1);
             name = itemView.findViewById(R.id.nameText);
             email = itemView.findViewById(R.id.useremail);

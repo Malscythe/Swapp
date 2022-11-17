@@ -4,17 +4,18 @@ import java.io.Serializable;
 
 public class FeedbacksRatingFetch implements Serializable {
 
-    String Rate, Rated_By, Feedback, User_ID, Transaction_Key;
+    String Rate, Rated_By, Feedback, User_To_Rate, Transaction_Key, Date_Rated;
 
     public FeedbacksRatingFetch() {
     }
 
-    public FeedbacksRatingFetch(String rate, String rated_By, String feedback, String user_ID, String transaction_Key) {
+    public FeedbacksRatingFetch(String rate, String rated_By, String feedback, String user_To_Rate, String transaction_Key, String date_Rated) {
         Rate = rate;
         Rated_By = rated_By;
         Feedback = feedback;
-        User_ID = user_ID;
+        User_To_Rate = user_To_Rate;
         Transaction_Key = transaction_Key;
+        Date_Rated = date_Rated;
     }
 
     public String getRate() {
@@ -41,12 +42,12 @@ public class FeedbacksRatingFetch implements Serializable {
         Feedback = feedback;
     }
 
-    public String getUser_ID() {
-        return User_ID;
+    public String getUser_To_Rate() {
+        return User_To_Rate;
     }
 
-    public void setUser_ID(String user_ID) {
-        User_ID = user_ID;
+    public void setUser_To_Rate(String user_To_Rate) {
+        User_To_Rate = user_To_Rate;
     }
 
     public String getTransaction_Key() {
@@ -55,5 +56,13 @@ public class FeedbacksRatingFetch implements Serializable {
 
     public void setTransaction_Key(String transaction_Key) {
         Transaction_Key = transaction_Key;
+    }
+
+    public String getDate_Rated() {
+        return Date_Rated;
+    }
+
+    public void setDate_Rated(String date_Rated) {
+        Date_Rated = date_Rated;
     }
 }

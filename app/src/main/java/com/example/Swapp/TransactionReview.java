@@ -307,6 +307,9 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
                 pDialog.setCancelable(false);
                 pDialog.show();
 
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy ", Locale.getDefault());
+
                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -320,6 +323,7 @@ public class TransactionReview extends AppCompatActivity implements BottomSheetI
 
                         if (parentkey.equals(myUid)) {
                             UploadToTransact(parentItems, databaseReferenceParent);
+                            databaseReference.child("trade-transactions").child(transactionName).child("Date_Traded").setValue(simpleDateFormat.format(timestamp));
                             databaseReference.child("trade-transactions").child(transactionName).child("Poster_Response").setValue(selectedRdo);
                             databaseReference.child("trade-transactions").child(transactionName).child("Transaction_Status").setValue("Waiting for review");
                             UploadToTransact(offererItems, databaseReferenceOfferer);

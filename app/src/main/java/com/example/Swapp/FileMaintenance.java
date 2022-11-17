@@ -62,7 +62,6 @@ public class FileMaintenance extends AppCompatActivity {
     ArrayList<FileMaintenanceModel> userArrayList;
     maintenanceAdapter myAdapter;
     FirebaseFirestore db;
-    ProgressDialog progressDialog;
     SwipeRefreshLayout swipeRefreshLayout;
     FloatingActionButton exportData;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://bugsbusters-de865-default-rtdb.asia-southeast1.firebasedatabase.app/");
@@ -249,38 +248,6 @@ public class FileMaintenance extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         myAdapter.startListening();
-    }
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.fmainsearch, menu);
-        MenuItem item = menu.findItem(R.id.fmainSearch);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                searchData(s);
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                searchData(s);
-                return false;
-            }
-        });
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    private void searchData(String s) {
-
-        FirebaseRecyclerOptions<FileMaintenanceModel> options =
-                new FirebaseRecyclerOptions.Builder<FileMaintenanceModel>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("users").orderByChild("Email").startAt(s).endAt(s + "~"), FileMaintenanceModel.class)
-                        .build();
-
-        myAdapter = new maintenanceAdapter(options);
-        myAdapter.startListening();
-        recyclerView.setAdapter(myAdapter);
     }
 
     //

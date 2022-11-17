@@ -41,6 +41,7 @@ public class MyOfferSentTransactionAdapter extends RecyclerView.Adapter {
     String userName;
     String traderID;
     String traderStatus;
+    String profile;
 
     String user1;
     String user2;
@@ -187,12 +188,14 @@ public class MyOfferSentTransactionAdapter extends RecyclerView.Adapter {
                                                             traderPhone = snapshot.child("users").child(offerFetch.getPoster_UID()).child("Phone").getValue(String.class);
                                                             traderID = offerFetch.getPoster_UID();
                                                             traderStatus = snapshot.child("users-status").child(offerFetch.getPoster_UID()).child("Status").getValue(String.class);
+                                                            profile = snapshot.child("users").child(offerFetch.getPoster_UID()).child("User_Profile").getValue(String.class);
                                                         } else {
                                                             myPhone = snapshot.child("users").child(offerFetch.getPoster_UID()).child("Phone").getValue(String.class);
                                                             userName = snapshot.child("users").child(dataSnapshot.getKey()).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(dataSnapshot.getKey()).child("Last_Name").getValue(String.class));
                                                             traderPhone = snapshot.child("users").child(dataSnapshot.getKey()).child("Phone").getValue(String.class);
                                                             traderID = dataSnapshot.getKey();
                                                             traderStatus = snapshot.child("users-status").child(dataSnapshot.getKey()).child("Status").getValue(String.class);
+                                                            profile = snapshot.child("users").child(dataSnapshot.getKey()).child("User_Profile").getValue(String.class);
                                                         }
 
                                                         if (((user1.equals(myPhone) || user2.equals(myPhone)) && ((user1.equals(traderPhone) || user2.equals(traderPhone)))) && (!myPhone.equals(traderPhone))) {
@@ -210,7 +213,9 @@ public class MyOfferSentTransactionAdapter extends RecyclerView.Adapter {
                                                         intent.putExtra("mobile", traderPhone);
                                                         intent.putExtra("name", userName);
                                                         intent.putExtra("chat_key", chatKey);
+                                                        intent.putExtra("profile_pic", profile);
                                                         intent.putExtra("userID", traderID);
+                                                        intent.putExtra("from", "my_offers");
                                                         intent.putExtra("userStatus", traderStatus);
 
                                                         v.getContext().startActivity(intent);
@@ -223,7 +228,9 @@ public class MyOfferSentTransactionAdapter extends RecyclerView.Adapter {
                                                         intent.putExtra("mobile", traderPhone);
                                                         intent.putExtra("name", userName);
                                                         intent.putExtra("chat_key", "");
+                                                        intent.putExtra("profile_pic", profile);
                                                         intent.putExtra("userID", traderID);
+                                                        intent.putExtra("from", "my_offers");
                                                         intent.putExtra("userStatus", traderStatus);
 
                                                         v.getContext().startActivity(intent);
@@ -237,7 +244,9 @@ public class MyOfferSentTransactionAdapter extends RecyclerView.Adapter {
                                                     intent.putExtra("mobile", traderPhone);
                                                     intent.putExtra("name", userName);
                                                     intent.putExtra("chat_key", "");
+                                                    intent.putExtra("profile_pic", profile);
                                                     intent.putExtra("userID", traderID);
+                                                    intent.putExtra("from", "my_offers");
                                                     intent.putExtra("userStatus", traderStatus);
 
                                                     v.getContext().startActivity(intent);

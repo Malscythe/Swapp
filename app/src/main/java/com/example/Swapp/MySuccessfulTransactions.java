@@ -169,4 +169,12 @@ public class MySuccessfulTransactions extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(MySuccessfulTransactions.this, UserHomepage.class);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+    }
 }

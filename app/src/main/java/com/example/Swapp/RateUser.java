@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -24,17 +26,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 import Swapp.R;
+import de.hdodenhof.circleimageview.CircleImageView;
 import maes.tech.intentanim.CustomIntent;
 
 public class RateUser extends AppCompatActivity {
 
     TextView userName, errorMessage;
-    ImageView userPic;
+    CircleImageView userPic;
     RatingBar userRating;
     TextInputLayout userFeedbackLayout;
     TextInputEditText userFeedback;
@@ -64,6 +68,23 @@ public class RateUser extends AppCompatActivity {
         String userToRateID = getIntent().getStringExtra("uid");
         String userToRateName = getIntent().getStringExtra("name");
         String transactionKey = getIntent().getStringExtra("transactionKey");
+
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy ", Locale.getDefault());
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Uri uri = Uri.parse(snapshot.child("users").child(userToRateID).child("User_Profile").getValue(String.class));
+                Glide.with(RateUser.this).load(uri).into(userPic);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         userName.setText(userToRateName);
 
@@ -164,6 +185,7 @@ public class RateUser extends AppCompatActivity {
                     }
                 });
 
+                databaseReference.child("user-rating").child(userToRateID).child("transactions").child(transactionKey).child("Date_Rated").setValue(simpleDateFormat.format(timestamp));
                 databaseReference.child("user-rating").child(userToRateID).child("transactions").child(transactionKey).child("Rate").setValue(selectedRating);
                 databaseReference.child("user-rating").child(userToRateID).child("transactions").child(transactionKey).child("Rated_By").setValue(myUid);
                 databaseReference.child("user-rating").child(userToRateID).child("transactions").child(transactionKey).child("Feedback").setValue(userFeedback.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -175,9 +197,12 @@ public class RateUser extends AppCompatActivity {
                                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                        String name = snapshot.child("users").child(userToRateID).child("First_Name").getValue(String.class).concat(" " + snapshot.child("users").child(userToRateID).child("Last_Name").getValue(String.class));
+
                                         databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Date").setValue(strDate);
                                         databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("User_ID").setValue(myUid);
-                                        databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Gave feedback to " + userToRateID + " for transaction " + transactionKey);
+                                        databaseReference.child("activity-logs").child(String.valueOf(snapshot.child("activity-logs").getChildrenCount() + 1)).child("Activity").setValue("Gave feedback to " + name + " for transaction " + transactionKey);
 
                                         Intent intent = new Intent(RateUser.this, MyItemCurrentTransaction.class);
                                         startActivity(intent);
